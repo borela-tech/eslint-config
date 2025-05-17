@@ -5,7 +5,7 @@
   "main": "eslint.config.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/borela-tech/eslint-config"
+    "url": "git+https://github.com/borela-tech/eslint-config.git"
   },
   "keywords": [
     "borela",
