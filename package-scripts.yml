@@ -1,0 +1,7 @@
+scripts:
+  build: rm -rf dist && tsup
+  lint: |
+    eslint src \
+      --ext ts,tsx \
+      --max-warnings 0 \
+      --report-unused-disable-directives
