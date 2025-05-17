@@ -1,0 +1,9 @@
+.idea
+src
+
+.node-version
+eslint.config.ts
+package-scripts.yml
+tsconfig.json
+tsup.config.ts
+*.tgz

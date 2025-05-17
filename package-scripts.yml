@@ -5,3 +5,9 @@ scripts:
       --ext ts,tsx \
       --max-warnings 0 \
       --report-unused-disable-directives
+  publish: |
+    nps build
+    npm publish \
+      --access public \
+      --registry https://registry.npmjs.org/ \
+      --tag latest
