@@ -1,6 +1,6 @@
 {
   "name": "@borela-tech/eslint-config",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "ESLint config used in Borela Tech projects.",
   "main": "eslint.config.ts",
   "repository": {
@@ -20,23 +20,26 @@
   },
   "license": "Apache-2.0",
   "exports": {
-    "./package.json": "./package.json",
-    ".": {
+    "import": {
       "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
+      "default": "./dist/index.mjs"
     }
   },
   "dependencies": {
     "@eslint/js": "^9.24.0",
     "@stylistic/eslint-plugin": "^4.2.0",
-    "eslint": "^9.24.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "typescript-eslint": "^8.29.1"
   },
   "devDependencies": {
+    "eslint": "^9.24.0",
     "jiti": "^2.4.2",
     "tsup": "^8.3.5",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "eslint": "^9.24.0",
     "typescript": "^5.8.3"
   }
 }
