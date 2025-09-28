@@ -74,10 +74,7 @@ export const CONFIG = typescript.config(
         'error',
         'as-needed',
       ],
-      '@typescript-eslint/member-ordering': [
-        'error',
-        {default: {order: 'natural'}},
-      ],
+      '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/consistent-indexed-object-style': 'off',
     },
   },
