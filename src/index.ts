@@ -40,9 +40,21 @@ export const CONFIG = typescript.config(
         'error',
         'as-needed',
       ],
+      '@stylistic/array-bracket-newline': [
+        'error',
+        'consistent',
+      ],
+      '@stylistic/array-bracket-spacing': [
+        'error',
+        'never',
+      ],
+      '@stylistic/array-element-newline': [
+        'error',
+        'consistent',
+      ],
       '@stylistic/brace-style': [
         'error',
-        '1tbs',
+        'stroustrup',
         {allowSingleLine: true},
       ],
       '@stylistic/indent': [
@@ -61,6 +73,10 @@ export const CONFIG = typescript.config(
       ],
       '@stylistic/jsx-wrap-multilines': 'off',
       '@stylistic/lines-between-class-members': 'off',
+      '@stylistic/object-curly-newline': [
+        'error',
+        {consistent: true},
+      ],
       '@stylistic/object-curly-spacing': [
         'error',
         'never',
@@ -70,9 +86,19 @@ export const CONFIG = typescript.config(
         'before',
         {overrides: {'=': 'after'}},
       ],
+      '@stylistic/quotes': [
+        'error',
+        'single',
+        {avoidEscape: true},
+      ],
       '@stylistic/quote-props': [
         'error',
         'as-needed',
+      ],
+      '@stylistic/semi': [
+        'error',
+        'never',
+        {beforeStatementContinuationChars: 'always'},
       ],
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/consistent-indexed-object-style': 'off',
