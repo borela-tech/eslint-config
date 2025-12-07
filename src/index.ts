@@ -54,7 +54,7 @@ export const CONFIG = typescript.config(
       ],
       '@stylistic/brace-style': [
         'error',
-        'stroustrup',
+        '1tbs',
         {allowSingleLine: true},
       ],
       '@stylistic/indent': [
