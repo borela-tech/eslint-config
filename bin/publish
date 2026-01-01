@@ -3,7 +3,7 @@
 SCRIPT_DIR=$(dirname -- "${BASH_SOURCE[0]}")
 pushd "$SCRIPT_DIR/.." > /dev/null
 
-./build
+./bin/build
 npm publish \
   --access public \
   --registry https://registry.npmjs.org/ \
