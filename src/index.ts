@@ -102,6 +102,14 @@ export const CONFIG = typescript.config(
       ],
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/consistent-indexed-object-style': 'off',
+      'sort-imports': [
+        'error',
+        {
+          allowSeparatedGroups: true,
+          ignoreCase: true,
+          ignoreMemberSort: false,
+        },
+      ],
     },
   },
 )
