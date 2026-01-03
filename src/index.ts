@@ -108,6 +108,12 @@ export const CONFIG = typescript.config(
           allowSeparatedGroups: true,
           ignoreCase: true,
           ignoreMemberSort: false,
+          memberSyntaxSortOrder: [
+            'none',
+            'all',
+            'single',
+            'multiple',
+          ],
         },
       ],
     },
