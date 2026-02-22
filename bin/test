@@ -1,0 +1,12 @@
+#!/usr/bin/env -S bash -e -o pipefail
+
+SCRIPT_DIR=$(dirname -- "${BASH_SOURCE[0]}")
+pushd "$SCRIPT_DIR/.." > /dev/null
+
+./bin/build
+node \
+  --import jiti/register \
+  --test \
+  src/rules/__tests__/*.test.ts
+
+popd > /dev/null
