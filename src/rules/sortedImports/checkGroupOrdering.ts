@@ -12,7 +12,7 @@ export function checkGroupOrdering(categorized: CategorizedImport[]): ImportErro
     if (groupIndex < currentGroupIndex) {
       errors.push({
         node: declaration,
-        messageId: 'wrongGroup'
+        messageId: 'wrongGroup',
       })
     } else
       currentGroupIndex = groupIndex
