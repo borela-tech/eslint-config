@@ -8,6 +8,7 @@ export function groupImportsByType(
     'side-effect': [],
     default: [],
     named: [],
+    type: [],
   }
 
   for (const item of categorized)

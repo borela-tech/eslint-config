@@ -1,6 +1,6 @@
-import type {Program} from 'estree'
+import type {TSESTree} from '@typescript-eslint/types'
 
-export function findLastImportIndex(programBody: Program['body']): number {
+export function findLastImportIndex(programBody: TSESTree.ProgramStatement[]): number {
   let lastIndex = 0
   for (let i = 0; i < programBody.length; i++) {
     if (programBody[i].type === 'ImportDeclaration')

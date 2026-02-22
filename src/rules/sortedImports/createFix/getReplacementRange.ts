@@ -1,26 +1,15 @@
-import type {ImportDeclaration} from 'estree'
-import type {Program} from 'estree'
+import type {TSESTree} from '@typescript-eslint/types'
 import type {ReplacementRange} from './ReplacementRange'
 import {findLastImportIndex} from './findLastImportIndex'
 
 export function getReplacementRange(
-  programBody: Program['body'],
+  programBody: TSESTree.ProgramStatement[],
   sourceCode: {getText: () => string},
 ): ReplacementRange {
-  const fullText = sourceCode.getText()
   const lastIndex = findLastImportIndex(programBody)
-  const firstImport = programBody[0] as ImportDeclaration
-  const lastImport = programBody[lastIndex] as ImportDeclaration
+  const firstImport = programBody[0] as TSESTree.ImportDeclaration
+  const lastImport = programBody[lastIndex] as TSESTree.ImportDeclaration
   const start = firstImport.range![0]
-  let end = lastImport.range![1]
-
-  for (let i = end; i < fullText.length; i++) {
-    const char = fullText[i]
-    if (char === '\n' || char === ' ' || char === '\t')
-      end++
-    else
-      break
-  }
-
+  const end = lastImport.range![1]
   return {start, end}
 }

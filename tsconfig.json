@@ -6,4 +6,5 @@
     "strictNullChecks": true,
     "target": "ESNext",
   },
+  "include": ["src"],
 }

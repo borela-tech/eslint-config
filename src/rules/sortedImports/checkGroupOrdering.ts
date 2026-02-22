@@ -3,7 +3,7 @@ import type {ImportError} from './ImportError'
 import type {ImportGroup} from './ImportGroup'
 
 export function checkGroupOrdering(categorized: CategorizedImport[]): ImportError[] {
-  const groupOrder: ImportGroup[] = ['side-effect', 'default', 'named']
+  const groupOrder: ImportGroup[] = ['side-effect', 'default', 'named', 'type']
   const errors: ImportError[] = []
 
   let currentGroupIndex = -1

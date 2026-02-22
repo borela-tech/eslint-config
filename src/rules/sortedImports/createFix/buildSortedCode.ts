@@ -6,12 +6,12 @@ export function buildSortedCode(
   grouped: Record<ImportGroup, CategorizedImport[]>,
   sourceCode: {getText: (node?: unknown) => string},
 ): string[] {
-  const groupOrder: ImportGroup[] = ['side-effect', 'default', 'named']
+  const groupOrder: ImportGroup[] = ['side-effect', 'default', 'named', 'type']
   const sortedCode: string[] = []
 
   for (const group of groupOrder) {
     for (const {declaration} of grouped[group]) {
-      if (group === 'named')
+      if (group === 'named' || group === 'type')
         sortedCode.push(formatNamedImport(declaration, sourceCode))
       else
         sortedCode.push(sourceCode.getText(declaration))

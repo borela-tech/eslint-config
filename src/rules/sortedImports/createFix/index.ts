@@ -1,6 +1,5 @@
 import type {Rule} from 'eslint'
-import type {ImportDeclaration} from 'estree'
-import type {Program} from 'estree'
+import type {TSESTree} from '@typescript-eslint/types'
 import {buildSortedCode} from './buildSortedCode'
 import {categorizeImports} from '../categorizeImports'
 import {getReplacementRange} from './getReplacementRange'
@@ -9,9 +8,9 @@ import {sortImportGroups} from './sortImportGroups'
 
 export function createFix(
   fixer: Rule.RuleFixer,
-  importDeclarations: ImportDeclaration[],
+  importDeclarations: TSESTree.ImportDeclaration[],
   sourceCode: {getText: (node?: unknown) => string},
-  programBody: Program['body'],
+  programBody: TSESTree.ProgramStatement[],
 ) {
   const range = getReplacementRange(programBody, sourceCode)
   const categorized = categorizeImports(importDeclarations)

@@ -6,4 +6,6 @@ export function sortImportGroups(
 ): void {
   grouped['side-effect'].sort((a, b) => a.sortKey.localeCompare(b.sortKey))
   grouped['default'].sort((a, b) => a.sortKey.localeCompare(b.sortKey))
+  grouped['named'].sort((a, b) => a.sortKey.localeCompare(b.sortKey))
+  grouped['type'].sort((a, b) => a.sortKey.localeCompare(b.sortKey))
 }

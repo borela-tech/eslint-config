@@ -1,8 +1,7 @@
-import type {ImportDeclaration} from 'estree'
-import type {ImportDefaultSpecifier} from 'estree'
+import type {TSESTree} from '@typescript-eslint/types'
 import {categorizeImport} from './categorizeImport'
 
-export function getSortKey(declaration: ImportDeclaration): string {
+export function getSortKey(declaration: TSESTree.ImportDeclaration): string {
   const group = categorizeImport(declaration)
 
   if (group === 'side-effect')
@@ -11,10 +10,11 @@ export function getSortKey(declaration: ImportDeclaration): string {
   if (group === 'default') {
     const defaultSpecifier = declaration.specifiers.find(
       s => s.type === 'ImportDefaultSpecifier',
-    ) as ImportDefaultSpecifier | undefined
+    ) as TSESTree.ImportDefaultSpecifier | undefined
 
     return defaultSpecifier?.local.name.toLowerCase() ?? ''
   }
 
-  return ''
+  const specifier = declaration.specifiers[0]
+  return specifier.local.name.toLowerCase()
 }

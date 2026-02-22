@@ -1,6 +1,6 @@
 {
   "name": "@borela-tech/eslint-config",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "ESLint config used in Borela Tech projects.",
   "type": "module",
   "main": "src/index.ts",

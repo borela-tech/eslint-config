@@ -1,4 +1,5 @@
 import type {Rule} from 'eslint'
+import type {TSESTree} from '@typescript-eslint/types'
 import type {ImportError} from './ImportError'
 import {categorizeImports} from './categorizeImports'
 import {checkAlphabeticalSorting} from './checkAlphabeticalSorting'
@@ -25,7 +26,8 @@ export const sortedImports: Rule.RuleModule = {
   create(context) {
     return {
       Program(node) {
-        const declarations = getImportDeclarations(node.body)
+        const body = node.body as TSESTree.ProgramStatement[]
+        const declarations = getImportDeclarations(body)
         if (declarations.length === 0)
           return
 
@@ -42,7 +44,7 @@ export const sortedImports: Rule.RuleModule = {
             messageId: error.messageId,
             fix(fixer) {
               const sourceCode = context.sourceCode
-              return createFix(fixer, declarations, sourceCode, node.body)
+              return createFix(fixer, declarations, sourceCode, body)
             },
           })
         }
