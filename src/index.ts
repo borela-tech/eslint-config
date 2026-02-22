@@ -3,14 +3,19 @@ import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import stylistic from '@stylistic/eslint-plugin'
 import typescript from 'typescript-eslint'
+import {defineConfig} from 'eslint/config'
+import {individualImports} from './rules/individualImports'
+import {sortedImports} from './rules/sortedImports'
 
-export const CONFIG = typescript.config(
+export const CONFIG = defineConfig([
   {
     ignores: [
       'src/graphql/sdk.ts',
       '**/node_modules/**',
       '**/dist/**',
     ],
+  },
+  {
     settings: {
       react: {
         version: '19',
@@ -27,6 +32,20 @@ export const CONFIG = typescript.config(
       'react-hooks': reactHooks,
     },
     rules: reactHooks.configs.recommended.rules,
+  },
+  {
+    plugins: {
+      '@borela-tech': {
+        rules: {
+          'individual-imports': individualImports,
+          'sorted-imports': sortedImports,
+        },
+      },
+    },
+    rules: {
+      '@borela-tech/individual-imports': 'error',
+      '@borela-tech/sorted-imports': 'error',
+    },
   },
   {
     rules: {
@@ -103,20 +122,6 @@ export const CONFIG = typescript.config(
       ],
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/consistent-indexed-object-style': 'off',
-      'sort-imports': [
-        'error',
-        {
-          allowSeparatedGroups: true,
-          ignoreCase: true,
-          ignoreMemberSort: false,
-          memberSyntaxSortOrder: [
-            'none',
-            'all',
-            'single',
-            'multiple',
-          ],
-        },
-      ],
     },
   },
-)
+])
