@@ -1,6 +1,7 @@
 import typescript from 'typescript-eslint'
 import {RuleTester} from 'eslint'
 import {individualImports} from '../individualImports'
+import {dedent} from './dedent'
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -25,10 +26,17 @@ ruleTester.run('individual-imports', individualImports, {
   invalid: [{
     code: "import {foo, bar} from 'baz'",
     errors: [{messageId: 'individualImports'}],
-    output: "import {foo} from 'baz'\nimport {bar} from 'baz'",
+    output: dedent`
+      import {foo} from 'baz'
+      import {bar} from 'baz'
+    `,
   }, {
     code: "import {foo, bar, baz} from 'qux'",
     errors: [{messageId: 'individualImports'}],
-    output: "import {foo} from 'qux'\nimport {bar} from 'qux'\nimport {baz} from 'qux'",
+    output: dedent`
+      import {foo} from 'qux'
+      import {bar} from 'qux'
+      import {baz} from 'qux'
+    `,
   }],
 })
