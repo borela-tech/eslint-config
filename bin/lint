@@ -3,10 +3,11 @@
 SCRIPT_DIR=$(dirname -- "${BASH_SOURCE[0]}")
 pushd "$SCRIPT_DIR/.." > /dev/null
 
+./bin/build
 npx eslint \
   --ext ts \
   --max-warnings 0 \
   --report-unused-disable-directives \
-  src
+  .
 
 popd > /dev/null
