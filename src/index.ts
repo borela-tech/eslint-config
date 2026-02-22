@@ -52,6 +52,7 @@ export const CONFIG = typescript.config(
         'error',
         'consistent',
       ],
+      '@stylistic/block-spacing': 'off',
       '@stylistic/brace-style': [
         'error',
         '1tbs',
