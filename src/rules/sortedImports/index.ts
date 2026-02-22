@@ -1,12 +1,12 @@
-import type {Rule} from 'eslint'
-import type {TSESTree} from '@typescript-eslint/types'
-import type {ImportError} from './ImportError'
 import {categorizeImports} from './categorizeImports'
 import {checkAlphabeticalSorting} from './checkAlphabeticalSorting'
 import {checkGroupOrdering} from './checkGroupOrdering'
 import {checkSpecifiersSorting} from './checkSpecifiersSorting'
 import {createFix} from './createFix'
 import {getImportDeclarations} from './getImportDeclarations'
+import type {ImportError} from './ImportError'
+import type {Rule} from 'eslint'
+import type {TSESTree} from '@typescript-eslint/types'
 
 export const sortedImports: Rule.RuleModule = {
   meta: {

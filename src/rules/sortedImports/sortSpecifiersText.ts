@@ -1,5 +1,5 @@
-import type {ImportSpecifier} from 'estree'
 import {getSpecifierName} from './getSpecifierName'
+import type {ImportSpecifier} from 'estree'
 
 export function sortSpecifiersText(
   specifiers: ImportSpecifier[],

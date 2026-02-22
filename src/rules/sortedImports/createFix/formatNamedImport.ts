@@ -1,7 +1,7 @@
-import type {ImportDeclaration} from 'estree'
 import {areSpecifiersSorted} from '../areSpecifiersSorted'
 import {getNamedSpecifiers} from '../getNamedSpecifiers'
 import {sortSpecifiersText} from '../sortSpecifiersText'
+import type {ImportDeclaration} from 'estree'
 
 export function formatNamedImport(
   declaration: ImportDeclaration,

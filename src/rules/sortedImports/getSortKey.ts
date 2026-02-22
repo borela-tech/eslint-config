@@ -1,5 +1,5 @@
-import type {TSESTree} from '@typescript-eslint/types'
 import {categorizeImport} from './categorizeImport'
+import type {TSESTree} from '@typescript-eslint/types'
 
 export function getSortKey(declaration: TSESTree.ImportDeclaration): string {
   const group = categorizeImport(declaration)

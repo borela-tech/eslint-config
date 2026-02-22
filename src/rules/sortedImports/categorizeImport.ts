@@ -1,5 +1,5 @@
-import type {TSESTree} from '@typescript-eslint/types'
 import type {ImportGroup} from './ImportGroup'
+import type {TSESTree} from '@typescript-eslint/types'
 
 export function categorizeImport(declaration: TSESTree.ImportDeclaration): ImportGroup {
   if (declaration.importKind === 'type')

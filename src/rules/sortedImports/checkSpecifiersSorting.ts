@@ -1,7 +1,7 @@
-import type {CategorizedImport} from './CategorizedImport'
-import type {ImportError} from './ImportError'
 import {areSpecifiersSorted} from './areSpecifiersSorted'
 import {getNamedSpecifiers} from './getNamedSpecifiers'
+import type {CategorizedImport} from './CategorizedImport'
+import type {ImportError} from './ImportError'
 
 export function checkSpecifiersSorting(categorized: CategorizedImport[]): ImportError[] {
   const errors: ImportError[] = []

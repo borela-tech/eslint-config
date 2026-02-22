@@ -1,7 +1,7 @@
 import typescript from 'typescript-eslint'
-import {RuleTester} from 'eslint'
-import {individualImports} from '../individualImports'
 import {dedent} from './dedent'
+import {individualImports} from '../individualImports'
+import {RuleTester} from 'eslint'
 
 const ruleTester = new RuleTester({
   languageOptions: {

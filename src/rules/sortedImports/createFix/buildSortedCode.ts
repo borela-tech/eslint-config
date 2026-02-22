@@ -1,6 +1,6 @@
+import {formatNamedImport} from './formatNamedImport'
 import type {CategorizedImport} from '../CategorizedImport'
 import type {ImportGroup} from '../ImportGroup'
-import {formatNamedImport} from './formatNamedImport'
 
 export function buildSortedCode(
   grouped: Record<ImportGroup, CategorizedImport[]>,
