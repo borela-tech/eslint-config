@@ -4,10 +4,10 @@
   "description": "ESLint config used in Borela Tech projects.",
   "scripts": {
     "build": "./bin/build",
-    "check-types": "./bin/check_types",
     "lint": "./bin/lint",
     "publish": "./bin/publish",
-    "test": "./bin/test"
+    "test": "./bin/test",
+    "typecheck": "./bin/typecheck"
   },
   "type": "module",
   "main": "src/index.ts",
