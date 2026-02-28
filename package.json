@@ -2,6 +2,13 @@
   "name": "@borela-tech/eslint-config",
   "version": "2.0.1",
   "description": "ESLint config used in Borela Tech projects.",
+  "scripts": {
+    "build": "./bin/build",
+    "check-types": "./bin/check_types",
+    "lint": "./bin/lint",
+    "publish": "./bin/publish",
+    "test": "./bin/test"
+  },
   "type": "module",
   "main": "src/index.ts",
   "exports": {
