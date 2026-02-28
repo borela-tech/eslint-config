@@ -1,6 +1,6 @@
 {
   "name": "@borela-tech/eslint-config",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "ESLint config used in Borela Tech projects.",
   "scripts": {
     "build": "./bin/build",

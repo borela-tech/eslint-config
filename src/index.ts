@@ -4,8 +4,11 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import stylistic from '@stylistic/eslint-plugin'
 import typescript from 'typescript-eslint'
 import {defineConfig} from 'eslint/config'
+import {importsAndReExportsAtTop} from './rules/importsAndReExportsAtTop'
 import {individualImports} from './rules/individualImports'
+import {individualReExports} from './rules/individualReExports'
 import {sortedImports} from './rules/sortedImports'
+import {sortedReExports} from './rules/sortedReExports'
 
 export const CONFIG = defineConfig([
   {
@@ -37,14 +40,20 @@ export const CONFIG = defineConfig([
     plugins: {
       '@borela-tech': {
         rules: {
+          'imports-and-re-exports-at-top': importsAndReExportsAtTop,
           'individual-imports': individualImports,
+          'individual-re-exports': individualReExports,
           'sorted-imports': sortedImports,
+          'sorted-re-exports': sortedReExports,
         },
       },
     },
     rules: {
+      '@borela-tech/imports-and-re-exports-at-top': 'error',
       '@borela-tech/individual-imports': 'error',
+      '@borela-tech/individual-re-exports': 'error',
       '@borela-tech/sorted-imports': 'error',
+      '@borela-tech/sorted-re-exports': 'error',
     },
   },
   {
