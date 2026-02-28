@@ -1,8 +1,7 @@
-import type {ImportDeclaration} from 'estree'
-import type {ImportSpecifier} from 'estree'
+import type {TSESTree} from '@typescript-eslint/types'
 
-export function getNamedSpecifiers(declaration: ImportDeclaration): ImportSpecifier[] {
+export function getNamedSpecifiers(declaration: TSESTree.ImportDeclaration): TSESTree.ImportSpecifier[] {
   return declaration.specifiers.filter(
-    (s): s is ImportSpecifier => s.type === 'ImportSpecifier',
+    (s): s is TSESTree.ImportSpecifier => s.type === 'ImportSpecifier',
   )
 }

@@ -5,16 +5,16 @@ export function getSortKey(declaration: TSESTree.ImportDeclaration): string {
   const group = categorizeImport(declaration)
 
   if (group === 'side-effect')
-    return (declaration.source.value as string).toLowerCase()
+    return declaration.source.value
 
   if (group === 'default') {
     const defaultSpecifier = declaration.specifiers.find(
       s => s.type === 'ImportDefaultSpecifier',
     ) as TSESTree.ImportDefaultSpecifier | undefined
 
-    return defaultSpecifier?.local.name.toLowerCase() ?? ''
+    return defaultSpecifier?.local.name ?? ''
   }
 
   const specifier = declaration.specifiers[0]
-  return specifier.local.name.toLowerCase()
+  return specifier.local.name
 }

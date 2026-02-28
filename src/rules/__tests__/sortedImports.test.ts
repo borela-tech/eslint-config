@@ -54,7 +54,7 @@ ruleTester.run('sorted-imports', sortedImports, {
     `,
     errors: [{messageId: 'sortedNames'}],
     output: dedent`
-      import { a, b, c } from 'bar'
+      import {a, b, c} from 'bar'
     `,
   }, {
     code: dedent`
@@ -62,7 +62,7 @@ ruleTester.run('sorted-imports', sortedImports, {
     `,
     errors: [{messageId: 'sortedNames'}],
     output: dedent`
-      import { a, z } from 'bar'
+      import {a, z} from 'bar'
     `,
   }, {
     code: dedent`
@@ -112,7 +112,7 @@ ruleTester.run('sorted-imports', sortedImports, {
     errors: [{messageId: 'sortedNames'}, {messageId: 'wrongGroup'}],
     output: dedent`
       import foo from 'baz'
-      import { a, b } from 'bar'
+      import {a, b} from 'bar'
     `,
   }, {
     code: dedent`

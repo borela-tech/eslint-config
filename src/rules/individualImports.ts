@@ -18,26 +18,17 @@ export const individualImports: Rule.RuleModule = {
       ImportDeclaration(node) {
         if (node.specifiers.length <= 1)
           return
+
         context.report({
           node,
           messageId: 'individualImports',
           fix(fixer) {
             const source = node.source.raw
             const specifiers = node.specifiers
-              .map(importSpecifier => {
-                if (importSpecifier.type === 'ImportSpecifier')
-                  return `import {${importSpecifier.local.name}} from ${source}`
-                return null
-              })
-              .filter(Boolean)
-
-            if (specifiers.length !== node.specifiers.length)
-              return null
-
-            return fixer.replaceText(
-              node,
-              specifiers.join('\n'),
-            )
+              .filter(s => s.type === 'ImportSpecifier')
+              .map(s => `import {${s.local.name}} from ${source}`)
+              .join('\n')
+            return fixer.replaceText(node, specifiers)
           },
         })
       },

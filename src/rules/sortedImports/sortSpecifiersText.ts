@@ -1,14 +1,15 @@
+import {compare} from '../../lib/compare'
 import {getSpecifierName} from './getSpecifierName'
-import type {ImportSpecifier} from 'estree'
+import type {TSESTree} from '@typescript-eslint/types'
 
 export function sortSpecifiersText(
-  specifiers: ImportSpecifier[],
-  sourceCode: {getText: (node: ImportSpecifier) => string},
+  specifiers: TSESTree.ImportSpecifier[],
+  sourceCode: {getText: (node: TSESTree.ImportSpecifier) => string},
 ): string {
   const sorted = [...specifiers].sort((a, b) => {
-    const lowerA = getSpecifierName(a).toLowerCase()
-    const lowerB = getSpecifierName(b).toLowerCase()
-    return lowerA.localeCompare(lowerB)
+    const nameA = getSpecifierName(a)
+    const nameB = getSpecifierName(b)
+    return compare(nameA, nameB)
   })
   return sorted.map(s => sourceCode.getText(s)).join(', ')
 }

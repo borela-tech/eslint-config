@@ -1,8 +1,8 @@
-import type {ImportDeclaration} from 'estree'
 import type {ImportGroup} from './ImportGroup'
+import type {TSESTree} from '@typescript-eslint/types'
 
 export interface CategorizedImport {
-  declaration: ImportDeclaration
+  declaration: TSESTree.ImportDeclaration
   group: ImportGroup
   sortKey: string
 }
