@@ -1,1 +1,5 @@
-export type ImportGroup = 'side-effect' | 'default' | 'named' | 'type'
+export type ImportGroup =
+  | 'side-effect'
+  | 'default'
+  | 'named'
+  | 'type'
