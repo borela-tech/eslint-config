@@ -56,28 +56,6 @@ ruleTester.run('imports-and-re-exports-at-top', importsAndReExportsAtTop, {
   }],
   invalid: [{
     code: dedent`
-      export {a} from 'aaa'
-      import {b} from 'bbb'
-      const c = 1
-    `,
-    errors: [{messageId: 'importsAndReExportsAtTop'}],
-    output: dedent`
-      import {b} from 'bbb'
-      export {a} from 'aaa'
-      const c = 1
-    `,
-  }, {
-    code: dedent`
-      export * from 'aaa'
-      import {b} from 'bbb'
-    `,
-    errors: [{messageId: 'importsAndReExportsAtTop'}],
-    output: dedent`
-      import {b} from 'bbb'
-      export * from 'aaa'
-    `,
-  }, {
-    code: dedent`
       export {z} from 'zzz'
       const c = 1
       import {a} from 'aaa'
@@ -103,16 +81,6 @@ ruleTester.run('imports-and-re-exports-at-top', importsAndReExportsAtTop, {
       import {b} from 'bbb'
       export {c} from 'ccc'
       const a = 1
-    `,
-  }, {
-    code: dedent`
-      export type {a} from 'aaa'
-      import {b} from 'bbb'
-    `,
-    errors: [{messageId: 'importsAndReExportsAtTop'}],
-    output: dedent`
-      import {b} from 'bbb'
-      export type {a} from 'aaa'
     `,
   }],
 })

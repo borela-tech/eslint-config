@@ -1,5 +1,5 @@
 export interface StatementIndices {
-  firstImport: number
-  firstReExport: number
-  firstOther: number
+  firstRegularStatement: number
+  lastImport: number
+  lastReExport: number
 }

@@ -1,5 +1,5 @@
 import {categorizeStatements} from './categorizeStatements'
-import {findFirstIndices} from './findFirstIndices'
+import {findStatementIndices} from './findStatementIndices'
 import {generateSortedText} from './generateSortedText'
 import {hasViolation} from './hasViolation'
 import type {Rule} from 'eslint'
@@ -25,7 +25,7 @@ export const importsAndReExportsAtTop: Rule.RuleModule = {
       Program(node) {
         const statements = node.body as TSESTree.Statement[]
         const categories = categorizeStatements(statements)
-        const indices = findFirstIndices(statements)
+        const indices = findStatementIndices(statements)
 
         if (!hasViolation(indices, categories))
           return

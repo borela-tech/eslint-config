@@ -5,25 +5,21 @@ export function hasViolation(
   indices: StatementIndices,
   categories: CategorizedStatements,
 ): boolean {
-  const {
-    firstImport,
-    firstReExport,
-    firstOther,
-  } = indices
+  const {firstRegularStatement, lastImport, lastReExport} = indices
 
-  // No imports or no re-exports.
-  if (categories.imports.length === 0 || categories.reExports.length === 0)
+  if (categories.imports.length === 0 && categories.reExports.length === 0)
     return false
 
-  const firstImportOrReExport = Math.min(firstImport, firstReExport)
-  const hasOtherBeforeImportOrReExport =
-    firstOther !== -1 && firstOther < firstImportOrReExport
+  const hasImportAfterRegularStatement = (
+    categories.imports.length > 0
+    && firstRegularStatement !== -1
+    && lastImport > firstRegularStatement
+  )
+  const hasReExportAfterRegularStatement = (
+    categories.reExports.length > 0
+    && firstRegularStatement !== -1
+    && lastReExport > firstRegularStatement
+  )
 
-  // Violation if:
-  // 1. Other statements appear before imports/re-exports.
-  // 2. Re-exports appear before imports.
-  if (hasOtherBeforeImportOrReExport || firstImport > firstReExport)
-    return true
-
-  return false
+  return hasImportAfterRegularStatement || hasReExportAfterRegularStatement
 }
