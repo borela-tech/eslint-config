@@ -91,6 +91,49 @@ ruleTester.run('sorted-re-exports', sortedReExports, {
     `,
   }, {
     code: dedent`
+      export {b} from 'b'
+      const x = 1
+      export {c} from 'c'
+      export {a} from 'a'
+    `,
+    errors: [{messageId: 'sortedReExports'}, {messageId: 'sortedReExports'}],
+    output: dedent`
+      export {b} from 'b'
+      const x = 1
+      export {a} from 'a'
+      export {c} from 'c'
+    `,
+  }, {
+    code: dedent`
+      export {b} from 'b'
+      export {a} from 'a'
+      const x = 1
+      export {d} from 'd'
+      export {c} from 'c'
+      const y = 2
+      export {f} from 'f'
+      export {e} from 'e'
+    `,
+    errors: [
+      {messageId: 'sortedReExports'},
+      {messageId: 'sortedReExports'},
+      {messageId: 'sortedReExports'},
+      {messageId: 'sortedReExports'},
+      {messageId: 'sortedReExports'},
+      {messageId: 'sortedReExports'},
+    ],
+    output: dedent`
+      export {a} from 'a'
+      export {b} from 'b'
+      const x = 1
+      export {c} from 'c'
+      export {d} from 'd'
+      const y = 2
+      export {e} from 'e'
+      export {f} from 'f'
+    `,
+  }, {
+    code: dedent`
       export {z, a} from 'bar'
     `,
     errors: [{messageId: 'sortedNames'}],

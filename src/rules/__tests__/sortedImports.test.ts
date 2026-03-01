@@ -58,6 +58,49 @@ ruleTester.run('sorted-imports', sortedImports, {
     `,
   }, {
     code: dedent`
+      import {b} from 'b'
+      const x = 1
+      import {c} from 'c'
+      import {a} from 'a'
+    `,
+    errors: [{messageId: 'sortedImports'}, {messageId: 'sortedImports'}],
+    output: dedent`
+      import {b} from 'b'
+      const x = 1
+      import {a} from 'a'
+      import {c} from 'c'
+    `,
+  }, {
+    code: dedent`
+      import {b} from 'b'
+      import {a} from 'a'
+      const x = 1
+      import {d} from 'd'
+      import {c} from 'c'
+      const y = 2
+      import {f} from 'f'
+      import {e} from 'e'
+    `,
+    errors: [
+      {messageId: 'sortedImports'},
+      {messageId: 'sortedImports'},
+      {messageId: 'sortedImports'},
+      {messageId: 'sortedImports'},
+      {messageId: 'sortedImports'},
+      {messageId: 'sortedImports'},
+    ],
+    output: dedent`
+      import {a} from 'a'
+      import {b} from 'b'
+      const x = 1
+      import {c} from 'c'
+      import {d} from 'd'
+      const y = 2
+      import {e} from 'e'
+      import {f} from 'f'
+    `,
+  }, {
+    code: dedent`
       import {z, a} from 'bar'
     `,
     errors: [{messageId: 'sortedNames'}],

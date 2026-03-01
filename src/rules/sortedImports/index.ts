@@ -3,7 +3,7 @@ import {checkAlphabeticalSorting} from './checkAlphabeticalSorting'
 import {checkGroupOrdering} from './checkGroupOrdering'
 import {checkSpecifiersSorting} from './checkSpecifiersSorting'
 import {createFix} from './createFix'
-import {getImportDeclarations} from './getImportDeclarations'
+import {getImportGroups} from './getImportGroups'
 import type {ImportError} from './ImportError'
 import type {Rule} from 'eslint'
 import type {TSESTree} from '@typescript-eslint/types'
@@ -27,24 +27,30 @@ export const sortedImports: Rule.RuleModule = {
     return {
       Program(node) {
         const body = node.body as TSESTree.ProgramStatement[]
-        const declarations = getImportDeclarations(body)
-        if (declarations.length === 0)
+        const importGroups = getImportGroups(body)
+        if (importGroups.length === 0)
           return
 
-        const categorized = categorizeImports(declarations)
-        const errors: ImportError[] = [
-          ...checkGroupOrdering(categorized),
-          ...checkAlphabeticalSorting(categorized),
-          ...checkSpecifiersSorting(categorized),
-        ]
+        const allErrors: ImportError[] = []
 
-        for (const error of errors) {
+        // Check each import group independently
+        for (const group of importGroups) {
+          const categorized = categorizeImports(group)
+          const errors: ImportError[] = [
+            ...checkGroupOrdering(categorized),
+            ...checkAlphabeticalSorting(categorized),
+            ...checkSpecifiersSorting(categorized),
+          ]
+          allErrors.push(...errors)
+        }
+
+        for (const error of allErrors) {
           context.report({
             node: error.node,
             messageId: error.messageId,
             fix(fixer) {
               const sourceCode = context.sourceCode
-              return createFix(fixer, declarations, sourceCode, body)
+              return createFix(fixer, importGroups, sourceCode)
             },
           })
         }

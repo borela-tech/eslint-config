@@ -1,19 +1,19 @@
 import {buildSortedCode} from './buildSortedCode'
 import {categorizeReExports} from '../categorizeReExports'
-import {getReplacementRange} from './getReplacementRange'
 import {groupReExportsByType} from './groupReExportsByType'
 import {ReExportDeclaration} from '../ReExportDeclaration'
 import {sortExportGroups} from './sortExportGroups'
 import type {Rule} from 'eslint'
-import type {TSESTree} from '@typescript-eslint/types'
 
-export function createFix(
+function createFixForGroup(
   fixer: Rule.RuleFixer,
   reExportDeclarations: ReExportDeclaration[],
   sourceCode: {getText: (node?: unknown) => string},
-  programBody: TSESTree.ProgramStatement[],
-) {
-  const range = getReplacementRange(programBody)
+): Rule.Fix | null {
+  if (reExportDeclarations.length === 0) {
+    return null
+  }
+
   const categorized = categorizeReExports(reExportDeclarations)
   const grouped = groupReExportsByType(categorized)
 
@@ -22,8 +22,27 @@ export function createFix(
   const sortedCode = buildSortedCode(grouped, sourceCode)
     .join('\n')
 
+  const firstReExport = reExportDeclarations[0]
+  const lastReExport = reExportDeclarations[reExportDeclarations.length - 1]
+
   return fixer.replaceTextRange(
-    [range.start, range.end],
+    [firstReExport.range![0], lastReExport.range![1]],
     sortedCode,
   )
+}
+
+export function createFix(
+  fixer: Rule.RuleFixer,
+  reExportGroups: ReExportDeclaration[][],
+  sourceCode: {getText: (node?: unknown) => string},
+): Rule.Fix[] {
+  const fixes: Rule.Fix[] = []
+
+  for (const group of reExportGroups) {
+    const fix = createFixForGroup(fixer, group, sourceCode)
+    if (fix)
+      fixes.push(fix)
+  }
+
+  return fixes
 }

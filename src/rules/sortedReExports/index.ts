@@ -3,7 +3,7 @@ import {checkAlphabeticalSorting} from './checkAlphabeticalSorting'
 import {checkGroupOrdering} from './checkGroupOrdering'
 import {checkSpecifiersSorting} from './checkSpecifiersSorting'
 import {createFix} from './createFix'
-import {getReExportDeclarations} from './getReExportDeclarations'
+import {getReExportGroups} from './getReExportGroups'
 import type {ReExportError} from './ReExportError'
 import type {Rule} from 'eslint'
 import type {TSESTree} from '@typescript-eslint/types'
@@ -27,24 +27,30 @@ export const sortedReExports: Rule.RuleModule = {
     return {
       Program(node) {
         const body = node.body as TSESTree.ProgramStatement[]
-        const declarations = getReExportDeclarations(body)
-        if (declarations.length === 0)
+        const reExportGroups = getReExportGroups(body)
+        if (reExportGroups.length === 0)
           return
 
-        const categorized = categorizeReExports(declarations)
-        const errors: ReExportError[] = [
-          ...checkGroupOrdering(categorized),
-          ...checkAlphabeticalSorting(categorized),
-          ...checkSpecifiersSorting(categorized),
-        ]
+        const allErrors: ReExportError[] = []
 
-        for (const error of errors) {
+        // Check each re-export group independently
+        for (const group of reExportGroups) {
+          const categorized = categorizeReExports(group)
+          const errors: ReExportError[] = [
+            ...checkGroupOrdering(categorized),
+            ...checkAlphabeticalSorting(categorized),
+            ...checkSpecifiersSorting(categorized),
+          ]
+          allErrors.push(...errors)
+        }
+
+        for (const error of allErrors) {
           context.report({
             node: error.node,
             messageId: error.messageId,
             fix(fixer) {
               const sourceCode = context.sourceCode
-              return createFix(fixer, declarations, sourceCode, body)
+              return createFix(fixer, reExportGroups, sourceCode)
             },
           })
         }
