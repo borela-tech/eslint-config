@@ -5,7 +5,7 @@ pushd "$SCRIPT_DIR/.." > /dev/null
 
 ./bin/build
 node \
-  --import jiti/register \
+  --import @swc-node/register/esm-register \
   --test \
   src/rules/__tests__/*.test.ts
 

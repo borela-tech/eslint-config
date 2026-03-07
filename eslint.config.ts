@@ -1,2 +1,2 @@
-import {CONFIG} from './dist/index.js'
+import {CONFIG} from './dist/index.mjs'
 export default CONFIG
