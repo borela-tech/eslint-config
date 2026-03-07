@@ -3,14 +3,17 @@ import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import stylistic from '@stylistic/eslint-plugin'
 import typescript from 'typescript-eslint'
-import {defineConfig} from 'eslint/config'
 import {importsAndReExportsAtTop} from './rules/importsAndReExportsAtTop'
 import {individualImports} from './rules/individualImports'
 import {individualReExports} from './rules/individualReExports'
+import {multilineUnionTypes} from './rules/multilineUnionTypes'
+import {singleLineImports} from './rules/singleLineImports'
+import {singleLineReExports} from './rules/singleLineReExports'
 import {sortedImports} from './rules/sortedImports'
 import {sortedReExports} from './rules/sortedReExports'
+import type {TSESLint} from '@typescript-eslint/utils'
 
-export const CONFIG = defineConfig([
+export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
   {
     ignores: [
       'src/graphql/sdk.ts',
@@ -28,8 +31,8 @@ export const CONFIG = defineConfig([
   eslint.configs.recommended,
   react.configs.flat.recommended,
   stylistic.configs.recommended,
-  typescript.configs.recommended,
-  typescript.configs.stylistic,
+  ...typescript.configs.recommended,
+  ...typescript.configs.stylistic,
   {
     plugins: {
       'react-hooks': reactHooks,
@@ -43,6 +46,9 @@ export const CONFIG = defineConfig([
           'imports-and-re-exports-at-top': importsAndReExportsAtTop,
           'individual-imports': individualImports,
           'individual-re-exports': individualReExports,
+          'multiline-union-types': multilineUnionTypes,
+          'single-line-imports': singleLineImports,
+          'single-line-re-exports': singleLineReExports,
           'sorted-imports': sortedImports,
           'sorted-re-exports': sortedReExports,
         },
@@ -52,6 +58,9 @@ export const CONFIG = defineConfig([
       '@borela-tech/imports-and-re-exports-at-top': 'error',
       '@borela-tech/individual-imports': 'error',
       '@borela-tech/individual-re-exports': 'error',
+      '@borela-tech/multiline-union-types': 'error',
+      '@borela-tech/single-line-imports': 'error',
+      '@borela-tech/single-line-re-exports': 'error',
       '@borela-tech/sorted-imports': 'error',
       '@borela-tech/sorted-re-exports': 'error',
     },
@@ -133,4 +142,4 @@ export const CONFIG = defineConfig([
       '@typescript-eslint/consistent-indexed-object-style': 'off',
     },
   },
-])
+]
