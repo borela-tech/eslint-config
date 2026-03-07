@@ -5,6 +5,9 @@ export default defineConfig(options => {
   return {
     ...options,
     clean: true,
+    deps: {
+      skipNodeModulesBundle: true,
+    },
     dts: true,
     entry: {
       index: 'src/index.ts',
