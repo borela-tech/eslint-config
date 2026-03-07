@@ -1,4 +1,4 @@
-import {CategorizedNamedReExport} from './CategorizedNamedReExport'
+import type {CategorizedNamedReExport} from './CategorizedNamedReExport'
 import type {CategorizedReExport} from './CategorizedReExport'
 
 export function isNamedReExport(x: CategorizedReExport): x is CategorizedNamedReExport {

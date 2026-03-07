@@ -5,5 +5,5 @@ export function getNamedSpecifiers(
 ): TSESTree.ExportSpecifier[] {
   return declaration.specifiers.filter(
     s => s.type === 'ExportSpecifier' && s.local.type === 'Identifier',
-  ) as TSESTree.ExportSpecifier[]
+  )
 }

@@ -1,8 +1,10 @@
-import {TSESTree} from '@typescript-eslint/types'
+import type {TSESTree} from '@typescript-eslint/types'
 
 interface NamedReExport {
   declaration: TSESTree.ExportNamedDeclaration
-  group: 're-export-named' | 're-export-type'
+  group:
+    | 're-export-named'
+    | 're-export-type'
   sortKey: string
 }
 

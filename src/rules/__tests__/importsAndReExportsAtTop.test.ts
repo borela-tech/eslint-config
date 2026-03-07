@@ -2,7 +2,9 @@ import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
 import {importsAndReExportsAtTop} from '../importsAndReExportsAtTop'
 import {RuleTester} from 'eslint'
+import type {Rule} from 'eslint'
 
+const rule = importsAndReExportsAtTop as unknown as Rule.RuleModule
 const ruleTester = new RuleTester({
   languageOptions: {
     parser: typescript.parser,
@@ -13,7 +15,7 @@ const ruleTester = new RuleTester({
   },
 })
 
-ruleTester.run('imports-and-re-exports-at-top', importsAndReExportsAtTop, {
+ruleTester.run('imports-and-re-exports-at-top', rule, {
   valid: [{
     code: dedent`
       import {a} from 'aaa'

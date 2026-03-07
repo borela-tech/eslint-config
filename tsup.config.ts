@@ -1,3 +1,4 @@
+import path from 'path'
 import {defineConfig} from 'tsup'
 
 export default defineConfig(options => {
@@ -11,5 +12,8 @@ export default defineConfig(options => {
     format: ['esm'],
     splitting: false,
     sourcemap: true,
+    alias: {
+      '@lib': path.resolve(process.cwd(), 'src/lib'),
+    },
   }
 })

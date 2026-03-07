@@ -2,10 +2,11 @@ import {formatNamedImport} from './formatNamedImport'
 import {importGroupOrder} from '../ImportGroupOrder'
 import type {CategorizedImport} from '../CategorizedImport'
 import type {ImportGroup} from '../ImportGroup'
+import type {TSESLint} from '@typescript-eslint/utils'
 
 export function buildSortedCode(
   grouped: Record<ImportGroup, CategorizedImport[]>,
-  sourceCode: {getText: (node?: unknown) => string},
+  sourceCode: TSESLint.SourceCode,
 ): string[] {
   const sortedCode: string[] = []
 

@@ -1,4 +1,4 @@
-import {compare} from '../../lib/compare'
+import {compare} from '@lib/compare'
 import {reExportGroupOrder} from './ReExportGroupOrder'
 import type {CategorizedReExport} from './CategorizedReExport'
 import type {ReExportError} from './ReExportError'

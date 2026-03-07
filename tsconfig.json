@@ -3,8 +3,10 @@
     "allowSyntheticDefaultImports": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "paths": {
+      "@lib/*": ["./src/lib/*"],
+    },
     "strictNullChecks": true,
     "target": "ESNext",
   },
-  "include": ["src"],
 }

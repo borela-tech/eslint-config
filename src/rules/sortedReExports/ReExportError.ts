@@ -1,6 +1,9 @@
-import type {ReExportDeclaration} from './ReExportDeclaration'
+import type {ReExportDeclaration} from '@lib/ReExportDeclaration'
 
 export interface ReExportError {
   node: ReExportDeclaration
-  messageId: 'sortedReExports' | 'sortedNames' | 'wrongGroup'
+  messageId:
+    | 'sortedReExports'
+    | 'sortedNames'
+    | 'wrongGroup'
 }

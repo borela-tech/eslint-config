@@ -1,18 +1,17 @@
 import {buildSortedCode} from './buildSortedCode'
 import {categorizeReExports} from '../categorizeReExports'
 import {groupReExportsByType} from './groupReExportsByType'
-import {ReExportDeclaration} from '../ReExportDeclaration'
 import {sortExportGroups} from './sortExportGroups'
-import type {Rule} from 'eslint'
+import type {ReExportDeclaration} from '@lib/ReExportDeclaration'
+import type {TSESLint} from '@typescript-eslint/utils'
 
 function createFixForGroup(
-  fixer: Rule.RuleFixer,
+  fixer: TSESLint.RuleFixer,
   reExportDeclarations: ReExportDeclaration[],
-  sourceCode: {getText: (node?: unknown) => string},
-): Rule.Fix | null {
-  if (reExportDeclarations.length === 0) {
+  sourceCode: TSESLint.SourceCode,
+) {
+  if (reExportDeclarations.length === 0)
     return null
-  }
 
   const categorized = categorizeReExports(reExportDeclarations)
   const grouped = groupReExportsByType(categorized)
@@ -32,11 +31,11 @@ function createFixForGroup(
 }
 
 export function createFix(
-  fixer: Rule.RuleFixer,
+  fixer: TSESLint.RuleFixer,
   reExportGroups: ReExportDeclaration[][],
-  sourceCode: {getText: (node?: unknown) => string},
-): Rule.Fix[] {
-  const fixes: Rule.Fix[] = []
+  sourceCode: TSESLint.SourceCode,
+): TSESLint.RuleFix[] {
+  const fixes: TSESLint.RuleFix[] = []
 
   for (const group of reExportGroups) {
     const fix = createFixForGroup(fixer, group, sourceCode)

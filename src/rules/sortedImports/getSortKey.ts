@@ -10,8 +10,7 @@ export function getSortKey(declaration: TSESTree.ImportDeclaration): string {
   if (group === 'default') {
     const defaultSpecifier = declaration.specifiers.find(
       s => s.type === 'ImportDefaultSpecifier',
-    ) as TSESTree.ImportDefaultSpecifier | undefined
-
+    )
     return defaultSpecifier?.local.name ?? ''
   }
 

@@ -1,10 +1,11 @@
-import {compare} from '../../lib/compare'
+import {compare} from '@lib/compare'
 import {getSpecifierName} from './getSpecifierName'
-import type {TSESTree} from '@typescript-eslint/types'
+import type {TSESLint} from '@typescript-eslint/utils'
+import type {TSESTree} from '@typescript-eslint/utils'
 
 export function sortSpecifiersText(
   specifiers: TSESTree.ExportSpecifier[],
-  sourceCode: {getText: (node?: unknown) => string},
+  sourceCode: TSESLint.SourceCode,
 ): string {
   const sorted = [...specifiers].sort((a, b) => {
     const nameA = getSpecifierName(a)

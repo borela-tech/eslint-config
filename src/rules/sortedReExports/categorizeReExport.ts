@@ -1,8 +1,8 @@
+import type {ReExportDeclaration} from '@lib/ReExportDeclaration'
 import type {ReExportGroup} from './ReExportGroup'
-import type {TSESTree} from '@typescript-eslint/types'
 
 export function categorizeReExport(
-  declaration: TSESTree.ExportNamedDeclaration | TSESTree.ExportAllDeclaration,
+  declaration: ReExportDeclaration,
 ): ReExportGroup {
   // Example: export * from 'module'
   if (declaration.type === 'ExportAllDeclaration')

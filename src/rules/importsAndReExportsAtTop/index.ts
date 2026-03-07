@@ -2,15 +2,15 @@ import {categorizeStatements} from './categorizeStatements'
 import {findStatementIndices} from './findStatementIndices'
 import {generateSortedText} from './generateSortedText'
 import {hasViolation} from './hasViolation'
-import type {Rule} from 'eslint'
-import type {TSESTree} from '@typescript-eslint/types'
+import type {TSESLint} from '@typescript-eslint/utils'
 
-export const importsAndReExportsAtTop: Rule.RuleModule = {
+type MessageIds = 'importsAndReExportsAtTop'
+
+export const importsAndReExportsAtTop: TSESLint.RuleModule<MessageIds, []> = {
   meta: {
     type: 'suggestion',
     docs: {
       description: 'Enforce imports and re-exports at the top of the file',
-      recommended: false,
     },
     fixable: 'code',
     messages: {
@@ -23,7 +23,7 @@ export const importsAndReExportsAtTop: Rule.RuleModule = {
   create(context) {
     return {
       Program(node) {
-        const statements = node.body as TSESTree.Statement[]
+        const statements = node.body
         const categories = categorizeStatements(statements)
         const indices = findStatementIndices(statements)
 

@@ -1,11 +1,12 @@
 import {areSpecifiersSorted} from '../areSpecifiersSorted'
 import {getNamedSpecifiers} from '../getNamedSpecifiers'
 import {sortSpecifiersText} from '../sortSpecifiersText'
-import type {TSESTree} from '@typescript-eslint/types'
+import type {TSESLint} from '@typescript-eslint/utils'
+import type {TSESTree} from '@typescript-eslint/utils'
 
 export function formatNamedImport(
   declaration: TSESTree.ImportDeclaration,
-  sourceCode: {getText: (node?: unknown) => string},
+  sourceCode: TSESLint.SourceCode,
 ): string {
   const specifiers = getNamedSpecifiers(declaration)
 

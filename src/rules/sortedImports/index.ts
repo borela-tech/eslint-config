@@ -5,14 +5,17 @@ import {checkSpecifiersSorting} from './checkSpecifiersSorting'
 import {createFix} from './createFix'
 import {getImportGroups} from './getImportGroups'
 import type {ImportError} from './ImportError'
-import type {Rule} from 'eslint'
-import type {TSESTree} from '@typescript-eslint/types'
+import type {TSESLint} from '@typescript-eslint/utils'
 
-export const sortedImports: Rule.RuleModule = {
+type MessageIds =
+  | 'sortedImports'
+  | 'sortedNames'
+  | 'wrongGroup'
+
+export const sortedImports: TSESLint.RuleModule<MessageIds, []> = {
   meta: {
     docs: {
       description: 'Enforce sorted imports alphabetically',
-      recommended: true,
     },
     fixable: 'code',
     messages: {
@@ -26,7 +29,7 @@ export const sortedImports: Rule.RuleModule = {
   create(context) {
     return {
       Program(node) {
-        const body = node.body as TSESTree.ProgramStatement[]
+        const body = node.body
         const importGroups = getImportGroups(body)
         if (importGroups.length === 0)
           return

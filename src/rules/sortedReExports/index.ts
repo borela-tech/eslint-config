@@ -5,14 +5,17 @@ import {checkSpecifiersSorting} from './checkSpecifiersSorting'
 import {createFix} from './createFix'
 import {getReExportGroups} from './getReExportGroups'
 import type {ReExportError} from './ReExportError'
-import type {Rule} from 'eslint'
-import type {TSESTree} from '@typescript-eslint/types'
+import type {TSESLint} from '@typescript-eslint/utils'
 
-export const sortedReExports: Rule.RuleModule = {
+type MessageIds =
+  | 'sortedReExports'
+  | 'sortedNames'
+  | 'wrongGroup'
+
+export const sortedReExports: TSESLint.RuleModule<MessageIds, []> = {
   meta: {
     docs: {
       description: 'Enforce sorted exports alphabetically',
-      recommended: true,
     },
     fixable: 'code',
     messages: {
@@ -26,7 +29,7 @@ export const sortedReExports: Rule.RuleModule = {
   create(context) {
     return {
       Program(node) {
-        const body = node.body as TSESTree.ProgramStatement[]
+        const body = node.body
         const reExportGroups = getReExportGroups(body)
         if (reExportGroups.length === 0)
           return

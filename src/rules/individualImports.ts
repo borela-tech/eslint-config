@@ -1,10 +1,11 @@
-import type {Rule} from 'eslint'
+import type {TSESLint} from '@typescript-eslint/utils'
 
-export const individualImports: Rule.RuleModule = {
+type MessageIds = 'individualImports'
+
+export const individualImports: TSESLint.RuleModule<MessageIds, []> = {
   meta: {
     docs: {
       description: 'Enforce individual imports instead of grouped imports',
-      recommended: true,
     },
     fixable: 'code',
     messages: {

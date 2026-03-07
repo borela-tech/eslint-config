@@ -2,17 +2,16 @@ import {buildSortedCode} from './buildSortedCode'
 import {categorizeImports} from '../categorizeImports'
 import {groupImportsByType} from './groupImportsByType'
 import {sortImportGroups} from './sortImportGroups'
-import type {Rule} from 'eslint'
-import type {TSESTree} from '@typescript-eslint/types'
+import type {TSESLint} from '@typescript-eslint/utils'
+import type {TSESTree} from '@typescript-eslint/utils'
 
 function createFixForGroup(
-  fixer: Rule.RuleFixer,
+  fixer: TSESLint.RuleFixer,
   importDeclarations: TSESTree.ImportDeclaration[],
-  sourceCode: {getText: (node?: unknown) => string},
-): Rule.Fix | null {
-  if (importDeclarations.length === 0) {
+  sourceCode: TSESLint.SourceCode,
+) {
+  if (importDeclarations.length === 0)
     return null
-  }
 
   const categorized = categorizeImports(importDeclarations)
   const grouped = groupImportsByType(categorized)
@@ -32,11 +31,11 @@ function createFixForGroup(
 }
 
 export function createFix(
-  fixer: Rule.RuleFixer,
+  fixer: TSESLint.RuleFixer,
   importGroups: TSESTree.ImportDeclaration[][],
-  sourceCode: {getText: (node?: unknown) => string},
-): Rule.Fix[] {
-  const fixes: Rule.Fix[] = []
+  sourceCode: TSESLint.SourceCode,
+): TSESLint.RuleFix[] {
+  const fixes: TSESLint.RuleFix[] = []
 
   for (const group of importGroups) {
     const fix = createFixForGroup(fixer, group, sourceCode)

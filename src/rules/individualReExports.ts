@@ -1,11 +1,11 @@
-import type {Rule} from 'eslint'
-import type {TSESTree} from '@typescript-eslint/types'
+import type {TSESLint} from '@typescript-eslint/utils'
 
-export const individualReExports: Rule.RuleModule = {
+type MessageIds = 'individualReExports'
+
+export const individualReExports: TSESLint.RuleModule<MessageIds, []> = {
   meta: {
     docs: {
       description: 'Enforce individual exports instead of grouped exports',
-      recommended: true,
     },
     fixable: 'code',
     messages: {
@@ -17,19 +17,18 @@ export const individualReExports: Rule.RuleModule = {
   create(context) {
     return {
       ExportNamedDeclaration(node) {
-        const exportNode = node as TSESTree.ExportNamedDeclaration
-        if (!exportNode.source || exportNode.specifiers.length <= 1)
+        if (!node.source || node.specifiers.length <= 1)
           return
 
         context.report({
           node,
           messageId: 'individualReExports',
           fix(fixer) {
-            const source = exportNode.source!.value
-            const typeKeyword = exportNode.exportKind === 'type'
+            const source = node.source.value
+            const typeKeyword = node.exportKind === 'type'
               ? 'type '
               : ''
-            const specifiers = exportNode.specifiers
+            const specifiers = node.specifiers
               .map(s => {
                 const localName = s.local.type === 'Identifier'
                   ? s.local.name

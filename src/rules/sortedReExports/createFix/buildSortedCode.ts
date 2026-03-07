@@ -3,10 +3,11 @@ import {isNamedReExport} from '../isNamedReExport'
 import {reExportGroupOrder} from '../ReExportGroupOrder'
 import type {CategorizedReExport} from '../CategorizedReExport'
 import type {ReExportGroup} from '../ReExportGroup'
+import type {TSESLint} from '@typescript-eslint/utils'
 
 export function buildSortedCode(
   grouped: Record<ReExportGroup, CategorizedReExport[]>,
-  sourceCode: {getText: (node?: unknown) => string},
+  sourceCode: TSESLint.SourceCode,
 ): string[] {
   const sortedCode: string[] = []
 

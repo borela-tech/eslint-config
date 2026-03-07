@@ -2,7 +2,9 @@ import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
 import {RuleTester} from 'eslint'
 import {sortedReExports} from '../sortedReExports'
+import type {Rule} from 'eslint'
 
+const rule = sortedReExports as unknown as Rule.RuleModule
 const ruleTester = new RuleTester({
   languageOptions: {
     parser: typescript.parser,
@@ -13,7 +15,7 @@ const ruleTester = new RuleTester({
   },
 })
 
-ruleTester.run('sorted-re-exports', sortedReExports, {
+ruleTester.run('sorted-re-exports', rule, {
   valid: [{
     code: 'export const foo = 42',
   }, {

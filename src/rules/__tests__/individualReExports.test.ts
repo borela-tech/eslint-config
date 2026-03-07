@@ -2,7 +2,9 @@ import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
 import {individualReExports} from '../individualReExports'
 import {RuleTester} from 'eslint'
+import type {Rule} from 'eslint'
 
+const rule = individualReExports as unknown as Rule.RuleModule
 const ruleTester = new RuleTester({
   languageOptions: {
     parser: typescript.parser,
@@ -13,7 +15,7 @@ const ruleTester = new RuleTester({
   },
 })
 
-ruleTester.run('individual-re-exports', individualReExports, {
+ruleTester.run('individual-re-exports', rule, {
   valid: [{
     code: "export {foo} from 'bar'",
   }, {

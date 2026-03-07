@@ -1,4 +1,4 @@
-import {compare} from '../../lib/compare'
+import {compare} from '@lib/compare'
 import {getSpecifierName} from './getSpecifierName'
 import type {TSESTree} from '@typescript-eslint/types'
 

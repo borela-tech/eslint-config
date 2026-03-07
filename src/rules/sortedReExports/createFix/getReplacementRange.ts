@@ -1,6 +1,6 @@
 import {findFirstExportIndex} from './findFirstExportIndex'
 import {findLastExportIndex} from './findLastExportIndex'
-import type {ReplacementRange} from '../../../lib/ReplacementRange'
+import type {ReplacementRange} from '@lib/ReplacementRange'
 import type {TSESTree} from '@typescript-eslint/types'
 
 export function getReplacementRange(

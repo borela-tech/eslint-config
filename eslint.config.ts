@@ -1,2 +1,2 @@
-import {CONFIG} from './src'
+import {CONFIG} from './dist/index.js'
 export default CONFIG

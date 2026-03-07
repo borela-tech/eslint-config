@@ -1,18 +1,16 @@
-import {Rule} from 'eslint'
 import type {CategorizedStatements} from './CategorizedStatements'
-import type {Node as ESTreeNode} from 'estree'
-import type {TSESTree} from '@typescript-eslint/types'
+import type {TSESLint} from '@typescript-eslint/utils'
 
 export function generateSortedText(
-  context: Rule.RuleContext,
+  context: TSESLint.RuleContext<'importsAndReExportsAtTop', []>,
   categories: CategorizedStatements,
 ): string {
-  const allStatements: TSESTree.Node[] = [
+  const allStatements = [
     ...categories.imports,
     ...categories.reExports,
     ...categories.other,
   ]
   return allStatements.map(
-    node => context.sourceCode.getText(node as ESTreeNode),
+    node => context.sourceCode.getText(node),
   ).join('\n')
 }

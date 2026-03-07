@@ -2,7 +2,9 @@ import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
 import {individualImports} from '../individualImports'
 import {RuleTester} from 'eslint'
+import type {Rule} from 'eslint'
 
+const rule = individualImports as unknown as Rule.RuleModule
 const ruleTester = new RuleTester({
   languageOptions: {
     parser: typescript.parser,
@@ -13,7 +15,7 @@ const ruleTester = new RuleTester({
   },
 })
 
-ruleTester.run('individual-imports', individualImports, {
+ruleTester.run('individual-imports', rule, {
   valid: [{
     code: "import {foo} from 'bar'",
   }, {

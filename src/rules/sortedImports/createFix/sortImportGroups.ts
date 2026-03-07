@@ -1,4 +1,4 @@
-import {compare} from '../../../lib/compare'
+import {compare} from '@lib/compare'
 import type {CategorizedImport} from '../CategorizedImport'
 import type {ImportGroup} from '../ImportGroup'
 

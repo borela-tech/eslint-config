@@ -1,4 +1,4 @@
-import type {ReExportDeclaration} from './ReExportDeclaration'
+import type {ReExportDeclaration} from '@lib/ReExportDeclaration'
 import type {TSESTree} from '@typescript-eslint/types'
 
 function isReExportDeclaration(

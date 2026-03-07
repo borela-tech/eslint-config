@@ -1,7 +1,8 @@
-import type {TSESTree} from '@typescript-eslint/types'
+import {categorizeReExport} from './categorizeReExport'
+import type {ReExportDeclaration} from '@lib/ReExportDeclaration'
 
 export function getSortKey(
-  declaration: TSESTree.ExportNamedDeclaration | TSESTree.ExportAllDeclaration,
+  declaration: ReExportDeclaration,
 ): string {
   if (declaration.type === 'ExportAllDeclaration')
     return declaration.source.value
