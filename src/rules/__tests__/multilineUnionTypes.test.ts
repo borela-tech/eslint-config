@@ -26,10 +26,10 @@ ruleTester.run('multiline-union-types', rule, {
     `,
   }, {
     code: dedent`
-      export type CategorizedReExport = 
-        | NamedReExport
-        | ReExportAll
-        | ReExportNamespace
+      export type A = 
+        | B
+        | C
+        | D
     `,
   }],
   invalid: [{
