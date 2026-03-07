@@ -6,6 +6,7 @@ export function groupImportsByType(
 ): Record<ImportGroup, CategorizedImport[]> {
   const grouped: Record<ImportGroup, CategorizedImport[]> = {
     'side-effect': [],
+    namespace: [],
     default: [],
     named: [],
     type: [],

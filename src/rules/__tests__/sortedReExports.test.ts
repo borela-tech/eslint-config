@@ -29,8 +29,12 @@ ruleTester.run('sorted-re-exports', rule, {
   }, {
     code: "export type {Foo} from 'bar'",
   }, {
+    code: "export * as ns from 'bar'",
+  }, {
     code: dedent`
       export * from 'aaa'
+      export * as fs from 'fs'
+      export * as path from 'path'
       export {a} from 'aaa'
       export {b} from 'bbb'
       export type {X} from 'xxx'
@@ -191,6 +195,26 @@ ruleTester.run('sorted-re-exports', rule, {
     output: dedent`
       export {basename} from 'path'
       export {existsSync} from 'fs'
+    `,
+  }, {
+    code: dedent`
+      export * as path from 'path'
+      export * as fs from 'fs'
+    `,
+    errors: [{messageId: 'sortedReExports'}, {messageId: 'sortedReExports'}],
+    output: dedent`
+      export * as fs from 'fs'
+      export * as path from 'path'
+    `,
+  }, {
+    code: dedent`
+      export {foo} from 'bar'
+      export * as fs from 'fs'
+    `,
+    errors: [{messageId: 'wrongGroup'}],
+    output: dedent`
+      export * as fs from 'fs'
+      export {foo} from 'bar'
     `,
   }],
 })

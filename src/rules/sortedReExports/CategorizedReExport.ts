@@ -14,4 +14,13 @@ interface ReExportAll {
   sortKey: string
 }
 
-export type CategorizedReExport = NamedReExport | ReExportAll
+interface ReExportNamespace {
+  declaration: TSESTree.ExportAllDeclaration
+  group: 're-export-namespace'
+  sortKey: string
+}
+
+export type CategorizedReExport =
+  | NamedReExport
+  | ReExportAll
+  | ReExportNamespace

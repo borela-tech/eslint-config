@@ -25,9 +25,13 @@ ruleTester.run('sorted-imports', rule, {
   }, {
     code: "import type {Foo} from 'bar'",
   }, {
+    code: "import * as fs from 'fs'",
+  }, {
     code: dedent`
       import 'aaa'
       import 'bbb'
+      import * as fs from 'fs'
+      import * as path from 'path'
       import bar from 'bbb'
       import foo from 'aaa'
       import {a} from 'aaa'
@@ -188,6 +192,36 @@ ruleTester.run('sorted-imports', rule, {
     output: dedent`
       import {basename} from 'path'
       import {existsSync} from 'fs'
+    `,
+  }, {
+    code: dedent`
+      import * as path from 'path'
+      import * as fs from 'fs'
+    `,
+    errors: [{messageId: 'sortedImports'}, {messageId: 'sortedImports'}],
+    output: dedent`
+      import * as fs from 'fs'
+      import * as path from 'path'
+    `,
+  }, {
+    code: dedent`
+      import {foo} from 'bar'
+      import * as fs from 'fs'
+    `,
+    errors: [{messageId: 'wrongGroup'}],
+    output: dedent`
+      import * as fs from 'fs'
+      import {foo} from 'bar'
+    `,
+  }, {
+    code: dedent`
+      import foo from 'bar'
+      import * as fs from 'fs'
+    `,
+    errors: [{messageId: 'wrongGroup'}],
+    output: dedent`
+      import * as fs from 'fs'
+      import foo from 'bar'
     `,
   }],
 })

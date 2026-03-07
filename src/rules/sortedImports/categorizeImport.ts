@@ -10,6 +10,10 @@ export function categorizeImport(declaration: TSESTree.ImportDeclaration): Impor
   if (declaration.specifiers.length === 0)
     return 'side-effect'
 
+  // Example: import * as fs from 'module'
+  if (declaration.specifiers.some(s => s.type === 'ImportNamespaceSpecifier'))
+    return 'namespace'
+
   // Example: import value from 'module'
   if (declaration.specifiers.some(s => s.type === 'ImportDefaultSpecifier'))
     return 'default'

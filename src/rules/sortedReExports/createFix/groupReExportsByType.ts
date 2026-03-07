@@ -6,6 +6,7 @@ export function groupReExportsByType(
 ): Record<ReExportGroup, CategorizedReExport[]> {
   const grouped: Record<ReExportGroup, CategorizedReExport[]> = {
     're-export-all': [],
+    're-export-namespace': [],
     're-export-named': [],
     're-export-type': [],
   }

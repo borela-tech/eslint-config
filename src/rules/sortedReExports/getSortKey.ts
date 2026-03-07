@@ -1,11 +1,16 @@
 import {categorizeReExport} from './categorizeReExport'
 import type {ReExportDeclaration} from '@lib/ReExportDeclaration'
 
-export function getSortKey(
-  declaration: ReExportDeclaration,
-): string {
-  if (declaration.type === 'ExportAllDeclaration')
+export function getSortKey(declaration: ReExportDeclaration): string {
+  const group = categorizeReExport(declaration)
+
+  if (declaration.type === 'ExportAllDeclaration') {
+    if (group === 're-export-namespace') {
+      if (declaration.exported?.type === 'Identifier')
+        return `*${declaration.exported.name}`
+    }
     return declaration.source.value
+  }
 
   const specifier = declaration.specifiers[0]
   if (!specifier)

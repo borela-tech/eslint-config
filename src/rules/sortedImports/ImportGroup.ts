@@ -1,5 +1,6 @@
 export type ImportGroup =
-  | 'side-effect'
   | 'default'
   | 'named'
+  | 'namespace'
+  | 'side-effect'
   | 'type'

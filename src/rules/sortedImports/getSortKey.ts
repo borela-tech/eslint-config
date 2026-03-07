@@ -7,6 +7,13 @@ export function getSortKey(declaration: TSESTree.ImportDeclaration): string {
   if (group === 'side-effect')
     return declaration.source.value
 
+  if (group === 'namespace') {
+    const namespaceSpecifier = declaration.specifiers.find(
+      s => s.type === 'ImportNamespaceSpecifier',
+    )
+    return `*${namespaceSpecifier?.local.name ?? ''}`
+  }
+
   if (group === 'default') {
     const defaultSpecifier = declaration.specifiers.find(
       s => s.type === 'ImportDefaultSpecifier',
