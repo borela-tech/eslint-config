@@ -42,8 +42,8 @@ Enforces imports are sorted alphabetically within their respective groups:
 
 1. **Side-effect imports** (e.g., `import 'module'`)
 2. **Default imports** (e.g., `import React from 'react'`)
-3. **Named imports** (e.g., `import { useState } from 'react'`)
-4. **Type imports** (e.g., `import type { Config } from 'module'`)
+3. **Named imports** (e.g., `import {useState} from 'react'`)
+4. **Type imports** (e.g., `import type {Config} from 'module'`)
 
 Within each group, imports are sorted alphabetically by module source. Named import specifiers within each import are also sorted alphabetically.
 
@@ -52,8 +52,8 @@ Within each group, imports are sorted alphabetically by module source. Named imp
 Enforces re-exports are sorted alphabetically within their respective groups:
 
 1. **Re-export all** (e.g., `export * from 'module'`)
-2. **Re-export named** (e.g., `export { foo, bar } from 'module'`)
-3. **Re-export type** (e.g., `export type { Type1, Type2 } from 'module'`)
+2. **Re-export named** (e.g., `export {foo, bar} from 'module'`)
+3. **Re-export type** (e.g., `export type {Type1, Type2} from 'module'`)
 
 Within each group, re-exports are sorted alphabetically by module source. Named export specifiers are also sorted alphabetically.
 
