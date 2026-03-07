@@ -140,6 +140,10 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
       ],
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/consistent-indexed-object-style': 'off',
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {fixStyle: 'separate-type-imports'},
+      ],
     },
   },
 ]
