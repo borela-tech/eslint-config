@@ -1,3 +1,4 @@
+import {createFix} from './createFix'
 import {isOnSameLineAsCondition} from './isOnSameLineAsCondition'
 import {reportIfOnSameLine} from './reportIfOnSameLine'
 import type {RuleContext} from './RuleContext'
@@ -19,7 +20,13 @@ export function checkIfStatement(
   }
 
   if (node.alternate.type !== 'IfStatement') {
-    if (isOnSameLineAsCondition(node.alternate, sourceCode))
-      context.report({node: node.alternate, messageId: 'singleLine'})
+    const alternate = node.alternate
+    if (isOnSameLineAsCondition(alternate, sourceCode)) {
+      context.report({
+        node: alternate,
+        messageId: 'singleLine',
+        fix: fixer => createFix(fixer, alternate, sourceCode),
+      })
+    }
   }
 }

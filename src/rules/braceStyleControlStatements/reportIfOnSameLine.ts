@@ -1,3 +1,4 @@
+import {createFix} from './createFix'
 import {isOnSameLineAsCondition} from './isOnSameLineAsCondition'
 import {isSingleLineStatement} from './isSingleLineStatement'
 import type {RuleContext} from './RuleContext'
@@ -11,13 +12,23 @@ export function reportIfOnSameLine(
   const sourceCode = context.sourceCode as SourceCode
 
   if (body.type !== 'BlockStatement') {
-    if (isOnSameLineAsCondition(body, sourceCode))
-      context.report({node: body, messageId: 'singleLine'})
+    if (isOnSameLineAsCondition(body, sourceCode)) {
+      context.report({
+        node: body,
+        messageId: 'singleLine',
+        fix: fixer => createFix(fixer, body, sourceCode),
+      })
+    }
   } else {
     const isOnSameLine = isOnSameLineAsCondition(body, sourceCode)
     const isSingleLine = isSingleLineStatement(body, sourceCode)
 
-    if (isOnSameLine && isSingleLine)
-      context.report({node: body, messageId: 'singleLine'})
+    if (isOnSameLine && isSingleLine) {
+      context.report({
+        node: body,
+        messageId: 'singleLine',
+        fix: fixer => createFix(fixer, body, sourceCode),
+      })
+    }
   }
 }
