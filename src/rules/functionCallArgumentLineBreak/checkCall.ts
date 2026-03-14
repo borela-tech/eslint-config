@@ -25,9 +25,8 @@ export function checkCall(
   const firstLine = parens.openingParen.loc.start.line
   const lastLine = parens.closingParen.loc.end.line
 
-  if (firstLine === lastLine) {
+  if (firstLine === lastLine)
     checkSingleLineArgs(sourceCode, context, args, parens, maxLength)
-  } else {
+  else
     checkMultilineArgs(sourceCode, context, args, maxLength)
-  }
 }

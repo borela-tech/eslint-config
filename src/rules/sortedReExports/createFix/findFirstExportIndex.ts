@@ -5,9 +5,8 @@ export function findFirstExportIndex(
 ): number {
   for (let i = 0; i < programBody.length; i++) {
     if (programBody[i].type === 'ExportNamedDeclaration'
-      || programBody[i].type === 'ExportAllDeclaration') {
+      || programBody[i].type === 'ExportAllDeclaration')
       return i
-    }
   }
   return -1
 }

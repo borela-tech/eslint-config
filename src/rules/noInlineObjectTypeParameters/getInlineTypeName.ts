@@ -12,9 +12,8 @@ export function getInlineTypeName(
   }
 
   let counter = 2
-  while (usedNames.has(`${baseName}${counter}`)) {
+  while (usedNames.has(`${baseName}${counter}`))
     counter++
-  }
 
   const name = `${baseName}${counter}`
   usedNames.add(name)

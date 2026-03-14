@@ -16,9 +16,8 @@ export const oneExportPerFile: TSESLint.RuleModule<MessageId, []> = {
   create(context) {
     const filename = context.filename
 
-    if (isExempt(filename)) {
+    if (isExempt(filename))
       return {}
-    }
 
     let exportCount = 0
 

@@ -21,9 +21,8 @@ export const exportFilenameMatch: TSESLint.RuleModule<MessageId, []> = {
     const extname = path.extname(basename)
     const expectedName = basename.slice(0, -extname.length)
 
-    if (isExempt(filename)) {
+    if (isExempt(filename))
       return {}
-    }
 
     const exportNames: string[] = []
 

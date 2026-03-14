@@ -25,9 +25,8 @@ export function checkFunction(
   const firstLine = parens.openingParen.loc.start.line
   const lastLine = parens.closingParen.loc.end.line
 
-  if (firstLine === lastLine) {
+  if (firstLine === lastLine)
     checkSingleLineParams(sourceCode, context, params, parens, maxLength)
-  } else {
+  else
     checkMultilineParams(sourceCode, context, params, maxLength)
-  }
 }

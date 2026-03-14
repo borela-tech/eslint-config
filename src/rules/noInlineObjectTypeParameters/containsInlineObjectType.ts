@@ -9,9 +9,8 @@ export function isInlineObjectType(
 export function containsInlineObjectType(
   node: TSESTree.Node,
 ): TSESTree.TSTypeLiteral | null {
-  if (isInlineObjectType(node)) {
+  if (isInlineObjectType(node))
     return node
-  }
 
   if (
     node.type === 'TSUnionType'
@@ -24,9 +23,8 @@ export function containsInlineObjectType(
     }
   }
 
-  if (node.type === 'TSArrayType') {
+  if (node.type === 'TSArrayType')
     return containsInlineObjectType(node.elementType)
-  }
 
   if ('typeParameters' in node && node.typeParameters) {
     for (const param of node.typeParameters.params) {
@@ -36,9 +34,8 @@ export function containsInlineObjectType(
     }
   }
 
-  if (node.type === 'TSTypeAnnotation') {
+  if (node.type === 'TSTypeAnnotation')
     return containsInlineObjectType(node.typeAnnotation)
-  }
 
   return null
 }

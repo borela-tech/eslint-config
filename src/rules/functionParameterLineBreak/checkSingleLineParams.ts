@@ -46,9 +46,8 @@ export function checkSingleLineParams(
       const paramTexts = params.map(param => {
         const paramText = sourceCode.getText(param)
         const comma = sourceCode.getTokenAfter(param, token => token.value === ',')
-        if (comma && comma.loc.end.line === param.loc.end.line) {
+        if (comma && comma.loc.end.line === param.loc.end.line)
           return paramText + ','
-        }
         return paramText
       })
 

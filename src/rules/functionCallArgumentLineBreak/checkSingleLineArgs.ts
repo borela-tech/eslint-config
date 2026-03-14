@@ -46,9 +46,8 @@ export function checkSingleLineArgs(
       const argTexts = args.map(arg => {
         const argText = sourceCode.getText(arg)
         const comma = sourceCode.getTokenAfter(arg, token => token.value === ',')
-        if (comma && comma.loc.end.line === arg.loc.end.line) {
+        if (comma && comma.loc.end.line === arg.loc.end.line)
           return argText + ','
-        }
         return argText
       })
 

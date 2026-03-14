@@ -6,9 +6,8 @@ export function findLastExportIndex(
   let lastIndex = -1
   for (let i = 0; i < programBody.length; i++) {
     if (programBody[i].type === 'ExportNamedDeclaration'
-      || programBody[i].type === 'ExportAllDeclaration') {
+      || programBody[i].type === 'ExportAllDeclaration')
       lastIndex = i
-    }
   }
   return lastIndex
 }

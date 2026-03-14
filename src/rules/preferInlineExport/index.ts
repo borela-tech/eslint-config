@@ -49,9 +49,8 @@ export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
           .declarations
         if (declarations.length === 1) {
           const id = declarations[0].id
-          if (id.type === 'Identifier') {
+          if (id.type === 'Identifier')
             return id.name
-          }
         }
       }
 
@@ -60,9 +59,8 @@ export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
 
     function visitDeclaration(node: TSESTree.Node) {
       const name = getDeclarationName(node)
-      if (name) {
+      if (name)
         localDeclarations.set(name, {name, node})
-      }
     }
 
     return {
@@ -73,29 +71,24 @@ export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
       VariableDeclaration: visitDeclaration,
 
       ExportNamedDeclaration(node) {
-        if (node.source) {
+        if (node.source)
           return
-        }
 
-        if (!node.specifiers || node.specifiers.length === 0) {
+        if (!node.specifiers || node.specifiers.length === 0)
           return
-        }
 
         const canInline = node.specifiers.every(specifier => {
-          if (specifier.type !== 'ExportSpecifier') {
+          if (specifier.type !== 'ExportSpecifier')
             return false
-          }
 
           if (
             specifier.local.type !== 'Identifier'
             || specifier.exported.type !== 'Identifier'
-          ) {
+          )
             return false
-          }
 
-          if (specifier.local.name !== specifier.exported.name) {
+          if (specifier.local.name !== specifier.exported.name)
             return false
-          }
 
           return localDeclarations.has(specifier.local.name)
         })
@@ -108,19 +101,16 @@ export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
               const fixes: ReturnType<typeof fixer.insertTextBefore>[] = []
 
               for (const specifier of node.specifiers) {
-                if (specifier.type !== 'ExportSpecifier') {
+                if (specifier.type !== 'ExportSpecifier')
                   continue
-                }
 
-                if (specifier.local.type !== 'Identifier') {
+                if (specifier.local.type !== 'Identifier')
                   continue
-                }
 
                 const name = specifier.local.name
                 const decl = localDeclarations.get(name)
-                if (decl) {
+                if (decl)
                   fixes.push(fixer.insertTextBefore(decl.node, 'export '))
-                }
               }
 
               fixes.push(fixer.remove(node))

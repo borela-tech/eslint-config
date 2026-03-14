@@ -16,13 +16,11 @@ export function collectExistingInterfaceNames(
       if (value && typeof value === 'object') {
         if (Array.isArray(value)) {
           for (const item of value) {
-            if (item && typeof item === 'object' && 'type' in item) {
+            if (item && typeof item === 'object' && 'type' in item)
               visit(item as TSESTree.Node)
-            }
           }
-        } else if ('type' in value) {
+        } else if ('type' in value)
           visit(value as TSESTree.Node)
-        }
       }
     }
   }

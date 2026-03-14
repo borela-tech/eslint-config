@@ -8,9 +8,8 @@ export function getExportedNames(
   // Handle re-exports: export { foo } from './bar'
   if (node.specifiers?.length) {
     for (const specifier of node.specifiers) {
-      if (specifier.exported.type === 'Identifier') {
+      if (specifier.exported.type === 'Identifier')
         names.push(specifier.exported.name)
-      }
     }
   }
 
@@ -18,21 +17,19 @@ export function getExportedNames(
   if (node.declaration) {
     const decl = node.declaration
 
-    if (decl.type === 'FunctionDeclaration' && decl.id) {
+    if (decl.type === 'FunctionDeclaration' && decl.id)
       names.push(decl.id.name)
-    } else if (decl.type === 'ClassDeclaration' && decl.id) {
+    else if (decl.type === 'ClassDeclaration' && decl.id)
       names.push(decl.id.name)
-    } else if (decl.type === 'VariableDeclaration') {
+    else if (decl.type === 'VariableDeclaration') {
       for (const d of decl.declarations) {
-        if (d.id.type === 'Identifier') {
+        if (d.id.type === 'Identifier')
           names.push(d.id.name)
-        }
       }
-    } else if (decl.type === 'TSInterfaceDeclaration') {
+    } else if (decl.type === 'TSInterfaceDeclaration')
       names.push(decl.id.name)
-    } else if (decl.type === 'TSTypeAliasDeclaration') {
+    else if (decl.type === 'TSTypeAliasDeclaration')
       names.push(decl.id.name)
-    }
   }
 
   return names

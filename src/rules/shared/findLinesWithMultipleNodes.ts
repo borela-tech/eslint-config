@@ -9,9 +9,8 @@ export function findLinesWithMultipleNodes(
 
     if (i < nodes.length - 1) {
       const nextNode = nodes[i + 1]
-      if (nextNode.loc.start.line === nodeLine) {
+      if (nextNode.loc.start.line === nodeLine)
         lines.push(nodeLine)
-      }
     }
   }
 
