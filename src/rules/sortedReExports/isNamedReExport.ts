@@ -1,6 +1,8 @@
 import type {CategorizedNamedReExport} from './CategorizedNamedReExport'
 import type {CategorizedReExport} from './CategorizedReExport'
 
-export function isNamedReExport(x: CategorizedReExport): x is CategorizedNamedReExport {
+export function isNamedReExport(
+  x: CategorizedReExport,
+): x is CategorizedNamedReExport {
   return x.group !== 're-export-all' && x.group !== 're-export-namespace'
 }

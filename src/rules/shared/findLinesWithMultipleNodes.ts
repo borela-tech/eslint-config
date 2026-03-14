@@ -1,4 +1,6 @@
-export function findLinesWithMultipleNodes(nodes: {loc: {start: {line: number}, end: {line: number}}}[]): number[] {
+export function findLinesWithMultipleNodes(
+  nodes: {loc: {start: {line: number}, end: {line: number}}}[],
+): number[] {
   const lines: number[] = []
 
   for (let i = 0; i < nodes.length; i++) {

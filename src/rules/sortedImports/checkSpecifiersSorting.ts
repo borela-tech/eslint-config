@@ -3,7 +3,9 @@ import {getNamedSpecifiers} from './getNamedSpecifiers'
 import type {CategorizedImport} from './CategorizedImport'
 import type {ImportError} from './ImportError'
 
-export function checkSpecifiersSorting(categorized: CategorizedImport[]): ImportError[] {
+export function checkSpecifiersSorting(
+  categorized: CategorizedImport[],
+): ImportError[] {
   const errors: ImportError[] = []
   const namedImports = categorized.filter(c => c.group === 'named')
 

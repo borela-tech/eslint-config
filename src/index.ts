@@ -70,7 +70,10 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
     rules: {
       '@borela-tech/brace-style-control-statements': 'error',
       '@borela-tech/function-call-argument-line-break': 'error',
-      '@borela-tech/function-parameter-line-break': 'error',
+      '@borela-tech/function-parameter-line-break': [
+        'error',
+        {maxLength: 80},
+      ],
       '@borela-tech/imports-and-re-exports-at-top': 'error',
       '@borela-tech/individual-imports': 'error',
       '@borela-tech/individual-re-exports': 'error',

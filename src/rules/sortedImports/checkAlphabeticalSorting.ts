@@ -3,7 +3,9 @@ import {importGroupOrder} from './ImportGroupOrder'
 import type {CategorizedImport} from './CategorizedImport'
 import type {ImportError} from './ImportError'
 
-export function checkAlphabeticalSorting(categorized: CategorizedImport[]): ImportError[] {
+export function checkAlphabeticalSorting(
+  categorized: CategorizedImport[],
+): ImportError[] {
   const errors: ImportError[] = []
 
   for (const group of importGroupOrder) {

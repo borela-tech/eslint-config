@@ -1,6 +1,8 @@
 import type {TSESTree} from '@typescript-eslint/types'
 
-export function getImportGroups(programBody: TSESTree.ProgramStatement[]): TSESTree.ImportDeclaration[][] {
+export function getImportGroups(
+  programBody: TSESTree.ProgramStatement[],
+): TSESTree.ImportDeclaration[][] {
   const groups: TSESTree.ImportDeclaration[][] = []
   let currentGroup: TSESTree.ImportDeclaration[] = []
 

@@ -25,11 +25,13 @@ export const preferRelativeImports: TSESLint.RuleModule<MessageIds, []> = {
   },
   create(context) {
     const program = getProgram(context)
-    if (!program) return {}
+    if (!program)
+      return {}
 
     const compilerOptions = program.getCompilerOptions()
     const baseUrl = resolveBaseUrl(compilerOptions)
-    if (!baseUrl) return {}
+    if (!baseUrl)
+      return {}
 
     const aliases = parsePathAliases(compilerOptions)
 

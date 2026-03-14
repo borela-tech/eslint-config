@@ -4,7 +4,9 @@ import {isNamedReExport} from './isNamedReExport'
 import type {CategorizedReExport} from './CategorizedReExport'
 import type {ReExportError} from './ReExportError'
 
-export function checkSpecifiersSorting(categorized: CategorizedReExport[]): ReExportError[] {
+export function checkSpecifiersSorting(
+  categorized: CategorizedReExport[],
+): ReExportError[] {
   const errors: ReExportError[] = []
   const namedReExports = categorized.filter(isNamedReExport)
 

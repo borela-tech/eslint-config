@@ -3,7 +3,9 @@ import {reExportGroupOrder} from './ReExportGroupOrder'
 import type {CategorizedReExport} from './CategorizedReExport'
 import type {ReExportError} from './ReExportError'
 
-export function checkAlphabeticalSorting(categorized: CategorizedReExport[]): ReExportError[] {
+export function checkAlphabeticalSorting(
+  categorized: CategorizedReExport[],
+): ReExportError[] {
   const errors: ReExportError[] = []
 
   for (const group of reExportGroupOrder) {
