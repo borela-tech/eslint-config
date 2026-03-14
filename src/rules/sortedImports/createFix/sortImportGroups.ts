@@ -9,5 +9,7 @@ export function sortImportGroups(
   grouped['namespace'].sort((a, b) => compare(a.sortKey, b.sortKey))
   grouped['default'].sort((a, b) => compare(a.sortKey, b.sortKey))
   grouped['named'].sort((a, b) => compare(a.sortKey, b.sortKey))
-  grouped['type'].sort((a, b) => compare(a.sortKey, b.sortKey))
+  grouped['type-namespace'].sort((a, b) => compare(a.sortKey, b.sortKey))
+  grouped['type-default'].sort((a, b) => compare(a.sortKey, b.sortKey))
+  grouped['type-named'].sort((a, b) => compare(a.sortKey, b.sortKey))
 }

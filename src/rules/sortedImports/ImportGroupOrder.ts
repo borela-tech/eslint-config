@@ -5,5 +5,7 @@ export const importGroupOrder: ImportGroup[] = [
   'namespace',
   'default',
   'named',
-  'type',
+  'type-namespace',
+  'type-default',
+  'type-named',
 ]

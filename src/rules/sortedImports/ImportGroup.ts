@@ -3,4 +3,6 @@ export type ImportGroup =
   | 'named'
   | 'namespace'
   | 'side-effect'
-  | 'type'
+  | 'type-default'
+  | 'type-named'
+  | 'type-namespace'

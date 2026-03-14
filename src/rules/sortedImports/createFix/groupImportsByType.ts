@@ -9,7 +9,9 @@ export function groupImportsByType(
     namespace: [],
     default: [],
     named: [],
-    type: [],
+    'type-namespace': [],
+    'type-default': [],
+    'type-named': [],
   }
 
   for (const item of categorized)

@@ -11,8 +11,8 @@ export function buildSortedCode(
   const sortedCode: string[] = []
 
   for (const group of importGroupOrder) {
-    for (const {declaration} of grouped[group]) {
-      if (group === 'named' || group === 'type')
+    for (const {declaration} of grouped[group] ?? []) {
+      if (group === 'named' || group === 'type-named')
         sortedCode.push(formatNamedImport(declaration, sourceCode))
       else
         sortedCode.push(sourceCode.getText(declaration))
