@@ -12,6 +12,7 @@ import {individualImports} from './rules/individualImports'
 import {individualReExports} from './rules/individualReExports'
 import {multilineUnionTypeAliases} from './rules/multilineUnionTypeAliases'
 import {noInlineObjectTypeParameters} from './rules/noInlineObjectTypeParameters'
+import {noUnnecessaryBraces} from './rules/noUnnecessaryBraces'
 import {oneExportPerFile} from './rules/oneExportPerFile'
 import {preferInlineExport} from './rules/preferInlineExport'
 import {preferRelativeImports} from './rules/preferRelativeImports'
@@ -65,6 +66,7 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
           'individual-re-exports': individualReExports,
           'multiline-union-type-aliases': multilineUnionTypeAliases,
           'no-inline-object-type-parameters': noInlineObjectTypeParameters,
+          'no-unnecessary-braces': noUnnecessaryBraces,
           'one-export-per-file': oneExportPerFile,
           'prefer-inline-export': preferInlineExport,
           'prefer-relative-imports': preferRelativeImports,
@@ -88,6 +90,7 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
       '@borela-tech/individual-re-exports': 'error',
       '@borela-tech/multiline-union-type-aliases': 'error',
       '@borela-tech/no-inline-object-type-parameters': 'off',
+      '@borela-tech/no-unnecessary-braces': 'error',
       '@borela-tech/one-export-per-file': 'error',
       '@borela-tech/prefer-inline-export': 'error',
       '@borela-tech/single-line-imports': 'error',
