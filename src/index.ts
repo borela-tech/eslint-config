@@ -3,6 +3,7 @@ import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import stylistic from '@stylistic/eslint-plugin'
 import typescript from 'typescript-eslint'
+import {braceStyleControlStatements} from './rules/braceStyleControlStatements'
 import {importsAndReExportsAtTop} from './rules/importsAndReExportsAtTop'
 import {individualImports} from './rules/individualImports'
 import {individualReExports} from './rules/individualReExports'
@@ -43,6 +44,7 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
     plugins: {
       '@borela-tech': {
         rules: {
+          'brace-style-control-statements': braceStyleControlStatements,
           'imports-and-re-exports-at-top': importsAndReExportsAtTop,
           'individual-imports': individualImports,
           'individual-re-exports': individualReExports,
@@ -55,6 +57,7 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
       },
     },
     rules: {
+      '@borela-tech/brace-style-control-statements': 'error',
       '@borela-tech/imports-and-re-exports-at-top': 'error',
       '@borela-tech/individual-imports': 'error',
       '@borela-tech/individual-re-exports': 'error',
