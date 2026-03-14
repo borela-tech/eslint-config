@@ -4,6 +4,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import stylistic from '@stylistic/eslint-plugin'
 import typescript from 'typescript-eslint'
 import {braceStyleControlStatements} from './rules/braceStyleControlStatements'
+import {exportFilenameMatch} from './rules/exportFilenameMatch'
 import {functionCallArgumentLineBreak} from './rules/functionCallArgumentLineBreak'
 import {functionParameterLineBreak} from './rules/functionParameterLineBreak'
 import {importsAndReExportsAtTop} from './rules/importsAndReExportsAtTop'
@@ -11,6 +12,7 @@ import {individualImports} from './rules/individualImports'
 import {individualReExports} from './rules/individualReExports'
 import {multilineUnionTypeAliases} from './rules/multilineUnionTypeAliases'
 import {noInlineObjectTypeParameters} from './rules/noInlineObjectTypeParameters'
+import {oneExportPerFile} from './rules/oneExportPerFile'
 import {preferRelativeImports} from './rules/preferRelativeImports'
 import {singleLineImports} from './rules/singleLineImports'
 import {singleLineReExports} from './rules/singleLineReExports'
@@ -54,6 +56,7 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
       '@borela-tech': {
         rules: {
           'brace-style-control-statements': braceStyleControlStatements,
+          'export-filename-match': exportFilenameMatch,
           'function-call-argument-line-break': functionCallArgumentLineBreak,
           'function-parameter-line-break': functionParameterLineBreak,
           'imports-and-re-exports-at-top': importsAndReExportsAtTop,
@@ -61,6 +64,7 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
           'individual-re-exports': individualReExports,
           'multiline-union-type-aliases': multilineUnionTypeAliases,
           'no-inline-object-type-parameters': noInlineObjectTypeParameters,
+          'one-export-per-file': oneExportPerFile,
           'prefer-relative-imports': preferRelativeImports,
           'single-line-imports': singleLineImports,
           'single-line-re-exports': singleLineReExports,
@@ -71,6 +75,7 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
     },
     rules: {
       '@borela-tech/brace-style-control-statements': 'error',
+      '@borela-tech/export-filename-match': 'error',
       '@borela-tech/function-call-argument-line-break': 'error',
       '@borela-tech/function-parameter-line-break': [
         'error',
@@ -81,6 +86,7 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
       '@borela-tech/individual-re-exports': 'error',
       '@borela-tech/multiline-union-type-aliases': 'error',
       '@borela-tech/no-inline-object-type-parameters': 'off',
+      '@borela-tech/one-export-per-file': 'error',
       '@borela-tech/single-line-imports': 'error',
       '@borela-tech/single-line-re-exports': 'error',
       '@borela-tech/sorted-imports': 'error',
@@ -94,7 +100,25 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
         'always',
         {ignoreConsecutiveComments: true},
       ],
+      'no-restricted-exports': [
+        'error',
+        {
+          restrictDefaultExports: {
+            direct: true,
+          },
+        },
+      ],
       'react/react-in-jsx-scope': 'off',
+    },
+  },
+  {
+    files: ['*.config.ts'],
+    rules: {
+      'no-restricted-exports': 'off',
+    },
+  },
+  {
+    rules: {
       '@stylistic/arrow-parens': [
         'error',
         'as-needed',
