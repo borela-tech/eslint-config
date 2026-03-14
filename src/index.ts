@@ -7,7 +7,7 @@ import {braceStyleControlStatements} from './rules/braceStyleControlStatements'
 import {importsAndReExportsAtTop} from './rules/importsAndReExportsAtTop'
 import {individualImports} from './rules/individualImports'
 import {individualReExports} from './rules/individualReExports'
-import {multilineUnionTypes} from './rules/multilineUnionTypes'
+import {multilineUnionTypeAliases} from './rules/multilineUnionTypeAliases'
 import {preferRelativeImports} from './rules/preferRelativeImports'
 import {singleLineImports} from './rules/singleLineImports'
 import {singleLineReExports} from './rules/singleLineReExports'
@@ -54,7 +54,7 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
           'imports-and-re-exports-at-top': importsAndReExportsAtTop,
           'individual-imports': individualImports,
           'individual-re-exports': individualReExports,
-          'multiline-union-types': multilineUnionTypes,
+          'multiline-union-type-aliases': multilineUnionTypeAliases,
           'prefer-relative-imports': preferRelativeImports,
           'single-line-imports': singleLineImports,
           'single-line-re-exports': singleLineReExports,
@@ -68,7 +68,7 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
       '@borela-tech/imports-and-re-exports-at-top': 'error',
       '@borela-tech/individual-imports': 'error',
       '@borela-tech/individual-re-exports': 'error',
-      '@borela-tech/multiline-union-types': 'error',
+      '@borela-tech/multiline-union-type-aliases': 'error',
       '@borela-tech/prefer-relative-imports': 'error',
       '@borela-tech/single-line-imports': 'error',
       '@borela-tech/single-line-re-exports': 'error',

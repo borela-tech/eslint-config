@@ -1,10 +1,10 @@
 import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
-import {multilineUnionTypes} from '../multilineUnionTypes'
+import {multilineUnionTypeAliases} from '../multilineUnionTypeAliases'
 import {RuleTester} from 'eslint'
 import type {Rule} from 'eslint'
 
-const rule = multilineUnionTypes as unknown as Rule.RuleModule
+const rule = multilineUnionTypeAliases as unknown as Rule.RuleModule
 const ruleTester = new RuleTester({
   languageOptions: {
     parser: typescript.parser,
@@ -32,6 +32,9 @@ const unionTypeValid = [
         | D
     `,
   },
+  {code: 'let foo: A | B | C'},
+  {code: 'function foo(a: A | B | C) {}'},
+  {code: 'interface Foo { prop: A | B | C }'},
 ]
 
 const unionTypeInvalid = [
@@ -80,7 +83,7 @@ const unionTypeInvalid = [
   },
 ]
 
-ruleTester.run('multiline-union-types', rule, {
+ruleTester.run('multiline-union-type-aliases', rule, {
   valid: [
     ...unionTypeValid,
   ],

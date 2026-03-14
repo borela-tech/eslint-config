@@ -6,15 +6,15 @@ type MessageIds =
   | 'singleLine'
   | 'missingPipes'
 
-export const multilineUnionTypes: TSESLint.RuleModule<MessageIds, []> = {
+export const multilineUnionTypeAliases: TSESLint.RuleModule<MessageIds, []> = {
   meta: {
     docs: {
-      description: 'Enforce union types with multiple members to be on multiple lines',
+      description: 'Enforce union type aliases with multiple members to be on multiple lines',
     },
     fixable: 'code',
     messages: {
-      singleLine: 'Union types with multiple members should be on multiple lines',
-      missingPipes: 'Multiline union types should have leading pipes on each member',
+      singleLine: 'Union type aliases with multiple members should be on multiple lines',
+      missingPipes: 'Multiline union type aliases should have leading pipes on each member',
     },
     schema: [],
     type: 'layout',
@@ -24,6 +24,10 @@ export const multilineUnionTypes: TSESLint.RuleModule<MessageIds, []> = {
     return {
       TSUnionType(node) {
         if (node.types.length < 2)
+          return
+
+        const parent = node.parent
+        if (!parent || parent.type !== 'TSTypeAliasDeclaration')
           return
 
         const sourceCode = context.sourceCode
