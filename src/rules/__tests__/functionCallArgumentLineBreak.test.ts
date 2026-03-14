@@ -49,7 +49,7 @@ const valid = [
 const invalid = [
   {
     code: 'fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNowTestCallExpr(bar, baz)',
-    options: [{maxLength: 80}],
+    options: [{maxLength: 79}],
     errors: [{messageId: 'multipleOnSameLine'}],
     output: `fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNowTestCallExpr(
   bar,
