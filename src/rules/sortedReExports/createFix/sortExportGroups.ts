@@ -8,5 +8,7 @@ export function sortExportGroups(
   grouped['re-export-all'].sort((a, b) => compare(a.sortKey, b.sortKey))
   grouped['re-export-namespace'].sort((a, b) => compare(a.sortKey, b.sortKey))
   grouped['re-export-named'].sort((a, b) => compare(a.sortKey, b.sortKey))
-  grouped['re-export-type'].sort((a, b) => compare(a.sortKey, b.sortKey))
+  grouped['type-all'].sort((a, b) => compare(a.sortKey, b.sortKey))
+  grouped['type-namespace'].sort((a, b) => compare(a.sortKey, b.sortKey))
+  grouped['type-named'].sort((a, b) => compare(a.sortKey, b.sortKey))
 }

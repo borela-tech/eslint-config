@@ -4,5 +4,7 @@ export const reExportGroupOrder: ReExportGroup[] = [
   're-export-all',
   're-export-namespace',
   're-export-named',
-  're-export-type',
+  'type-all',
+  'type-namespace',
+  'type-named',
 ]

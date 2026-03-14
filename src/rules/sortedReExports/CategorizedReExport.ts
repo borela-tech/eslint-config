@@ -4,7 +4,7 @@ interface NamedReExport {
   declaration: TSESTree.ExportNamedDeclaration
   group:
     | 're-export-named'
-    | 're-export-type'
+    | 'type-named'
   sortKey: string
 }
 
@@ -20,7 +20,21 @@ interface ReExportNamespace {
   sortKey: string
 }
 
+interface TypeAll {
+  declaration: TSESTree.ExportAllDeclaration
+  group: 'type-all'
+  sortKey: string
+}
+
+interface TypeNamespace {
+  declaration: TSESTree.ExportAllDeclaration
+  group: 'type-namespace'
+  sortKey: string
+}
+
 export type CategorizedReExport =
   | NamedReExport
   | ReExportAll
   | ReExportNamespace
+  | TypeAll
+  | TypeNamespace
