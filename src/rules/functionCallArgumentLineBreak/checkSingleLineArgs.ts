@@ -18,7 +18,7 @@ export function checkSingleLineArgs(
   const {openingParen, closingParen} = parens
   const lineLength = getLineLength(sourceCode, openingParen.loc.start.line)
 
-  if (lineLength < maxLength)
+  if (lineLength <= maxLength)
     return
 
   if (args.length === 1) {
