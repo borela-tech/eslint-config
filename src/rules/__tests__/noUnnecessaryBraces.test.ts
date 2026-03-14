@@ -86,57 +86,57 @@ const invalidSingleLineWithBraces = [
   {
     code: 'if (x) { return {} }',
     errors: [{messageId: 'unnecessaryBraces'}],
-    output: 'if (x) return {}',
+    output: 'if (x)\n  return {}',
   },
   {
     code: `if (x) {
       return {}
     }`,
     errors: [{messageId: 'unnecessaryBraces'}],
-    output: `if (x) return {}`,
+    output: 'if (x)\n  return {}',
   },
   {
     code: `if (x) {
       foo()
     }`,
     errors: [{messageId: 'unnecessaryBraces'}],
-    output: `if (x) foo()`,
+    output: 'if (x)\n  foo()',
   },
   {
     code: 'for (;;) { return }',
     errors: [{messageId: 'unnecessaryBraces'}],
-    output: 'for (;;) return',
+    output: 'for (;;)\n  return',
   },
   {
     code: `for (;;) {
       break
     }`,
     errors: [{messageId: 'unnecessaryBraces'}],
-    output: `for (;;) break`,
+    output: 'for (;;)\n  break',
   },
   {
     code: 'while (x) { break }',
     errors: [{messageId: 'unnecessaryBraces'}],
-    output: 'while (x) break',
+    output: 'while (x)\n  break',
   },
   {
     code: `while (x) {
       return
     }`,
     errors: [{messageId: 'unnecessaryBraces'}],
-    output: `while (x) return`,
+    output: 'while (x)\n  return',
   },
   {
     code: 'do { return; } while (x)',
     errors: [{messageId: 'unnecessaryBraces'}],
-    output: 'do return; while (x)',
+    output: 'do\n  return; while (x)',
   },
   {
     code: `do {
       break;
     } while (x)`,
     errors: [{messageId: 'unnecessaryBraces'}],
-    output: `do break; while (x)`,
+    output: 'do\n  break; while (x)',
   },
 ]
 

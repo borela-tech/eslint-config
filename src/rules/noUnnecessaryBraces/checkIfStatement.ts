@@ -8,11 +8,10 @@ export function checkIfStatement(
   context: RuleContext,
 ): void {
   // Check consequent (the main if body)
-  if (node.consequent.type === 'BlockStatement') {
+  if (node.consequent.type === 'BlockStatement')
     checkBlockStatement(node.consequent, context)
-  } else {
+  else
     checkNonBlockStatement(node.consequent, context)
-  }
 
   // Check alternate (the else body)
   if (!node.alternate)
@@ -22,9 +21,8 @@ export function checkIfStatement(
   if (node.alternate.type === 'IfStatement')
     return
 
-  if (node.alternate.type === 'BlockStatement') {
+  if (node.alternate.type === 'BlockStatement')
     checkBlockStatement(node.alternate, context)
-  } else {
+  else
     checkNonBlockStatement(node.alternate, context)
-  }
 }

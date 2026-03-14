@@ -18,9 +18,8 @@ function detectIndentStep(sourceCode: TSESLint.SourceCode): number {
     const match = line.match(/^( *)/)
     if (match) {
       const spaces = match[1].length
-      if (spaces > 0) {
+      if (spaces > 0)
         indentCounts.set(spaces, (indentCounts.get(spaces) ?? 0) + 1)
-      }
     }
   }
 
@@ -75,15 +74,14 @@ function reindentText(
     if (line.trim() === '')
       continue
     const match = line.match(/^( *)/)
-    if (match) {
+    if (match)
       minIndent = Math.min(minIndent, match[1].length)
-    }
   }
 
   if (minIndent === Infinity) {
     // All lines are empty or only one line
     return lines
-      .map((line) => {
+      .map(line => {
         if (line.trim() === '')
           return ''
         return newBaseIndent + indentStep + line.trimStart()
@@ -96,10 +94,8 @@ function reindentText(
       if (line.trim() === '')
         return ''
 
-      if (index === 0) {
-        // First line - just add base + step, no relative indentation to preserve
+      if (index === 0)
         return newBaseIndent + indentStep + line.trimStart()
-      }
 
       // For subsequent lines, calculate relative indentation from the minimum
       const relativeIndent = line.slice(minIndent)

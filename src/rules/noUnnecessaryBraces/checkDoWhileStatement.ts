@@ -7,9 +7,8 @@ export function checkDoWhileStatement(
   node: TSESTree.DoWhileStatement,
   context: RuleContext,
 ): void {
-  if (node.body.type === 'BlockStatement') {
+  if (node.body.type === 'BlockStatement')
     checkBlockStatement(node.body, context)
-  } else {
+  else
     checkNonBlockStatement(node.body, context)
-  }
 }
