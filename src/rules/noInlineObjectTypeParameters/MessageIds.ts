@@ -1,3 +1,1 @@
-type MessageIds = 'inlineObjectType'
-
-export type {MessageIds}
+export type MessageIds = 'inlineObjectType'
