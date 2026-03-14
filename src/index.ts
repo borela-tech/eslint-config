@@ -8,6 +8,7 @@ import {importsAndReExportsAtTop} from './rules/importsAndReExportsAtTop'
 import {individualImports} from './rules/individualImports'
 import {individualReExports} from './rules/individualReExports'
 import {multilineUnionTypes} from './rules/multilineUnionTypes'
+import {preferRelativeImports} from './rules/preferRelativeImports'
 import {singleLineImports} from './rules/singleLineImports'
 import {singleLineReExports} from './rules/singleLineReExports'
 import {sortedImports} from './rules/sortedImports'
@@ -23,6 +24,11 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
     ],
   },
   {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+      },
+    },
     settings: {
       react: {
         version: '19',
@@ -49,6 +55,7 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
           'individual-imports': individualImports,
           'individual-re-exports': individualReExports,
           'multiline-union-types': multilineUnionTypes,
+          'prefer-relative-imports': preferRelativeImports,
           'single-line-imports': singleLineImports,
           'single-line-re-exports': singleLineReExports,
           'sorted-imports': sortedImports,
@@ -62,6 +69,7 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
       '@borela-tech/individual-imports': 'error',
       '@borela-tech/individual-re-exports': 'error',
       '@borela-tech/multiline-union-types': 'error',
+      '@borela-tech/prefer-relative-imports': 'error',
       '@borela-tech/single-line-imports': 'error',
       '@borela-tech/single-line-re-exports': 'error',
       '@borela-tech/sorted-imports': 'error',
