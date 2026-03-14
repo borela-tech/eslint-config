@@ -10,7 +10,7 @@
     "typecheck": "./bin/typecheck"
   },
   "type": "module",
-  "main": "src/index.ts",
+  "main": "dist/index.mjs",
   "exports": {
     "import": {
       "types": "./dist/index.d.mts",

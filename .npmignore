@@ -1,9 +1,9 @@
-.idea
-src
+.idea/
+bin/
+src/
 
 .node-version
 eslint.config.ts
-package-scripts.yml
 tsconfig.json
-tsup.config.ts
+tsdown.config.ts
 *.tgz
