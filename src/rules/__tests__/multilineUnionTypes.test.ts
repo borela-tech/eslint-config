@@ -15,24 +15,27 @@ const ruleTester = new RuleTester({
   },
 })
 
-ruleTester.run('multiline-union-types', rule, {
-  valid: [{
-    code: 'type A = B',
-  }, {
+const unionTypeValid = [
+  {code: 'type A = B'},
+  {
     code: dedent`
       type A = 
         | B
         | C
     `,
-  }, {
+  },
+  {
     code: dedent`
       export type A = 
         | B
         | C
         | D
     `,
-  }],
-  invalid: [{
+  },
+]
+
+const unionTypeInvalid = [
+  {
     code: 'type A = B | C | D',
     errors: [{messageId: 'singleLine'}],
     output: dedent`
@@ -41,7 +44,8 @@ ruleTester.run('multiline-union-types', rule, {
         | C
         | D
     `,
-  }, {
+  },
+  {
     code: dedent`
       type A = B | 
         C | 
@@ -54,7 +58,8 @@ ruleTester.run('multiline-union-types', rule, {
         | C
         | D
     `,
-  }, {
+  },
+  {
     code: 'type A = string | number | boolean',
     errors: [{messageId: 'singleLine'}],
     output: dedent`
@@ -63,7 +68,8 @@ ruleTester.run('multiline-union-types', rule, {
         | number
         | boolean
     `,
-  }, {
+  },
+  {
     code: 'export type Foo = Bar | Baz',
     errors: [{messageId: 'singleLine'}],
     output: dedent`
@@ -71,5 +77,14 @@ ruleTester.run('multiline-union-types', rule, {
         | Bar
         | Baz
     `,
-  }],
+  },
+]
+
+ruleTester.run('multiline-union-types', rule, {
+  valid: [
+    ...unionTypeValid,
+  ],
+  invalid: [
+    ...unionTypeInvalid,
+  ],
 })

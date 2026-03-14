@@ -15,24 +15,23 @@ const ruleTester = new RuleTester({
   },
 })
 
-ruleTester.run('individual-imports', rule, {
-  valid: [{
-    code: "import {foo} from 'bar'",
-  }, {
-    code: "import foo from 'bar'",
-  }, {
-    code: "import * as foo from 'bar'",
-  }, {
-    code: "import 'bar'",
-  }],
-  invalid: [{
+const singleImportValid = [
+  {code: "import {foo} from 'bar'"},
+  {code: "import foo from 'bar'"},
+  {code: "import * as foo from 'bar'"},
+  {code: "import 'bar'"},
+]
+
+const multipleImportInvalid = [
+  {
     code: "import {foo, bar} from 'baz'",
     errors: [{messageId: 'individualImports'}],
     output: dedent`
       import {foo} from 'baz'
       import {bar} from 'baz'
     `,
-  }, {
+  },
+  {
     code: "import {foo, bar, baz} from 'qux'",
     errors: [{messageId: 'individualImports'}],
     output: dedent`
@@ -40,5 +39,14 @@ ruleTester.run('individual-imports', rule, {
       import {bar} from 'qux'
       import {baz} from 'qux'
     `,
-  }],
+  },
+]
+
+ruleTester.run('individual-imports', rule, {
+  valid: [
+    ...singleImportValid,
+  ],
+  invalid: [
+    ...multipleImportInvalid,
+  ],
 })

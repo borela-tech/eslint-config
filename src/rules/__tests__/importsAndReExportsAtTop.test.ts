@@ -15,48 +15,56 @@ const ruleTester = new RuleTester({
   },
 })
 
-ruleTester.run('imports-and-re-exports-at-top', rule, {
-  valid: [{
+const importsAtTopValid = [
+  {
     code: dedent`
       import {a} from 'aaa'
       export {a} from 'aaa'
       const c = 1
     `,
-  }, {
+  },
+  {
     code: dedent`
       import {a} from 'aaa'
       import {b} from 'bbb'
       export {c} from 'ccc'
     `,
-  }, {
+  },
+  {
     code: dedent`
       import {a} from 'aaa'
       const c = 1
       function foo() {}
     `,
-  }, {
+  },
+  {
     code: dedent`
       export {a} from 'aaa'
       export * from 'bbb'
       const c = 1
     `,
-  }, {
+  },
+  {
     code: dedent`
       const c = 1
       function foo() {}
     `,
-  }, {
+  },
+  {
     code: dedent`
       import {a} from 'aaa'
     `,
-  }, {
+  },
+  {
     code: dedent`
       export {a} from 'aaa'
     `,
-  }, {
-    code: '',
-  }],
-  invalid: [{
+  },
+  {code: ''},
+]
+
+const importsAtTopInvalid = [
+  {
     code: dedent`
       export {z} from 'zzz'
       const c = 1
@@ -72,7 +80,8 @@ ruleTester.run('imports-and-re-exports-at-top', rule, {
       const c = 1
       function foo() {}
     `,
-  }, {
+  },
+  {
     code: dedent`
       const a = 1
       import {b} from 'bbb'
@@ -84,5 +93,14 @@ ruleTester.run('imports-and-re-exports-at-top', rule, {
       export {c} from 'ccc'
       const a = 1
     `,
-  }],
+  },
+]
+
+ruleTester.run('imports-and-re-exports-at-top', rule, {
+  valid: [
+    ...importsAtTopValid,
+  ],
+  invalid: [
+    ...importsAtTopInvalid,
+  ],
 })

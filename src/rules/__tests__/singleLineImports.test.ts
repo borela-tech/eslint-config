@@ -15,27 +15,20 @@ const ruleTester = new RuleTester({
   },
 })
 
-ruleTester.run('single-line-imports', rule, {
-  valid: [{
-    code: "import {foo} from 'bar'",
-  }, {
-    code: "import foo from 'bar'",
-  }, {
-    code: "import * as foo from 'bar'",
-  }, {
-    code: "import 'bar'",
-  }, {
-    code: "import type {Foo} from 'bar'",
-  }, {
-    code: "import foo, {bar} from 'baz'",
-  }, {
-    code: "import {a, b, c} from 'bar'",
-  }, {
-    code: "import {foo} from 'bar' with {type: 'json'}",
-  }, {
-    code: "import type {Foo} from 'bar' with {type: 'json'}",
-  }],
-  invalid: [{
+const singleLineValid = [
+  {code: "import {foo} from 'bar'"},
+  {code: "import foo from 'bar'"},
+  {code: "import * as foo from 'bar'"},
+  {code: "import 'bar'"},
+  {code: "import type {Foo} from 'bar'"},
+  {code: "import foo, {bar} from 'baz'"},
+  {code: "import {a, b, c} from 'bar'"},
+  {code: "import {foo} from 'bar' with {type: 'json'}"},
+  {code: "import type {Foo} from 'bar' with {type: 'json'}"},
+]
+
+const multilineInvalid = [
+  {
     code: dedent`
       import {
         foo,
@@ -45,7 +38,8 @@ ruleTester.run('single-line-imports', rule, {
     output: dedent`
       import {foo} from 'bar'
     `,
-  }, {
+  },
+  {
     code: dedent`
       import type {
         Foo,
@@ -55,7 +49,8 @@ ruleTester.run('single-line-imports', rule, {
     output: dedent`
       import type {Foo} from 'bar'
     `,
-  }, {
+  },
+  {
     code: dedent`
       import {
         a,
@@ -67,7 +62,8 @@ ruleTester.run('single-line-imports', rule, {
     output: dedent`
       import {a, b, c} from 'bar'
     `,
-  }, {
+  },
+  {
     code: dedent`
       import foo, {
         bar,
@@ -77,7 +73,8 @@ ruleTester.run('single-line-imports', rule, {
     output: dedent`
       import foo, {bar} from 'baz'
     `,
-  }, {
+  },
+  {
     code: dedent`
       import
         foo
@@ -87,7 +84,8 @@ ruleTester.run('single-line-imports', rule, {
     output: dedent`
       import foo from 'bar'
     `,
-  }, {
+  },
+  {
     code: dedent`
       import * as foo
         from 'bar'
@@ -96,7 +94,8 @@ ruleTester.run('single-line-imports', rule, {
     output: dedent`
       import * as foo from 'bar'
     `,
-  }, {
+  },
+  {
     code: dedent`
       import
         'bar'
@@ -105,7 +104,8 @@ ruleTester.run('single-line-imports', rule, {
     output: dedent`
       import 'bar'
     `,
-  }, {
+  },
+  {
     code: dedent`
       import {
         foo,
@@ -115,7 +115,8 @@ ruleTester.run('single-line-imports', rule, {
     output: dedent`
       import {foo} from 'bar' with {type: 'json'}
     `,
-  }, {
+  },
+  {
     code: dedent`
       import type {
         Foo,
@@ -125,5 +126,14 @@ ruleTester.run('single-line-imports', rule, {
     output: dedent`
       import type {Foo} from 'bar' with {type: 'json'}
     `,
-  }],
+  },
+]
+
+ruleTester.run('single-line-imports', rule, {
+  valid: [
+    ...singleLineValid,
+  ],
+  invalid: [
+    ...multilineInvalid,
+  ],
 })

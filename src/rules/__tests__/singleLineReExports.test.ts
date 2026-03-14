@@ -15,28 +15,24 @@ const ruleTester = new RuleTester({
   },
 })
 
-ruleTester.run('single-line-re-exports', rule, {
-  valid: [{
-    code: "export {foo} from 'bar'",
-  }, {
-    code: "export * from 'bar'",
-  }, {
-    code: "export * as foo from 'bar'",
-  }, {
-    code: "export type {Foo} from 'bar'",
-  }, {
-    code: "export {a, b, c} from 'bar'",
-  }, {
-    // Local export, not a re-export
+const singleLineValid = [
+  {code: "export {foo} from 'bar'"},
+  {code: "export * from 'bar'"},
+  {code: "export * as foo from 'bar'"},
+  {code: "export type {Foo} from 'bar'"},
+  {code: "export {a, b, c} from 'bar'"},
+  {
     code: dedent`
       export {
         foo,
       }
     `,
-  }, {
-    code: "export {foo} from 'bar' with {type: 'json'}",
-  }],
-  invalid: [{
+  },
+  {code: "export {foo} from 'bar' with {type: 'json'}"},
+]
+
+const multilineInvalid = [
+  {
     code: dedent`
       export {
         foo,
@@ -46,7 +42,8 @@ ruleTester.run('single-line-re-exports', rule, {
     output: dedent`
       export {foo} from 'bar'
     `,
-  }, {
+  },
+  {
     code: dedent`
       export type {
         Foo,
@@ -56,7 +53,8 @@ ruleTester.run('single-line-re-exports', rule, {
     output: dedent`
       export type {Foo} from 'bar'
     `,
-  }, {
+  },
+  {
     code: dedent`
       export {
         a,
@@ -68,7 +66,8 @@ ruleTester.run('single-line-re-exports', rule, {
     output: dedent`
       export {a, b, c} from 'bar'
     `,
-  }, {
+  },
+  {
     code: `
       export {
         foo,
@@ -78,7 +77,8 @@ ruleTester.run('single-line-re-exports', rule, {
     output: `
       export {foo} from 'bar' with {type: 'json'}
     `,
-  }, {
+  },
+  {
     code: dedent`
       export *
       from 'bar'
@@ -87,7 +87,8 @@ ruleTester.run('single-line-re-exports', rule, {
     output: dedent`
       export * from 'bar'
     `,
-  }, {
+  },
+  {
     code: dedent`
       export * as foo
       from 'bar'
@@ -96,5 +97,14 @@ ruleTester.run('single-line-re-exports', rule, {
     output: dedent`
       export * as foo from 'bar'
     `,
-  }],
+  },
+]
+
+ruleTester.run('single-line-re-exports', rule, {
+  valid: [
+    ...singleLineValid,
+  ],
+  invalid: [
+    ...multilineInvalid,
+  ],
 })
