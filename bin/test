@@ -7,6 +7,6 @@ pushd "$SCRIPT_DIR/.." > /dev/null
 node \
   --import @swc-node/register/esm-register \
   --test \
-  src/rules/__tests__/*.test.ts
+  "$@"
 
 popd > /dev/null

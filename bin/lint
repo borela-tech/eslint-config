@@ -9,6 +9,6 @@ npx eslint \
   --max-warnings 0 \
   --report-unused-disable-directives \
   . \
-  $@
+  "$@"
 
 popd > /dev/null
