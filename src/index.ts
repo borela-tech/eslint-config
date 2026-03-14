@@ -4,6 +4,8 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import stylistic from '@stylistic/eslint-plugin'
 import typescript from 'typescript-eslint'
 import {braceStyleControlStatements} from './rules/braceStyleControlStatements'
+import {functionCallArgumentLineBreak} from './rules/functionCallArgumentLineBreak'
+import {functionParameterLineBreak} from './rules/functionParameterLineBreak'
 import {importsAndReExportsAtTop} from './rules/importsAndReExportsAtTop'
 import {individualImports} from './rules/individualImports'
 import {individualReExports} from './rules/individualReExports'
@@ -51,6 +53,8 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
       '@borela-tech': {
         rules: {
           'brace-style-control-statements': braceStyleControlStatements,
+          'function-call-argument-line-break': functionCallArgumentLineBreak,
+          'function-parameter-line-break': functionParameterLineBreak,
           'imports-and-re-exports-at-top': importsAndReExportsAtTop,
           'individual-imports': individualImports,
           'individual-re-exports': individualReExports,
@@ -65,6 +69,8 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
     },
     rules: {
       '@borela-tech/brace-style-control-statements': 'error',
+      '@borela-tech/function-call-argument-line-break': 'error',
+      '@borela-tech/function-parameter-line-break': 'error',
       '@borela-tech/imports-and-re-exports-at-top': 'error',
       '@borela-tech/individual-imports': 'error',
       '@borela-tech/individual-re-exports': 'error',
