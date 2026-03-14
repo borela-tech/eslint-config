@@ -4,11 +4,17 @@ SCRIPT_DIR=$(dirname -- "${BASH_SOURCE[0]}")
 pushd "$SCRIPT_DIR/.." > /dev/null
 
 ./bin/build
+
+arguments=("$@")
+
+if [ $# -eq 0 ]; then
+  arguments=(.)
+fi
+
 npx eslint \
   --ext ts \
   --max-warnings 0 \
   --report-unused-disable-directives \
-  . \
-  "$@"
+  "$arguments"
 
 popd > /dev/null
