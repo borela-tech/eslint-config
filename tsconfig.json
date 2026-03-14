@@ -9,5 +9,9 @@
     "strictNullChecks": true,
     "target": "ESNext",
   },
-  "include": ["./src/**/*"],
+  "include": [
+    "./src/**/*",
+    "./eslint.config.ts",
+    "./tsdown.config.ts",
+  ],
 }
