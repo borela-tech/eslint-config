@@ -138,11 +138,19 @@ export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
         'never',
         {beforeStatementContinuationChars: 'always'},
       ],
-      '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/consistent-indexed-object-style': 'off',
       '@typescript-eslint/consistent-type-imports': [
         'error',
         {fixStyle: 'separate-type-imports'},
+      ],
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
       ],
     },
   },
