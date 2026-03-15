@@ -79,6 +79,6 @@ const invalid = [
 ]
 
 ruleTester.run('no-inline-object-type-parameters', rule, {
-  valid,
   invalid,
+  valid,
 })

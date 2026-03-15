@@ -37,31 +37,31 @@ const valid = [
 const invalid = [
   {
     code: 'export const foo = 1\nexport const bar = 2',
-    errors: [{messageId: 'tooManyExports', data: {count: 2}}],
+    errors: [{data: {count: 2}, messageId: 'tooManyExports'}],
   },
   {
     code: 'export const foo = 1\nexport default function bar() {}',
-    errors: [{messageId: 'tooManyExports', data: {count: 2}}],
+    errors: [{data: {count: 2}, messageId: 'tooManyExports'}],
   },
   {
     code: 'export default function foo() {}\nexport const bar = 1',
-    errors: [{messageId: 'tooManyExports', data: {count: 2}}],
+    errors: [{data: {count: 2}, messageId: 'tooManyExports'}],
   },
   {
     code: 'export const foo = 1\nexport {bar} from "./bar"',
-    errors: [{messageId: 'tooManyExports', data: {count: 2}}],
+    errors: [{data: {count: 2}, messageId: 'tooManyExports'}],
   },
   {
     code: 'export {foo} from "./foo"\nexport {bar} from "./bar"',
-    errors: [{messageId: 'tooManyExports', data: {count: 2}}],
+    errors: [{data: {count: 2}, messageId: 'tooManyExports'}],
   },
   {
     code: 'export const foo = 1\nexport const bar = 2\nexport const baz = 3',
-    errors: [{messageId: 'tooManyExports', data: {count: 3}}],
+    errors: [{data: {count: 3}, messageId: 'tooManyExports'}],
   },
 ]
 
 ruleTester.run('one-export-per-file', rule, {
-  valid: valid.map(c => ({...c})),
   invalid: invalid.map(c => ({...c})),
+  valid: valid.map(c => ({...c})),
 })

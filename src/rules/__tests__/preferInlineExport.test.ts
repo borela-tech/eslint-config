@@ -125,6 +125,6 @@ const invalid = [
 ]
 
 ruleTester.run('prefer-inline-export', rule, {
-  valid,
   invalid,
+  valid,
 })

@@ -60,27 +60,27 @@ const valid = [
 const invalid = [
   {
     code: 'export const helper = 1',
-    filename: '/test/utils.ts',
     errors: [
       {
+        data: {exportName: 'helper', filename: 'utils'},
         messageId: 'filenameMismatch',
-        data: {filename: 'utils', exportName: 'helper'},
       },
     ],
+    filename: '/test/utils.ts',
   },
   {
     code: 'export function myFunction() {}',
-    filename: '/test/something.ts',
     errors: [
       {
+        data: {exportName: 'myFunction', filename: 'something'},
         messageId: 'filenameMismatch',
-        data: {filename: 'something', exportName: 'myFunction'},
       },
     ],
+    filename: '/test/something.ts',
   },
 ]
 
 ruleTester.run('export-filename-match', rule, {
-  valid: valid.map(c => ({...c})),
   invalid: invalid.map(c => ({...c})),
+  valid: valid.map(c => ({...c})),
 })

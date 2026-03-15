@@ -97,10 +97,10 @@ const importsAtTopInvalid = [
 ]
 
 ruleTester.run('imports-and-re-exports-at-top', rule, {
-  valid: [
-    ...importsAtTopValid,
-  ],
   invalid: [
     ...importsAtTopInvalid,
+  ],
+  valid: [
+    ...importsAtTopValid,
   ],
 })

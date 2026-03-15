@@ -23,9 +23,9 @@ export function checkIfStatement(
     const alternate = node.alternate
     if (isOnSameLineAsCondition(alternate, sourceCode)) {
       context.report({
-        node: alternate,
-        messageId: 'singleLine',
         fix: fixer => createFix(fixer, alternate, sourceCode),
+        messageId: 'singleLine',
+        node: alternate,
       })
     }
   }

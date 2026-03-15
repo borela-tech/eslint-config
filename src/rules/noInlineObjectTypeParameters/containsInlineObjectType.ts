@@ -3,7 +3,7 @@ import type {TSESTree} from '@typescript-eslint/utils'
 
 export function containsInlineObjectType(
   node: TSESTree.Node,
-): TSESTree.TSTypeLiteral | null {
+): null | TSESTree.TSTypeLiteral {
   if (isInlineObjectType(node))
     return node
 

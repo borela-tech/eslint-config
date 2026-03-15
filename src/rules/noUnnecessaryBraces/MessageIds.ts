@@ -1,3 +1,3 @@
 export type MessageIds =
-  | 'unnecessaryBraces'
   | 'missingBraces'
+  | 'unnecessaryBraces'

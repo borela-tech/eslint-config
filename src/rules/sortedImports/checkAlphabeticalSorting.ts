@@ -14,8 +14,8 @@ export function checkAlphabeticalSorting(
     for (let i = 0; i < groupImports.length; i++) {
       if (groupImports[i] !== sorted[i]) {
         errors.push({
-          node: groupImports[i].declaration,
           messageId: 'sortedImports',
+          node: groupImports[i].declaration,
         })
       }
     }

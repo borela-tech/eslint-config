@@ -9,8 +9,8 @@ export function categorizeStatements(
 ): CategorizedStatements {
   const result: CategorizedStatements = {
     imports: [],
-    reExports: [],
     other: [],
+    reExports: [],
   }
 
   for (const statement of statements) {

@@ -5,6 +5,21 @@ import type {TSESLint} from '@typescript-eslint/utils'
 type MessageIds = 'multiline'
 
 export const singleLineImports: TSESLint.RuleModule<MessageIds, []> = {
+  create(context) {
+    return {
+      ImportDeclaration(node) {
+        if (!isMultiline(node))
+          return
+
+        context.report({
+          fix: fixer => createFix(fixer, node, context.sourceCode),
+          messageId: 'multiline',
+          node,
+        })
+      },
+    }
+  },
+
   meta: {
     docs: {
       description: 'Enforce imports to be on a single line',
@@ -15,20 +30,5 @@ export const singleLineImports: TSESLint.RuleModule<MessageIds, []> = {
     },
     schema: [],
     type: 'layout',
-  },
-
-  create(context) {
-    return {
-      ImportDeclaration(node) {
-        if (!isMultiline(node))
-          return
-
-        context.report({
-          node,
-          messageId: 'multiline',
-          fix: fixer => createFix(fixer, node, context.sourceCode),
-        })
-      },
-    }
   },
 }

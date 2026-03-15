@@ -28,8 +28,6 @@ export function checkBlockStatement(
   // If the inner statement is single-line, braces are unnecessary.
   if (isSingleLineStatement(statement, sourceCode)) {
     context.report({
-      node,
-      messageId: 'unnecessaryBraces',
       fix(fixer) {
         const statementText = sourceCode.getText(statement)
 
@@ -53,6 +51,8 @@ export function checkBlockStatement(
         // Always add a newline and indentation to comply with brace-style-control-statements rule
         return fixer.replaceTextRange(range, `\n${statementIndent}${statementText}`)
       },
+      messageId: 'unnecessaryBraces',
+      node,
     })
   }
 }

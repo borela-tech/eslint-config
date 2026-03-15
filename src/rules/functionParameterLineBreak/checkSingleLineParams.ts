@@ -10,12 +10,12 @@ export function checkSingleLineParams(
   params: TSESTree.Parameter[],
   parens:
   {
-    openingParen: {value: string, loc: TSESTree.SourceLocation, range: [number, number]}
-    closingParen: {value: string, loc: TSESTree.SourceLocation, range: [number, number]}
+    closingParen: {loc: TSESTree.SourceLocation, range: [number, number], value: string}
+    openingParen: {loc: TSESTree.SourceLocation, range: [number, number], value: string}
   },
   maxLength: number,
 ): void {
-  const {openingParen, closingParen} = parens
+  const {closingParen, openingParen} = parens
   const lineLength = getLineLength(sourceCode, openingParen.loc.start.line)
 
   if (lineLength <= maxLength)
@@ -23,22 +23,17 @@ export function checkSingleLineParams(
 
   if (params.length === 1) {
     context.report({
+      data: {maxLength},
       loc: {
-        start: {line: openingParen.loc.start.line, column: 0},
-        end: {line: closingParen.loc.end.line, column: lineLength},
+        end: {column: lineLength, line: closingParen.loc.end.line},
+        start: {column: 0, line: openingParen.loc.start.line},
       },
       messageId: 'exceedsMaxLength',
-      data: {maxLength},
     })
     return
   }
 
   context.report({
-    loc: {
-      start: {line: openingParen.loc.start.line, column: 0},
-      end: {line: closingParen.loc.end.line, column: lineLength},
-    },
-    messageId: 'multipleOnSameLine',
     data: {maxLength},
     fix: (fixer): TSESLint.RuleFix => {
       const indent = sourceCode.getText().match(/^[ \t]*/)?.[0] ?? ''
@@ -58,5 +53,10 @@ export function checkSingleLineParams(
         fixed,
       )
     },
+    loc: {
+      end: {column: lineLength, line: closingParen.loc.end.line},
+      start: {column: 0, line: openingParen.loc.start.line},
+    },
+    messageId: 'multipleOnSameLine',
   })
 }

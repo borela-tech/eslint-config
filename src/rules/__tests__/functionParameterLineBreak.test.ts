@@ -50,8 +50,8 @@ const valid = [
 const invalid = [
   {
     code: 'function fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNow(bar, baz) {}',
-    options: [{maxLength: 70}],
     errors: [{messageId: 'multipleOnSameLine'}],
+    options: [{maxLength: 70}],
     output: dedent`
       function fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNow(
         bar,
@@ -61,12 +61,12 @@ const invalid = [
   },
   {
     code: 'function fooBarBazQuxQuxBarBazQuxQuxBarBazQuxBarBazQuux(bar) {}',
-    options: [{maxLength: 50}],
     errors: [{messageId: 'exceedsMaxLength'}],
+    options: [{maxLength: 50}],
   },
 ]
 
 ruleTester.run('function-parameter-line-break', rule, {
-  valid,
   invalid,
+  valid,
 })

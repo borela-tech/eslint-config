@@ -3,17 +3,6 @@ import type {TSESLint} from '@typescript-eslint/utils'
 type MessageIds = 'individualReExports'
 
 export const individualReExports: TSESLint.RuleModule<MessageIds, []> = {
-  meta: {
-    docs: {
-      description: 'Enforce individual exports instead of grouped exports',
-    },
-    fixable: 'code',
-    messages: {
-      individualReExports: 'Use individual exports instead of grouped exports.',
-    },
-    schema: [],
-    type: 'suggestion',
-  },
   create(context) {
     return {
       ExportNamedDeclaration(node) {
@@ -21,8 +10,6 @@ export const individualReExports: TSESLint.RuleModule<MessageIds, []> = {
           return
 
         context.report({
-          node,
-          messageId: 'individualReExports',
           fix(fixer) {
             const source = node.source.value
             const typeKeyword = node.exportKind === 'type'
@@ -44,8 +31,21 @@ export const individualReExports: TSESLint.RuleModule<MessageIds, []> = {
               .join('\n')
             return fixer.replaceText(node, specifiers)
           },
+          messageId: 'individualReExports',
+          node,
         })
       },
     }
+  },
+  meta: {
+    docs: {
+      description: 'Enforce individual exports instead of grouped exports',
+    },
+    fixable: 'code',
+    messages: {
+      individualReExports: 'Use individual exports instead of grouped exports.',
+    },
+    schema: [],
+    type: 'suggestion',
   },
 }

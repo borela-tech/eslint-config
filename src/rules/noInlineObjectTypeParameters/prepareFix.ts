@@ -14,13 +14,13 @@ export function prepareFix(
   const interfaceBlock = interfaceDeclarations.join('\n')
 
   const replacements = inlineTypes.map(({name, typeLiteral}) => ({
-    typeLiteral,
     name,
+    typeLiteral,
   }))
 
   return {
-    interfaceBlock,
     firstUsageLocation: inlineTypes[0].typeLiteral,
+    interfaceBlock,
     replacements,
   }
 }

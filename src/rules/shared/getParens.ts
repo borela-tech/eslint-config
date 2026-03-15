@@ -5,7 +5,7 @@ import type {TSESTree} from '@typescript-eslint/types'
 export function getParens(
   sourceCode: TSESLint.SourceCode,
   nodes: TSESTree.Node[],
-): Parens | null {
+): null | Parens {
   if (nodes.length === 0)
     return null
 
@@ -18,5 +18,5 @@ export function getParens(
   if (!openingParen || !closingParen)
     return null
 
-  return {openingParen, closingParen}
+  return {closingParen, openingParen}
 }

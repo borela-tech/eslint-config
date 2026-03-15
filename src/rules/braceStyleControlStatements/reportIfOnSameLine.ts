@@ -14,9 +14,9 @@ export function reportIfOnSameLine(
   if (body.type !== 'BlockStatement') {
     if (isOnSameLineAsCondition(body, sourceCode)) {
       context.report({
-        node: body,
-        messageId: 'singleLine',
         fix: fixer => createFix(fixer, body, sourceCode),
+        messageId: 'singleLine',
+        node: body,
       })
     }
   } else {
@@ -25,9 +25,9 @@ export function reportIfOnSameLine(
 
     if (isOnSameLine && isSingleLine) {
       context.report({
-        node: body,
-        messageId: 'singleLine',
         fix: fixer => createFix(fixer, body, sourceCode),
+        messageId: 'singleLine',
+        node: body,
       })
     }
   }

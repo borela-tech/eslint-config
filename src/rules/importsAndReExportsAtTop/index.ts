@@ -7,19 +7,6 @@ import type {TSESLint} from '@typescript-eslint/utils'
 type MessageIds = 'importsAndReExportsAtTop'
 
 export const importsAndReExportsAtTop: TSESLint.RuleModule<MessageIds, []> = {
-  meta: {
-    type: 'suggestion',
-    docs: {
-      description: 'Enforce imports and re-exports at the top of the file',
-    },
-    fixable: 'code',
-    messages: {
-      importsAndReExportsAtTop:
-        'Imports and re-exports should be at the top of the file.',
-    },
-    schema: [],
-  },
-
   create(context) {
     return {
       Program(node) {
@@ -31,15 +18,28 @@ export const importsAndReExportsAtTop: TSESLint.RuleModule<MessageIds, []> = {
           return
 
         context.report({
-          node,
-          messageId: 'importsAndReExportsAtTop',
-
           fix(fixer) {
             const sortedText = generateSortedText(context, categories)
             return fixer.replaceText(node, sortedText)
           },
+          messageId: 'importsAndReExportsAtTop',
+
+          node,
         })
       },
     }
+  },
+
+  meta: {
+    docs: {
+      description: 'Enforce imports and re-exports at the top of the file',
+    },
+    fixable: 'code',
+    messages: {
+      importsAndReExportsAtTop:
+        'Imports and re-exports should be at the top of the file.',
+    },
+    schema: [],
+    type: 'suggestion',
   },
 }

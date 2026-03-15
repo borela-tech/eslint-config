@@ -8,55 +8,55 @@ export const perfectionistRules: TSESLint.FlatConfig.Config = {
   rules: {
     'perfectionist/sort-array-includes': [
       'error',
-      { type: 'natural', order: 'asc' },
+      {order: 'asc', type: 'natural'},
     ],
     'perfectionist/sort-decorators': [
       'error',
-      { type: 'natural', order: 'asc' },
+      {order: 'asc', type: 'natural'},
     ],
     'perfectionist/sort-enums': [
       'error',
-      { type: 'natural', order: 'asc' },
+      {order: 'asc', type: 'natural'},
     ],
     'perfectionist/sort-heritage-clauses': [
       'error',
-      { type: 'natural', order: 'asc' },
+      {order: 'asc', type: 'natural'},
     ],
     'perfectionist/sort-interfaces': [
       'error',
-      { type: 'natural', order: 'asc' },
+      {order: 'asc', type: 'natural'},
     ],
     'perfectionist/sort-intersection-types': [
       'error',
-      { type: 'natural', order: 'asc' },
+      {order: 'asc', type: 'natural'},
     ],
     'perfectionist/sort-jsx-props': [
       'error',
-      { type: 'natural', order: 'asc' },
+      {order: 'asc', type: 'natural'},
     ],
     'perfectionist/sort-maps': [
       'error',
-      { type: 'natural', order: 'asc' },
+      {order: 'asc', type: 'natural'},
     ],
     'perfectionist/sort-object-types': [
       'error',
-      { type: 'natural', order: 'asc' },
+      {order: 'asc', type: 'natural'},
     ],
     'perfectionist/sort-objects': [
       'error',
-      { type: 'natural', order: 'asc' },
+      {order: 'asc', type: 'natural'},
     ],
     'perfectionist/sort-sets': [
       'error',
-      { type: 'natural', order: 'asc' },
+      {order: 'asc', type: 'natural'},
     ],
     'perfectionist/sort-switch-case': [
       'error',
-      { type: 'natural', order: 'asc' },
+      {order: 'asc', type: 'natural'},
     ],
     'perfectionist/sort-union-types': [
       'error',
-      { type: 'natural', order: 'asc' },
+      {order: 'asc', type: 'natural'},
     ],
   },
 }

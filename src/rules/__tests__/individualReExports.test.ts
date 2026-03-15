@@ -62,10 +62,10 @@ const multipleReExportInvalid = [
 ]
 
 ruleTester.run('individual-re-exports', rule, {
-  valid: [
-    ...singleReExportValid,
-  ],
   invalid: [
     ...multipleReExportInvalid,
+  ],
+  valid: [
+    ...singleReExportValid,
   ],
 })

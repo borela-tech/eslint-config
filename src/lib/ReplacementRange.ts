@@ -1,4 +1,4 @@
 export interface ReplacementRange {
-  start: number
   end: number
+  start: number
 }

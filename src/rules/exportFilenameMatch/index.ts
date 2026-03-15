@@ -6,15 +6,6 @@ import type {MessageId} from './MessageId'
 import type {TSESLint} from '@typescript-eslint/utils'
 
 export const exportFilenameMatch: TSESLint.RuleModule<MessageId, []> = {
-  meta: {
-    docs: {
-      description: 'Enforce filename matches the single named export',
-    },
-    messages: messageIds,
-    schema: [],
-    type: 'suggestion',
-  },
-
   create(context) {
     const filename = context.filename
     const basename = path.basename(filename)
@@ -41,13 +32,22 @@ export const exportFilenameMatch: TSESLint.RuleModule<MessageId, []> = {
 
           if (exportName !== expectedName) {
             context.report({
-              node: programNode,
+              data: {exportName, filename: expectedName},
               messageId: 'filenameMismatch',
-              data: {filename: expectedName, exportName},
+              node: programNode,
             })
           }
         }
       },
     }
+  },
+
+  meta: {
+    docs: {
+      description: 'Enforce filename matches the single named export',
+    },
+    messages: messageIds,
+    schema: [],
+    type: 'suggestion',
   },
 }

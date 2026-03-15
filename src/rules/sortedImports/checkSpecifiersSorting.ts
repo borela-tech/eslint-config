@@ -13,8 +13,8 @@ export function checkSpecifiersSorting(
     const specifiers = getNamedSpecifiers(declaration)
     if (specifiers.length > 1 && !areSpecifiersSorted(specifiers)) {
       errors.push({
-        node: declaration,
         messageId: 'sortedNames',
+        node: declaration,
       })
     }
   }

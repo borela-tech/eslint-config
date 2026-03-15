@@ -11,7 +11,7 @@ import type {TSESTree} from '@typescript-eslint/types'
 export function checkFunction(
   sourceCode: TSESLint.SourceCode,
   context: TSESLint.RuleContext<MessageId, Options>,
-  node: TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression | TSESTree.FunctionDeclaration,
+  node: TSESTree.ArrowFunctionExpression | TSESTree.FunctionDeclaration | TSESTree.FunctionExpression,
 ): void {
   const options = context.options[0] ?? {}
   const maxLength = options.maxLength ?? defaultOptions.maxLength

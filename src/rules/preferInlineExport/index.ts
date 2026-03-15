@@ -9,26 +9,12 @@ interface LocalDeclaration {
 }
 
 export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
-  meta: {
-    docs: {
-      description:
-        'Enforce using inline export syntax instead of separate export statements',
-    },
-    fixable: 'code',
-    messages: {
-      preferInline:
-        'Use inline export instead of separate export statement',
-    },
-    schema: [],
-    type: 'suggestion',
-  },
-
   create(context) {
     const localDeclarations = new Map<string, LocalDeclaration>()
 
     function getDeclarationName(
       node: TSESTree.Node,
-    ): string | null {
+    ): null | string {
       const nodeType = node.type
 
       if (
@@ -64,12 +50,7 @@ export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
     }
 
     return {
-      TSInterfaceDeclaration: visitDeclaration,
-      TSTypeAliasDeclaration: visitDeclaration,
       ClassDeclaration: visitDeclaration,
-      FunctionDeclaration: visitDeclaration,
-      VariableDeclaration: visitDeclaration,
-
       ExportNamedDeclaration(node) {
         if (node.source)
           return
@@ -95,8 +76,6 @@ export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
 
         if (canInline && node.specifiers.length > 0) {
           context.report({
-            node,
-            messageId: 'preferInline',
             fix(fixer) {
               const fixes: ReturnType<typeof fixer.insertTextBefore>[] = []
 
@@ -117,9 +96,30 @@ export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
 
               return fixes
             },
+            messageId: 'preferInline',
+            node,
           })
         }
       },
+      FunctionDeclaration: visitDeclaration,
+      TSInterfaceDeclaration: visitDeclaration,
+      TSTypeAliasDeclaration: visitDeclaration,
+
+      VariableDeclaration: visitDeclaration,
     }
+  },
+
+  meta: {
+    docs: {
+      description:
+        'Enforce using inline export syntax instead of separate export statements',
+    },
+    fixable: 'code',
+    messages: {
+      preferInline:
+        'Use inline export instead of separate export statement',
+    },
+    schema: [],
+    type: 'suggestion',
   },
 }

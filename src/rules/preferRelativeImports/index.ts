@@ -8,6 +8,29 @@ import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
 
 export const preferRelativeImports: TSESLint.RuleModule<MessageIds, []> = {
+  create(context) {
+    const program = getProgram(context)
+    if (!program)
+      return {}
+
+    const compilerOptions = program.getCompilerOptions()
+    const baseUrl = resolveBaseUrl(compilerOptions)
+    if (!baseUrl)
+      return {}
+
+    const aliases = parsePathAliases(compilerOptions)
+
+    return {
+      ExportNamedDeclaration(node) {
+        const filePath = getFilePath(context)
+        handleExportNamedDeclaration(node, context, filePath, aliases)
+      },
+      ImportDeclaration(node) {
+        const filePath = getFilePath(context)
+        handleImportDeclaration(node, context, filePath, aliases)
+      },
+    }
+  },
   meta: {
     docs: {
       description:
@@ -22,28 +45,5 @@ export const preferRelativeImports: TSESLint.RuleModule<MessageIds, []> = {
     },
     schema: [],
     type: 'suggestion',
-  },
-  create(context) {
-    const program = getProgram(context)
-    if (!program)
-      return {}
-
-    const compilerOptions = program.getCompilerOptions()
-    const baseUrl = resolveBaseUrl(compilerOptions)
-    if (!baseUrl)
-      return {}
-
-    const aliases = parsePathAliases(compilerOptions)
-
-    return {
-      ImportDeclaration(node) {
-        const filePath = getFilePath(context)
-        handleImportDeclaration(node, context, filePath, aliases)
-      },
-      ExportNamedDeclaration(node) {
-        const filePath = getFilePath(context)
-        handleExportNamedDeclaration(node, context, filePath, aliases)
-      },
-    }
   },
 }

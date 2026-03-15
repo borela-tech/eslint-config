@@ -7,7 +7,7 @@ export function findMatchingAlias(
 ) {
   const normalizedTarget = path.normalize(targetPath)
 
-  for (const {alias, target, prefix} of aliases) {
+  for (const {alias, prefix, target} of aliases) {
     const normalizedAliasTarget = path.normalize(target)
 
     if (normalizedTarget.startsWith(normalizedAliasTarget + path.sep)) {

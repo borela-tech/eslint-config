@@ -316,14 +316,6 @@ const mixedValid = []
 const mixedInvalid = []
 
 ruleTester.run('sorted-re-exports', rule, {
-  valid: [
-    ...localExportValid,
-    ...namedReExportValid,
-    ...allReExportValid,
-    ...namespaceReExportValid,
-    ...typeReExportValid,
-    ...mixedValid,
-  ],
   invalid: [
     ...namedReExportInvalid,
     ...allReExportInvalid,
@@ -331,5 +323,13 @@ ruleTester.run('sorted-re-exports', rule, {
     ...typeReExportInvalid,
     ...groupOrderingInvalid,
     ...mixedInvalid,
+  ],
+  valid: [
+    ...localExportValid,
+    ...namedReExportValid,
+    ...allReExportValid,
+    ...namespaceReExportValid,
+    ...typeReExportValid,
+    ...mixedValid,
   ],
 })

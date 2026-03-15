@@ -84,10 +84,10 @@ const unionTypeInvalid = [
 ]
 
 ruleTester.run('multiline-union-type-aliases', rule, {
-  valid: [
-    ...unionTypeValid,
-  ],
   invalid: [
     ...unionTypeInvalid,
+  ],
+  valid: [
+    ...unionTypeValid,
   ],
 })

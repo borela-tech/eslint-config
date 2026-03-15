@@ -14,35 +14,11 @@ export const noInlineObjectTypeParameters: TSESLint.RuleModule<
   MessageIds,
   []
 > = {
-  meta: {
-    docs: {
-      description: 'Disallow inline object type literals in type annotations',
-    },
-    fixable: 'code',
-    messages: {
-      inlineObjectType:
-        'Inline object types are not allowed. Use a named interface or type instead.',
-    },
-    schema: [],
-    type: 'suggestion',
-  },
-
   create(context) {
     const sourceCode = context.sourceCode
     const inlineTypes: InlineTypeEntry[] = []
 
     const listener = {
-      TSTypeAnnotation(node: TSESTree.TSTypeAnnotation) {
-        if (isNestedTypeAnnotation(node))
-          return
-
-        const typeLiteral = containsInlineObjectType(node)
-        if (!typeLiteral)
-          return
-
-        handleInlineType(node, typeLiteral, inlineTypes)
-      },
-
       TSTypeAliasDeclaration(node: TSESTree.TSTypeAliasDeclaration) {
         const typeLiteral = containsInlineObjectType(node.typeAnnotation)
         if (!typeLiteral)
@@ -53,12 +29,23 @@ export const noInlineObjectTypeParameters: TSESLint.RuleModule<
           return
 
         inlineTypes.push({
-          typeLiteral,
           annotationNode: node as unknown as TSESTree.TSTypeAnnotation,
-          location: result.node,
           insertLocation: result.insertLocation,
           isExported: result.isExported,
+          location: result.node,
+          typeLiteral,
         })
+      },
+
+      TSTypeAnnotation(node: TSESTree.TSTypeAnnotation) {
+        if (isNestedTypeAnnotation(node))
+          return
+
+        const typeLiteral = containsInlineObjectType(node)
+        if (!typeLiteral)
+          return
+
+        handleInlineType(node, typeLiteral, inlineTypes)
       },
     }
 
@@ -88,8 +75,6 @@ export const noInlineObjectTypeParameters: TSESLint.RuleModule<
           )
 
           context.report({
-            node: typesAtLocation[0].annotationNode,
-            messageId: 'inlineObjectType',
             fix(fixer) {
               const fixes: TSESLint.RuleFix[] = []
 
@@ -121,9 +106,24 @@ export const noInlineObjectTypeParameters: TSESLint.RuleModule<
 
               return fixes
             },
+            messageId: 'inlineObjectType',
+            node: typesAtLocation[0].annotationNode,
           })
         }
       },
     }
+  },
+
+  meta: {
+    docs: {
+      description: 'Disallow inline object type literals in type annotations',
+    },
+    fixable: 'code',
+    messages: {
+      inlineObjectType:
+        'Inline object types are not allowed. Use a named interface or type instead.',
+    },
+    schema: [],
+    type: 'suggestion',
   },
 }

@@ -43,10 +43,10 @@ const multipleImportInvalid = [
 ]
 
 ruleTester.run('individual-imports', rule, {
-  valid: [
-    ...singleImportValid,
-  ],
   invalid: [
     ...multipleImportInvalid,
+  ],
+  valid: [
+    ...singleImportValid,
   ],
 })

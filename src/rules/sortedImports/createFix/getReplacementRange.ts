@@ -10,5 +10,5 @@ export function getReplacementRange(
   const lastImport = programBody[lastIndex]
   const start = firstImport.range![0]
   const end = lastImport.range![1]
-  return {start, end}
+  return {end, start}
 }

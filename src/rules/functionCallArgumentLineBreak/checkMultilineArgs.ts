@@ -18,12 +18,12 @@ export function checkMultilineArgs(
 
     if (lineLength > maxLength) {
       context.report({
+        data: {maxLength},
         loc: {
-          start: {line, column: 0},
-          end: {line, column: lineLength},
+          end: {column: lineLength, line},
+          start: {column: 0, line},
         },
         messageId: 'multipleOnSameLine',
-        data: {maxLength},
       })
     }
   }

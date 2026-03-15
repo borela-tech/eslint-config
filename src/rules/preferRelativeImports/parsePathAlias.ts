@@ -23,7 +23,7 @@ export function parsePathAlias(
 
   return {
     alias,
-    target: resolvedTarget,
     prefix: alias + '/',
+    target: resolvedTarget,
   }
 }

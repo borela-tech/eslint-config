@@ -7,7 +7,7 @@ export function createFix(
   fixer: TSESLint.RuleFixer,
   body: TSESTree.Statement,
   sourceCode: SourceCode,
-): TSESLint.RuleFix | null {
+): null | TSESLint.RuleFix {
   if (body.type === 'BlockStatement') {
     const firstToken = sourceCode.getFirstToken(body)
     if (!firstToken)

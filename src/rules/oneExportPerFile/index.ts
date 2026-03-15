@@ -4,15 +4,6 @@ import type {MessageId} from './MessageId'
 import type {TSESLint} from '@typescript-eslint/utils'
 
 export const oneExportPerFile: TSESLint.RuleModule<MessageId, []> = {
-  meta: {
-    docs: {
-      description: 'Enforce single export per file',
-    },
-    messages: messageIds,
-    schema: [],
-    type: 'suggestion',
-  },
-
   create(context) {
     const filename = context.filename
 
@@ -22,23 +13,32 @@ export const oneExportPerFile: TSESLint.RuleModule<MessageId, []> = {
     let exportCount = 0
 
     return {
-      ExportNamedDeclaration(_node) {
+      ExportDefaultDeclaration(_node) {
         exportCount++
       },
 
-      ExportDefaultDeclaration(_node) {
+      ExportNamedDeclaration(_node) {
         exportCount++
       },
 
       'Program:exit'(programNode) {
         if (exportCount > 1) {
           context.report({
-            node: programNode,
-            messageId: 'tooManyExports',
             data: {count: exportCount},
+            messageId: 'tooManyExports',
+            node: programNode,
           })
         }
       },
     }
+  },
+
+  meta: {
+    docs: {
+      description: 'Enforce single export per file',
+    },
+    messages: messageIds,
+    schema: [],
+    type: 'suggestion',
   },
 }

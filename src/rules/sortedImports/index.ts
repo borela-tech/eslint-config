@@ -13,19 +13,6 @@ type MessageIds =
   | 'wrongGroup'
 
 export const sortedImports: TSESLint.RuleModule<MessageIds, []> = {
-  meta: {
-    docs: {
-      description: 'Enforce sorted imports alphabetically',
-    },
-    fixable: 'code',
-    messages: {
-      sortedImports: 'Imports should be sorted alphabetically',
-      sortedNames: 'Named imports should be sorted alphabetically',
-      wrongGroup: 'Import is in wrong group',
-    },
-    schema: [],
-    type: 'suggestion',
-  },
   create(context) {
     return {
       Program(node) {
@@ -49,15 +36,28 @@ export const sortedImports: TSESLint.RuleModule<MessageIds, []> = {
 
         for (const error of allErrors) {
           context.report({
-            node: error.node,
-            messageId: error.messageId,
             fix(fixer) {
               const sourceCode = context.sourceCode
               return createFix(fixer, importGroups, sourceCode)
             },
+            messageId: error.messageId,
+            node: error.node,
           })
         }
       },
     }
+  },
+  meta: {
+    docs: {
+      description: 'Enforce sorted imports alphabetically',
+    },
+    fixable: 'code',
+    messages: {
+      sortedImports: 'Imports should be sorted alphabetically',
+      sortedNames: 'Named imports should be sorted alphabetically',
+      wrongGroup: 'Import is in wrong group',
+    },
+    schema: [],
+    type: 'suggestion',
   },
 }

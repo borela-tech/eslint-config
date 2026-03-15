@@ -8,24 +8,11 @@ import type {ReExportError} from './ReExportError'
 import type {TSESLint} from '@typescript-eslint/utils'
 
 type MessageIds =
-  | 'sortedReExports'
   | 'sortedNames'
+  | 'sortedReExports'
   | 'wrongGroup'
 
 export const sortedReExports: TSESLint.RuleModule<MessageIds, []> = {
-  meta: {
-    docs: {
-      description: 'Enforce sorted exports alphabetically',
-    },
-    fixable: 'code',
-    messages: {
-      sortedReExports: 'Exports should be sorted alphabetically',
-      sortedNames: 'Named exports should be sorted alphabetically',
-      wrongGroup: 'Export is in wrong group',
-    },
-    schema: [],
-    type: 'suggestion',
-  },
   create(context) {
     return {
       Program(node) {
@@ -49,15 +36,28 @@ export const sortedReExports: TSESLint.RuleModule<MessageIds, []> = {
 
         for (const error of allErrors) {
           context.report({
-            node: error.node,
-            messageId: error.messageId,
             fix(fixer) {
               const sourceCode = context.sourceCode
               return createFix(fixer, reExportGroups, sourceCode)
             },
+            messageId: error.messageId,
+            node: error.node,
           })
         }
       },
     }
+  },
+  meta: {
+    docs: {
+      description: 'Enforce sorted exports alphabetically',
+    },
+    fixable: 'code',
+    messages: {
+      sortedNames: 'Named exports should be sorted alphabetically',
+      sortedReExports: 'Exports should be sorted alphabetically',
+      wrongGroup: 'Export is in wrong group',
+    },
+    schema: [],
+    type: 'suggestion',
   },
 }

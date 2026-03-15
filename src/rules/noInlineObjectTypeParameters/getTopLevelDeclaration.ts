@@ -2,11 +2,11 @@ import type {TSESTree} from '@typescript-eslint/utils'
 
 export function getTopLevelDeclaration(
   node: TSESTree.Node,
-): {
-  node: TSESTree.Node
+): undefined | {
   insertLocation: TSESTree.Node
   isExported: boolean
-} | undefined {
+  node: TSESTree.Node
+} {
   let current: TSESTree.Node | undefined = node
   while (current) {
     if (
@@ -22,16 +22,16 @@ export function getTopLevelDeclaration(
 
       if (isExported && parent) {
         return {
-          node: current,
           insertLocation: parent,
           isExported: true,
+          node: current,
         }
       }
 
       return {
-        node: current,
         insertLocation: current,
         isExported: false,
+        node: current,
       }
     }
     current = current.parent as TSESTree.Node | undefined

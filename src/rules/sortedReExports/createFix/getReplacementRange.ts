@@ -10,7 +10,7 @@ export function getReplacementRange(
   const lastIndex = findLastExportIndex(programBody)
 
   if (firstIndex === -1 || lastIndex === -1)
-    return {start: 0, end: 0}
+    return {end: 0, start: 0}
 
   const firstExport = programBody[firstIndex]
   const lastExport = programBody[lastIndex]
@@ -18,5 +18,5 @@ export function getReplacementRange(
   const start = firstExport.range[0]
   const end = lastExport.range[1]
 
-  return {start, end}
+  return {end, start}
 }

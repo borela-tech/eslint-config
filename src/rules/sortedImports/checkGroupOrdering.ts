@@ -12,8 +12,8 @@ export function checkGroupOrdering(
     const groupIndex = importGroupOrder.indexOf(group)
     if (groupIndex < currentGroupIndex) {
       errors.push({
-        node: declaration,
         messageId: 'wrongGroup',
+        node: declaration,
       })
     } else
       currentGroupIndex = groupIndex

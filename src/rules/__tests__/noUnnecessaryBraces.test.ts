@@ -269,15 +269,15 @@ const invalidMultiLineWithoutBraces = [
 ]
 
 ruleTester.run('no-unnecessary-braces', rule, {
+  invalid: [
+    ...invalidSingleLineWithBraces,
+    ...invalidMultiLineWithoutBraces,
+  ],
   valid: [
     ...validSingleLineWithoutBraces.map(code => ({code})),
     ...validMultiLineWithBraces.map(code => ({code})),
     ...validMultiStatement.map(code => ({code})),
     ...validEmptyBlock.map(code => ({code})),
     ...validElseIf.map(code => ({code})),
-  ],
-  invalid: [
-    ...invalidSingleLineWithBraces,
-    ...invalidMultiLineWithoutBraces,
   ],
 })

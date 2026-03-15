@@ -130,10 +130,10 @@ const multilineInvalid = [
 ]
 
 ruleTester.run('single-line-imports', rule, {
-  valid: [
-    ...singleLineValid,
-  ],
   invalid: [
     ...multilineInvalid,
+  ],
+  valid: [
+    ...singleLineValid,
   ],
 })

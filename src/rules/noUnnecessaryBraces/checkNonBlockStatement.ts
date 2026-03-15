@@ -19,8 +19,6 @@ export function checkNonBlockStatement(
   // If the statement spans multiple lines, it needs braces
   if (!isSingleLineStatement(node, sourceCode)) {
     context.report({
-      node,
-      messageId: 'missingBraces',
       fix(fixer) {
         const statementText = sourceCode.getText(node)
         const parent = node.parent
@@ -45,6 +43,8 @@ export function checkNonBlockStatement(
 
         return [fixer.replaceText(node, fixed)]
       },
+      messageId: 'missingBraces',
+      node,
     })
   }
 }

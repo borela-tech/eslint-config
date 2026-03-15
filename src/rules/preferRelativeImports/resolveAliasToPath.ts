@@ -5,7 +5,7 @@ export function resolveAliasToPath(
   importPath: string,
   aliases: PathAlias[],
 ) {
-  for (const {alias, target, prefix} of aliases) {
+  for (const {alias, prefix, target} of aliases) {
     if (importPath === alias)
       return target
 

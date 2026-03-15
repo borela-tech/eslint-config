@@ -101,10 +101,10 @@ const multilineInvalid = [
 ]
 
 ruleTester.run('single-line-re-exports', rule, {
-  valid: [
-    ...singleLineValid,
-  ],
   invalid: [
     ...multilineInvalid,
+  ],
+  valid: [
+    ...singleLineValid,
   ],
 })

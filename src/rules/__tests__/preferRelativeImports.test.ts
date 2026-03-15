@@ -16,8 +16,8 @@ const ruleTester = new RuleTester({
     parser: typescript.parser,
     parserOptions: {
       ecmaVersion: 2020,
-      sourceType: 'module',
       project: tsconfigPath,
+      sourceType: 'module',
       tsconfigRootDir: projectRoot,
     },
   },
@@ -48,24 +48,24 @@ const relativeImportValid = [
 const aliasImportInvalid = [
   {
     code: "import {foo} from '@lib/compare'",
-    filename: path.join(projectRoot, 'src/index.ts'),
     errors: [{messageId: 'preferRelativeForSibling'}],
+    filename: path.join(projectRoot, 'src/index.ts'),
     output: "import {foo} from './lib/compare'",
   },
   {
     code: "import {foo} from '@lib/compare'",
-    filename: path.join(projectRoot, 'src/lib/compare.ts'),
     errors: [{messageId: 'preferRelativeForSibling'}],
+    filename: path.join(projectRoot, 'src/lib/compare.ts'),
     output: "import {foo} from './compare'",
   },
 ]
 
 ruleTester.run('prefer-relative-imports', rule, {
+  invalid: [
+    ...aliasImportInvalid,
+  ],
   valid: [
     ...externalPackageValid,
     ...relativeImportValid,
-  ],
-  invalid: [
-    ...aliasImportInvalid,
   ],
 })

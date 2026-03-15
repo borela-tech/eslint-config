@@ -15,8 +15,8 @@ export function checkSpecifiersSorting(
     const isSorted = areSpecifiersSorted(specifiers)
     if (specifiers.length > 1 && !isSorted) {
       errors.push({
-        node: declaration,
         messageId: 'sortedNames',
+        node: declaration,
       })
     }
   }

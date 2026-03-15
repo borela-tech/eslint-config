@@ -6,6 +6,15 @@ import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
 
 export const noUnnecessaryBraces: TSESLint.RuleModule<MessageIds, []> = {
+  create(context) {
+    return {
+      DoWhileStatement: node => checkDoWhileStatement(node, context),
+      ForStatement: node => checkForStatement(node, context),
+      IfStatement: node => checkIfStatement(node, context),
+      WhileStatement: node => checkWhileStatement(node, context),
+    }
+  },
+
   meta: {
     docs: {
       description:
@@ -13,19 +22,10 @@ export const noUnnecessaryBraces: TSESLint.RuleModule<MessageIds, []> = {
     },
     fixable: 'code',
     messages: {
-      unnecessaryBraces: 'Unnecessary braces around single-line statement',
       missingBraces: 'Multi-line statement must be wrapped in braces',
+      unnecessaryBraces: 'Unnecessary braces around single-line statement',
     },
     schema: [],
     type: 'suggestion',
-  },
-
-  create(context) {
-    return {
-      IfStatement: node => checkIfStatement(node, context),
-      ForStatement: node => checkForStatement(node, context),
-      WhileStatement: node => checkWhileStatement(node, context),
-      DoWhileStatement: node => checkDoWhileStatement(node, context),
-    }
   },
 }

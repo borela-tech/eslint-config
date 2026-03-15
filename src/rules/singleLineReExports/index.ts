@@ -7,18 +7,6 @@ import type {TSESTree} from '@typescript-eslint/utils'
 type MessageIds = 'multiline'
 
 export const singleLineReExports: TSESLint.RuleModule<MessageIds, []> = {
-  meta: {
-    docs: {
-      description: 'Enforce re-exports to be on a single line',
-    },
-    fixable: 'code',
-    messages: {
-      multiline: 'Re-export should be on a single line',
-    },
-    schema: [],
-    type: 'layout',
-  },
-
   create(context) {
     const checkDeclaration = (
       node: TSESTree.Node,
@@ -32,17 +20,29 @@ export const singleLineReExports: TSESLint.RuleModule<MessageIds, []> = {
         return
 
       context.report({
-        node,
-        messageId: 'multiline',
         fix: fixer => createFix(fixer, declaration, context.sourceCode),
+        messageId: 'multiline',
+        node,
       })
     }
 
     return {
-      ExportNamedDeclaration: node =>
-        checkDeclaration(node, node),
       ExportAllDeclaration: node =>
         checkDeclaration(node, node),
+      ExportNamedDeclaration: node =>
+        checkDeclaration(node, node),
     }
+  },
+
+  meta: {
+    docs: {
+      description: 'Enforce re-exports to be on a single line',
+    },
+    fixable: 'code',
+    messages: {
+      multiline: 'Re-export should be on a single line',
+    },
+    schema: [],
+    type: 'layout',
   },
 }

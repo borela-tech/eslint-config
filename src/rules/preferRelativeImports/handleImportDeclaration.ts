@@ -29,15 +29,15 @@ export function handleImportDeclaration(
       return
 
     context.report({
-      node: node.source,
-      messageId: 'preferAliasForParent',
       data: {
-        expected: aliasPath,
         actual: importPath,
+        expected: aliasPath,
       },
       fix(fixer) {
         return fixer.replaceText(node.source, `'${aliasPath}'`)
       },
+      messageId: 'preferAliasForParent',
+      node: node.source,
     })
   }
 
@@ -51,15 +51,15 @@ export function handleImportDeclaration(
       return
 
     context.report({
-      node: node.source,
-      messageId: 'preferRelativeForSibling',
       data: {
-        expected: relativePath,
         actual: importPath,
+        expected: relativePath,
       },
       fix(fixer) {
         return fixer.replaceText(node.source, `'${relativePath}'`)
       },
+      messageId: 'preferRelativeForSibling',
+      node: node.source,
     })
   }
 }

@@ -12,10 +12,10 @@ export function handleInlineType(
     return
 
   inlineTypes.push({
-    typeLiteral,
     annotationNode: node,
-    location: result.node,
     insertLocation: result.insertLocation,
     isExported: result.isExported,
+    location: result.node,
+    typeLiteral,
   })
 }

@@ -105,14 +105,6 @@ const doWhileInvalid = [
 ]
 
 ruleTester.run('brace-style-control-statements', rule, {
-  valid: [
-    ...ifValid,
-    ...elseValid,
-    ...elseIfValid,
-    ...forValid,
-    ...whileValid,
-    ...doWhileValid,
-  ].map(code => ({code})),
   invalid: [
     ...ifInvalid,
     ...elseInvalid,
@@ -121,4 +113,12 @@ ruleTester.run('brace-style-control-statements', rule, {
     ...whileInvalid,
     ...doWhileInvalid,
   ],
+  valid: [
+    ...ifValid,
+    ...elseValid,
+    ...elseIfValid,
+    ...forValid,
+    ...whileValid,
+    ...doWhileValid,
+  ].map(code => ({code})),
 })

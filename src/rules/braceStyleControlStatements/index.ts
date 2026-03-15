@@ -6,6 +6,15 @@ import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
 
 export const braceStyleControlStatements: TSESLint.RuleModule<MessageIds, []> = {
+  create(context) {
+    return {
+      DoWhileStatement: node => checkDoWhileStatement(node, context),
+      ForStatement: node => checkForStatement(node, context),
+      IfStatement: node => checkIfStatement(node, context),
+      WhileStatement: node => checkWhileStatement(node, context),
+    }
+  },
+
   meta: {
     docs: {
       description: 'Enforce control statements to have multi-line body',
@@ -16,14 +25,5 @@ export const braceStyleControlStatements: TSESLint.RuleModule<MessageIds, []> = 
     },
     schema: [],
     type: 'layout',
-  },
-
-  create(context) {
-    return {
-      IfStatement: node => checkIfStatement(node, context),
-      ForStatement: node => checkForStatement(node, context),
-      WhileStatement: node => checkWhileStatement(node, context),
-      DoWhileStatement: node => checkDoWhileStatement(node, context),
-    }
   },
 }

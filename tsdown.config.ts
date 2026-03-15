@@ -4,6 +4,9 @@ import {defineConfig} from 'tsdown'
 export default defineConfig(options => {
   return {
     ...options,
+    alias: {
+      '@lib': path.resolve(process.cwd(), 'src/lib'),
+    },
     clean: true,
     deps: {
       skipNodeModulesBundle: true,
@@ -13,10 +16,7 @@ export default defineConfig(options => {
       index: 'src/index.ts',
     },
     format: ['esm'],
-    splitting: false,
     sourcemap: true,
-    alias: {
-      '@lib': path.resolve(process.cwd(), 'src/lib'),
-    },
+    splitting: false,
   }
 })

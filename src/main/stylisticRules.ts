@@ -2,10 +2,6 @@ import type {TSESLint} from '@typescript-eslint/utils'
 
 export const stylisticRules: TSESLint.FlatConfig.Config = {
   rules: {
-    '@stylistic/arrow-parens': [
-      'error',
-      'as-needed',
-    ],
     '@stylistic/array-bracket-newline': [
       'error',
       'consistent',
@@ -17,6 +13,10 @@ export const stylisticRules: TSESLint.FlatConfig.Config = {
     '@stylistic/array-element-newline': [
       'error',
       'consistent',
+    ],
+    '@stylistic/arrow-parens': [
+      'error',
+      'as-needed',
     ],
     '@stylistic/block-spacing': 'off',
     '@stylistic/brace-style': [
@@ -53,14 +53,14 @@ export const stylisticRules: TSESLint.FlatConfig.Config = {
       'before',
       {overrides: {'=': 'after'}},
     ],
+    '@stylistic/quote-props': [
+      'error',
+      'as-needed',
+    ],
     '@stylistic/quotes': [
       'error',
       'single',
       {avoidEscape: true},
-    ],
-    '@stylistic/quote-props': [
-      'error',
-      'as-needed',
     ],
     '@stylistic/semi': [
       'error',

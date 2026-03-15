@@ -5,13 +5,13 @@ export function groupImportsByType(
   categorized: CategorizedImport[],
 ): Record<ImportGroup, CategorizedImport[]> {
   const grouped: Record<ImportGroup, CategorizedImport[]> = {
-    'side-effect': [],
-    namespace: [],
     default: [],
     named: [],
-    'type-namespace': [],
+    namespace: [],
+    'side-effect': [],
     'type-default': [],
     'type-named': [],
+    'type-namespace': [],
   }
 
   for (const item of categorized)

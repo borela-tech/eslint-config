@@ -415,14 +415,6 @@ const mixedInvalid = [
 ]
 
 ruleTester.run('sorted-imports', rule, {
-  valid: [
-    ...sideEffectValid,
-    ...namedValid,
-    ...defaultValid,
-    ...namespaceValid,
-    ...typeImportValid,
-    ...mixedValid,
-  ],
   invalid: [
     ...sideEffectInvalid,
     ...namedInvalid,
@@ -431,5 +423,13 @@ ruleTester.run('sorted-imports', rule, {
     ...typeImportInvalid,
     ...groupOrderingInvalid,
     ...mixedInvalid,
+  ],
+  valid: [
+    ...sideEffectValid,
+    ...namedValid,
+    ...defaultValid,
+    ...namespaceValid,
+    ...typeImportValid,
+    ...mixedValid,
   ],
 })
