@@ -1,5 +1,7 @@
-import {baseConfigs} from './main/baseConfigs'
-import {configFilesRules} from './main/configFilesRules'
+import eslint from '@eslint/js'
+import react from 'eslint-plugin-react'
+import stylistic from '@stylistic/eslint-plugin'
+import typescript from 'typescript-eslint'
 import {customRules} from './main/customRules'
 import {generalRules} from './main/generalRules'
 import {ignores} from './main/ignores'
@@ -13,12 +15,17 @@ import type {TSESLint} from '@typescript-eslint/utils'
 export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
   ignores,
   languageOptions,
-  ...baseConfigs,
-  reactHooks,
+  //////////////////////////////////////////////////////////////////////////////
+  eslint.configs.recommended,
+  react.configs.flat.recommended,
+  stylistic.configs.recommended,
+  ...typescript.configs.recommended,
+  ...typescript.configs.stylistic,
+  //////////////////////////////////////////////////////////////////////////////
   customRules,
   generalRules,
-  configFilesRules,
+  perfectionistRules,
+  reactHooks,
   stylisticRules,
   typescriptRules,
-  perfectionistRules,
 ]
