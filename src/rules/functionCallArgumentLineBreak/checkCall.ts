@@ -10,10 +10,10 @@ import type {TSESTree} from '@typescript-eslint/types'
 
 export function checkCall(
   sourceCode: TSESLint.SourceCode,
-  context: TSESLint.RuleContext<MessageId, Options>,
+  context: TSESLint.RuleContext<MessageId, [Options]>,
   node: TSESTree.CallExpression,
 ): void {
-  const options = context.options[0] ?? {}
+  const options = context.options[0] as Options ?? {}
   const maxLength = options.maxLength ?? defaultOptions.maxLength
 
   const args = node.arguments as TSESTree.Node[]

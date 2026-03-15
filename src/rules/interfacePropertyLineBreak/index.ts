@@ -4,7 +4,7 @@ import type {MessageId} from './MessageId'
 import type {Options} from './Options'
 import type {TSESLint} from '@typescript-eslint/utils'
 
-export const interfacePropertyLineBreak: TSESLint.RuleModule<MessageId, Options> = {
+export const interfacePropertyLineBreak: TSESLint.RuleModule<MessageId, [Options]> = {
   create(context) {
     const sourceCode = context.sourceCode ?? context.getSourceCode()
 

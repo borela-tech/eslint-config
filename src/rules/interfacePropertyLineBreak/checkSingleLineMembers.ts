@@ -7,7 +7,7 @@ import type {TSESTree} from '@typescript-eslint/types'
 
 export function checkSingleLineMembers(
   sourceCode: TSESLint.SourceCode,
-  context: TSESLint.RuleContext<MessageId, Options>,
+  context: TSESLint.RuleContext<MessageId, [Options]>,
   members: TSESTree.TSInterfaceBody['body'],
   parens: Braces,
   maxLength: number,

@@ -7,7 +7,7 @@ import type {TSESTree} from '@typescript-eslint/types'
 
 export function checkMultilineParams(
   sourceCode: TSESLint.SourceCode,
-  context: TSESLint.RuleContext<MessageId, Options>,
+  context: TSESLint.RuleContext<MessageId, [Options]>,
   params: TSESTree.Parameter[],
   maxLength: number,
 ): void {

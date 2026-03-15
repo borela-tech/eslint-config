@@ -6,7 +6,7 @@ import type {TSESTree} from '@typescript-eslint/types'
 
 export function checkMultilineMembers(
   sourceCode: TSESLint.SourceCode,
-  context: TSESLint.RuleContext<MessageId, Options>,
+  context: TSESLint.RuleContext<MessageId, [Options]>,
   members: TSESTree.TSInterfaceBody['body'],
   maxLength: number,
 ): void {

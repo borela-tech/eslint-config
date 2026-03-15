@@ -5,7 +5,7 @@ import type {Options} from './Options'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/types'
 
-export const functionCallArgumentLineBreak: TSESLint.RuleModule<MessageId, Options> = {
+export const functionCallArgumentLineBreak: TSESLint.RuleModule<MessageId, [Options]> = {
   create(context) {
     const sourceCode = context.sourceCode ?? context.getSourceCode()
 

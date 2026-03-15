@@ -9,10 +9,10 @@ import type {TSESTree} from '@typescript-eslint/types'
 
 export function checkInterface(
   sourceCode: TSESLint.SourceCode,
-  context: TSESLint.RuleContext<MessageId, Options>,
+  context: TSESLint.RuleContext<MessageId, [Options]>,
   node: TSESTree.TSInterfaceDeclaration,
 ): void {
-  const options = context.options[0] ?? {}
+  const options = context.options[0] as Options ?? {}
   const maxLength = options.maxLength ?? defaultOptions.maxLength
 
   const body = node.body

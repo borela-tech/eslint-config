@@ -7,7 +7,7 @@ import type {TSESTree} from '@typescript-eslint/types'
 
 export function checkMultilineArgs(
   sourceCode: TSESLint.SourceCode,
-  context: TSESLint.RuleContext<MessageId, Options>,
+  context: TSESLint.RuleContext<MessageId, [Options]>,
   args: TSESTree.Node[],
   maxLength: number,
 ): void {

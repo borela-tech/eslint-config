@@ -11,7 +11,7 @@ interface Parens {
 
 export function checkSingleLineArgs(
   sourceCode: TSESLint.SourceCode,
-  context: TSESLint.RuleContext<MessageId, Options>,
+  context: TSESLint.RuleContext<MessageId, [Options]>,
   args: TSESTree.Node[],
   parens: Parens,
   maxLength: number,

@@ -10,10 +10,10 @@ import type {TSESTree} from '@typescript-eslint/types'
 
 export function checkFunction(
   sourceCode: TSESLint.SourceCode,
-  context: TSESLint.RuleContext<MessageId, Options>,
+  context: TSESLint.RuleContext<MessageId, [Options]>,
   node: TSESTree.ArrowFunctionExpression | TSESTree.FunctionDeclaration | TSESTree.FunctionExpression,
 ): void {
-  const options = context.options[0] ?? {}
+  const options = context.options[0] as Options ?? {}
   const maxLength = options.maxLength ?? defaultOptions.maxLength
 
   const params = node.params
