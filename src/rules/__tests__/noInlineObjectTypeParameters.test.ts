@@ -23,7 +23,8 @@ const valid = [
   {code: 'type Union = Foo | Bar'},
   {code: 'type Intersection = Foo & Bar'},
   {code: 'interface Foo { prop: Bar }'},
-  {code: 'interface Foo { prop: { a: string } }'}, // Interface properties are allowed to be complex
+  // Interface properties are allowed to be complex.
+  {code: 'interface Foo { prop: { a: string } }'},
   {code: 'let arr: Foo[]'},
   {code: 'let map: Map<string, Foo>'},
 ]
