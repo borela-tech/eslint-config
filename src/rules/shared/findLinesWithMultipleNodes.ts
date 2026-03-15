@@ -1,5 +1,7 @@
+interface Nodes {loc: {end: {line: number}, start: {line: number}}}
+
 export function findLinesWithMultipleNodes(
-  nodes: {loc: {end: {line: number}, start: {line: number}}}[],
+  nodes: Nodes[],
 ): number[] {
   const lines: number[] = []
 

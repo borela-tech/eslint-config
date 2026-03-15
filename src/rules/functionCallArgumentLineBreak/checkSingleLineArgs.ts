@@ -4,15 +4,16 @@ import type {Options} from './Options'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/types'
 
+interface Parens {
+  closingParen: {loc: TSESTree.SourceLocation, range: [number, number], value: string}
+  openingParen: {loc: TSESTree.SourceLocation, range: [number, number], value: string}
+}
+
 export function checkSingleLineArgs(
   sourceCode: TSESLint.SourceCode,
   context: TSESLint.RuleContext<MessageId, Options>,
   args: TSESTree.Node[],
-  parens:
-  {
-    closingParen: {loc: TSESTree.SourceLocation, range: [number, number], value: string}
-    openingParen: {loc: TSESTree.SourceLocation, range: [number, number], value: string}
-  },
+  parens: Parens,
   maxLength: number,
 ): void {
   const {closingParen, openingParen} = parens

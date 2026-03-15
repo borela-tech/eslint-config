@@ -1,13 +1,16 @@
 import type {TSESTree} from '@typescript-eslint/utils'
 
-export function getTopLevelDeclaration(
-  node: TSESTree.Node,
-): undefined | {
+interface TopLevelDeclaration {
   insertLocation: TSESTree.Node
   isExported: boolean
   node: TSESTree.Node
-} {
+}
+
+export function getTopLevelDeclaration(
+  node: TSESTree.Node,
+): TopLevelDeclaration | undefined {
   let current: TSESTree.Node | undefined = node
+
   while (current) {
     if (
       current.type === 'FunctionDeclaration'
@@ -36,5 +39,6 @@ export function getTopLevelDeclaration(
     }
     current = current.parent as TSESTree.Node | undefined
   }
+
   return undefined
 }
