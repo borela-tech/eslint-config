@@ -11,7 +11,6 @@ import {noInlineObjectTypeParameters} from '../rules/noInlineObjectTypeParameter
 import {noUnnecessaryBraces} from '../rules/noUnnecessaryBraces'
 import {oneExportPerFile} from '../rules/oneExportPerFile'
 import {preferInlineExport} from '../rules/preferInlineExport'
-import {preferRelativeImports} from '../rules/preferRelativeImports'
 import {singleLineImports} from '../rules/singleLineImports'
 import {singleLineReExports} from '../rules/singleLineReExports'
 import {sortedImports} from '../rules/sortedImports'
@@ -35,7 +34,6 @@ export const customRules: TSESLint.FlatConfig.Config = {
         'no-unnecessary-braces': noUnnecessaryBraces,
         'one-export-per-file': oneExportPerFile,
         'prefer-inline-export': preferInlineExport,
-        'prefer-relative-imports': preferRelativeImports,
         'single-line-imports': singleLineImports,
         'single-line-re-exports': singleLineReExports,
         'sorted-imports': sortedImports,
