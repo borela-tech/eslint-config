@@ -11,6 +11,10 @@ export function resolveBaseUrl(compilerOptions: CompilerOptions) {
     const configFile = compilerOptions.configFilePath
     if (configFile)
       return path.dirname(configFile as string)
+
+    const tsconfigRootDir = compilerOptions.tsconfigRootDir
+    if (tsconfigRootDir)
+      return tsconfigRootDir
   }
 
   return undefined

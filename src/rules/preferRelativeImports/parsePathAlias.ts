@@ -18,6 +18,10 @@ export function parsePathAlias(
     if (configFile) {
       const parentDirectory = path.dirname(configFile as string)
       resolvedTarget = path.resolve(parentDirectory, targetPath)
+    } else {
+      const tsconfigRootDir = compilerOptions.tsconfigRootDir
+      if (typeof tsconfigRootDir === 'string')
+        resolvedTarget = path.resolve(tsconfigRootDir, targetPath)
     }
   }
 
