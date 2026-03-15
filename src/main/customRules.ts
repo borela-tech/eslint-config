@@ -5,6 +5,7 @@ import {functionParameterLineBreak} from '../rules/functionParameterLineBreak'
 import {importsAndReExportsAtTop} from '../rules/importsAndReExportsAtTop'
 import {individualImports} from '../rules/individualImports'
 import {individualReExports} from '../rules/individualReExports'
+import {interfacePropertyLineBreak} from '../rules/interfacePropertyLineBreak'
 import {multilineUnionTypeAliases} from '../rules/multilineUnionTypeAliases'
 import {noInlineObjectTypeParameters} from '../rules/noInlineObjectTypeParameters'
 import {noUnnecessaryBraces} from '../rules/noUnnecessaryBraces'
@@ -28,6 +29,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
         'imports-and-re-exports-at-top': importsAndReExportsAtTop,
         'individual-imports': individualImports,
         'individual-re-exports': individualReExports,
+        'interface-property-line-break': interfacePropertyLineBreak,
         'multiline-union-type-aliases': multilineUnionTypeAliases,
         'no-inline-object-type-parameters': noInlineObjectTypeParameters,
         'no-unnecessary-braces': noUnnecessaryBraces,
@@ -52,6 +54,10 @@ export const customRules: TSESLint.FlatConfig.Config = {
     '@borela-tech/imports-and-re-exports-at-top': 'error',
     '@borela-tech/individual-imports': 'error',
     '@borela-tech/individual-re-exports': 'error',
+    '@borela-tech/interface-property-line-break': [
+      'error',
+      {maxLength: 80},
+    ],
     '@borela-tech/multiline-union-type-aliases': 'error',
     '@borela-tech/no-inline-object-type-parameters': 'error',
     '@borela-tech/no-unnecessary-braces': 'error',
