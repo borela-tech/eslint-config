@@ -1,4 +1,4 @@
-import {isExempt} from './isExempt'
+import {isExempt} from '../shared/isExempt'
 import {messageIds} from './MessageIds'
 import type {MessageId} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
