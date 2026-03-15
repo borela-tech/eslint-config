@@ -53,7 +53,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
     '@borela-tech/individual-imports': 'error',
     '@borela-tech/individual-re-exports': 'error',
     '@borela-tech/multiline-union-type-aliases': 'error',
-    '@borela-tech/no-inline-object-type-parameters': 'off',
+    '@borela-tech/no-inline-object-type-parameters': 'error',
     '@borela-tech/no-unnecessary-braces': 'error',
     '@borela-tech/one-export-per-file': 'error',
     '@borela-tech/prefer-inline-export': 'error',
