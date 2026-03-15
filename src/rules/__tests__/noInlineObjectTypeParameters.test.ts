@@ -23,6 +23,7 @@ const valid = [
   {code: 'type Union = Foo | Bar'},
   {code: 'type Intersection = Foo & Bar'},
   {code: 'interface Foo { prop: Bar }'},
+  {code: 'interface Foo { prop: { a: string } }'}, // Interface properties are allowed to be complex
   {code: 'let arr: Foo[]'},
   {code: 'let map: Map<string, Foo>'},
 ]
@@ -66,14 +67,6 @@ const invalid = [
     output: dedent`
       interface InlineType { a: string }
       let x: InlineType = { a: "" }
-    `,
-  },
-  {
-    code: 'interface Foo { prop: { a: string } }',
-    errors: [{messageId: 'inlineObjectType'}],
-    output: dedent`
-      interface InlineType { a: string }
-      interface Foo { prop: InlineType }
     `,
   },
   {
