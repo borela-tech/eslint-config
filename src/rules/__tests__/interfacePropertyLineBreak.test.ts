@@ -108,6 +108,22 @@ const invalid = [
       {line: 3, messageId: 'exceedsMaxLength'},
     ],
     options: [{maxLength: 50}],
+    output: dedent`
+      interface Foo {
+        bar: {
+          a: string
+          b: number
+          c: boolean
+          d: boolean
+        }
+        baz: {
+          e: string
+          f: number
+          g: boolean
+          h: boolean
+        }
+      }
+    `,
   },
 ]
 
