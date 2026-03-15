@@ -3,6 +3,7 @@
 SCRIPT_DIR=$(dirname -- "${BASH_SOURCE[0]}")
 pushd "$SCRIPT_DIR/.." > /dev/null
 
+./bin/build
 npx tsc --noEmit "$@"
 
 popd > /dev/null

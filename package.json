@@ -44,7 +44,7 @@
   "devDependencies": {
     "@swc-node/register": "^1.11.1",
     "@swc/core": "^1.15.18",
-    "@types/node": "^25.3.3",
+    "@types/node": "^22.0.0",
     "eslint": "^9.24.0",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
