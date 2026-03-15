@@ -5,8 +5,16 @@ import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/types'
 
 interface Parens {
-  closingParen: {loc: TSESTree.SourceLocation, range: [number, number], value: string}
-  openingParen: {loc: TSESTree.SourceLocation, range: [number, number], value: string}
+  closingParen: {
+    loc: TSESTree.SourceLocation
+    range: [number, number]
+    value: string
+  }
+  openingParen: {
+    loc: TSESTree.SourceLocation
+    range: [number, number]
+    value: string
+  }
 }
 
 export function checkSingleLineParams(
