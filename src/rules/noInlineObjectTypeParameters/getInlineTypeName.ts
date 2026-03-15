@@ -3,8 +3,11 @@ import type {TSESTree} from '@typescript-eslint/utils'
 export function getInlineTypeName(
   usedNames: Set<string>,
   _existingInterfaces: TSESTree.TSInterfaceDeclaration[],
+  parameterName?: string,
 ): string {
-  const baseName = 'InlineType'
+  const baseName = parameterName
+    ? toPascalCase(parameterName)
+    : 'InlineType'
 
   if (!usedNames.has(baseName)) {
     usedNames.add(baseName)
@@ -18,4 +21,8 @@ export function getInlineTypeName(
   const name = `${baseName}${counter}`
   usedNames.add(name)
   return name
+}
+
+function toPascalCase(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1)
 }

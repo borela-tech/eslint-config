@@ -5,5 +5,6 @@ export interface InlineTypeEntry {
   insertLocation: TSESTree.Node
   isExported: boolean
   location: TSESTree.Node
+  parameterName?: string
   typeLiteral: TSESTree.TSTypeLiteral
 }

@@ -32,24 +32,32 @@ const invalid = [
     code: 'function foo(x: { a: string }) {}',
     errors: [{messageId: 'inlineObjectType'}],
     output: dedent`
-      interface InlineType { a: string }
-      function foo(x: InlineType) {}
+      interface X { a: string }
+      function foo(x: X) {}
+    `,
+  },
+  {
+    code: 'function foo({ a, b }: { a: string }) {}',
+    errors: [{messageId: 'inlineObjectType'}],
+    output: dedent`
+      interface Options { a: string }
+      function foo({ a, b }: Options) {}
+    `,
+  },
+  {
+    code: 'function foo(): { a: string } { return { a: "" } }',
+    errors: [{messageId: 'inlineObjectType'}],
+    output: dedent`
+      interface Foo { a: string }
+      function foo(): Foo { return { a: "" } }
     `,
   },
   {
     code: 'export function foo(x: { a: string }) {}',
     errors: [{messageId: 'inlineObjectType'}],
     output: dedent`
-      export function foo(x: InlineType) {}
-      interface InlineType { a: string }
-    `,
-  },
-  {
-    code: 'function bar(): { a: string } { return { a: "" } }',
-    errors: [{messageId: 'inlineObjectType'}],
-    output: dedent`
-      interface InlineType { a: string }
-      function bar(): InlineType { return { a: "" } }
+      export function foo(x: X) {}
+      interface X { a: string }
     `,
   },
   {

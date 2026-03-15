@@ -33,6 +33,7 @@ export const noInlineObjectTypeParameters: TSESLint.RuleModule<
           insertLocation: result.insertLocation,
           isExported: result.isExported,
           location: result.node,
+          parameterName: undefined,
           typeLiteral,
         })
       },
@@ -62,9 +63,10 @@ export const noInlineObjectTypeParameters: TSESLint.RuleModule<
           const typesAtLocation = inlineTypes.filter(t => t.insertLocation === loc)
 
           const typesForLocation: InlineTypeInfo[] = typesAtLocation.map(entry => {
-            const name = getInlineTypeName(usedNames, [])
+            const name = getInlineTypeName(usedNames, [], entry.parameterName)
             return {
               name,
+              parameterName: entry.parameterName,
               typeLiteral: entry.typeLiteral,
             }
           })
