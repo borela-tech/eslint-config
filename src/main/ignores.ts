@@ -5,6 +5,5 @@ export const ignores: TSESLint.FlatConfig.Config = {
     'src/graphql/sdk.ts',
     '**/node_modules/**',
     '**/dist/**',
-    'eslint.config.mjs',
   ],
 }

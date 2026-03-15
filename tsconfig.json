@@ -11,7 +11,7 @@
   },
   "include": [
     "./src/**/*",
-    "./eslint.config.mjs",
+    "./eslint.config.ts",
     "./vite.config.ts",
   ],
   "allowDefaultProject": ["./eslint.config.mjs"]
