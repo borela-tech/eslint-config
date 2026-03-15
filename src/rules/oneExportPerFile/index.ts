@@ -22,15 +22,11 @@ export const oneExportPerFile: TSESLint.RuleModule<MessageId, []> = {
     let exportCount = 0
 
     return {
-      ExportNamedDeclaration(node) {
-        if ((node.exportKind as string) === 'type')
-          return
+      ExportNamedDeclaration(_node) {
         exportCount++
       },
 
-      ExportDefaultDeclaration(node) {
-        if ((node.exportKind as string) === 'type')
-          return
+      ExportDefaultDeclaration(_node) {
         exportCount++
       },
 
