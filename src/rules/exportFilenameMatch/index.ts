@@ -1,8 +1,8 @@
 import path from 'node:path'
 import {getExportedNames} from './getExportedNames'
 import {isExempt} from '../shared/isExempt'
-import {messageIds} from './MessageIds'
-import type {MessageId} from './MessageIds'
+import {messageIds} from './messageIds'
+import type {MessageId} from './MessageId'
 import type {TSESLint} from '@typescript-eslint/utils'
 
 export const exportFilenameMatch: TSESLint.RuleModule<MessageId, []> = {

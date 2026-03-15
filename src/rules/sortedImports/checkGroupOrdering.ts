@@ -1,4 +1,4 @@
-import {importGroupOrder} from './ImportGroupOrder'
+import {importGroupOrder} from './importGroupOrder'
 import type {CategorizedImport} from './CategorizedImport'
 import type {ImportError} from './ImportError'
 

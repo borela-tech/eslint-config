@@ -1,5 +1,5 @@
 import {formatNamedImport} from './formatNamedImport'
-import {importGroupOrder} from '../ImportGroupOrder'
+import {importGroupOrder} from '../importGroupOrder'
 import type {CategorizedImport} from '../CategorizedImport'
 import type {ImportGroup} from '../ImportGroup'
 import type {TSESLint} from '@typescript-eslint/utils'

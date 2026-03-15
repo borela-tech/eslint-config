@@ -1,4 +1,4 @@
-import {reExportGroupOrder} from './ReExportGroupOrder'
+import {reExportGroupOrder} from './reExportGroupOrder'
 import type {CategorizedReExport} from './CategorizedReExport'
 import type {ReExportError} from './ReExportError'
 

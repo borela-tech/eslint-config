@@ -1,6 +1,6 @@
 import {checkCall} from './checkCall'
-import {messageIds} from './MessageIds'
-import type {MessageId} from './MessageIds'
+import {messageIds} from './messageIds'
+import type {MessageId} from './MessageId'
 import type {Options} from './Options'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/types'

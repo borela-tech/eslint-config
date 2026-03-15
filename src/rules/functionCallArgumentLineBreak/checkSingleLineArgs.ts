@@ -1,5 +1,5 @@
 import {getLineLength} from '../shared/getLineLength'
-import type {MessageId} from './MessageIds'
+import type {MessageId} from './MessageId'
 import type {Options} from './Options'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/types'

@@ -1,6 +1,6 @@
 import {formatNamedReExport} from './formatNamedReExport'
 import {isNamedReExport} from '../isNamedReExport'
-import {reExportGroupOrder} from '../ReExportGroupOrder'
+import {reExportGroupOrder} from '../reExportGroupOrder'
 import type {CategorizedReExport} from '../CategorizedReExport'
 import type {ReExportGroup} from '../ReExportGroup'
 import type {TSESLint} from '@typescript-eslint/utils'
