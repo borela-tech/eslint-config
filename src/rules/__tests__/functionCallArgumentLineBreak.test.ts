@@ -1,4 +1,5 @@
 import typescript from 'typescript-eslint'
+import {dedent} from './dedent'
 import {functionCallArgumentLineBreak} from '../functionCallArgumentLineBreak'
 import {RuleTester} from 'eslint'
 import type {Rule} from 'eslint'
@@ -51,10 +52,12 @@ const invalid = [
     code: 'fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNowTestCallExpr(bar, baz)',
     options: [{maxLength: 79}],
     errors: [{messageId: 'multipleOnSameLine'}],
-    output: `fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNowTestCallExpr(
-  bar,
-  baz
-)`,
+    output: dedent`
+      fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNowTestCallExpr(
+        bar,
+        baz
+      )
+    `,
   },
   {
     code: 'fooBarBazQuxQuxBarBazQuxQuxBarBazQuxBarBazQuux(bar)',

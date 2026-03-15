@@ -1,4 +1,5 @@
 import typescript from 'typescript-eslint'
+import {dedent} from './dedent'
 import {noUnnecessaryBraces} from '../noUnnecessaryBraces'
 import {RuleTester} from 'eslint'
 import type {Rule} from 'eslint'
@@ -27,50 +28,68 @@ const validSingleLineWithoutBraces = [
 ]
 
 const validMultiLineWithBraces = [
-  `if (x) {
-    return {
-      foo: 1
+  dedent`
+    if (x) {
+      return {
+        foo: 1
+      }
     }
-  }`,
-  `if (x) {
-    console.log(
-      'hello'
-    )
-  }`,
-  `for (;;) {
-    return {
-      foo: 1
+  `,
+  dedent`
+    if (x) {
+      console.log(
+        'hello'
+      )
     }
-  }`,
-  `while (x) {
-    console.log(
-      'hello'
-    )
-  }`,
-  `do {
-    return {
-      foo: 1
+  `,
+  dedent`
+    for (;;) {
+      return {
+        foo: 1
+      }
     }
-  } while (x)`,
+  `,
+  dedent`
+    while (x) {
+      console.log(
+        'hello'
+      )
+    }
+  `,
+  dedent`
+    do {
+      return {
+        foo: 1
+      }
+    } while (x)
+  `,
 ]
 
 const validMultiStatement = [
-  `if (x) {
-    foo()
-    bar()
-  }`,
-  `for (;;) {
-    foo()
-    bar()
-  }`,
-  `while (x) {
-    foo()
-    bar()
-  }`,
-  `do {
-    foo()
-    bar()
-  } while (x)`,
+  dedent`
+    if (x) {
+      foo()
+      bar()
+    }
+  `,
+  dedent`
+    for (;;) {
+      foo()
+      bar()
+    }
+  `,
+  dedent`
+    while (x) {
+      foo()
+      bar()
+    }
+  `,
+  dedent`
+    do {
+      foo()
+      bar()
+    } while (x)
+  `,
 ]
 
 const validEmptyBlock = [
@@ -89,16 +108,20 @@ const invalidSingleLineWithBraces = [
     output: 'if (x)\n  return {}',
   },
   {
-    code: `if (x) {
-      return {}
-    }`,
+    code: dedent`
+      if (x) {
+        return {}
+      }
+    `,
     errors: [{messageId: 'unnecessaryBraces'}],
     output: 'if (x)\n  return {}',
   },
   {
-    code: `if (x) {
-      foo()
-    }`,
+    code: dedent`
+      if (x) {
+        foo()
+      }
+    `,
     errors: [{messageId: 'unnecessaryBraces'}],
     output: 'if (x)\n  foo()',
   },
@@ -108,9 +131,11 @@ const invalidSingleLineWithBraces = [
     output: 'for (;;)\n  return',
   },
   {
-    code: `for (;;) {
-      break
-    }`,
+    code: dedent`
+      for (;;) {
+        break
+      }
+    `,
     errors: [{messageId: 'unnecessaryBraces'}],
     output: 'for (;;)\n  break',
   },
@@ -120,9 +145,11 @@ const invalidSingleLineWithBraces = [
     output: 'while (x)\n  break',
   },
   {
-    code: `while (x) {
-      return
-    }`,
+    code: dedent`
+      while (x) {
+        return
+      }
+    `,
     errors: [{messageId: 'unnecessaryBraces'}],
     output: 'while (x)\n  return',
   },
@@ -132,9 +159,11 @@ const invalidSingleLineWithBraces = [
     output: 'do\n  return; while (x)',
   },
   {
-    code: `do {
-      break;
-    } while (x)`,
+    code: dedent`
+      do {
+        break;
+      } while (x)
+    `,
     errors: [{messageId: 'unnecessaryBraces'}],
     output: 'do\n  break; while (x)',
   },
@@ -142,76 +171,100 @@ const invalidSingleLineWithBraces = [
 
 const invalidMultiLineWithoutBraces = [
   {
-    code: `if (x) console.log(
-      'hello'
-    )`,
+    code: dedent`
+      if (x) console.log(
+        'hello'
+      )
+    `,
     errors: [{messageId: 'missingBraces'}],
-    output: `if (x) {
-  console.log(
-    'hello'
-  )
-}`,
+    output: dedent`
+      if (x) {
+        console.log(
+          'hello'
+        )
+      }
+    `,
   },
   {
-    code: `for (;;) console.log(
-      'hello'
-    )`,
+    code: dedent`
+      for (;;) console.log(
+        'hello'
+      )
+    `,
     errors: [{messageId: 'missingBraces'}],
-    output: `for (;;) {
-  console.log(
-    'hello'
-  )
-}`,
+    output: dedent`
+      for (;;) {
+        console.log(
+          'hello'
+        )
+      }
+    `,
   },
   {
-    code: `while (x) console.log(
-      'hello'
-    )`,
+    code: dedent`
+      while (x) console.log(
+        'hello'
+      )
+    `,
     errors: [{messageId: 'missingBraces'}],
-    output: `while (x) {
-  console.log(
-    'hello'
-  )
-}`,
+    output: dedent`
+      while (x) {
+        console.log(
+          'hello'
+        )
+      }
+    `,
   },
   {
-    code: `do console.log(
-      'hello'
-    ); while (x)`,
+    code: dedent`
+      do console.log(
+        'hello'
+      ); while (x)
+    `,
     errors: [{messageId: 'missingBraces'}],
-    output: `do {
-  console.log(
-    'hello'
-  );
-} while (x)`,
+    output: dedent`
+      do {
+        console.log(
+          'hello'
+        );
+      } while (x)
+    `,
   },
   {
-    code: `if (x) return {
-      foo: 1,
-      bar: 2
-    }`,
+    code: dedent`
+      if (x) return {
+        foo: 1,
+        bar: 2
+      }
+    `,
     errors: [{messageId: 'missingBraces'}],
-    output: `if (x) {
-  return {
-    foo: 1,
-    bar: 2
-  }
-}`,
+    output: dedent`
+      if (x) {
+        return {
+          foo: 1,
+          bar: 2
+        }
+      }
+    `,
   },
   {
-    code: `if (x) foo(
-        a,
-        b,
-        c
-      )`,
+    code: dedent`
+      if (x) foo(
+          a,
+          b,
+          c
+        )
+    `,
     errors: [{messageId: 'missingBraces'}],
-    output: `if (x) {
-  foo(
-    a,
-    b,
-    c
-  )
-}`,
+    output: dedent`
+      if (x) {
+        foo(
+          a,
+          b,
+          c
+        )
+      }
+    `,
   },
 ]
 
