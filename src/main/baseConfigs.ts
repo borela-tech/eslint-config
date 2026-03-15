@@ -2,8 +2,9 @@ import eslint from '@eslint/js'
 import react from 'eslint-plugin-react'
 import stylistic from '@stylistic/eslint-plugin'
 import typescript from 'typescript-eslint'
+import type {TSESLint} from '@typescript-eslint/utils'
 
-export const baseConfigs = [
+export const baseConfigs: TSESLint.FlatConfig.ConfigArray = [
   eslint.configs.recommended,
   react.configs.flat.recommended,
   stylistic.configs.recommended,
