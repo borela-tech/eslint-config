@@ -8,7 +8,7 @@ import type {TSESTree} from '@typescript-eslint/types'
 
 export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {
-    const localDeclarations = new Map<string, LocalDeclaration>()
+    const FooBar = new Map<string, LocalDeclaration>()
 
     function visitDeclaration(node: TSESTree.Node): void {
       if (!isExportableDeclaration(node))
@@ -16,7 +16,7 @@ export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
 
       const name = getDeclarationName(node)
       if (name)
-        localDeclarations.set(name, {name, node})
+        FooBar.set(name, {name, node})
     }
 
     return {
@@ -28,7 +28,7 @@ export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
         if (!node.specifiers || node.specifiers.length === 0)
           return
 
-        if (!canInlineSpecifiers(node.specifiers, localDeclarations))
+        if (!canInlineSpecifiers(node.specifiers, FooBar))
           return
 
         context.report({
@@ -37,7 +37,7 @@ export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
 
             for (const specifier of node.specifiers) {
               const name = (specifier.local as TSESTree.Identifier).name
-              const decl = localDeclarations.get(name)
+              const decl = FooBar.get(name)
               if (decl)
                 fixes.push(fixer.insertTextBefore(decl.node, 'export '))
             }
