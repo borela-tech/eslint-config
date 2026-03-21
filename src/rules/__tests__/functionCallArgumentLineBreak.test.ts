@@ -64,6 +64,21 @@ const invalid = [
     errors: [{messageId: 'exceedsMaxLength'}],
     options: [{maxLength: 50}],
   },
+  {
+    code: dedent`
+      foo(
+        barVeryVeryVeryVeryVeryVeryVeryLong, bazVeryVeryVeryVeryVeryVeryVeryLong
+      )
+    `,
+    errors: [{messageId: 'multipleOnSameLine'}],
+    options: [{maxLength: 60}],
+    output: dedent`
+      foo(
+          barVeryVeryVeryVeryVeryVeryVeryLong,
+          bazVeryVeryVeryVeryVeryVeryVeryLong
+      )
+    `,
+  },
 ]
 
 ruleTester.run('function-call-argument-line-break', rule, {
