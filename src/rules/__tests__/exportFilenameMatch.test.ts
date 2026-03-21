@@ -36,6 +36,10 @@ const valid = [
     filename: '/test/Bar.ts',
   },
   {
+    code: 'export type FooBar = string',
+    filename: '/test/FooBar.ts',
+  },
+  {
     code: 'const foo = 1\nconst bar = 2\nexport {foo, bar}',
     filename: '/test/someFile.ts',
   },
@@ -77,6 +81,16 @@ const invalid = [
       },
     ],
     filename: '/test/something.ts',
+  },
+  {
+    code: 'export type FooBar = string',
+    errors: [
+      {
+        data: {exportName: 'FooBar', filename: 'fooBar'},
+        messageId: 'filenameMismatch',
+      },
+    ],
+    filename: '/test/fooBar.ts',
   },
 ]
 

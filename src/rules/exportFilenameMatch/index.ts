@@ -19,9 +19,6 @@ export const exportFilenameMatch: TSESLint.RuleModule<MessageId, []> = {
 
     return {
       ExportNamedDeclaration(node) {
-        if (node.exportKind === 'type')
-          return
-
         const names = getExportedNames(node)
         exportNames.push(...names)
       },
