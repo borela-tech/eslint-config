@@ -7,7 +7,7 @@ export const generalRules: TSESLint.FlatConfig.Config = {
       'always',
       {ignoreConsecutiveComments: true},
     ],
-    'complexity': ['error', 10],
+    complexity: ['error', 10],
     'no-restricted-exports': [
       'error',
       {
