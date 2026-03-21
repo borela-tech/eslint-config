@@ -1,4 +1,12 @@
+import {collectVariableDeclarators} from './collectVariableDeclarators'
+import {handleClassDeclaration} from './handleClassDeclaration'
+import {handleFunctionDeclaration} from './handleFunctionDeclaration'
+import {handleTSDeclareFunction} from './handleTSDeclareFunction'
+import {handleTSEnumDeclaration} from './handleTSEnumDeclaration'
+import {handleTSInterfaceDeclaration} from './handleTSInterfaceDeclaration'
+import {handleTSTypeAliasDeclaration} from './handleTSTypeAliasDeclaration'
 import {isExempt} from './isExempt'
+import {isExportedDeclaration} from './isExportedDeclaration'
 import {isTopLevel} from './isTopLevel'
 import {messageIds} from './messageIds'
 import type {MessageId} from './MessageId'
@@ -17,13 +25,11 @@ export const maxDeclarationsPerFile: TSESLint.RuleModule<MessageId, []> = {
 
     return {
       ClassDeclaration(node) {
-        if (isTopLevel(node) && node.id?.name)
-          functions.add(node.id.name)
+        handleClassDeclaration(node, functions)
       },
 
       FunctionDeclaration(node) {
-        if (isTopLevel(node) && node.id?.name)
-          functions.add(node.id.name)
+        handleFunctionDeclaration(node, functions)
       },
 
       'Program:exit'(_programNode) {
@@ -43,40 +49,31 @@ export const maxDeclarationsPerFile: TSESLint.RuleModule<MessageId, []> = {
       },
 
       TSDeclareFunction(node) {
-        if (isTopLevel(node) && node.id?.name)
-          functions.add(node.id.name)
+        handleTSDeclareFunction(node, functions)
       },
 
       TSEnumDeclaration(node) {
-        if (isTopLevel(node) && node.id?.name)
-          types.add(node.id.name)
+        handleTSEnumDeclaration(node, types)
       },
 
       TSInterfaceDeclaration(node) {
-        if (isTopLevel(node) && node.id?.name)
-          types.add(node.id.name)
+        handleTSInterfaceDeclaration(node, types)
       },
 
       TSTypeAliasDeclaration(node) {
-        if (isTopLevel(node) && node.id?.name)
-          types.add(node.id.name)
+        handleTSTypeAliasDeclaration(node, types)
       },
 
       VariableDeclaration(node) {
         if (!isTopLevel(node))
           return
+
         const parent = node.parent
-        const isReExport = parent?.type === 'ExportNamedDeclaration'
-          && parent.source !== null
-        if (isReExport)
+
+        if (!isExportedDeclaration(parent) && !node.declare)
           return
-        const isExported = parent?.type === 'ExportNamedDeclaration'
-        if (!isExported && !node.declare)
-          return
-        for (const declarator of node.declarations) {
-          if (declarator.id.type === 'Identifier' && declarator.id.name)
-            types.add(declarator.id.name)
-        }
+
+        collectVariableDeclarators(node, types)
       },
 
       'VariableDeclaration > VariableDeclarator > ArrowFunctionExpression'(
