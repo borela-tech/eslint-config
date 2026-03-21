@@ -15,8 +15,9 @@ Shared ESLint configuration for Borela Tech projects.
   - [Perfectionist](https://github.com/azat-io/eslint-plugin-perfectionist)
   - [React](https://github.com/jsx-eslint/eslint-plugin-react)
   - [React Hooks](https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks)
-  - [TypeScript ESLint](https://typescript-eslint.io/)
   - [Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
+  - [TypeScript ESLint](https://typescript-eslint.io/)
+  - [Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn) (53 rules)
 - 17 custom rules for consistent code organization:
   - [`brace-style-control-statements`](#brace-style-control-statements)
   - [`export-filename-match`](#export-filename-match)
