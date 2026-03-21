@@ -1,49 +1,19 @@
+import {canInlineSpecifiers} from './canInlineSpecifiers'
+import {getDeclarationName} from './getDeclarationName'
+import {isExportableDeclaration} from './isExportableDeclaration'
+import type {LocalDeclaration} from './LocalDeclaration'
+import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/types'
-
-type MessageIds = 'preferInline'
-
-interface LocalDeclaration {
-  name: string
-  node: TSESTree.Node
-}
 
 export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {
     const localDeclarations = new Map<string, LocalDeclaration>()
 
-    function getDeclarationName(
-      node: TSESTree.Node,
-    ): null | string {
-      const nodeType = node.type
-
-      if (
-        nodeType === 'TSInterfaceDeclaration'
-        || nodeType === 'TSTypeAliasDeclaration'
-        || nodeType === 'ClassDeclaration'
-        || nodeType === 'FunctionDeclaration'
-      ) {
-        const id = (node as TSESTree.FunctionDeclaration).id
-          ?? (node as TSESTree.ClassDeclaration).id
-          ?? (node as TSESTree.TSTypeAliasDeclaration).id
-          ?? (node as TSESTree.TSInterfaceDeclaration).id
-        return id?.name ?? null
-      }
-
-      if (nodeType === 'VariableDeclaration') {
-        const declarations = (node as TSESTree.VariableDeclaration)
-          .declarations
-        if (declarations.length === 1) {
-          const id = declarations[0].id
-          if (id.type === 'Identifier')
-            return id.name
-        }
-      }
-
-      return null
-    }
-
     function visitDeclaration(node: TSESTree.Node) {
+      if (!isExportableDeclaration(node))
+        return
+
       const name = getDeclarationName(node)
       if (name)
         localDeclarations.set(name, {name, node})
@@ -58,53 +28,31 @@ export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
         if (!node.specifiers || node.specifiers.length === 0)
           return
 
-        const canInline = node.specifiers.every(specifier => {
-          if (specifier.type !== 'ExportSpecifier')
-            return false
+        if (!canInlineSpecifiers(node.specifiers, localDeclarations))
+          return
 
-          if (
-            specifier.local.type !== 'Identifier'
-            || specifier.exported.type !== 'Identifier'
-          )
-            return false
+        context.report({
+          fix(fixer) {
+            const fixes: ReturnType<typeof fixer.insertTextBefore>[] = []
 
-          if (specifier.local.name !== specifier.exported.name)
-            return false
+            for (const specifier of node.specifiers) {
+              const name = (specifier.local as TSESTree.Identifier).name
+              const decl = localDeclarations.get(name)
+              if (decl)
+                fixes.push(fixer.insertTextBefore(decl.node, 'export '))
+            }
 
-          return localDeclarations.has(specifier.local.name)
+            fixes.push(fixer.remove(node))
+
+            return fixes
+          },
+          messageId: 'preferInline',
+          node,
         })
-
-        if (canInline && node.specifiers.length > 0) {
-          context.report({
-            fix(fixer) {
-              const fixes: ReturnType<typeof fixer.insertTextBefore>[] = []
-
-              for (const specifier of node.specifiers) {
-                if (specifier.type !== 'ExportSpecifier')
-                  continue
-
-                if (specifier.local.type !== 'Identifier')
-                  continue
-
-                const name = specifier.local.name
-                const decl = localDeclarations.get(name)
-                if (decl)
-                  fixes.push(fixer.insertTextBefore(decl.node, 'export '))
-              }
-
-              fixes.push(fixer.remove(node))
-
-              return fixes
-            },
-            messageId: 'preferInline',
-            node,
-          })
-        }
       },
       FunctionDeclaration: visitDeclaration,
       TSInterfaceDeclaration: visitDeclaration,
       TSTypeAliasDeclaration: visitDeclaration,
-
       VariableDeclaration: visitDeclaration,
     }
   },
