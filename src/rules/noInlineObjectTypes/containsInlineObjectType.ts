@@ -1,3 +1,5 @@
+import {checkTypeParameters} from './checkTypeParameters'
+import {checkUnionOrIntersectionTypes} from './checkUnionOrIntersectionTypes'
 import {isInlineObjectType} from './isInlineObjectType'
 import type {TSESTree} from '@typescript-eslint/utils'
 
@@ -7,27 +9,21 @@ export function containsInlineObjectType(
   if (isInlineObjectType(node))
     return node
 
-  if (
-    node.type === 'TSUnionType'
-    || node.type === 'TSIntersectionType'
-  ) {
-    for (const type of node.types) {
-      const result = containsInlineObjectType(type)
-      if (result)
-        return result
-    }
+  if (node.type === 'TSIntersectionType' || node.type === 'TSUnionType') {
+    const result = checkUnionOrIntersectionTypes(
+      node as TSESTree.TSIntersectionType | TSESTree.TSUnionType,
+      containsInlineObjectType,
+    )
+    if (result)
+      return result
   }
 
   if (node.type === 'TSArrayType')
     return containsInlineObjectType(node.elementType)
 
-  if ('typeParameters' in node && node.typeParameters) {
-    for (const param of node.typeParameters.params) {
-      const result = containsInlineObjectType(param)
-      if (result)
-        return result
-    }
-  }
+  const typeParamResult = checkTypeParameters(node, containsInlineObjectType)
+  if (typeParamResult)
+    return typeParamResult
 
   if (node.type === 'TSTypeAnnotation')
     return containsInlineObjectType(node.typeAnnotation)

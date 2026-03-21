@@ -5,20 +5,21 @@ export function getTopLevelDeclaration(
   node: TSESTree.Node,
 ): TopLevelDeclaration | undefined {
   let current: TSESTree.Node | undefined = node
+  const topLevelTypes = new Set([
+    'ArrowFunctionExpression',
+    'FunctionDeclaration',
+    'FunctionExpression',
+    'TSInterfaceDeclaration',
+    'TSTypeAliasDeclaration',
+    'VariableDeclaration',
+  ])
 
   while (current) {
-    if (
-      current.type === 'FunctionDeclaration'
-      || current.type === 'FunctionExpression'
-      || current.type === 'ArrowFunctionExpression'
-      || current.type === 'VariableDeclaration'
-      || current.type === 'TSInterfaceDeclaration'
-      || current.type === 'TSTypeAliasDeclaration'
-    ) {
+    if (topLevelTypes.has(current.type)) {
       const parent = current.parent
-      const isExported = parent?.type === 'ExportNamedDeclaration'
+      const exported = parent?.type === 'ExportNamedDeclaration'
 
-      if (isExported && parent) {
+      if (exported && parent) {
         return {
           insertLocation: parent,
           isExported: true,
