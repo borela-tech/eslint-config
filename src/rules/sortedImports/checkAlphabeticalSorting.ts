@@ -1,18 +1,18 @@
 import {compare} from '@lib/compare'
 import {importGroupOrder} from './importGroupOrder'
 import type {CategorizedImport} from './CategorizedImport'
-import type {ImportError} from './ImportError'
+import type {ImportValidationError} from './ImportValidationError'
 
 export function checkAlphabeticalSorting(
-  categorized: CategorizedImport[],
-): ImportError[] {
-  const errors: ImportError[] = []
+  categorizedImports: CategorizedImport[],
+): ImportValidationError[] {
+  const errors: ImportValidationError[] = []
 
-  for (const group of importGroupOrder) {
-    const groupImports = categorized.filter(c => c.group === group)
-    const sorted = [...groupImports].sort((a, b) => compare(a.sortKey, b.sortKey))
+  for (const importGroup of importGroupOrder) {
+    const groupImports = categorizedImports.filter(c => c.group === importGroup)
+    const expectedSortedImports = [...groupImports].sort((a, b) => compare(a.sortKey, b.sortKey))
     for (let i = 0; i < groupImports.length; i++) {
-      if (groupImports[i] !== sorted[i]) {
+      if (groupImports[i] !== expectedSortedImports[i]) {
         errors.push({
           messageId: 'sortedImports',
           node: groupImports[i].declaration,

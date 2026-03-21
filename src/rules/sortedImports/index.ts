@@ -2,9 +2,9 @@ import {categorizeImports} from './categorizeImports'
 import {checkAlphabeticalSorting} from './checkAlphabeticalSorting'
 import {checkGroupOrdering} from './checkGroupOrdering'
 import {checkSpecifiersSorting} from './checkSpecifiersSorting'
-import {createFix} from './createFix'
+import {createImportFix} from './createFix'
 import {getImportGroups} from './getImportGroups'
-import type {ImportError} from './ImportError'
+import type {ImportValidationError} from './ImportValidationError'
 import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
 
@@ -12,29 +12,29 @@ export const sortedImports: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {
     return {
       Program(node) {
-        const body = node.body
-        const importGroups = getImportGroups(body)
+        const programBody = node.body
+        const importGroups = getImportGroups(programBody)
         if (importGroups.length === 0)
           return
 
-        const allErrors: ImportError[] = []
+        const allImportErrors: ImportValidationError[] = []
 
         // Check each import group independently
         for (const group of importGroups) {
           const categorized = categorizeImports(group)
-          const errors: ImportError[] = [
+          const errors: ImportValidationError[] = [
             ...checkGroupOrdering(categorized),
             ...checkAlphabeticalSorting(categorized),
             ...checkSpecifiersSorting(categorized),
           ]
-          allErrors.push(...errors)
+          allImportErrors.push(...errors)
         }
 
-        for (const error of allErrors) {
+        for (const error of allImportErrors) {
           context.report({
             fix(fixer) {
               const sourceCode = context.sourceCode
-              return createFix(fixer, importGroups, sourceCode)
+              return createImportFix(fixer, importGroups, sourceCode)
             },
             messageId: error.messageId,
             node: error.node,

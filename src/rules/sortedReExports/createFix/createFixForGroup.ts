@@ -1,4 +1,4 @@
-import {buildSortedCode} from './buildSortedCode'
+import {buildSortedReExportCode} from './buildSortedReExportCode'
 import {categorizeReExports} from '../categorizeReExports'
 import {groupReExportsByType} from './groupReExportsByType'
 import {sortExportGroups} from './sortExportGroups'
@@ -18,7 +18,7 @@ export function createFixForGroup(
 
   sortExportGroups(grouped)
 
-  const sortedCode = buildSortedCode(grouped, sourceCode)
+  const sortedCode = buildSortedReExportCode(grouped, sourceCode)
     .join('\n')
 
   const firstReExport = reExportDeclarations[0]

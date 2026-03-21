@@ -4,22 +4,22 @@ export function getImportGroups(
   programBody: TSESTree.ProgramStatement[],
 ): TSESTree.ImportDeclaration[][] {
   const groups: TSESTree.ImportDeclaration[][] = []
-  let currentGroup: TSESTree.ImportDeclaration[] = []
+  let currentImportGroup: TSESTree.ImportDeclaration[] = []
 
   for (const statement of programBody) {
     if (statement.type === 'ImportDeclaration') {
-      currentGroup.push(statement)
+      currentImportGroup.push(statement)
       continue
     }
 
-    if (currentGroup.length > 0) {
-      groups.push(currentGroup)
-      currentGroup = []
+    if (currentImportGroup.length > 0) {
+      groups.push(currentImportGroup)
+      currentImportGroup = []
     }
   }
 
-  if (currentGroup.length > 0)
-    groups.push(currentGroup)
+  if (currentImportGroup.length > 0)
+    groups.push(currentImportGroup)
 
   return groups
 }

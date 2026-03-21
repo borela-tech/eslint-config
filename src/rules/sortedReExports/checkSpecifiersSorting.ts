@@ -1,17 +1,17 @@
 import {areSpecifiersSorted} from './areSpecifiersSorted'
-import {getNamedSpecifiers} from './getNamedSpecifiers'
+import {getReExportNamedSpecifiers} from './getReExportNamedSpecifiers'
 import {isNamedReExport} from './isNamedReExport'
 import type {CategorizedReExport} from './CategorizedReExport'
-import type {ReExportError} from './ReExportError'
+import type {ReExportValidationError} from './ReExportValidationError'
 
 export function checkSpecifiersSorting(
   categorized: CategorizedReExport[],
-): ReExportError[] {
-  const errors: ReExportError[] = []
+): ReExportValidationError[] {
+  const errors: ReExportValidationError[] = []
   const namedReExports = categorized.filter(isNamedReExport)
 
   for (const {declaration} of namedReExports) {
-    const specifiers = getNamedSpecifiers(declaration)
+    const specifiers = getReExportNamedSpecifiers(declaration)
     const isSorted = areSpecifiersSorted(specifiers)
     if (specifiers.length > 1 && !isSorted) {
       errors.push({

@@ -1,4 +1,4 @@
-import {buildSortedCode} from './buildSortedCode'
+import {buildSortedImportCode} from './buildSortedImportCode'
 import {categorizeImports} from '../categorizeImports'
 import {groupImportsByType} from './groupImportsByType'
 import {sortImportGroups} from './sortImportGroups'
@@ -18,7 +18,7 @@ export function createFixForGroup(
 
   sortImportGroups(grouped)
 
-  const sortedCode = buildSortedCode(grouped, sourceCode)
+  const sortedCode = buildSortedImportCode(grouped, sourceCode)
     .join('\n')
 
   const firstImport = importDeclarations[0]

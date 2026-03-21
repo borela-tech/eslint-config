@@ -2,7 +2,7 @@ import {formatAttributes} from '../singleLineImports/formatAttributes'
 import type {ReExportDeclaration} from '@lib/ReExportDeclaration'
 import type {TSESLint} from '@typescript-eslint/utils'
 
-export function createFix(
+export function createReExportFix(
   fixer: TSESLint.RuleFixer,
   declaration: ReExportDeclaration,
   sourceCode: TSESLint.SourceCode,

@@ -1,5 +1,5 @@
 import {categorizeReExport} from './categorizeReExport'
-import {getSortKey} from './getSortKey'
+import {getReExportSortKey} from './getReExportSortKey'
 import type {CategorizedReExport} from './CategorizedReExport'
 import type {ReExportDeclaration} from '@lib/ReExportDeclaration'
 
@@ -10,7 +10,7 @@ export function categorizeReExports(
     return {
       declaration,
       group: categorizeReExport(declaration),
-      sortKey: getSortKey(declaration),
+      sortKey: getReExportSortKey(declaration),
     } as CategorizedReExport
   })
 }

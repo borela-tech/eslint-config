@@ -1,7 +1,9 @@
 import {categorizeImport} from './categorizeImport'
 import type {TSESTree} from '@typescript-eslint/types'
 
-export function getSortKey(declaration: TSESTree.ImportDeclaration): string {
+export function getImportSortKey(
+  declaration: TSESTree.ImportDeclaration,
+): string {
   const group = categorizeImport(declaration)
 
   if (group === 'side-effect')

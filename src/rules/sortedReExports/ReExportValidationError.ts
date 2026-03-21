@@ -1,6 +1,6 @@
 import type {ReExportDeclaration} from '@lib/ReExportDeclaration'
 
-export interface ReExportError {
+export interface ReExportValidationError {
   messageId:
     | 'sortedNames'
     | 'sortedReExports'

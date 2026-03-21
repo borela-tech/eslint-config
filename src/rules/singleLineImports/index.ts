@@ -1,5 +1,5 @@
-import {createFix} from './createFix'
-import {isMultiline} from './isMultiline'
+import {createImportFix} from './createImportFix'
+import {isMultilineImport} from './isMultilineImport'
 import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
 
@@ -7,11 +7,11 @@ export const singleLineImports: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {
     return {
       ImportDeclaration(node) {
-        if (!isMultiline(node))
+        if (!isMultilineImport(node))
           return
 
         context.report({
-          fix: fixer => createFix(fixer, node, context.sourceCode),
+          fix: fixer => createImportFix(fixer, node, context.sourceCode),
           messageId: 'multiline',
           node,
         })

@@ -1,15 +1,15 @@
 import {importGroupOrder} from './importGroupOrder'
 import type {CategorizedImport} from './CategorizedImport'
-import type {ImportError} from './ImportError'
+import type {ImportValidationError} from './ImportValidationError'
 
 export function checkGroupOrdering(
-  categorized: CategorizedImport[],
-): ImportError[] {
-  const errors: ImportError[] = []
+  categorizedImports: CategorizedImport[],
+): ImportValidationError[] {
+  const errors: ImportValidationError[] = []
 
   let currentGroupIndex = -1
-  for (const {declaration, group} of categorized) {
-    const groupIndex = importGroupOrder.indexOf(group)
+  for (const {declaration, group: importGroup} of categorizedImports) {
+    const groupIndex = importGroupOrder.indexOf(importGroup)
     if (groupIndex < currentGroupIndex) {
       errors.push({
         messageId: 'wrongGroup',

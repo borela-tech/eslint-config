@@ -1,11 +1,11 @@
-import {formatNamedReExport} from './formatNamedReExport'
+import {formatNamedReExportSpecifiers} from './formatNamedReExportSpecifiers'
 import {isNamedReExport} from '../isNamedReExport'
 import {reExportGroupOrder} from '../reExportGroupOrder'
 import type {CategorizedReExport} from '../CategorizedReExport'
 import type {ReExportGroup} from '../ReExportGroup'
 import type {TSESLint} from '@typescript-eslint/utils'
 
-export function buildSortedCode(
+export function buildSortedReExportCode(
   grouped: Record<ReExportGroup, CategorizedReExport[]>,
   sourceCode: TSESLint.SourceCode,
 ): string[] {
@@ -15,7 +15,7 @@ export function buildSortedCode(
     for (const item of grouped[group]) {
       if (isNamedReExport(item)) {
         sortedCode.push(
-          formatNamedReExport(
+          formatNamedReExportSpecifiers(
             item.declaration,
             sourceCode,
           ),

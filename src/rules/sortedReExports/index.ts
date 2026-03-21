@@ -2,39 +2,39 @@ import {categorizeReExports} from './categorizeReExports'
 import {checkAlphabeticalSorting} from './checkAlphabeticalSorting'
 import {checkGroupOrdering} from './checkGroupOrdering'
 import {checkSpecifiersSorting} from './checkSpecifiersSorting'
-import {createFix} from './createFix'
+import {createReExportFix} from './createFix'
 import {getReExportGroups} from './getReExportGroups'
 import type {MessageIds} from './MessageIds'
-import type {ReExportError} from './ReExportError'
+import type {ReExportValidationError} from './ReExportValidationError'
 import type {TSESLint} from '@typescript-eslint/utils'
 
 export const sortedReExports: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {
     return {
       Program(node) {
-        const body = node.body
-        const reExportGroups = getReExportGroups(body)
+        const programBody = node.body
+        const reExportGroups = getReExportGroups(programBody)
         if (reExportGroups.length === 0)
           return
 
-        const allErrors: ReExportError[] = []
+        const allReExportErrors: ReExportValidationError[] = []
 
         // Check each re-export group independently
         for (const group of reExportGroups) {
-          const categorized = categorizeReExports(group)
-          const errors: ReExportError[] = [
-            ...checkGroupOrdering(categorized),
-            ...checkAlphabeticalSorting(categorized),
-            ...checkSpecifiersSorting(categorized),
+          const categorizedReExports = categorizeReExports(group)
+          const groupErrors: ReExportValidationError[] = [
+            ...checkGroupOrdering(categorizedReExports),
+            ...checkAlphabeticalSorting(categorizedReExports),
+            ...checkSpecifiersSorting(categorizedReExports),
           ]
-          allErrors.push(...errors)
+          allReExportErrors.push(...groupErrors)
         }
 
-        for (const error of allErrors) {
+        for (const error of allReExportErrors) {
           context.report({
             fix(fixer) {
               const sourceCode = context.sourceCode
-              return createFix(fixer, reExportGroups, sourceCode)
+              return createReExportFix(fixer, reExportGroups, sourceCode)
             },
             messageId: error.messageId,
             node: error.node,

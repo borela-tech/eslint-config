@@ -3,7 +3,7 @@ import type {SourceCode} from './SourceCode'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/utils'
 
-export function createFix(
+export function createBraceStyleFix(
   fixer: TSESLint.RuleFixer,
   body: TSESTree.Statement,
   sourceCode: SourceCode,

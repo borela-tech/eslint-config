@@ -1,7 +1,7 @@
 import {categorizeStatements} from './categorizeStatements'
 import {findStatementIndices} from './findStatementIndices'
 import {generateSortedText} from './generateSortedText'
-import {hasViolation} from './hasViolation'
+import {hasImportOrderViolation} from './hasImportOrderViolation'
 import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
 
@@ -13,7 +13,7 @@ export const importsAndReExportsAtTop: TSESLint.RuleModule<MessageIds, []> = {
         const categories = categorizeStatements(statements)
         const indices = findStatementIndices(statements)
 
-        if (!hasViolation(indices, categories))
+        if (!hasImportOrderViolation(indices, categories))
           return
 
         context.report({

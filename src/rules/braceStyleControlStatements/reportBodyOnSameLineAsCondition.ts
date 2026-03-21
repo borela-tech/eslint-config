@@ -1,11 +1,11 @@
-import {createFix} from './createFix'
+import {createBraceStyleFix} from './createBraceStyleFix'
 import {isOnSameLineAsCondition} from './isOnSameLineAsCondition'
 import {isSingleLineStatement} from './isSingleLineStatement'
 import type {RuleContext} from './RuleContext'
 import type {SourceCode} from './SourceCode'
 import type {StatementBody} from './StatementBody'
 
-export function reportIfOnSameLine(
+export function reportBodyOnSameLineAsCondition(
   context: RuleContext,
   body: StatementBody,
 ): void {
@@ -14,7 +14,7 @@ export function reportIfOnSameLine(
   if (body.type !== 'BlockStatement') {
     if (isOnSameLineAsCondition(body, sourceCode)) {
       context.report({
-        fix: fixer => createFix(fixer, body, sourceCode),
+        fix: fixer => createBraceStyleFix(fixer, body, sourceCode),
         messageId: 'singleLine',
         node: body,
       })
@@ -25,7 +25,7 @@ export function reportIfOnSameLine(
 
     if (isOnSameLine && isSingleLine) {
       context.report({
-        fix: fixer => createFix(fixer, body, sourceCode),
+        fix: fixer => createBraceStyleFix(fixer, body, sourceCode),
         messageId: 'singleLine',
         node: body,
       })

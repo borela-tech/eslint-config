@@ -1,6 +1,6 @@
 import type {TSESTree} from '@typescript-eslint/types'
 
-export function getNamedSpecifiers(
+export function getReExportNamedSpecifiers(
   declaration: TSESTree.ExportNamedDeclaration,
 ): TSESTree.ExportSpecifier[] {
   return declaration.specifiers.filter(

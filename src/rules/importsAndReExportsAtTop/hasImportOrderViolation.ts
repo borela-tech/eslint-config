@@ -1,7 +1,7 @@
 import type {CategorizedStatements} from './CategorizedStatements'
 import type {StatementIndices} from './StatementIndices'
 
-export function hasViolation(
+export function hasImportOrderViolation(
   indices: StatementIndices,
   categories: CategorizedStatements,
 ): boolean {

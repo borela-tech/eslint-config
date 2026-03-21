@@ -1,10 +1,10 @@
-import {formatNamedImport} from './formatNamedImport'
+import {formatNamedImportSpecifiers} from './formatNamedImportSpecifiers'
 import {importGroupOrder} from '../importGroupOrder'
 import type {CategorizedImport} from '../CategorizedImport'
 import type {ImportGroup} from '../ImportGroup'
 import type {TSESLint} from '@typescript-eslint/utils'
 
-export function buildSortedCode(
+export function buildSortedImportCode(
   grouped: Record<ImportGroup, CategorizedImport[]>,
   sourceCode: TSESLint.SourceCode,
 ): string[] {
@@ -13,7 +13,7 @@ export function buildSortedCode(
   for (const group of importGroupOrder) {
     for (const {declaration} of grouped[group] ?? []) {
       if (group === 'named' || group === 'type-named')
-        sortedCode.push(formatNamedImport(declaration, sourceCode))
+        sortedCode.push(formatNamedImportSpecifiers(declaration, sourceCode))
       else
         sortedCode.push(sourceCode.getText(declaration))
     }

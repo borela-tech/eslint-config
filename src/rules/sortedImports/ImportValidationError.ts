@@ -1,6 +1,6 @@
 import type {TSESTree} from '@typescript-eslint/types'
 
-export interface ImportError {
+export interface ImportValidationError {
   messageId:
     | 'sortedImports'
     | 'sortedNames'

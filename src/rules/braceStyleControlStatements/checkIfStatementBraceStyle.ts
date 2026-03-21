@@ -1,21 +1,21 @@
-import {createFix} from './createFix'
+import {createBraceStyleFix} from './createBraceStyleFix'
 import {isOnSameLineAsCondition} from './isOnSameLineAsCondition'
-import {reportIfOnSameLine} from './reportIfOnSameLine'
+import {reportBodyOnSameLineAsCondition} from './reportBodyOnSameLineAsCondition'
 import type {RuleContext} from './RuleContext'
 import type {TSESTree} from '@typescript-eslint/utils'
 
-export function checkIfStatement(
+export function checkIfStatementBraceStyle(
   node: TSESTree.IfStatement,
   context: RuleContext,
 ): void {
   const sourceCode = context.sourceCode
-  reportIfOnSameLine(context, node.consequent)
+  reportBodyOnSameLineAsCondition(context, node.consequent)
 
   if (!node.alternate)
     return
 
   if (node.alternate.type === 'BlockStatement') {
-    reportIfOnSameLine(context, node.alternate)
+    reportBodyOnSameLineAsCondition(context, node.alternate)
     return
   }
 
@@ -23,7 +23,7 @@ export function checkIfStatement(
     const alternate = node.alternate
     if (isOnSameLineAsCondition(alternate, sourceCode)) {
       context.report({
-        fix: fixer => createFix(fixer, alternate, sourceCode),
+        fix: fixer => createBraceStyleFix(fixer, alternate, sourceCode),
         messageId: 'singleLine',
         node: alternate,
       })

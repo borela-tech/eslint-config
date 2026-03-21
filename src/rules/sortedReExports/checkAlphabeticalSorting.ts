@@ -1,12 +1,12 @@
 import {compare} from '@lib/compare'
 import {reExportGroupOrder} from './reExportGroupOrder'
 import type {CategorizedReExport} from './CategorizedReExport'
-import type {ReExportError} from './ReExportError'
+import type {ReExportValidationError} from './ReExportValidationError'
 
 export function checkAlphabeticalSorting(
   categorized: CategorizedReExport[],
-): ReExportError[] {
-  const errors: ReExportError[] = []
+): ReExportValidationError[] {
+  const errors: ReExportValidationError[] = []
 
   for (const group of reExportGroupOrder) {
     const groupReExports = categorized.filter(c => c.group === group)

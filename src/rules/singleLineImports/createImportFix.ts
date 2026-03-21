@@ -3,7 +3,7 @@ import {formatSpecifiers} from './formatSpecifiers'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/utils'
 
-export function createFix(
+export function createImportFix(
   fixer: TSESLint.RuleFixer,
   declaration: TSESTree.ImportDeclaration,
   sourceCode: TSESLint.SourceCode,

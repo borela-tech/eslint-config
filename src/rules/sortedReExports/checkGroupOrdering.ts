@@ -1,11 +1,11 @@
 import {reExportGroupOrder} from './reExportGroupOrder'
 import type {CategorizedReExport} from './CategorizedReExport'
-import type {ReExportError} from './ReExportError'
+import type {ReExportValidationError} from './ReExportValidationError'
 
 export function checkGroupOrdering(
   categorized: CategorizedReExport[],
-): ReExportError[] {
-  const errors: ReExportError[] = []
+): ReExportValidationError[] {
+  const errors: ReExportValidationError[] = []
 
   let currentGroupIndex = -1
   for (const {declaration, group} of categorized) {
