@@ -2,18 +2,10 @@ import {defaultOptions} from './defaultOptions'
 import {getLineLength} from '../shared/getLineLength'
 import {getParens} from './getParens'
 import {isValidParens} from '../shared/isValidParens'
+import type {FunctionNode} from './FunctionNode'
 import type {MessageId} from './MessageId'
 import type {Options} from './Options'
 import type {TSESLint} from '@typescript-eslint/utils'
-import type {TSESTree} from '@typescript-eslint/types'
-
-type FunctionNode =
-  | TSESTree.ArrowFunctionExpression
-  | TSESTree.FunctionDeclaration
-  | TSESTree.FunctionExpression
-  | TSESTree.TSCallSignatureDeclaration
-  | TSESTree.TSFunctionType
-  | TSESTree.TSMethodSignature
 
 export function checkFunction(
   sourceCode: TSESLint.SourceCode,

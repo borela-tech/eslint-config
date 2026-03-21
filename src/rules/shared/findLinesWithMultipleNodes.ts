@@ -1,8 +1,6 @@
 import type {Nodes} from './Nodes'
 
-export function findLinesWithMultipleNodes(
-  nodes: Nodes[],
-): number[] {
+export function findLinesWithMultipleNodes(nodes: Nodes[]): number[] {
   const lines: number[] = []
 
   for (let i = 0; i < nodes.length; i++) {

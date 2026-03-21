@@ -1,10 +1,6 @@
+import type {Parens} from './Parens'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/types'
-
-export interface Parens {
-  closingParen: TSESTree.Token
-  openingParen: TSESTree.Token
-}
 
 export function getParens(
   sourceCode: TSESLint.SourceCode,

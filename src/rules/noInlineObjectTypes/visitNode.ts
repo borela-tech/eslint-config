@@ -2,10 +2,7 @@ import {processArrayValue} from './processArrayValue'
 import {processObjectValue} from './processObjectValue'
 import type {TSESTree} from '@typescript-eslint/utils'
 
-export function visitNode(
-  node: TSESTree.Node,
-  names: Set<string>,
-): void {
+export function visitNode(node: TSESTree.Node, names: Set<string>): void {
   if (node.type === 'TSInterfaceDeclaration') {
     const interfaceNode = node as TSESTree.TSInterfaceDeclaration
     names.add(interfaceNode.id.name)

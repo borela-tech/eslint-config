@@ -1,5 +1,5 @@
 import {checkFunction} from './checkFunction'
-import {messageIds} from './MessageIds'
+import {messageIds} from './messageIds'
 import type {MessageId} from './MessageId'
 import type {Options} from './Options'
 import type {TSESLint} from '@typescript-eslint/utils'

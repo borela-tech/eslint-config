@@ -3,9 +3,7 @@ import {traverse} from './traverse'
 import type {ComplexityState} from './ComplexityState'
 import type {TSESTree} from '@typescript-eslint/utils'
 
-export function calculateCognitiveComplexity(
-  node: TSESTree.Node,
-): number {
+export function calculateCognitiveComplexity(node: TSESTree.Node): number {
   const state: ComplexityState = {
     complexity: 0,
     nestingLevel: 0,

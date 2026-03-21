@@ -1,8 +1,6 @@
 import type {TSESTree} from '@typescript-eslint/utils'
 
-export function getNameFromDeclaration(
-  node: TSESTree.Node,
-): string[] {
+export function getNameFromDeclaration(node: TSESTree.Node): string[] {
   const names: string[] = []
 
   switch (node.type) {
