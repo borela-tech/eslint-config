@@ -16,7 +16,7 @@ const config = defineConfig({
         /^@?typescript/,
         /^@?stylistic/,
         /^@?react/,
-        /^node:/,
+        'path',
       ],
       output: {
         entryFileNames: 'index.mjs',

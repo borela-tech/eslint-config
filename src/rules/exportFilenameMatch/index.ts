@@ -1,4 +1,4 @@
-import path from 'node:path'
+import * as path from 'path'
 import {getExportedNames} from './getExportedNames'
 import {isExempt} from '../shared/isExempt'
 import {messageIds} from './messageIds'

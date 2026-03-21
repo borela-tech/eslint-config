@@ -1,4 +1,4 @@
-import path from 'node:path'
+import * as path from 'path'
 
 export function isExempt(filename: string): boolean {
   const name = path.basename(filename, path.extname(filename))

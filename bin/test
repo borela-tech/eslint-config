@@ -4,9 +4,6 @@ SCRIPT_DIR=$(dirname -- "${BASH_SOURCE[0]}")
 pushd "$SCRIPT_DIR/.." > /dev/null
 
 ./bin/build
-node \
-  --import @swc-node/register/esm-register \
-  --test \
-  "$@"
+npx jest "$@"
 
 popd > /dev/null
