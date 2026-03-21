@@ -1,0 +1,26 @@
+import type {TSESLint} from '@typescript-eslint/utils'
+import type {TSESTree} from '@typescript-eslint/types'
+
+export interface Parens {
+  closingParen: TSESTree.Token
+  openingParen: TSESTree.Token
+}
+
+export function getParens(
+  sourceCode: TSESLint.SourceCode,
+  nodes: TSESTree.Node[],
+): null | Parens {
+  if (nodes.length === 0)
+    return null
+
+  const firstNode = nodes[0]
+  const lastNode = nodes[nodes.length - 1]
+
+  const openingParen = sourceCode.getTokenBefore(firstNode, token => token.value === '(')
+  const closingParen = sourceCode.getTokenAfter(lastNode, token => token.value === ')')
+
+  if (!openingParen || !closingParen)
+    return null
+
+  return {closingParen, openingParen}
+}

@@ -13,6 +13,7 @@ import {noInlineObjectTypes} from '../rules/noInlineObjectTypes'
 import {noUnnecessaryBraces} from '../rules/noUnnecessaryBraces'
 import {oneExportPerFile} from '../rules/oneExportPerFile'
 import {preferInlineExport} from '../rules/preferInlineExport'
+import {singleLineFunctionParameters} from '../rules/singleLineFunctionParameters'
 import {singleLineImports} from '../rules/singleLineImports'
 import {singleLineReExports} from '../rules/singleLineReExports'
 import {sortedImports} from '../rules/sortedImports'
@@ -38,6 +39,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
         'no-unnecessary-braces': noUnnecessaryBraces,
         'one-export-per-file': oneExportPerFile,
         'prefer-inline-export': preferInlineExport,
+        'single-line-function-parameters': singleLineFunctionParameters,
         'single-line-imports': singleLineImports,
         'single-line-re-exports': singleLineReExports,
         'sorted-imports': sortedImports,
@@ -70,6 +72,10 @@ export const customRules: TSESLint.FlatConfig.Config = {
     '@borela-tech/no-unnecessary-braces': 'error',
     '@borela-tech/one-export-per-file': 'error',
     '@borela-tech/prefer-inline-export': 'error',
+    '@borela-tech/single-line-function-parameters': [
+      'error',
+      {maxLength: 80},
+    ],
     '@borela-tech/single-line-imports': 'error',
     '@borela-tech/single-line-re-exports': 'error',
     '@borela-tech/sorted-imports': 'error',
