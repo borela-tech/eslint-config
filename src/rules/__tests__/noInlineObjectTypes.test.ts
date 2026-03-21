@@ -1,10 +1,10 @@
 import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
-import {noInlineObjectTypeParameters} from '../noInlineObjectTypeParameters'
+import {noInlineObjectTypes} from '../noInlineObjectTypes'
 import {RuleTester} from 'eslint'
 import type {Rule} from 'eslint'
 
-const rule = noInlineObjectTypeParameters as unknown as Rule.RuleModule
+const rule = noInlineObjectTypes as unknown as Rule.RuleModule
 const ruleTester = new RuleTester({
   languageOptions: {
     parser: typescript.parser,
@@ -70,17 +70,9 @@ const invalid = [
       let x: InlineType = { a: "" }
     `,
   },
-  {
-    code: 'type Bar = { a: string }',
-    errors: [{messageId: 'inlineObjectType'}],
-    output: dedent`
-      interface InlineType { a: string }
-      type Bar = InlineType
-    `,
-  },
 ]
 
-ruleTester.run('no-inline-object-type-parameters', rule, {
+ruleTester.run('no-inline-object-types', rule, {
   invalid,
   valid,
 })

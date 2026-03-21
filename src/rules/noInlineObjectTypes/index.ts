@@ -1,6 +1,5 @@
 import {containsInlineObjectType} from './containsInlineObjectType'
 import {getInlineTypeName} from './getInlineTypeName'
-import {getTopLevelDeclaration} from './getTopLevelDeclaration'
 import {handleInlineType} from './handleInlineType'
 import {isNestedTypeAnnotation} from './isNestedTypeAnnotation'
 import {prepareFix} from './prepareFix'
@@ -10,7 +9,7 @@ import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/utils'
 
-export const noInlineObjectTypeParameters: TSESLint.RuleModule<
+export const noInlineObjectTypes: TSESLint.RuleModule<
   MessageIds,
   []
 > = {
@@ -19,25 +18,6 @@ export const noInlineObjectTypeParameters: TSESLint.RuleModule<
     const inlineTypes: InlineTypeEntry[] = []
 
     const listener = {
-      TSTypeAliasDeclaration(node: TSESTree.TSTypeAliasDeclaration) {
-        const typeLiteral = containsInlineObjectType(node.typeAnnotation)
-        if (!typeLiteral)
-          return
-
-        const result = getTopLevelDeclaration(node)
-        if (!result)
-          return
-
-        inlineTypes.push({
-          annotationNode: node as unknown as TSESTree.TSTypeAnnotation,
-          insertLocation: result.insertLocation,
-          isExported: result.isExported,
-          location: result.node,
-          parameterName: undefined,
-          typeLiteral,
-        })
-      },
-
       TSTypeAnnotation(node: TSESTree.TSTypeAnnotation) {
         if (isNestedTypeAnnotation(node))
           return
