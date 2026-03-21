@@ -40,10 +40,7 @@ export const stylisticRules: TSESLint.FlatConfig.Config = {
     ],
     '@stylistic/jsx-wrap-multilines': 'off',
     '@stylistic/lines-between-class-members': 'off',
-    '@stylistic/object-curly-newline': [
-      'error',
-      {consistent: true},
-    ],
+    '@stylistic/object-curly-newline': 'off',
     '@stylistic/object-curly-spacing': [
       'error',
       'never',
