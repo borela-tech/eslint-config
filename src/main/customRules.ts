@@ -14,6 +14,7 @@ import {noInlineObjectTypes} from '../rules/noInlineObjectTypes'
 import {noUnnecessaryBraces} from '../rules/noUnnecessaryBraces'
 import {oneExportPerFile} from '../rules/oneExportPerFile'
 import {preferInlineExport} from '../rules/preferInlineExport'
+import {singleLineArrowFunctionParameters} from '../rules/singleLineArrowFunctionParameters'
 import {singleLineFunctionParameters} from '../rules/singleLineFunctionParameters'
 import {singleLineImports} from '../rules/singleLineImports'
 import {singleLineReExports} from '../rules/singleLineReExports'
@@ -41,6 +42,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
         'no-unnecessary-braces': noUnnecessaryBraces,
         'one-export-per-file': oneExportPerFile,
         'prefer-inline-export': preferInlineExport,
+        'single-line-arrow-function-parameters': singleLineArrowFunctionParameters,
         'single-line-function-parameters': singleLineFunctionParameters,
         'single-line-imports': singleLineImports,
         'single-line-re-exports': singleLineReExports,
@@ -75,6 +77,10 @@ export const customRules: TSESLint.FlatConfig.Config = {
     '@borela-tech/no-unnecessary-braces': 'error',
     '@borela-tech/one-export-per-file': 'error',
     '@borela-tech/prefer-inline-export': 'error',
+    '@borela-tech/single-line-arrow-function-parameters': [
+      'error',
+      {maxLength: 80},
+    ],
     '@borela-tech/single-line-function-parameters': [
       'error',
       {maxLength: 80},
