@@ -9,7 +9,7 @@ export function createFixForGroup(
   fixer: TSESLint.RuleFixer,
   reExportDeclarations: ReExportDeclaration[],
   sourceCode: TSESLint.SourceCode,
-) {
+): null | TSESLint.RuleFix {
   if (reExportDeclarations.length === 0)
     return null
 

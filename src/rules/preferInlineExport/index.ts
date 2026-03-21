@@ -10,7 +10,7 @@ export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {
     const localDeclarations = new Map<string, LocalDeclaration>()
 
-    function visitDeclaration(node: TSESTree.Node) {
+    function visitDeclaration(node: TSESTree.Node): void {
       if (!isExportableDeclaration(node))
         return
 
@@ -21,7 +21,7 @@ export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
 
     return {
       ClassDeclaration: visitDeclaration,
-      ExportNamedDeclaration(node) {
+      ExportNamedDeclaration(node: TSESTree.ExportNamedDeclaration): void {
         if (node.source)
           return
 

@@ -48,15 +48,15 @@ export const functionCognitiveComplexity: TSESLint.RuleModule<MessageId, [Option
     }
 
     return {
-      ArrowFunctionExpression(node) {
+      ArrowFunctionExpression(node: TSESTree.ArrowFunctionExpression): void {
         checkFunction(node)
       },
 
-      FunctionDeclaration(node) {
+      FunctionDeclaration(node: TSESTree.FunctionDeclaration): void {
         checkFunction(node)
       },
 
-      FunctionExpression(node) {
+      FunctionExpression(node: TSESTree.FunctionExpression): void {
         checkFunction(node)
       },
     }

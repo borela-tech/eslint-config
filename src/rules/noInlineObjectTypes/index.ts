@@ -18,7 +18,7 @@ export const noInlineObjectTypes: TSESLint.RuleModule<
     const inlineTypes: InlineTypeEntry[] = []
 
     const listener = {
-      TSTypeAnnotation(node: TSESTree.TSTypeAnnotation) {
+      TSTypeAnnotation(node: TSESTree.TSTypeAnnotation): void {
         if (isNestedTypeAnnotation(node))
           return
 
@@ -32,7 +32,7 @@ export const noInlineObjectTypes: TSESLint.RuleModule<
 
     return {
       ...listener,
-      'Program:exit'() {
+      'Program:exit'(): void {
         if (inlineTypes.length === 0)
           return
 

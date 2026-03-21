@@ -2,6 +2,7 @@ import {isExempt} from '../shared/isExempt'
 import {messageIds} from './messageIds'
 import type {MessageId} from './MessageId'
 import type {TSESLint} from '@typescript-eslint/utils'
+import type {TSESTree} from '@typescript-eslint/utils'
 
 export const oneExportPerFile: TSESLint.RuleModule<MessageId, []> = {
   create(context) {
@@ -13,15 +14,15 @@ export const oneExportPerFile: TSESLint.RuleModule<MessageId, []> = {
     let exportCount = 0
 
     return {
-      ExportDefaultDeclaration(_node) {
+      ExportDefaultDeclaration(_node: TSESTree.ExportDefaultDeclaration): void {
         exportCount++
       },
 
-      ExportNamedDeclaration(_node) {
+      ExportNamedDeclaration(_node: TSESTree.ExportNamedDeclaration): void {
         exportCount++
       },
 
-      'Program:exit'(programNode) {
+      'Program:exit'(programNode: TSESTree.Program): void {
         if (exportCount > 1) {
           context.report({
             data: {count: exportCount},

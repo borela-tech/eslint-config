@@ -10,7 +10,7 @@ export const singleLineReExports: TSESLint.RuleModule<MessageIds, []> = {
     const checkDeclaration = (
       node: TSESTree.Node,
       declaration: ReExportDeclaration,
-    ) => {
+    ): void => {
       // Skip local exports (only process re-exports with a source)
       if (!declaration.source)
         return
@@ -26,10 +26,16 @@ export const singleLineReExports: TSESLint.RuleModule<MessageIds, []> = {
     }
 
     return {
-      ExportAllDeclaration: node =>
-        checkDeclaration(node, node),
-      ExportNamedDeclaration: node =>
-        checkDeclaration(node, node),
+      ExportAllDeclaration: (
+        node: TSESTree.ExportAllDeclaration,
+      ): void => {
+        checkDeclaration(node, node)
+      },
+      ExportNamedDeclaration: (
+        node: TSESTree.ExportNamedDeclaration,
+      ): void => {
+        checkDeclaration(node, node)
+      },
     }
   },
 

@@ -2,11 +2,12 @@ import {createImportFix} from './createImportFix'
 import {isMultilineImport} from './isMultilineImport'
 import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
+import type {TSESTree} from '@typescript-eslint/utils'
 
 export const singleLineImports: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {
     return {
-      ImportDeclaration(node) {
+      ImportDeclaration(node: TSESTree.ImportDeclaration): void {
         if (!isMultilineImport(node))
           return
 

@@ -2,11 +2,12 @@ import {createFix} from './createFix'
 import {isMultiline} from './isMultiline'
 import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
+import type {TSESTree} from '@typescript-eslint/utils'
 
 export const multilineUnionTypeAliases: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {
     return {
-      TSUnionType(node) {
+      TSUnionType(node: TSESTree.TSUnionType): void {
         if (node.types.length < 2)
           return
 

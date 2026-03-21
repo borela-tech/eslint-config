@@ -3,7 +3,9 @@ import {isPropertySignatureInTypeLiteral} from './isPropertySignatureInTypeLiter
 import {traverseUpForTypeLiteral} from './traverseUpForTypeLiteral'
 import type {TSESTree} from '@typescript-eslint/utils'
 
-export function isNestedTypeAnnotation(node: TSESTree.TSTypeAnnotation) {
+export function isNestedTypeAnnotation(
+  node: TSESTree.TSTypeAnnotation,
+): boolean | undefined {
   const parent = node.parent
 
   if (isPropertySignatureInTypeLiteral(parent))

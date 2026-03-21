@@ -7,11 +7,12 @@ import {getImportGroups} from './getImportGroups'
 import type {ImportValidationError} from './ImportValidationError'
 import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
+import type {TSESTree} from '@typescript-eslint/utils'
 
 export const sortedImports: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {
     return {
-      Program(node) {
+      Program(node: TSESTree.Program): void {
         const programBody = node.body
         const importGroups = getImportGroups(programBody)
         if (importGroups.length === 0)

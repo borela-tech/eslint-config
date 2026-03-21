@@ -1,10 +1,11 @@
 import type {MessageIds} from './individualImports/MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
+import type {TSESTree} from '@typescript-eslint/utils'
 
 export const individualImports: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {
     return {
-      ImportDeclaration(node) {
+      ImportDeclaration(node: TSESTree.ImportDeclaration): void {
         if (node.specifiers.length <= 1)
           return
 

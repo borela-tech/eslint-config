@@ -4,11 +4,12 @@ import {generateSortedText} from './generateSortedText'
 import {hasImportOrderViolation} from './hasImportOrderViolation'
 import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
+import type {TSESTree} from '@typescript-eslint/utils'
 
 export const importsAndReExportsAtTop: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {
     return {
-      Program(node) {
+      Program(node: TSESTree.Program): void {
         const statements = node.body
         const categories = categorizeStatements(statements)
         const indices = findStatementIndices(statements)

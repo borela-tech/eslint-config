@@ -9,7 +9,7 @@ export function createFixForGroup(
   fixer: TSESLint.RuleFixer,
   importDeclarations: TSESTree.ImportDeclaration[],
   sourceCode: TSESLint.SourceCode,
-) {
+): null | TSESLint.RuleFix {
   if (importDeclarations.length === 0)
     return null
 

@@ -7,11 +7,12 @@ import {getReExportGroups} from './getReExportGroups'
 import type {MessageIds} from './MessageIds'
 import type {ReExportValidationError} from './ReExportValidationError'
 import type {TSESLint} from '@typescript-eslint/utils'
+import type {TSESTree} from '@typescript-eslint/utils'
 
 export const sortedReExports: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {
     return {
-      Program(node) {
+      Program(node: TSESTree.Program): void {
         const programBody = node.body
         const reExportGroups = getReExportGroups(programBody)
         if (reExportGroups.length === 0)

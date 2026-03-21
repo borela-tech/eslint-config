@@ -4,6 +4,7 @@ import {isExempt} from '../shared/isExempt'
 import {messageIds} from './messageIds'
 import type {MessageId} from './MessageId'
 import type {TSESLint} from '@typescript-eslint/utils'
+import type {TSESTree} from '@typescript-eslint/utils'
 
 export const exportFilenameMatch: TSESLint.RuleModule<MessageId, []> = {
   create(context) {
@@ -18,12 +19,12 @@ export const exportFilenameMatch: TSESLint.RuleModule<MessageId, []> = {
     const exportNames: string[] = []
 
     return {
-      ExportNamedDeclaration(node) {
+      ExportNamedDeclaration(node: TSESTree.ExportNamedDeclaration): void {
         const names = getExportedNames(node)
         exportNames.push(...names)
       },
 
-      'Program:exit'(programNode) {
+      'Program:exit'(programNode: TSESTree.Program): void {
         if (exportNames.length === 1) {
           const [exportName] = exportNames
 

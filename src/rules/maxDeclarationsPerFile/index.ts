@@ -24,15 +24,15 @@ export const maxDeclarationsPerFile: TSESLint.RuleModule<MessageId, []> = {
     const types = new Set<string>()
 
     return {
-      ClassDeclaration(node) {
+      ClassDeclaration(node: TSESTree.ClassDeclaration): void {
         handleClassDeclaration(node, functions)
       },
 
-      FunctionDeclaration(node) {
+      FunctionDeclaration(node: TSESTree.FunctionDeclaration): void {
         handleFunctionDeclaration(node, functions)
       },
 
-      'Program:exit'(_programNode) {
+      'Program:exit'(_programNode: TSESTree.Program): void {
         const totalDeclarations = functions.size + types.size
 
         if (totalDeclarations > 1) {
@@ -48,23 +48,23 @@ export const maxDeclarationsPerFile: TSESLint.RuleModule<MessageId, []> = {
         }
       },
 
-      TSDeclareFunction(node) {
+      TSDeclareFunction(node: TSESTree.TSDeclareFunction): void {
         handleTSDeclareFunction(node, functions)
       },
 
-      TSEnumDeclaration(node) {
+      TSEnumDeclaration(node: TSESTree.TSEnumDeclaration): void {
         handleTSEnumDeclaration(node, types)
       },
 
-      TSInterfaceDeclaration(node) {
+      TSInterfaceDeclaration(node: TSESTree.TSInterfaceDeclaration): void {
         handleTSInterfaceDeclaration(node, types)
       },
 
-      TSTypeAliasDeclaration(node) {
+      TSTypeAliasDeclaration(node: TSESTree.TSTypeAliasDeclaration): void {
         handleTSTypeAliasDeclaration(node, types)
       },
 
-      VariableDeclaration(node) {
+      VariableDeclaration(node: TSESTree.VariableDeclaration): void {
         if (!isTopLevel(node))
           return
 
@@ -78,7 +78,7 @@ export const maxDeclarationsPerFile: TSESLint.RuleModule<MessageId, []> = {
 
       'VariableDeclaration > VariableDeclarator > ArrowFunctionExpression'(
         _node: TSESTree.Node,
-      ) {
+      ): void {
         if (!isTopLevel(_node.parent?.parent as TSESTree.Node))
           return
         const declarator = _node.parent as TSESTree.VariableDeclarator
