@@ -1,4 +1,9 @@
+import {buildCollapsedParams} from './buildCollapsedParams'
+import {calculateCollapsedLength} from './calculateCollapsedLength'
 import {defaultOptions} from './defaultOptions'
+import {getArrowFunctionParens} from './getArrowFunctionParens'
+import {isShorthand} from './isShorthand'
+import {reportViolation} from './reportViolation'
 import type {MessageId} from './MessageId'
 import type {Options} from './Options'
 import type {TSESLint} from '@typescript-eslint/utils'
@@ -12,19 +17,14 @@ export function checkArrowFunction(
   const options = context.options[0] as Options ?? {}
   const maxLength = options.maxLength ?? defaultOptions.maxLength
 
-  const params = node.params
-  if (params.length === 0)
+  if (isShorthand(sourceCode, node))
     return
 
-  const openingParen = sourceCode.getTokenBefore(params[0], token => token.value === '(')
-  if (!openingParen)
+  const parens = getArrowFunctionParens(sourceCode, node.params)
+  if (!parens)
     return
 
-  const lastParam = params[params.length - 1]
-  const closingParen = sourceCode.getTokenAfter(lastParam, token => token.value === ')')
-  if (!closingParen)
-    return
-
+  const {closingParen, openingParen} = parens
   if (openingParen.loc.start.line === closingParen.loc.end.line)
     return
 
@@ -32,37 +32,11 @@ export function checkArrowFunction(
   if (!arrowToken)
     return
 
-  const paramsText = params
-    .map((param, index) => {
-      const text = sourceCode.getText(param)
-      const isLastParam = index === params.length - 1
-      if (isLastParam)
-        return text
-      return text + ','
-    })
-    .join(' ')
+  const collapsedParams = buildCollapsedParams(sourceCode, node.params)
+  const collapsedLength = calculateCollapsedLength(sourceCode, openingParen, collapsedParams, node.returnType)
 
-  const singleLineParams = `(${paramsText})`
-
-  let returnTypeText = ''
-  if (node.returnType) {
-    returnTypeText = sourceCode.getText(node.returnType)
-  }
-
-  const allLines = sourceCode.getText().split('\n')
-  const closingLine = allLines[closingParen.loc.end.line - 1]
-  const textAfterClosingParen = closingLine.slice(closingParen.loc.end.column)
-
-  const collapsedLineLength = openingParen.loc.start.column + singleLineParams.length + returnTypeText.length + textAfterClosingParen.length
-
-  if (collapsedLineLength <= maxLength) {
-    context.report({
-      fix: fixer => fixer.replaceTextRange(
-        [openingParen.range[0], arrowToken.range[1]],
-        singleLineParams + returnTypeText + ' =>',
-      ),
-      messageId: 'singleLine',
-      node,
-    })
+  if (collapsedLength <= maxLength) {
+    const returnTypeText = node.returnType ? sourceCode.getText(node.returnType) : ''
+    reportViolation(context, node, collapsedParams, returnTypeText, arrowToken, openingParen)
   }
 }
