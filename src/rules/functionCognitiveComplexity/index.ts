@@ -6,12 +6,12 @@ import type {Options} from './Options'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/utils'
 
-const DEFAULT_MAX_COGNITIVE = 15
+const DEFAULT_MAX_COGNITIVE_COMPLEXITY = 15
 
 export const functionCognitiveComplexity: TSESLint.RuleModule<MessageId, [Options]> = {
   create(context) {
     const options = context.options[0] ?? {}
-    const maxCognitive = options.maxCognitive ?? DEFAULT_MAX_COGNITIVE
+    const maxCognitiveComplexity = options.maxCognitiveComplexity ?? DEFAULT_MAX_COGNITIVE_COMPLEXITY
 
     function checkFunction(
       node:
@@ -21,14 +21,14 @@ export const functionCognitiveComplexity: TSESLint.RuleModule<MessageId, [Option
     ): void {
       const complexity = calculateCognitiveComplexity(node)
 
-      if (complexity > maxCognitive) {
+      if (complexity > maxCognitiveComplexity) {
         const name = getFunctionName(node)
 
         if (name) {
           context.report({
             data: {
               actual: complexity,
-              max: maxCognitive,
+              max: maxCognitiveComplexity,
               name,
             },
             messageId: 'tooHighCognitiveComplexity',
@@ -38,7 +38,7 @@ export const functionCognitiveComplexity: TSESLint.RuleModule<MessageId, [Option
           context.report({
             data: {
               actual: complexity,
-              max: maxCognitive,
+              max: maxCognitiveComplexity,
             },
             messageId: 'tooHighCognitiveComplexityAnonymous',
             node,
@@ -70,7 +70,7 @@ export const functionCognitiveComplexity: TSESLint.RuleModule<MessageId, [Option
     schema: [{
       additionalProperties: false,
       properties: {
-        maxCognitive: {
+        maxCognitiveComplexity: {
           type: 'number',
         },
       },

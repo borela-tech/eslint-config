@@ -1,5 +1,5 @@
 import typescript from 'typescript-eslint'
-import {functionCognitiveComplexity} from '../function-cognitive-complexity'
+import {functionCognitiveComplexity} from '../functionCognitiveComplexity'
 import {RuleTester} from 'eslint'
 import type {Rule} from 'eslint'
 
@@ -26,7 +26,7 @@ const valid = [
   {code: '() => a && b && c'},
   {
     code: 'function foo() { if (x) return 1 }',
-    options: [{maxCognitive: 1}],
+    options: [{maxCognitiveComplexity: 1}],
   },
 ]
 
@@ -46,7 +46,7 @@ const invalid = [
         messageId: 'tooHighCognitiveComplexityAnonymous',
       },
     ],
-    options: [{maxCognitive: 5}],
+    options: [{maxCognitiveComplexity: 5}],
   },
   {
     code: 'function foo() { for (;;) { for (;;) { for (;;) {} } } }',
@@ -55,7 +55,7 @@ const invalid = [
         messageId: 'tooHighCognitiveComplexity',
       },
     ],
-    options: [{maxCognitive: 5}],
+    options: [{maxCognitiveComplexity: 5}],
   },
   {
     code: 'const foo = () => { if (a) if (b) if (c) if (d) return 1 }',
@@ -64,7 +64,7 @@ const invalid = [
         messageId: 'tooHighCognitiveComplexity',
       },
     ],
-    options: [{maxCognitive: 9}],
+    options: [{maxCognitiveComplexity: 9}],
   },
   {
     code: 'function bar() { if (a) if (b) if (c) if (d) if (e) return 1 }',
@@ -73,7 +73,7 @@ const invalid = [
         messageId: 'tooHighCognitiveComplexity',
       },
     ],
-    options: [{maxCognitive: 10}],
+    options: [{maxCognitiveComplexity: 10}],
   },
 ]
 
