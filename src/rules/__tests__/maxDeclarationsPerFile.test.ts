@@ -134,5 +134,4 @@ const invalid = [
   },
 ]
 
-ruleTester.run('max-declarations-per-file', rule, {invalid,
-  valid})
+ruleTester.run('max-declarations-per-file', rule, {invalid, valid})

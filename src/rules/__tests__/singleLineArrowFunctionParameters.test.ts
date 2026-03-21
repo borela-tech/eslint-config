@@ -129,5 +129,4 @@ const invalid = [
   },
 ]
 
-ruleTester.run('single-line-arrow-function-parameters', rule, {invalid,
-  valid})
+ruleTester.run('single-line-arrow-function-parameters', rule, {invalid, valid})

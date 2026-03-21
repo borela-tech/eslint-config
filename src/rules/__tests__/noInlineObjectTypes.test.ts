@@ -86,5 +86,4 @@ const invalid = [
   },
 ]
 
-ruleTester.run('no-inline-object-types', rule, {invalid,
-  valid})
+ruleTester.run('no-inline-object-types', rule, {invalid, valid})

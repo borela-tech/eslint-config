@@ -77,7 +77,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
     '@borela-tech/multiline-union-type-aliases': 'error',
     '@borela-tech/no-inline-object-types': 'error',
     '@borela-tech/no-unnecessary-braces': 'error',
-    '@borela-tech/object-property-line-break': 'off',
+    '@borela-tech/object-property-line-break': 'error',
     '@borela-tech/one-export-per-file': 'error',
     '@borela-tech/prefer-inline-export': 'error',
     '@borela-tech/single-line-arrow-function-parameters': [

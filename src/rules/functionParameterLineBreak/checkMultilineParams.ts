@@ -39,8 +39,14 @@ export function checkMultilineParams(
           )
         },
         loc: {
-          end: {column: lineLength, line},
-          start: {column: 0, line},
+          end: {
+            column: lineLength,
+            line,
+          },
+          start: {
+            column: 0,
+            line,
+          },
         },
         messageId: 'multipleOnSameLine',
       })

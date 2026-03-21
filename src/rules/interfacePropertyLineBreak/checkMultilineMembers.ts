@@ -41,8 +41,14 @@ export function checkMultilineMembers(
         data: {maxLength},
         fix,
         loc: {
-          end: {column: lineLength, line: memberLine},
-          start: {column: 0, line: memberLine},
+          end: {
+            column: lineLength,
+            line: memberLine,
+          },
+          start: {
+            column: 0,
+            line: memberLine,
+          },
         },
         messageId: 'exceedsMaxLength',
       })

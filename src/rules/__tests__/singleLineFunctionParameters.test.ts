@@ -151,5 +151,4 @@ const invalid = [
   },
 ]
 
-ruleTester.run('single-line-function-parameters', rule, {invalid,
-  valid})
+ruleTester.run('single-line-function-parameters', rule, {invalid, valid})

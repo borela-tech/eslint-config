@@ -117,5 +117,4 @@ const invalid = [
   },
 ]
 
-ruleTester.run('function-parameter-line-break', rule, {invalid,
-  valid})
+ruleTester.run('function-parameter-line-break', rule, {invalid, valid})

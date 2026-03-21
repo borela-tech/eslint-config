@@ -22,8 +22,14 @@ export function checkSingleLineMembers(
     context.report({
       data: {maxLength},
       loc: {
-        end: {column: lineLength, line: closingBrace.loc.end.line},
-        start: {column: 0, line: openingBrace.loc.start.line},
+        end: {
+          column: lineLength,
+          line: closingBrace.loc.end.line,
+        },
+        start: {
+          column: 0,
+          line: openingBrace.loc.start.line,
+        },
       },
       messageId: 'exceedsMaxLength',
     })
@@ -55,8 +61,14 @@ export function checkSingleLineMembers(
       )
     },
     loc: {
-      end: {column: lineLength, line: closingBrace.loc.end.line},
-      start: {column: 0, line: openingBrace.loc.start.line},
+      end: {
+        column: lineLength,
+        line: closingBrace.loc.end.line,
+      },
+      start: {
+        column: 0,
+        line: openingBrace.loc.start.line,
+      },
     },
     messageId: 'multipleOnSameLine',
   })

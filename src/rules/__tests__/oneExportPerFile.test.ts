@@ -81,5 +81,4 @@ const invalid = [
   },
 ]
 
-ruleTester.run('one-export-per-file', rule, {invalid,
-  valid})
+ruleTester.run('one-export-per-file', rule, {invalid, valid})

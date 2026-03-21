@@ -105,5 +105,4 @@ const invalid = [
   },
 ]
 
-ruleTester.run('export-filename-match', rule, {invalid,
-  valid})
+ruleTester.run('export-filename-match', rule, {invalid, valid})

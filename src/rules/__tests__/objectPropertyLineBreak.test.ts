@@ -72,5 +72,4 @@ const invalid = [
   },
 ]
 
-ruleTester.run('object-property-line-break', rule, {invalid,
-  valid})
+ruleTester.run('object-property-line-break', rule, {invalid, valid})

@@ -128,5 +128,4 @@ const invalid = [
   },
 ]
 
-ruleTester.run('interface-property-line-break', rule, {invalid,
-  valid})
+ruleTester.run('interface-property-line-break', rule, {invalid, valid})

@@ -22,8 +22,14 @@ export function checkSingleLineParams(
     context.report({
       data: {maxLength},
       loc: {
-        end: {column: lineLength, line: closingParen.loc.end.line},
-        start: {column: 0, line: openingParen.loc.start.line},
+        end: {
+          column: lineLength,
+          line: closingParen.loc.end.line,
+        },
+        start: {
+          column: 0,
+          line: openingParen.loc.start.line,
+        },
       },
       messageId: 'exceedsMaxLength',
     })
@@ -58,8 +64,14 @@ export function checkSingleLineParams(
       )
     },
     loc: {
-      end: {column: lineLength, line: closingParen.loc.end.line},
-      start: {column: 0, line: openingParen.loc.start.line},
+      end: {
+        column: lineLength,
+        line: closingParen.loc.end.line,
+      },
+      start: {
+        column: 0,
+        line: openingParen.loc.start.line,
+      },
     },
     messageId: 'multipleOnSameLine',
   })

@@ -82,5 +82,4 @@ const invalid = [
   },
 ]
 
-ruleTester.run('function-cognitive-complexity', rule, {invalid,
-  valid})
+ruleTester.run('function-cognitive-complexity', rule, {invalid, valid})
