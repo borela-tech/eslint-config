@@ -64,7 +64,7 @@ export const functionCognitiveComplexity: TSESLint.RuleModule<MessageId, [Option
 
   meta: {
     docs: {
-      description: 'Enforce cognitive complexity threshold for functions',
+      description: 'Enforce cognitive complexity threshold for functions.',
     },
     messages: messageIds,
     schema: [{

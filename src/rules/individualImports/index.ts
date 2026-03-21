@@ -26,7 +26,7 @@ export const individualImports: TSESLint.RuleModule<MessageIds, []> = {
   },
   meta: {
     docs: {
-      description: 'Enforce individual imports instead of grouped imports',
+      description: 'Enforce individual imports instead of grouped imports.',
     },
     fixable: 'code',
     messages: {

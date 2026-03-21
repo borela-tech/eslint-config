@@ -18,7 +18,7 @@ export const braceStyleObjectLiteral: TSESLint.RuleModule<MessageId, [Options]> 
 
   meta: {
     docs: {
-      description: 'Enforce consistent brace positioning for object literals',
+      description: 'Enforce consistent brace positioning for object literals.',
     },
     fixable: 'code',
     messages: messageIds,

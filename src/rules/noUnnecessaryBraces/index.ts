@@ -22,7 +22,7 @@ export const noUnnecessaryBraces: TSESLint.RuleModule<MessageIds, []> = {
   meta: {
     docs: {
       description:
-        'Enforce consistent brace usage for single-statement control bodies',
+        'Enforce consistent brace usage for single-statement control bodies.',
     },
     fixable: 'code',
     messages: {

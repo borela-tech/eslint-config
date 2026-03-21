@@ -22,7 +22,7 @@ export const functionCallArgumentLineBreak: TSESLint.RuleModule<MessageId, [Opti
 
   meta: {
     docs: {
-      description: 'Enforce each function call argument to be on its own line when line exceeds max length',
+      description: 'Enforce each function call argument to be on its own line when line exceeds max length.',
     },
     fixable: 'code',
     messages: messageIds,

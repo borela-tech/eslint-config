@@ -46,7 +46,7 @@ export const sortedReExports: TSESLint.RuleModule<MessageIds, []> = {
   },
   meta: {
     docs: {
-      description: 'Enforce sorted exports alphabetically',
+      description: 'Enforce sorted exports alphabetically.',
     },
     fixable: 'code',
     messages: {

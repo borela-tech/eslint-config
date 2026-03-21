@@ -22,7 +22,7 @@ export const singleLineImports: TSESLint.RuleModule<MessageIds, []> = {
 
   meta: {
     docs: {
-      description: 'Enforce imports to be on a single line',
+      description: 'Enforce imports to be on a single line.',
     },
     fixable: 'code',
     messages: {

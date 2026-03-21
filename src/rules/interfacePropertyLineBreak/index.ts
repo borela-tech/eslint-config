@@ -17,7 +17,7 @@ export const interfacePropertyLineBreak: TSESLint.RuleModule<MessageId, [Options
 
   meta: {
     docs: {
-      description: 'Enforce each interface member to be on its own line when line exceeds max length',
+      description: 'Enforce each interface member to be on its own line when line exceeds max length.',
     },
     fixable: 'code',
     messages: messageIds,

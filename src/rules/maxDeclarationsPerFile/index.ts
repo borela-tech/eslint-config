@@ -90,7 +90,7 @@ export const maxDeclarationsPerFile: TSESLint.RuleModule<MessageId, []> = {
 
   meta: {
     docs: {
-      description: 'Enforce single top-level declaration per file',
+      description: 'Enforce single top-level declaration per file.',
     },
     messages: messageIds,
     schema: [],

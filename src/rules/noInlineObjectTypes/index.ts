@@ -100,7 +100,7 @@ export const noInlineObjectTypes: TSESLint.RuleModule<
 
   meta: {
     docs: {
-      description: 'Disallow inline object type literals in type annotations',
+      description: 'Disallow inline object type literals in type annotations.',
     },
     fixable: 'code',
     messages: {

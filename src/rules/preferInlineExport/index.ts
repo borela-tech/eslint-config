@@ -60,7 +60,7 @@ export const preferInlineExport: TSESLint.RuleModule<MessageIds, []> = {
   meta: {
     docs: {
       description:
-        'Enforce using inline export syntax instead of separate export statements',
+        'Enforce using inline export syntax instead of separate export statements.',
     },
     fixable: 'code',
     messages: {

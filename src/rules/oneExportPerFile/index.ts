@@ -36,7 +36,7 @@ export const oneExportPerFile: TSESLint.RuleModule<MessageId, []> = {
 
   meta: {
     docs: {
-      description: 'Enforce single export per file',
+      description: 'Enforce single export per file.',
     },
     messages: messageIds,
     schema: [],

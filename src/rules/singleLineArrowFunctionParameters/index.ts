@@ -20,7 +20,7 @@ export const singleLineArrowFunctionParameters: TSESLint.RuleModule<MessageId, [
 
   meta: {
     docs: {
-      description: 'Enforce arrow function parameters to be on a single line when they fit',
+      description: 'Enforce arrow function parameters to be on a single line when they fit.',
     },
     fixable: 'code',
     messages: messageIds,

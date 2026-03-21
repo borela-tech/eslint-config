@@ -32,7 +32,7 @@ export const importsAndReExportsAtTop: TSESLint.RuleModule<MessageIds, []> = {
 
   meta: {
     docs: {
-      description: 'Enforce imports and re-exports at the top of the file',
+      description: 'Enforce imports and re-exports at the top of the file.',
     },
     fixable: 'code',
     messages: {

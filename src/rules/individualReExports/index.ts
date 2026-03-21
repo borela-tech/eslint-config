@@ -39,7 +39,7 @@ export const individualReExports: TSESLint.RuleModule<MessageIds, []> = {
   },
   meta: {
     docs: {
-      description: 'Enforce individual exports instead of grouped exports',
+      description: 'Enforce individual exports instead of grouped exports.',
     },
     fixable: 'code',
     messages: {

@@ -40,7 +40,7 @@ export const functionParameterLineBreak: TSESLint.RuleModule<MessageId, [Options
 
   meta: {
     docs: {
-      description: 'Enforce each function parameter to be on its own line when line exceeds max length',
+      description: 'Enforce each function parameter to be on its own line when line exceeds max length.',
     },
     fixable: 'code',
     messages: messageIds,

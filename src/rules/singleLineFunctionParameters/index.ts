@@ -33,7 +33,7 @@ export const singleLineFunctionParameters: TSESLint.RuleModule<MessageId, [Optio
 
   meta: {
     docs: {
-      description: 'Enforce function parameters to be on a single line when they fit',
+      description: 'Enforce function parameters to be on a single line when they fit.',
     },
     fixable: 'code',
     messages: messageIds,

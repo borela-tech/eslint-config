@@ -45,7 +45,7 @@ export const exportFilenameMatch: TSESLint.RuleModule<MessageId, []> = {
 
   meta: {
     docs: {
-      description: 'Enforce filename matches the single named export',
+      description: 'Enforce filename matches the single named export.',
     },
     messages: messageIds,
     schema: [],

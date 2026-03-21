@@ -16,7 +16,7 @@ export const braceStyleControlStatements: TSESLint.RuleModule<MessageIds, []> = 
   },
   meta: {
     docs: {
-      description: 'Enforce control statements to have multi-line body',
+      description: 'Enforce control statements to have multi-line body.',
     },
     fixable: 'code',
     messages: {

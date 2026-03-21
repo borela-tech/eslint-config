@@ -41,7 +41,7 @@ export const multilineUnionTypeAliases: TSESLint.RuleModule<MessageIds, []> = {
 
   meta: {
     docs: {
-      description: 'Enforce union type aliases with multiple members to be on multiple lines',
+      description: 'Enforce union type aliases with multiple members to be on multiple lines.',
     },
     fixable: 'code',
     messages: {

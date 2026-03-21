@@ -37,7 +37,7 @@ export const singleLineReExports: TSESLint.RuleModule<MessageIds, []> = {
 
   meta: {
     docs: {
-      description: 'Enforce re-exports to be on a single line',
+      description: 'Enforce re-exports to be on a single line.',
     },
     fixable: 'code',
     messages: {

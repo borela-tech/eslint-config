@@ -17,7 +17,7 @@ export const objectPropertyLineBreak: TSESLint.RuleModule<MessageId, [Options]> 
 
   meta: {
     docs: {
-      description: 'Enforce object literal formatting based on complexity and line length',
+      description: 'Enforce object literal formatting based on complexity and line length.',
     },
     fixable: 'code',
     messages: messageIds,
