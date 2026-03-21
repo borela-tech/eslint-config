@@ -16,51 +16,45 @@ const ruleTester = new RuleTester({
 })
 
 const importsAtTopValid = [
-  {
-    code: dedent`
+  {code: dedent`
       import {a} from 'aaa'
       export {a} from 'aaa'
       const c = 1
     `,
-  },
-  {
-    code: dedent`
+  name: 'import then re-export then code'},
+  {code: dedent`
       import {a} from 'aaa'
       import {b} from 'bbb'
       export {c} from 'ccc'
     `,
-  },
-  {
-    code: dedent`
+  name: 'imports then re-export'},
+  {code: dedent`
       import {a} from 'aaa'
       const c = 1
       function foo() {}
     `,
-  },
-  {
-    code: dedent`
+  name: 'import then code'},
+  {code: dedent`
       export {a} from 'aaa'
       export * from 'bbb'
       const c = 1
     `,
-  },
-  {
-    code: dedent`
+  name: 're-exports then code'},
+  {code: dedent`
       const c = 1
       function foo() {}
     `,
-  },
-  {
-    code: dedent`
+  name: 'just code no imports'},
+  {code: dedent`
       import {a} from 'aaa'
     `,
-  },
-  {
-    code: dedent`
+  name: 'single import'},
+  {code: dedent`
       export {a} from 'aaa'
     `,
-  },
-  {code: ''},
+  name: 'single re-export'},
+  {code: '',
+    name: 'empty'},
 ]
 
 const importsAtTopInvalid = [
@@ -73,6 +67,7 @@ const importsAtTopInvalid = [
       export {b} from 'bbb'
     `,
     errors: [{messageId: 'importsAndReExportsAtTop'}],
+    name: 'multiple issues out of order',
     output: dedent`
       import {a} from 'aaa'
       export {z} from 'zzz'
@@ -88,6 +83,7 @@ const importsAtTopInvalid = [
       export {c} from 'ccc'
     `,
     errors: [{messageId: 'importsAndReExportsAtTop'}],
+    name: 'code before import',
     output: dedent`
       import {b} from 'bbb'
       export {c} from 'ccc'
@@ -96,11 +92,9 @@ const importsAtTopInvalid = [
   },
 ]
 
-ruleTester.run('imports-and-re-exports-at-top', rule, {
-  invalid: [
-    ...importsAtTopInvalid,
-  ],
-  valid: [
-    ...importsAtTopValid,
-  ],
-})
+ruleTester.run('imports-and-re-exports-at-top', rule, {invalid: [
+  ...importsAtTopInvalid,
+],
+valid: [
+  ...importsAtTopValid,
+]})

@@ -16,33 +16,28 @@ const ruleTester = new RuleTester({
 })
 
 const valid = [
+  {code: 'foo(bar)',
+    name: 'single arg'},
+  {code: 'foo(bar, baz)',
+    name: 'two args'},
+  {code: 'foo(bar, baz, qux)',
+    name: 'three args'},
+  {code: 'foo(\n  bar,\n  baz\n)',
+    name: 'already multiline'},
+  {code: 'obj.foo(bar)',
+    name: 'method call single arg'},
+  {code: 'obj.foo(bar, baz)',
+    name: 'method call two args'},
+  {code: 'foo?.(bar)',
+    name: 'optional call single arg'},
   {
     code: 'foo(bar)',
-  },
-  {
-    code: 'foo(bar, baz)',
-  },
-  {
-    code: 'foo(bar, baz, qux)',
-  },
-  {
-    code: 'foo(\n  bar,\n  baz\n)',
-  },
-  {
-    code: 'obj.foo(bar)',
-  },
-  {
-    code: 'obj.foo(bar, baz)',
-  },
-  {
-    code: 'foo?.(bar)',
-  },
-  {
-    code: 'foo(bar)',
+    name: 'with custom maxLength',
     options: [{maxLength: 11}],
   },
   {
     code: 'fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNowTestCallExpr(bar, baz)',
+    name: 'long call fits within maxLength',
     options: [{maxLength: 85}],
   },
 ]
@@ -51,6 +46,7 @@ const invalid = [
   {
     code: 'fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNowTestCallExpr(bar, baz)',
     errors: [{messageId: 'multipleOnSameLine'}],
+    name: 'long call two args same line',
     options: [{maxLength: 79}],
     output: dedent`
       fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNowTestCallExpr(
@@ -62,6 +58,7 @@ const invalid = [
   {
     code: 'fooBarBazQuxQuxBarBazQuxQuxBarBazQuxBarBazQuux(bar)',
     errors: [{messageId: 'exceedsMaxLength'}],
+    name: 'single arg exceeds maxLength',
     options: [{maxLength: 50}],
   },
   {
@@ -71,6 +68,7 @@ const invalid = [
       )
     `,
     errors: [{messageId: 'multipleOnSameLine'}],
+    name: 'multiline but args same line',
     options: [{maxLength: 60}],
     output: dedent`
       foo(
@@ -81,7 +79,5 @@ const invalid = [
   },
 ]
 
-ruleTester.run('function-call-argument-line-break', rule, {
-  invalid,
-  valid,
-})
+ruleTester.run('function-call-argument-line-break', rule, {invalid,
+  valid})

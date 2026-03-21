@@ -16,15 +16,24 @@ const ruleTester = new RuleTester({
 })
 
 const validSingleLineWithoutBraces = [
-  {code: 'if (x) return {}'},
-  {code: 'if (x) foo()'},
-  {code: 'if (x) return'},
-  {code: 'for (;;) return'},
-  {code: 'for (;;) break'},
-  {code: 'while (x) return'},
-  {code: 'while (x) break'},
-  {code: 'do return; while (x)'},
-  {code: 'do break; while (x)'},
+  {code: 'if (x) return {}',
+    name: 'if return object'},
+  {code: 'if (x) foo()',
+    name: 'if call'},
+  {code: 'if (x) return',
+    name: 'if return'},
+  {code: 'for (;;) return',
+    name: 'for return'},
+  {code: 'for (;;) break',
+    name: 'for break'},
+  {code: 'while (x) return',
+    name: 'while return'},
+  {code: 'while (x) break',
+    name: 'while break'},
+  {code: 'do return; while (x)',
+    name: 'do-while return'},
+  {code: 'do break; while (x)',
+    name: 'do-while break'},
 ]
 
 const validMultiLineWithBraces = [
@@ -34,35 +43,40 @@ const validMultiLineWithBraces = [
         foo: 1
       }
     }
-  `},
+  `,
+  name: 'if return object multiline'},
   {code: dedent`
     if (x) {
       console.log(
         'hello'
       )
     }
-  `},
+  `,
+  name: 'if call multiline args'},
   {code: dedent`
     for (;;) {
       return {
         foo: 1
       }
     }
-  `},
+  `,
+  name: 'for return object multiline'},
   {code: dedent`
     while (x) {
       console.log(
         'hello'
       )
     }
-  `},
+  `,
+  name: 'while call multiline args'},
   {code: dedent`
     do {
       return {
         foo: 1
       }
     } while (x)
-  `},
+  `,
+  name: 'do-while return object multiline'},
 ]
 
 const validMultiStatement = [
@@ -71,43 +85,54 @@ const validMultiStatement = [
       foo()
       bar()
     }
-  `},
+  `,
+  name: 'if multiple statements'},
   {code: dedent`
     for (;;) {
       foo()
       bar()
     }
-  `},
+  `,
+  name: 'for multiple statements'},
   {code: dedent`
     while (x) {
       foo()
       bar()
     }
-  `},
+  `,
+  name: 'while multiple statements'},
   {code: dedent`
     do {
       foo()
       bar()
     } while (x)
-  `},
+  `,
+  name: 'do-while multiple statements'},
 ]
 
 const validEmptyBlock = [
-  {code: 'if (x) {}'},
-  {code: 'for (;;) {}'},
-  {code: 'while (x) {}'},
-  {code: 'do {} while (x)'},
+  {code: 'if (x) {}',
+    name: 'if empty block'},
+  {code: 'for (;;) {}',
+    name: 'for empty block'},
+  {code: 'while (x) {}',
+    name: 'while empty block'},
+  {code: 'do {} while (x)',
+    name: 'do-while empty block'},
 ]
 
 const validElseIf = [
-  {code: 'if (x) {} else if (y) {}'},
-  {code: 'if (x) {} else if (y) {} else {}'},
+  {code: 'if (x) {} else if (y) {}',
+    name: 'if-else-if empty'},
+  {code: 'if (x) {} else if (y) {} else {}',
+    name: 'if-else-if-else empty'},
 ]
 
 const invalidSingleLineWithBraces = [
   {
     code: 'if (x) { return {} }',
     errors: [{messageId: 'unnecessaryBraces'}],
+    name: 'if return object with braces',
     output: 'if (x)\n  return {}',
   },
   {
@@ -117,6 +142,7 @@ const invalidSingleLineWithBraces = [
       }
     `,
     errors: [{messageId: 'unnecessaryBraces'}],
+    name: 'if return object multiline with braces',
     output: 'if (x)\n  return {}',
   },
   {
@@ -126,11 +152,13 @@ const invalidSingleLineWithBraces = [
       }
     `,
     errors: [{messageId: 'unnecessaryBraces'}],
+    name: 'if single call multiline with braces',
     output: 'if (x)\n  foo()',
   },
   {
     code: 'for (;;) { return }',
     errors: [{messageId: 'unnecessaryBraces'}],
+    name: 'for return with braces',
     output: 'for (;;)\n  return',
   },
   {
@@ -140,11 +168,13 @@ const invalidSingleLineWithBraces = [
       }
     `,
     errors: [{messageId: 'unnecessaryBraces'}],
+    name: 'for break multiline with braces',
     output: 'for (;;)\n  break',
   },
   {
     code: 'while (x) { break }',
     errors: [{messageId: 'unnecessaryBraces'}],
+    name: 'while break with braces',
     output: 'while (x)\n  break',
   },
   {
@@ -154,11 +184,13 @@ const invalidSingleLineWithBraces = [
       }
     `,
     errors: [{messageId: 'unnecessaryBraces'}],
+    name: 'while return multiline with braces',
     output: 'while (x)\n  return',
   },
   {
     code: 'do { return; } while (x)',
     errors: [{messageId: 'unnecessaryBraces'}],
+    name: 'do-while return with braces',
     output: 'do\n  return; while (x)',
   },
   {
@@ -168,6 +200,7 @@ const invalidSingleLineWithBraces = [
       } while (x)
     `,
     errors: [{messageId: 'unnecessaryBraces'}],
+    name: 'do-while break multiline with braces',
     output: 'do\n  break; while (x)',
   },
 ]
@@ -180,6 +213,7 @@ const invalidMultiLineWithoutBraces = [
       )
     `,
     errors: [{messageId: 'missingBraces'}],
+    name: 'if call multiline missing braces',
     output: dedent`
       if (x) {
         console.log(
@@ -195,6 +229,7 @@ const invalidMultiLineWithoutBraces = [
       )
     `,
     errors: [{messageId: 'missingBraces'}],
+    name: 'for call multiline missing braces',
     output: dedent`
       for (;;) {
         console.log(
@@ -210,6 +245,7 @@ const invalidMultiLineWithoutBraces = [
       )
     `,
     errors: [{messageId: 'missingBraces'}],
+    name: 'while call multiline missing braces',
     output: dedent`
       while (x) {
         console.log(
@@ -225,6 +261,7 @@ const invalidMultiLineWithoutBraces = [
       ); while (x)
     `,
     errors: [{messageId: 'missingBraces'}],
+    name: 'do-while call multiline missing braces',
     output: dedent`
       do {
         console.log(
@@ -241,6 +278,7 @@ const invalidMultiLineWithoutBraces = [
       }
     `,
     errors: [{messageId: 'missingBraces'}],
+    name: 'if return object multiline missing braces',
     output: dedent`
       if (x) {
         return {
@@ -259,6 +297,7 @@ const invalidMultiLineWithoutBraces = [
         )
     `,
     errors: [{messageId: 'missingBraces'}],
+    name: 'if call with many args missing braces',
     output: dedent`
       if (x) {
         foo(
@@ -271,16 +310,14 @@ const invalidMultiLineWithoutBraces = [
   },
 ]
 
-ruleTester.run('no-unnecessary-braces', rule, {
-  invalid: [
-    ...invalidSingleLineWithBraces,
-    ...invalidMultiLineWithoutBraces,
-  ],
-  valid: [
-    ...validSingleLineWithoutBraces,
-    ...validMultiLineWithBraces,
-    ...validMultiStatement,
-    ...validEmptyBlock,
-    ...validElseIf,
-  ],
-})
+ruleTester.run('no-unnecessary-braces', rule, {invalid: [
+  ...invalidSingleLineWithBraces,
+  ...invalidMultiLineWithoutBraces,
+],
+valid: [
+  ...validSingleLineWithoutBraces,
+  ...validMultiLineWithBraces,
+  ...validMultiStatement,
+  ...validEmptyBlock,
+  ...validElseIf,
+]})

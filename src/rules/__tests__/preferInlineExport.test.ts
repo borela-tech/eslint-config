@@ -16,84 +16,86 @@ const ruleTester = new RuleTester({
 })
 
 const valid = [
-  // Already inline exports
-  {code: 'export interface Foo {}'},
-  {code: 'export type Bar = string'},
-  {code: 'export class Baz {}'},
-  {code: 'export function qux() {}'},
-  {code: 'export const x = 1'},
+  {code: 'export interface Foo {}',
+    name: 'inline interface export'},
+  {code: 'export type Bar = string',
+    name: 'inline type export'},
+  {code: 'export class Baz {}',
+    name: 'inline class export'},
+  {code: 'export function qux() {}',
+    name: 'inline function export'},
+  {code: 'export const x = 1',
+    name: 'inline const export'},
 
-  // Re-exports from other modules
-  {code: 'export { A } from "./module"'},
-  {code: 'export type { B } from "./module"'},
+  {code: 'export { A } from "./module"',
+    name: 're-export from module'},
+  {code: 'export type { B } from "./module"',
+    name: 'type re-export from module'},
 
-  // Mixed: local + imported (can't fully inline)
-  {
-    code: dedent`
+  {code: dedent`
       import { B } from './module'
       export { A, B }
     `,
-  },
+  name: 'mixed local and imported'},
 
-  // Renamed exports
-  {code: 'export { A as B }'},
+  {code: 'export { A as B }',
+    name: 'renamed export'},
 
-  // Default exports
-  {code: 'export default foo'},
+  {code: 'export default foo',
+    name: 'default export'},
 ]
 
 const invalid = [
-  // Interface
   {
     code: dedent`
       interface Foo {}
       export type { Foo }
     `,
     errors: [{messageId: 'preferInline'}],
+    name: 'interface export should be inline',
     output: 'export interface Foo {}\n',
   },
 
-  // Type alias
   {
     code: dedent`
       type Foo = string
       export type { Foo }
     `,
     errors: [{messageId: 'preferInline'}],
+    name: 'type export should be inline',
     output: 'export type Foo = string\n',
   },
 
-  // Class
   {
     code: dedent`
       class Foo {}
       export { Foo }
     `,
     errors: [{messageId: 'preferInline'}],
+    name: 'class export should be inline',
     output: 'export class Foo {}\n',
   },
 
-  // Function
   {
     code: dedent`
       function foo() {}
       export { foo }
     `,
     errors: [{messageId: 'preferInline'}],
+    name: 'function export should be inline',
     output: 'export function foo() {}\n',
   },
 
-  // Const
   {
     code: dedent`
       const x = 1
       export { x }
     `,
     errors: [{messageId: 'preferInline'}],
+    name: 'const export should be inline',
     output: 'export const x = 1\n',
   },
 
-  // Multiple declarations
   {
     code: dedent`
       interface A {}
@@ -101,6 +103,7 @@ const invalid = [
       export { A, B }
     `,
     errors: [{messageId: 'preferInline'}],
+    name: 'multiple declarations should be inline',
     output: dedent`
       export interface A {}
       export class B {}
@@ -108,7 +111,6 @@ const invalid = [
       + '\n',
   },
 
-  // Multiple type exports
   {
     code: dedent`
       interface C {}
@@ -116,6 +118,7 @@ const invalid = [
       export type { C, D }
     `,
     errors: [{messageId: 'preferInline'}],
+    name: 'multiple type declarations should be inline',
     output: dedent`
       export interface C {}
       export type D = string
@@ -124,7 +127,5 @@ const invalid = [
   },
 ]
 
-ruleTester.run('prefer-inline-export', rule, {
-  invalid,
-  valid,
-})
+ruleTester.run('prefer-inline-export', rule, {invalid,
+  valid})

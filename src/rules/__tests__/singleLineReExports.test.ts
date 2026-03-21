@@ -16,19 +16,24 @@ const ruleTester = new RuleTester({
 })
 
 const singleLineValid = [
-  {code: "export {foo} from 'bar'"},
-  {code: "export * from 'bar'"},
-  {code: "export * as foo from 'bar'"},
-  {code: "export type {Foo} from 'bar'"},
-  {code: "export {a, b, c} from 'bar'"},
-  {
-    code: dedent`
+  {code: "export {foo} from 'bar'",
+    name: 'named re-export'},
+  {code: "export * from 'bar'",
+    name: 'all re-export'},
+  {code: "export * as foo from 'bar'",
+    name: 'namespace re-export'},
+  {code: "export type {Foo} from 'bar'",
+    name: 'type re-export'},
+  {code: "export {a, b, c} from 'bar'",
+    name: 'multiple named re-exports'},
+  {code: dedent`
       export {
         foo,
       }
     `,
-  },
-  {code: "export {foo} from 'bar' with {type: 'json'}"},
+  name: 'wrapped named re-export'},
+  {code: "export {foo} from 'bar' with {type: 'json'}",
+    name: 'named re-export with assertion'},
 ]
 
 const multilineInvalid = [
@@ -39,6 +44,7 @@ const multilineInvalid = [
       } from 'bar'
     `,
     errors: [{messageId: 'multiline'}],
+    name: 'named re-export multiline',
     output: dedent`
       export {foo} from 'bar'
     `,
@@ -50,6 +56,7 @@ const multilineInvalid = [
       } from 'bar'
     `,
     errors: [{messageId: 'multiline'}],
+    name: 'type re-export multiline',
     output: dedent`
       export type {Foo} from 'bar'
     `,
@@ -63,6 +70,7 @@ const multilineInvalid = [
       } from 'bar'
     `,
     errors: [{messageId: 'multiline'}],
+    name: 'multiple named re-exports multiline',
     output: dedent`
       export {a, b, c} from 'bar'
     `,
@@ -74,6 +82,7 @@ const multilineInvalid = [
       } from 'bar' with {type: 'json'}
     `,
     errors: [{messageId: 'multiline'}],
+    name: 'named re-export multiline with assertion',
     output: `
       export {foo} from 'bar' with {type: 'json'}
     `,
@@ -84,6 +93,7 @@ const multilineInvalid = [
       from 'bar'
     `,
     errors: [{messageId: 'multiline'}],
+    name: 'all re-export multiline',
     output: dedent`
       export * from 'bar'
     `,
@@ -94,17 +104,16 @@ const multilineInvalid = [
       from 'bar'
     `,
     errors: [{messageId: 'multiline'}],
+    name: 'namespace re-export multiline',
     output: dedent`
       export * as foo from 'bar'
     `,
   },
 ]
 
-ruleTester.run('single-line-re-exports', rule, {
-  invalid: [
-    ...multilineInvalid,
-  ],
-  valid: [
-    ...singleLineValid,
-  ],
-})
+ruleTester.run('single-line-re-exports', rule, {invalid: [
+  ...multilineInvalid,
+],
+valid: [
+  ...singleLineValid,
+]})

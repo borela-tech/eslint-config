@@ -16,36 +16,40 @@ const ruleTester = new RuleTester({
 })
 
 const valid = [
-  {code: 'function foo(bar) {}'},
-  {code: 'function foo(bar, baz) {}'},
-  {code: 'function foo(bar, baz, qux) {}'},
-  {code: 'const foo = (bar) => {}'},
-  {code: 'const foo = (bar, baz) => {}'},
-  {code: 'const foo = function(bar, baz) {}'},
-  {
-    code: dedent`
+  {code: 'function foo(bar) {}',
+    name: 'single param'},
+  {code: 'function foo(bar, baz) {}',
+    name: 'two params'},
+  {code: 'function foo(bar, baz, qux) {}',
+    name: 'three params'},
+  {code: 'const foo = (bar) => {}',
+    name: 'arrow function single param'},
+  {code: 'const foo = (bar, baz) => {}',
+    name: 'arrow function two params'},
+  {code: 'const foo = function(bar, baz) {}',
+    name: 'function expression two params'},
+  {code: dedent`
       function foo(
         barParameterWithLongNameHereNowAndForeverAAA,
         bazParameterWithLongNameHereNowAndForeverBBB,
       ) {}
     `,
-  },
-  {
-    code: dedent`
+  name: 'long params forced multiline'},
+  {code: dedent`
       function foo(
         barParameterWithLongNameHereNowAndForeverAAA: VeryLongTypeNameHereAAA,
         bazParameterWithLongNameHereNowAndForeverBBB: VeryLongTypeNameHereBBB,
       ) {}
     `,
-  },
-  {
-    code: dedent`
+  name: 'long typed params forced multiline'},
+  {code: dedent`
       function fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHere(
         barParameterWithLongNameHereAAAAndEvenMoreTextHere: VeryLongTypeNameHereAAAAndEvenMore,
       ) {}
     `,
-  },
-  {code: 'function foo() {}'},
+  name: 'long function name with long typed param'},
+  {code: 'function foo() {}',
+    name: 'no params'},
 ]
 
 const invalid = [
@@ -56,6 +60,7 @@ const invalid = [
       ) {}
     `,
     errors: [{messageId: 'singleLine'}],
+    name: 'function single param multiline',
     output: 'function foo(bar) {}',
   },
   {
@@ -66,6 +71,7 @@ const invalid = [
       ) {}
     `,
     errors: [{messageId: 'singleLine'}],
+    name: 'function two params multiline',
     output: 'function foo(bar, baz) {}',
   },
   {
@@ -77,6 +83,7 @@ const invalid = [
       ) {}
     `,
     errors: [{messageId: 'singleLine'}],
+    name: 'function three params multiline',
     output: 'function foo(bar, baz, qux) {}',
   },
   {
@@ -86,6 +93,7 @@ const invalid = [
       ) {}
     `,
     errors: [{messageId: 'singleLine'}],
+    name: 'function expression single param multiline',
     output: 'const foo = function(bar) {}',
   },
   {
@@ -95,6 +103,7 @@ const invalid = [
       ) => void
     `,
     errors: [{messageId: 'singleLine'}],
+    name: 'type Fn single typed param multiline',
     output: 'type Fn = (foo: string) => void',
   },
   {
@@ -105,6 +114,7 @@ const invalid = [
       ) => void
     `,
     errors: [{messageId: 'singleLine'}],
+    name: 'type Fn two typed params multiline',
     output: 'type Fn = (foo: string, bar: number) => void',
   },
   {
@@ -116,6 +126,7 @@ const invalid = [
       }
     `,
     errors: [{messageId: 'singleLine'}],
+    name: 'call signature single typed param multiline',
     output: dedent`
       type Fn = {
         (foo: string): void;
@@ -131,6 +142,7 @@ const invalid = [
       }
     `,
     errors: [{messageId: 'singleLine'}],
+    name: 'interface method single typed param multiline',
     output: dedent`
       interface Foo {
         bar(a: string): void;
@@ -139,7 +151,5 @@ const invalid = [
   },
 ]
 
-ruleTester.run('single-line-function-parameters', rule, {
-  invalid,
-  valid,
-})
+ruleTester.run('single-line-function-parameters', rule, {invalid,
+  valid})

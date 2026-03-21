@@ -16,31 +16,34 @@ const ruleTester = new RuleTester({
 })
 
 const unionTypeValid = [
-  {code: 'type A = B'},
-  {
-    code: dedent`
+  {code: 'type A = B',
+    name: 'simple type alias'},
+  {code: dedent`
       type A = 
         | B
         | C
     `,
-  },
-  {
-    code: dedent`
+  name: 'union type multiline'},
+  {code: dedent`
       export type A = 
         | B
         | C
         | D
     `,
-  },
-  {code: 'let foo: A | B | C'},
-  {code: 'function foo(a: A | B | C) {}'},
-  {code: 'interface Foo { prop: A | B | C }'},
+  name: 'export union type multiline'},
+  {code: 'let foo: A | B | C',
+    name: 'union type in variable'},
+  {code: 'function foo(a: A | B | C) {}',
+    name: 'union type in param'},
+  {code: 'interface Foo { prop: A | B | C }',
+    name: 'union type in interface prop'},
 ]
 
 const unionTypeInvalid = [
   {
     code: 'type A = B | C | D',
     errors: [{messageId: 'singleLine'}],
+    name: 'union type single line',
     output: dedent`
       type A = 
         | B
@@ -55,6 +58,7 @@ const unionTypeInvalid = [
         D
     `,
     errors: [{messageId: 'missingPipes'}],
+    name: 'union type missing leading pipes',
     output: dedent`
       type A = 
         | B
@@ -65,6 +69,7 @@ const unionTypeInvalid = [
   {
     code: 'type A = string | number | boolean',
     errors: [{messageId: 'singleLine'}],
+    name: 'union of primitives single line',
     output: dedent`
       type A = 
         | string
@@ -75,6 +80,7 @@ const unionTypeInvalid = [
   {
     code: 'export type Foo = Bar | Baz',
     errors: [{messageId: 'singleLine'}],
+    name: 'export union type single line',
     output: dedent`
       export type Foo = 
         | Bar
@@ -83,11 +89,9 @@ const unionTypeInvalid = [
   },
 ]
 
-ruleTester.run('multiline-union-type-aliases', rule, {
-  invalid: [
-    ...unionTypeInvalid,
-  ],
-  valid: [
-    ...unionTypeValid,
-  ],
-})
+ruleTester.run('multiline-union-type-aliases', rule, {invalid: [
+  ...unionTypeInvalid,
+],
+valid: [
+  ...unionTypeValid,
+]})

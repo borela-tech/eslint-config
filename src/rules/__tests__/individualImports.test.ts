@@ -16,16 +16,21 @@ const ruleTester = new RuleTester({
 })
 
 const singleImportValid = [
-  {code: "import {foo} from 'bar'"},
-  {code: "import foo from 'bar'"},
-  {code: "import * as foo from 'bar'"},
-  {code: "import 'bar'"},
+  {code: "import {foo} from 'bar'",
+    name: 'single named import'},
+  {code: "import foo from 'bar'",
+    name: 'default import'},
+  {code: "import * as foo from 'bar'",
+    name: 'namespace import'},
+  {code: "import 'bar'",
+    name: 'side effect import'},
 ]
 
 const multipleImportInvalid = [
   {
     code: "import {foo, bar} from 'baz'",
     errors: [{messageId: 'individualImports'}],
+    name: 'two named imports',
     output: dedent`
       import {foo} from 'baz'
       import {bar} from 'baz'
@@ -34,6 +39,7 @@ const multipleImportInvalid = [
   {
     code: "import {foo, bar, baz} from 'qux'",
     errors: [{messageId: 'individualImports'}],
+    name: 'three named imports',
     output: dedent`
       import {foo} from 'qux'
       import {bar} from 'qux'
@@ -42,11 +48,9 @@ const multipleImportInvalid = [
   },
 ]
 
-ruleTester.run('individual-imports', rule, {
-  invalid: [
-    ...multipleImportInvalid,
-  ],
-  valid: [
-    ...singleImportValid,
-  ],
-})
+ruleTester.run('individual-imports', rule, {invalid: [
+  ...multipleImportInvalid,
+],
+valid: [
+  ...singleImportValid,
+]})
