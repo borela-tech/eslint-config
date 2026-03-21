@@ -1,6 +1,6 @@
 import {getStatementType} from './getStatementType'
 import type {StatementIndices} from './StatementIndices'
-import type {StatementType} from './statementType'
+import type {StatementType} from './StatementType'
 import type {TSESTree} from '@typescript-eslint/types'
 
 export function findStatementIndices(

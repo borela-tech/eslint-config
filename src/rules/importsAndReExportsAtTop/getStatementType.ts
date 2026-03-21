@@ -1,4 +1,4 @@
-import type {StatementType} from './statementType'
+import type {StatementType} from './StatementType'
 import type {TSESTree} from '@typescript-eslint/types'
 
 export function getStatementType(statement: TSESTree.Statement): StatementType {
