@@ -24,8 +24,8 @@ const valid = [
   {code: 'declare function foo(): void'},
   {code: 'const foo = 1'},
   {code: 'export const foo = 1'},
-  {code: 'export { foo } from "./foo"'},
-  {code: 'export { foo, bar } from "./foo"'},
+  {code: 'export {foo} from "./foo"'},
+  {code: 'export {foo, bar} from "./foo"'},
   {
     code: 'function foo() {}',
     filename: '/test/foo.test.ts',
