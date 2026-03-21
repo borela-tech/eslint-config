@@ -31,5 +31,5 @@ export function checkFunction(
   if (firstLine === lastLine)
     checkSingleLineParams(sourceCode, context, params, parens, maxLength)
   else
-    checkMultilineParams(sourceCode, context, params, maxLength)
+    checkMultilineParams(sourceCode, context, params, parens, maxLength)
 }
