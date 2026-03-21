@@ -1,5 +1,5 @@
 import type {Options} from './Options'
 
 export const defaultOptions = {
-  maxLength: 120,
+  maxLength: 80,
 } as const satisfies Options

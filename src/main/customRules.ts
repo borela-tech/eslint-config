@@ -52,7 +52,10 @@ export const customRules: TSESLint.FlatConfig.Config = {
   rules: {
     '@borela-tech/brace-style-control-statements': 'error',
     '@borela-tech/export-filename-match': 'error',
-    '@borela-tech/function-call-argument-line-break': 'error',
+    '@borela-tech/function-call-argument-line-break': [
+      'error',
+      {maxLength: 80},
+    ],
     '@borela-tech/function-cognitive-complexity': [
       'error',
       {maxCognitiveComplexity: 15},
