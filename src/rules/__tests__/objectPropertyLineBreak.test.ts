@@ -16,21 +16,21 @@ const valid = [{
   name: 'empty object',
 }, {
   code: dedent`
-      const a = {
-        foo: foo,
-        bar: bar,
-      }
-    `,
+    const a = {
+      foo: foo,
+      bar: bar,
+    }
+  `,
   name: 'multiline with normal properties',
 }, {
   code: dedent`
-      const a = {
-        foo: foo,
-        bar: bar,
-        baz: baz,
-        lol: lol,
-      }
-    `,
+    const a = {
+      foo: foo,
+      bar: bar,
+      baz: baz,
+      lol: lol,
+    }
+  `,
   name: 'multiline long with normal properties',
 }] as const
 
@@ -46,11 +46,11 @@ const invalid = [{
   output: 'const a = {foo, bar}',
 }, {
   code: dedent`
-      const a = {
-        foo,
-        bar,
-      }
-    `,
+    const a = {
+      foo,
+      bar,
+    }
+  `,
   errors: [{messageId: 'multilineCanBeSingleLine'}],
   name: 'multiline shorthand can collapse',
   output: 'const a = {foo, bar}',

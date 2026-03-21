@@ -25,9 +25,9 @@ const valid = [{
   name: 'type re-export from module',
 }, {
   code: dedent`
-      import { B } from './module'
-      export { A, B }
-    `,
+    import { B } from './module'
+    export { A, B }
+  `,
   name: 'mixed local and imported',
 }, {
   code: 'export { A as B }',
@@ -39,69 +39,69 @@ const valid = [{
 
 const invalid = [{
   code: dedent`
-      interface Foo {}
-      export type { Foo }
-    `,
+    interface Foo {}
+    export type { Foo }
+  `,
   errors: [{messageId: 'preferInline'}],
   name: 'interface export should be inline',
   output: 'export interface Foo {}\n',
 }, {
   code: dedent`
-      type Foo = string
-      export type { Foo }
-    `,
+    type Foo = string
+    export type { Foo }
+  `,
   errors: [{messageId: 'preferInline'}],
   name: 'type export should be inline',
   output: 'export type Foo = string\n',
 }, {
   code: dedent`
-      class Foo {}
-      export { Foo }
-    `,
+    class Foo {}
+    export { Foo }
+  `,
   errors: [{messageId: 'preferInline'}],
   name: 'class export should be inline',
   output: 'export class Foo {}\n',
 }, {
   code: dedent`
-      function foo() {}
-      export { foo }
-    `,
+    function foo() {}
+    export { foo }
+  `,
   errors: [{messageId: 'preferInline'}],
   name: 'function export should be inline',
   output: 'export function foo() {}\n',
 }, {
   code: dedent`
-      const x = 1
-      export { x }
-    `,
+    const x = 1
+    export { x }
+  `,
   errors: [{messageId: 'preferInline'}],
   name: 'const export should be inline',
   output: 'export const x = 1\n',
 }, {
   code: dedent`
-      interface A {}
-      class B {}
-      export { A, B }
-    `,
+    interface A {}
+    class B {}
+    export { A, B }
+  `,
   errors: [{messageId: 'preferInline'}],
   name: 'multiple declarations should be inline',
   output: dedent`
-      export interface A {}
-      export class B {}
-    `
+    export interface A {}
+    export class B {}
+  `
     + '\n',
 }, {
   code: dedent`
-      interface C {}
-      type D = string
-      export type { C, D }
-    `,
+    interface C {}
+    type D = string
+    export type { C, D }
+  `,
   errors: [{messageId: 'preferInline'}],
   name: 'multiple type declarations should be inline',
   output: dedent`
-      export interface C {}
-      export type D = string
-    `
+    export interface C {}
+    export type D = string
+  `
     + '\n',
 }] as const
 

@@ -28,7 +28,7 @@ export function checkMultilineArgs(
           )
           const lastNode = nodesOnLine[nodesOnLine.length - 1]
           const lineStartIndex = getLineStartIndex(sourceCode, line)
-          const baseIndent = sourceCode.getText().match(/^[ \t]*/)?.[0] ?? ''
+          const baseIndent = sourceCode.getText().match(/^[\t ]*/)?.[0] ?? ''
           const indent = baseIndent + '  '
           const fixed = formatArgs(sourceCode, nodesOnLine, indent)
           return fixer.replaceTextRange(

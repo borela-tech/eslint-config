@@ -16,30 +16,30 @@ const valid = [{
   name: 'single-line items with bracket inline',
 }, {
   code: dedent`
-      const foo = [{
-        id: 1,
-      }, {
-        id: 2,
-      }]
-    `,
+    const foo = [{
+      id: 1,
+    }, {
+      id: 2,
+    }]
+  `,
   name: 'already compact (bracket inline with multiline items)',
 }, {
   code: dedent`
-      const foo = [
-        1,
-        2,
-        3,
-      ]
-    `,
+    const foo = [
+      1,
+      2,
+      3,
+    ]
+  `,
   name: 'primitive values array (no objects or nested arrays)',
 }, {
   code: dedent`
-      const foo = [
-        'a',
-        'b',
-        'c',
-      ]
-    `,
+    const foo = [
+      'a',
+      'b',
+      'c',
+    ]
+  `,
   name: 'string values array',
 }, {
   code: 'const foo = [[1, 2]]',

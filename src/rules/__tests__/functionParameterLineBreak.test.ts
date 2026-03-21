@@ -33,20 +33,20 @@ const valid = [{
   options: [{maxLength: 85}],
 }, {
   code: dedent`
-      type Fn = (
-        foo: string,
-        bar: number,
-      ) => void
-    `,
+    type Fn = (
+      foo: string,
+      bar: number,
+    ) => void
+  `,
   name: 'type Fn multiline',
 }, {
   code: dedent`
-      interface Foo {
-        bar(
-          a: string,
-        ): void;
-      }
-    `,
+    interface Foo {
+      bar(
+        a: string,
+      ): void;
+    }
+  `,
   name: 'interface method multiline',
 }] as const
 
@@ -56,11 +56,11 @@ const invalid = [{
   name: 'long name two params same line',
   options: [{maxLength: 70}],
   output: dedent`
-      function fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNow(
-        bar,
-        baz
-      ) {}
-    `,
+    function fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNow(
+      bar,
+      baz
+    ) {}
+  `,
 }, {
   code: 'function fooBarBazQuxQuxBarBazQuxQuxBarBazQuxBarBazQuux(bar) {}',
   errors: [{messageId: 'exceedsMaxLength'}],
@@ -72,36 +72,36 @@ const invalid = [{
   name: 'type Fn two long params same line',
   options: [{maxLength: 60}],
   output: dedent`
-      type Fn = (
-        fooParameterName: string,
-        barParameterName: number
-      ) => void
-    `,
+    type Fn = (
+      fooParameterName: string,
+      barParameterName: number
+    ) => void
+  `,
 }, {
   code: dedent`
-      interface Foo {
-        bar(aVeryVeryVeryLongParameterName: string, bVeryVeryLongParameterName: number): void;
-      }
-    `,
+    interface Foo {
+      bar(aVeryVeryVeryLongParameterName: string, bVeryVeryLongParameterName: number): void;
+    }
+  `,
   errors: [{messageId: 'multipleOnSameLine'}],
   name: 'interface method two long params same line',
   options: [{maxLength: 80}],
   output: 'interface Foo {\n  bar(\n  aVeryVeryVeryLongParameterName: string,\n  bVeryVeryLongParameterName: number\n): void;\n}',
 }, {
   code: dedent`
-      function foo(
-        barVeryVeryVeryVeryVeryVeryVeryVeryVeryLong, bazVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
-      ) {}
-    `,
+    function foo(
+      barVeryVeryVeryVeryVeryVeryVeryVeryVeryLong, bazVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
+    ) {}
+  `,
   errors: [{messageId: 'multipleOnSameLine'}],
   name: 'function multiline but params same line',
   options: [{maxLength: 70}],
   output: dedent`
-      function foo(
-        barVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
-        bazVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
-      ) {}
-    `,
+    function foo(
+      barVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
+      bazVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
+    ) {}
+  `,
 }] as const
 
 const ruleTester = new RuleTester()

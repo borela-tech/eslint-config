@@ -30,34 +30,34 @@ const multipleReExportInvalid = [{
   errors: [{messageId: 'individualReExports'}],
   name: 'two type re-exports',
   output: dedent`
-      export type {foo} from 'baz'
-      export type {bar} from 'baz'
-    `,
+    export type {foo} from 'baz'
+    export type {bar} from 'baz'
+  `,
 }, {
   code: "export {foo, bar} from 'baz'",
   errors: [{messageId: 'individualReExports'}],
   name: 'two named re-exports',
   output: dedent`
-      export {foo} from 'baz'
-      export {bar} from 'baz'
-    `,
+    export {foo} from 'baz'
+    export {bar} from 'baz'
+  `,
 }, {
   code: "export {foo, bar, baz} from 'qux'",
   errors: [{messageId: 'individualReExports'}],
   name: 'three named re-exports',
   output: dedent`
-      export {foo} from 'qux'
-      export {bar} from 'qux'
-      export {baz} from 'qux'
-    `,
+    export {foo} from 'qux'
+    export {bar} from 'qux'
+    export {baz} from 'qux'
+  `,
 }, {
   code: "export {foo as bar, baz as qux} from 'qux'",
   errors: [{messageId: 'individualReExports'}],
   name: 'two aliased re-exports',
   output: dedent`
-      export {foo as bar} from 'qux'
-      export {baz as qux} from 'qux'
-    `,
+    export {foo as bar} from 'qux'
+    export {baz as qux} from 'qux'
+  `,
 }] as const
 
 const ruleTester = new RuleTester()

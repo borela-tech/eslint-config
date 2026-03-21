@@ -16,37 +16,37 @@ const valid = [{
   name: 'single line multiple key-value',
 }, {
   code: dedent`
-      const x = {
-        foo: 1,
-        bar: 2,
-      }
-    `,
+    const x = {
+      foo: 1,
+      bar: 2,
+    }
+  `,
   name: 'multi-line with braces on own lines',
 }, {
   code: dedent`
-      const arr = [
-        {
-          foo: 1,
-        },
-      ]
-    `,
+    const arr = [
+      {
+        foo: 1,
+      },
+    ]
+  `,
   name: 'object in array',
 }, {
   code: dedent`
-      const obj = {
-        outer: {
-          inner: 1,
-        },
-      }
-    `,
+    const obj = {
+      outer: {
+        inner: 1,
+      },
+    }
+  `,
   name: 'nested objects valid',
 }, {
   code: dedent`
-      const obj = {
-        foo,
-        bar,
-      }
-    `,
+    const obj = {
+      foo,
+      bar,
+    }
+  `,
   name: 'multi-line shorthand',
 }]
 

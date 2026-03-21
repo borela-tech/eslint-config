@@ -39,7 +39,7 @@ export function checkSingleLineArgs(
   context.report({
     data: {maxLength},
     fix: (fixer): TSESLint.RuleFix => {
-      const indent = sourceCode.getText().match(/^[ \t]*/)?.[0] ?? ''
+      const indent = sourceCode.getText().match(/^[\t ]*/)?.[0] ?? ''
 
       const argTexts = args.map(arg => {
         const argText = sourceCode.getText(arg)

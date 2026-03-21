@@ -10,6 +10,7 @@ import {perfectionistRules} from './main/perfectionistRules'
 import {reactHooks} from './main/reactHooks'
 import {stylisticRules} from './main/stylisticRules'
 import {typescriptRules} from './main/typescriptRules'
+import {unicornRules} from './main/unicornRules'
 import type {TSESLint} from '@typescript-eslint/utils'
 
 export const config: TSESLint.FlatConfig.ConfigArray = [
@@ -28,4 +29,5 @@ export const config: TSESLint.FlatConfig.ConfigArray = [
   reactHooks,
   stylisticRules,
   typescriptRules,
+  unicornRules,
 ]

@@ -39,7 +39,7 @@ export function checkSingleLineMembers(
   context.report({
     data: {maxLength},
     fix: (fixer): TSESLint.RuleFix => {
-      const indent = sourceCode.getText().match(/^[ \t]*/)?.[0] ?? ''
+      const indent = sourceCode.getText().match(/^[\t ]*/)?.[0] ?? ''
 
       const memberTexts = members.map((member, index) => {
         const memberText = sourceCode.getText(member).replace(/,\s*$/, '')

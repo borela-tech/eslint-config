@@ -21,18 +21,18 @@ const multipleImportInvalid = [{
   errors: [{messageId: 'individualImports'}],
   name: 'two named imports',
   output: dedent`
-      import {foo} from 'baz'
-      import {bar} from 'baz'
-    `,
+    import {foo} from 'baz'
+    import {bar} from 'baz'
+  `,
 }, {
   code: "import {foo, bar, baz} from 'qux'",
   errors: [{messageId: 'individualImports'}],
   name: 'three named imports',
   output: dedent`
-      import {foo} from 'qux'
-      import {bar} from 'qux'
-      import {baz} from 'qux'
-    `,
+    import {foo} from 'qux'
+    import {bar} from 'qux'
+    import {baz} from 'qux'
+  `,
 }] as const
 
 const ruleTester = new RuleTester()

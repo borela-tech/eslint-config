@@ -141,19 +141,19 @@ const invalidSingleLineWithBraces = [{
   output: 'if (x)\n  return {}',
 }, {
   code: dedent`
-      if (x) {
-        return {}
-      }
-    `,
+    if (x) {
+      return {}
+    }
+  `,
   errors: [{messageId: 'unnecessaryBraces'}],
   name: 'if return object multiline with braces',
   output: 'if (x)\n  return {}',
 }, {
   code: dedent`
-      if (x) {
-        foo()
-      }
-    `,
+    if (x) {
+      foo()
+    }
+  `,
   errors: [{messageId: 'unnecessaryBraces'}],
   name: 'if single call multiline with braces',
   output: 'if (x)\n  foo()',
@@ -164,10 +164,10 @@ const invalidSingleLineWithBraces = [{
   output: 'for (;;)\n  return',
 }, {
   code: dedent`
-      for (;;) {
-        break
-      }
-    `,
+    for (;;) {
+      break
+    }
+  `,
   errors: [{messageId: 'unnecessaryBraces'}],
   name: 'for break multiline with braces',
   output: 'for (;;)\n  break',
@@ -178,10 +178,10 @@ const invalidSingleLineWithBraces = [{
   output: 'while (x)\n  break',
 }, {
   code: dedent`
-      while (x) {
-        return
-      }
-    `,
+    while (x) {
+      return
+    }
+  `,
   errors: [{messageId: 'unnecessaryBraces'}],
   name: 'while return multiline with braces',
   output: 'while (x)\n  return',
@@ -192,10 +192,10 @@ const invalidSingleLineWithBraces = [{
   output: 'do\n  return; while (x)',
 }, {
   code: dedent`
-      do {
-        break;
-      } while (x)
-    `,
+    do {
+      break;
+    } while (x)
+  `,
   errors: [{messageId: 'unnecessaryBraces'}],
   name: 'do-while break multiline with braces',
   output: 'do\n  break; while (x)',
@@ -203,100 +203,100 @@ const invalidSingleLineWithBraces = [{
 
 const invalidMultiLineWithoutBraces = [{
   code: dedent`
-      if (x) console.log(
-        'hello'
-      )
-    `,
+    if (x) console.log(
+      'hello'
+    )
+  `,
   errors: [{messageId: 'missingBraces'}],
   name: 'if call multiline missing braces',
   output: dedent`
-      if (x) {
-        console.log(
-          'hello'
-        )
-      }
-    `,
-}, {
-  code: dedent`
-      for (;;) console.log(
+    if (x) {
+      console.log(
         'hello'
       )
-    `,
+    }
+  `,
+}, {
+  code: dedent`
+    for (;;) console.log(
+      'hello'
+    )
+  `,
   errors: [{messageId: 'missingBraces'}],
   name: 'for call multiline missing braces',
   output: dedent`
-      for (;;) {
-        console.log(
-          'hello'
-        )
-      }
-    `,
-}, {
-  code: dedent`
-      while (x) console.log(
+    for (;;) {
+      console.log(
         'hello'
       )
-    `,
+    }
+  `,
+}, {
+  code: dedent`
+    while (x) console.log(
+      'hello'
+    )
+  `,
   errors: [{messageId: 'missingBraces'}],
   name: 'while call multiline missing braces',
   output: dedent`
-      while (x) {
-        console.log(
-          'hello'
-        )
-      }
-    `,
+    while (x) {
+      console.log(
+        'hello'
+      )
+    }
+  `,
 }, {
   code: dedent`
-      do console.log(
-        'hello'
-      ); while (x)
-    `,
+    do console.log(
+      'hello'
+    ); while (x)
+  `,
   errors: [{messageId: 'missingBraces'}],
   name: 'do-while call multiline missing braces',
   output: dedent`
-      do {
-        console.log(
-          'hello'
-        );
-      } while (x)
-    `,
+    do {
+      console.log(
+        'hello'
+      );
+    } while (x)
+  `,
 }, {
   code: dedent`
-      if (x) return {
-        foo: 1,
-        bar: 2
-      }
-    `,
+    if (x) return {
+      foo: 1,
+      bar: 2
+    }
+  `,
   errors: [{messageId: 'missingBraces'}],
   name: 'if return object multiline missing braces',
   output: dedent`
-      if (x) {
-        return {
-          foo: 1,
-          bar: 2
-        }
+    if (x) {
+      return {
+        foo: 1,
+        bar: 2
       }
-    `,
+    }
+  `,
 }, {
   code: dedent`
-      if (x) foo(
-          a,
-          b,
-          c
-        )
-    `,
+    if (x) foo(
+        a,
+        b,
+        c
+      )
+  `,
   errors: [{messageId: 'missingBraces'}],
   name: 'if call with many args missing braces',
   output: dedent`
-      if (x) {
-        foo(
-          a,
-          b,
-          c
-        )
-      }
-    `,
+    if (x) {
+      foo(
+        a,
+        b,
+        c
+      )
+    }
+  `,
 }] as const
 
 const ruleTester = new RuleTester()

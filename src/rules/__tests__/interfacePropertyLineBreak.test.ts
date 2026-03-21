@@ -39,11 +39,11 @@ const valid = [{
   name: 'setter signature',
 }, {
   code: dedent`
-      interface Foo {
-        bar: { a: string, b: number, c: boolean }
-        baz: { d: string, e: number, f: boolean }
-      }
-    `,
+    interface Foo {
+      bar: { a: string, b: number, c: boolean }
+      baz: { d: string, e: number, f: boolean }
+    }
+  `,
   name: 'nested objects multiline',
   options: [{maxLength: 50}],
 }] as const
@@ -54,23 +54,23 @@ const invalid = [{
   name: 'long name two props same line',
   options: [{maxLength: 60}],
   output: dedent`
-      interface FooBarBazQuxQuxBarBazQuxQuxBarBazQuxBarBazQuux {
-        bar: string,
-        baz: number
-      }
-    `,
+    interface FooBarBazQuxQuxBarBazQuxQuxBarBazQuxBarBazQuux {
+      bar: string,
+      baz: number
+    }
+  `,
 }, {
   code: 'interface Foo { bar: string, baz: number, qux: boolean }',
   errors: [{messageId: 'multipleOnSameLine'}],
   name: 'three props exceeds maxLength',
   options: [{maxLength: 40}],
   output: dedent`
-      interface Foo {
-        bar: string,
-        baz: number,
-        qux: boolean
-      }
-    `,
+    interface Foo {
+      bar: string,
+      baz: number,
+      qux: boolean
+    }
+  `,
 }, {
   code: 'interface Foo { bar: string }',
   errors: [{messageId: 'exceedsMaxLength'}],
@@ -83,11 +83,11 @@ const invalid = [{
   options: [{maxLength: 50}],
 }, {
   code: dedent`
-      interface Foo {
-        bar: { a: string, b: number, c: boolean, d: boolean }
-        baz: { e: string, f: number, g: boolean, h: boolean }
-      }
-    `,
+    interface Foo {
+      bar: { a: string, b: number, c: boolean, d: boolean }
+      baz: { e: string, f: number, g: boolean, h: boolean }
+    }
+  `,
   errors: [{
     line: 2,
     messageId: 'exceedsMaxLength',
@@ -98,21 +98,21 @@ const invalid = [{
   name: 'two nested objects exceed maxLength',
   options: [{maxLength: 50}],
   output: dedent`
-      interface Foo {
-        bar: {
-          a: string
-          b: number
-          c: boolean
-          d: boolean
-        }
-        baz: {
-          e: string
-          f: number
-          g: boolean
-          h: boolean
-        }
+    interface Foo {
+      bar: {
+        a: string
+        b: number
+        c: boolean
+        d: boolean
       }
-    `,
+      baz: {
+        e: string
+        f: number
+        g: boolean
+        h: boolean
+      }
+    }
+  `,
 }] as const
 
 const ruleTester = new RuleTester()

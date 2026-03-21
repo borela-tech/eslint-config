@@ -19,10 +19,10 @@ const singleLineValid = [{
   name: 'multiple named re-exports',
 }, {
   code: dedent`
-      export {
-        foo,
-      }
-    `,
+    export {
+      foo,
+    }
+  `,
   name: 'wrapped named re-export',
 }, {
   code: "export {foo} from 'bar' with {type: 'json'}",
@@ -31,39 +31,39 @@ const singleLineValid = [{
 
 const multilineInvalid = [{
   code: dedent`
-      export {
-        foo,
-      } from 'bar'
-    `,
+    export {
+      foo,
+    } from 'bar'
+  `,
   errors: [{messageId: 'multiline'}],
   name: 'named re-export multiline',
   output: dedent`
-      export {foo} from 'bar'
-    `,
+    export {foo} from 'bar'
+  `,
 }, {
   code: dedent`
-      export type {
-        Foo,
-      } from 'bar'
-    `,
+    export type {
+      Foo,
+    } from 'bar'
+  `,
   errors: [{messageId: 'multiline'}],
   name: 'type re-export multiline',
   output: dedent`
-      export type {Foo} from 'bar'
-    `,
+    export type {Foo} from 'bar'
+  `,
 }, {
   code: dedent`
-      export {
-        a,
-        b,
-        c,
-      } from 'bar'
-    `,
+    export {
+      a,
+      b,
+      c,
+    } from 'bar'
+  `,
   errors: [{messageId: 'multiline'}],
   name: 'multiple named re-exports multiline',
   output: dedent`
-      export {a, b, c} from 'bar'
-    `,
+    export {a, b, c} from 'bar'
+  `,
 }, {
   code: `
       export {
@@ -77,24 +77,24 @@ const multilineInvalid = [{
     `,
 }, {
   code: dedent`
-      export *
-      from 'bar'
-    `,
+    export *
+    from 'bar'
+  `,
   errors: [{messageId: 'multiline'}],
   name: 'all re-export multiline',
   output: dedent`
-      export * from 'bar'
-    `,
+    export * from 'bar'
+  `,
 }, {
   code: dedent`
-      export * as foo
-      from 'bar'
-    `,
+    export * as foo
+    from 'bar'
+  `,
   errors: [{messageId: 'multiline'}],
   name: 'namespace re-export multiline',
   output: dedent`
-      export * as foo from 'bar'
-    `,
+    export * as foo from 'bar'
+  `,
 }] as const
 
 const ruleTester = new RuleTester()

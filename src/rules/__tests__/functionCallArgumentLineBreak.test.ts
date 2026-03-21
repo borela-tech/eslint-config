@@ -39,11 +39,11 @@ const invalid = [{
   name: 'long call two args same line',
   options: [{maxLength: 79}],
   output: dedent`
-      fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNowTestCallExpr(
-        bar,
-        baz
-      )
-    `,
+    fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNowTestCallExpr(
+      bar,
+      baz
+    )
+  `,
 }, {
   code: 'fooBarBazQuxQuxBarBazQuxQuxBarBazQuxBarBazQuux(bar)',
   errors: [{messageId: 'exceedsMaxLength'}],
@@ -51,19 +51,19 @@ const invalid = [{
   options: [{maxLength: 50}],
 }, {
   code: dedent`
-      foo(
-        barVeryVeryVeryVeryVeryVeryVeryLong, bazVeryVeryVeryVeryVeryVeryVeryLong
-      )
-    `,
+    foo(
+      barVeryVeryVeryVeryVeryVeryVeryLong, bazVeryVeryVeryVeryVeryVeryVeryLong
+    )
+  `,
   errors: [{messageId: 'multipleOnSameLine'}],
   name: 'multiline but args same line',
   options: [{maxLength: 60}],
   output: dedent`
-      foo(
-        barVeryVeryVeryVeryVeryVeryVeryLong,
-        bazVeryVeryVeryVeryVeryVeryVeryLong
-      )
-    `,
+    foo(
+      barVeryVeryVeryVeryVeryVeryVeryLong,
+      bazVeryVeryVeryVeryVeryVeryVeryLong
+    )
+  `,
 }] as const
 
 const ruleTester = new RuleTester()
