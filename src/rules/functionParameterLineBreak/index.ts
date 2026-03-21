@@ -23,6 +23,18 @@ export const functionParameterLineBreak: TSESLint.RuleModule<MessageId, [Options
       FunctionExpression(node): void {
         checkFunction(sourceCode, context, node)
       },
+
+      TSCallSignatureDeclaration(node): void {
+        checkFunction(sourceCode, context, node)
+      },
+
+      TSFunctionType(node): void {
+        checkFunction(sourceCode, context, node)
+      },
+
+      TSMethodSignature(node): void {
+        checkFunction(sourceCode, context, node)
+      },
     }
   },
 

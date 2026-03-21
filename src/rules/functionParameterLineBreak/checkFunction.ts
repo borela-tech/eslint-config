@@ -8,15 +8,26 @@ import type {Options} from './Options'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/types'
 
+type FunctionNode =
+  | TSESTree.ArrowFunctionExpression
+  | TSESTree.FunctionDeclaration
+  | TSESTree.FunctionExpression
+  | TSESTree.TSCallSignatureDeclaration
+  | TSESTree.TSFunctionType
+  | TSESTree.TSMethodSignature
+
 export function checkFunction(
   sourceCode: TSESLint.SourceCode,
   context: TSESLint.RuleContext<MessageId, [Options]>,
-  node: TSESTree.ArrowFunctionExpression | TSESTree.FunctionDeclaration | TSESTree.FunctionExpression,
+  node: FunctionNode,
 ): void {
   const options = context.options[0] as Options ?? {}
   const maxLength = options.maxLength ?? defaultOptions.maxLength
 
   const params = node.params
+  if (params.length === 0)
+    return
+
   const parens = getParens(sourceCode, params)
 
   if (!isValidParens(parens))

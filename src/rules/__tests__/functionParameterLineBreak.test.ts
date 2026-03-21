@@ -45,6 +45,23 @@ const valid = [
     code: 'function fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNow(bar, baz) {}',
     options: [{maxLength: 85}],
   },
+  {
+    code: dedent`
+      type Fn = (
+        foo: string,
+        bar: number,
+      ) => void
+    `,
+  },
+  {
+    code: dedent`
+      interface Foo {
+        bar(
+          a: string,
+        ): void;
+      }
+    `,
+  },
 ]
 
 const invalid = [
@@ -63,6 +80,27 @@ const invalid = [
     code: 'function fooBarBazQuxQuxBarBazQuxQuxBarBazQuxBarBazQuux(bar) {}',
     errors: [{messageId: 'exceedsMaxLength'}],
     options: [{maxLength: 50}],
+  },
+  {
+    code: 'type Fn = (fooParameterName: string, barParameterName: number) => void',
+    errors: [{messageId: 'multipleOnSameLine'}],
+    options: [{maxLength: 60}],
+    output: dedent`
+      type Fn = (
+        fooParameterName: string,
+        barParameterName: number
+      ) => void
+    `,
+  },
+  {
+    code: dedent`
+      interface Foo {
+        bar(aVeryVeryVeryLongParameterName: string, bVeryVeryLongParameterName: number): void;
+      }
+    `,
+    errors: [{messageId: 'multipleOnSameLine'}],
+    options: [{maxLength: 80}],
+    output: 'interface Foo {\n  bar(\n  aVeryVeryVeryLongParameterName: string,\n  bVeryVeryLongParameterName: number\n): void;\n}',
   },
 ]
 
