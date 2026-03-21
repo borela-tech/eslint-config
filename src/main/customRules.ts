@@ -1,6 +1,7 @@
 import {braceStyleControlStatements} from '../rules/braceStyleControlStatements'
 import {exportFilenameMatch} from '../rules/exportFilenameMatch'
 import {functionCallArgumentLineBreak} from '../rules/functionCallArgumentLineBreak'
+import {functionCognitiveComplexity} from '../rules/function-cognitive-complexity'
 import {functionParameterLineBreak} from '../rules/functionParameterLineBreak'
 import {importsAndReExportsAtTop} from '../rules/importsAndReExportsAtTop'
 import {individualImports} from '../rules/individualImports'
@@ -25,6 +26,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
         'brace-style-control-statements': braceStyleControlStatements,
         'export-filename-match': exportFilenameMatch,
         'function-call-argument-line-break': functionCallArgumentLineBreak,
+        'function-cognitive-complexity': functionCognitiveComplexity,
         'function-parameter-line-break': functionParameterLineBreak,
         'imports-and-re-exports-at-top': importsAndReExportsAtTop,
         'individual-imports': individualImports,
