@@ -8,21 +8,7 @@ export const typescriptRules: TSESLint.FlatConfig.Config = {
       {fixStyle: 'separate-type-imports'},
     ],
     '@typescript-eslint/explicit-function-return-type': 'error',
-    '@typescript-eslint/naming-convention': [
-      'error',
-      {
-        format: ['PascalCase'],
-        selector: ['typeAlias', 'interface'],
-      },
-      {
-        format: ['PascalCase'],
-        selector: 'class',
-      },
-      {
-        format: ['camelCase'],
-        selector: 'function',
-      },
-    ],
+    '@typescript-eslint/naming-convention': 'error',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',

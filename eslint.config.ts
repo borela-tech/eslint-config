@@ -1,2 +1,2 @@
-import {CONFIG} from './dist/index'
-export {CONFIG as default}
+import {config} from './dist/index'
+export {config as default}

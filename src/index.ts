@@ -12,7 +12,7 @@ import {stylisticRules} from './main/stylisticRules'
 import {typescriptRules} from './main/typescriptRules'
 import type {TSESLint} from '@typescript-eslint/utils'
 
-export const CONFIG: TSESLint.FlatConfig.ConfigArray = [
+export const config: TSESLint.FlatConfig.ConfigArray = [
   ignores,
   languageOptions,
   //////////////////////////////////////////////////////////////////////////////
