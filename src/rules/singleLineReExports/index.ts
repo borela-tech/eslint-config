@@ -26,14 +26,10 @@ export const singleLineReExports: TSESLint.RuleModule<MessageIds, []> = {
     }
 
     return {
-      ExportAllDeclaration: (
-        node: TSESTree.ExportAllDeclaration,
-      ): void => {
+      ExportAllDeclaration: (node: TSESTree.ExportAllDeclaration): void => {
         checkDeclaration(node, node)
       },
-      ExportNamedDeclaration: (
-        node: TSESTree.ExportNamedDeclaration,
-      ): void => {
+      ExportNamedDeclaration: (node: TSESTree.ExportNamedDeclaration): void => {
         checkDeclaration(node, node)
       },
     }
