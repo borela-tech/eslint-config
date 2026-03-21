@@ -1,4 +1,5 @@
 import {braceStyleControlStatements} from '../rules/braceStyleControlStatements'
+import {braceStyleObjectLiteral} from '../rules/braceStyleObjectLiteral'
 import {exportFilenameMatch} from '../rules/exportFilenameMatch'
 import {functionCallArgumentLineBreak} from '../rules/functionCallArgumentLineBreak'
 import {functionCognitiveComplexity} from '../rules/functionCognitiveComplexity'
@@ -27,6 +28,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
     '@borela-tech': {
       rules: {
         'brace-style-control-statements': braceStyleControlStatements,
+        'brace-style-object-literal': braceStyleObjectLiteral,
         'export-filename-match': exportFilenameMatch,
         'function-call-argument-line-break': functionCallArgumentLineBreak,
         'function-cognitive-complexity': functionCognitiveComplexity,
@@ -53,6 +55,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
   },
   rules: {
     '@borela-tech/brace-style-control-statements': 'error',
+    '@borela-tech/brace-style-object-literal': 'error',
     '@borela-tech/export-filename-match': 'error',
     '@borela-tech/function-call-argument-line-break': [
       'error',
