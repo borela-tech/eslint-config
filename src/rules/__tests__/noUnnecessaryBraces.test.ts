@@ -99,7 +99,10 @@ const validEmptyBlock = [
   {code: 'do {} while (x)'},
 ]
 
-const validElseIf = []
+const validElseIf = [
+  {code: 'if (x) {} else if (y) {}'},
+  {code: 'if (x) {} else if (y) {} else {}'},
+]
 
 const invalidSingleLineWithBraces = [
   {
