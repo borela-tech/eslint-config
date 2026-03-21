@@ -21,15 +21,12 @@ export const stylisticRules: TSESLint.FlatConfig.Config = {
       2,
       {ignoredNodes: ['TSMappedType > *']},
     ],
-    '@stylistic/jsx-tag-spacing': [
-      'error',
-      {
-        afterOpening: 'never',
-        beforeClosing: 'never',
-        beforeSelfClosing: 'never',
-        closingSlash: 'never',
-      },
-    ],
+    '@stylistic/jsx-tag-spacing': ['error', {
+      afterOpening: 'never',
+      beforeClosing: 'never',
+      beforeSelfClosing: 'never',
+      closingSlash: 'never',
+    }],
     '@stylistic/jsx-wrap-multilines': 'off',
     '@stylistic/lines-between-class-members': 'off',
     '@stylistic/object-curly-newline': 'off',

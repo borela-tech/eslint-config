@@ -8,14 +8,11 @@ export const generalRules: TSESLint.FlatConfig.Config = {
       {ignoreConsecutiveComments: true},
     ],
     complexity: ['error', 10],
-    'no-restricted-exports': [
-      'error',
-      {
-        restrictDefaultExports: {
-          direct: true,
-        },
+    'no-restricted-exports': ['error', {
+      restrictDefaultExports: {
+        direct: true,
       },
-    ],
+    }],
     'react/react-in-jsx-scope': 'off',
   },
 }

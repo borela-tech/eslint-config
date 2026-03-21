@@ -25,14 +25,12 @@ const config = defineConfig({
     sourcemap: true,
     target: 'node18',
   },
-  plugins: [
-    dts({
-      exclude: ['src/**/__tests__/**'],
-      include: ['src/'],
-      rollupTypes: true,
-      tsconfigPath: './tsconfig.json',
-    }),
-  ],
+  plugins: [dts({
+    exclude: ['src/**/__tests__/**'],
+    include: ['src/'],
+    rollupTypes: true,
+    tsconfigPath: './tsconfig.json',
+  })],
   resolve: {
     alias: {
       '@lib': path.resolve(__dirname, 'src/lib'),
