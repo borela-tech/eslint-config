@@ -3,13 +3,13 @@ import type {TSESTree} from '@typescript-eslint/types'
 
 export function formatParams(
   sourceCode: TSESLint.SourceCode,
-  sortedNodes: TSESTree.Parameter[],
+  nodes: TSESTree.Parameter[],
   indent: string,
 ): string {
-  return sortedNodes
+  return nodes
     .map((param, index) => {
       const paramText = sourceCode.getText(param)
-      const isLast = index === sortedNodes.length - 1
+      const isLast = index === nodes.length - 1
       if (isLast)
         return paramText
       const comma = sourceCode.getTokenAfter(

@@ -74,8 +74,8 @@ const invalid = [
     options: [{maxLength: 60}],
     output: dedent`
       foo(
-          barVeryVeryVeryVeryVeryVeryVeryLong,
-          bazVeryVeryVeryVeryVeryVeryVeryLong
+        barVeryVeryVeryVeryVeryVeryVeryLong,
+        bazVeryVeryVeryVeryVeryVeryVeryLong
       )
     `,
   },

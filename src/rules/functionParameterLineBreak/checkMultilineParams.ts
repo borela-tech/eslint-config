@@ -28,14 +28,11 @@ export function checkMultilineParams(
             param =>
               param.loc.start.line <= line && param.loc.end.line >= line,
           )
-          const sortedNodes = [...nodesOnLine].sort(
-            (a, b) => a.range[0] - b.range[0],
-          )
-          const lastNode = sortedNodes[sortedNodes.length - 1]
+          const lastNode = nodesOnLine[nodesOnLine.length - 1]
           const lineStartIndex = getLineStartIndex(sourceCode, line)
           const baseIndent = sourceCode.getText().match(/^[ \t]*/)?.[0] ?? ''
           const indent = baseIndent + '  '
-          const fixed = formatParams(sourceCode, sortedNodes, indent)
+          const fixed = formatParams(sourceCode, nodesOnLine, indent)
           return fixer.replaceTextRange(
             [lineStartIndex, lastNode.range[1]],
             fixed,

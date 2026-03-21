@@ -102,6 +102,21 @@ const invalid = [
     options: [{maxLength: 80}],
     output: 'interface Foo {\n  bar(\n  aVeryVeryVeryLongParameterName: string,\n  bVeryVeryLongParameterName: number\n): void;\n}',
   },
+  {
+    code: dedent`
+      function foo(
+        barVeryVeryVeryVeryVeryVeryVeryVeryVeryLong, bazVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
+      ) {}
+    `,
+    errors: [{messageId: 'multipleOnSameLine'}],
+    options: [{maxLength: 70}],
+    output: dedent`
+      function foo(
+        barVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
+        bazVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
+      ) {}
+    `,
+  },
 ]
 
 ruleTester.run('function-parameter-line-break', rule, {

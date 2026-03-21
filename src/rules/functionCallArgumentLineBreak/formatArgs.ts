@@ -3,19 +3,16 @@ import type {TSESTree} from '@typescript-eslint/types'
 
 export function formatArgs(
   sourceCode: TSESLint.SourceCode,
-  sortedNodes: TSESTree.Node[],
+  nodes: TSESTree.Node[],
   indent: string,
 ): string {
-  return sortedNodes
+  return nodes
     .map((arg, index) => {
       const argText = sourceCode.getText(arg)
-      const isLast = index === sortedNodes.length - 1
+      const isLast = index === nodes.length - 1
       if (isLast)
         return argText
-      const comma = sourceCode.getTokenAfter(
-        arg,
-        token => token.value === ',',
-      )
+      const comma = sourceCode.getTokenAfter(arg, token => token.value === ',')
       if (comma && comma.loc.end.line === arg.loc.end.line)
         return argText + ','
       return argText
