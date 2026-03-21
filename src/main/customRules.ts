@@ -1,6 +1,7 @@
 import {arrayItemsLineBreak} from '../rules/arrayItemsLineBreak'
 import {braceStyleControlStatements} from '../rules/braceStyleControlStatements'
 import {braceStyleObjectLiteral} from '../rules/braceStyleObjectLiteral'
+import {compactArrayItems} from '../rules/compactArrayItems'
 import {exportFilenameMatch} from '../rules/exportFilenameMatch'
 import {functionCallArgumentLineBreak} from '../rules/functionCallArgumentLineBreak'
 import {functionCognitiveComplexity} from '../rules/functionCognitiveComplexity'
@@ -31,6 +32,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
         'array-items-line-break': arrayItemsLineBreak,
         'brace-style-control-statements': braceStyleControlStatements,
         'brace-style-object-literal': braceStyleObjectLiteral,
+        'compact-array-items': compactArrayItems,
         'export-filename-match': exportFilenameMatch,
         'function-call-argument-line-break': functionCallArgumentLineBreak,
         'function-cognitive-complexity': functionCognitiveComplexity,
@@ -62,6 +64,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
     ],
     '@borela-tech/brace-style-control-statements': 'error',
     '@borela-tech/brace-style-object-literal': 'error',
+    '@borela-tech/compact-array-items': 'error',
     '@borela-tech/export-filename-match': 'error',
     '@borela-tech/function-call-argument-line-break': [
       'error',
