@@ -11,6 +11,7 @@ import {maxDeclarationsPerFile} from '../rules/maxDeclarationsPerFile'
 import {multilineUnionTypeAliases} from '../rules/multilineUnionTypeAliases'
 import {noInlineObjectTypes} from '../rules/noInlineObjectTypes'
 import {noUnnecessaryBraces} from '../rules/noUnnecessaryBraces'
+import {objectPropertyLineBreak} from '../rules/objectPropertyLineBreak'
 import {oneExportPerFile} from '../rules/oneExportPerFile'
 import {preferInlineExport} from '../rules/preferInlineExport'
 import {singleLineArrowFunctionParameters} from '../rules/singleLineArrowFunctionParameters'
@@ -38,6 +39,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
         'multiline-union-type-aliases': multilineUnionTypeAliases,
         'no-inline-object-types': noInlineObjectTypes,
         'no-unnecessary-braces': noUnnecessaryBraces,
+        'object-property-line-break': objectPropertyLineBreak,
         'one-export-per-file': oneExportPerFile,
         'prefer-inline-export': preferInlineExport,
         'single-line-arrow-function-parameters': singleLineArrowFunctionParameters,
@@ -75,6 +77,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
     '@borela-tech/multiline-union-type-aliases': 'error',
     '@borela-tech/no-inline-object-types': 'error',
     '@borela-tech/no-unnecessary-braces': 'error',
+    '@borela-tech/object-property-line-break': 'off',
     '@borela-tech/one-export-per-file': 'error',
     '@borela-tech/prefer-inline-export': 'error',
     '@borela-tech/single-line-arrow-function-parameters': [
