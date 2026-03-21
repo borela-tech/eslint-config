@@ -1,3 +1,4 @@
+import {toPascalCase} from './toPascalCase'
 import type {TSESTree} from '@typescript-eslint/utils'
 
 export function getInlineTypeName(
@@ -21,8 +22,4 @@ export function getInlineTypeName(
   const name = `${baseName}${counter}`
   usedNames.add(name)
   return name
-}
-
-function toPascalCase(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1)
 }

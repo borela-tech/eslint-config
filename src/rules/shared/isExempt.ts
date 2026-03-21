@@ -1,8 +1,4 @@
-import path from 'node:path'
-
-function stripExtension(filename: string): string {
-  return path.basename(filename, path.extname(filename))
-}
+import {stripExtension} from './stripExtension'
 
 export function isExempt(filename: string): boolean {
   const name = stripExtension(filename)

@@ -5,12 +5,8 @@ import {checkSpecifiersSorting} from './checkSpecifiersSorting'
 import {createFix} from './createFix'
 import {getImportGroups} from './getImportGroups'
 import type {ImportError} from './ImportError'
+import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
-
-type MessageIds =
-  | 'sortedImports'
-  | 'sortedNames'
-  | 'wrongGroup'
 
 export const sortedImports: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {

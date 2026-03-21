@@ -1,10 +1,5 @@
+import type {TopLevelDeclaration} from './TopLevelDeclaration'
 import type {TSESTree} from '@typescript-eslint/utils'
-
-interface TopLevelDeclaration {
-  insertLocation: TSESTree.Node
-  isExported: boolean
-  node: TSESTree.Node
-}
 
 export function getTopLevelDeclaration(
   node: TSESTree.Node,

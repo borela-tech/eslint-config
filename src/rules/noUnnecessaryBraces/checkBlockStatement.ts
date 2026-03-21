@@ -1,18 +1,8 @@
+import {getLineIndent} from './getLineIndent'
 import {isSingleLineStatement} from './isSingleLineStatement'
 import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/utils'
-
-/**
- * Gets the indentation string for a specific line in the source code.
- */
-function getLineIndent(sourceCode: TSESLint.SourceCode, line: number): string {
-  const text = sourceCode.getText()
-  const lines = text.split('\n')
-  const lineText = lines[line - 1] ?? ''
-  const match = lineText.match(/^(\s*)/)
-  return match?.[1] ?? ''
-}
 
 export function checkBlockStatement(
   node: TSESTree.BlockStatement,

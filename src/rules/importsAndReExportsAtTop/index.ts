@@ -2,9 +2,8 @@ import {categorizeStatements} from './categorizeStatements'
 import {findStatementIndices} from './findStatementIndices'
 import {generateSortedText} from './generateSortedText'
 import {hasViolation} from './hasViolation'
+import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
-
-type MessageIds = 'importsAndReExportsAtTop'
 
 export const importsAndReExportsAtTop: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {

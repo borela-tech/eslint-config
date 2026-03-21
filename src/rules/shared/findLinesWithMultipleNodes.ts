@@ -1,4 +1,4 @@
-interface Nodes {loc: {end: {line: number}, start: {line: number}}}
+import type {Nodes} from './Nodes'
 
 export function findLinesWithMultipleNodes(
   nodes: Nodes[],

@@ -1,6 +1,5 @@
+import type {MessageIds} from './individualReExports/MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
-
-type MessageIds = 'individualReExports'
 
 export const individualReExports: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {

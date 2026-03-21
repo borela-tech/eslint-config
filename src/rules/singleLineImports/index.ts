@@ -1,8 +1,7 @@
 import {createFix} from './createFix'
 import {isMultiline} from './isMultiline'
+import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
-
-type MessageIds = 'multiline'
 
 export const singleLineImports: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {

@@ -1,12 +1,6 @@
+import {isReExportDeclaration} from './isReExportDeclaration'
 import type {ReExportDeclaration} from '@lib/ReExportDeclaration'
 import type {TSESTree} from '@typescript-eslint/types'
-
-function isReExportDeclaration(
-  statement: TSESTree.ProgramStatement,
-): statement is ReExportDeclaration {
-  return (statement.type === 'ExportNamedDeclaration' && statement.source !== null)
-    || statement.type === 'ExportAllDeclaration'
-}
 
 export function getReExportGroups(
   programBody: TSESTree.ProgramStatement[],

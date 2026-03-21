@@ -4,13 +4,9 @@ import {checkGroupOrdering} from './checkGroupOrdering'
 import {checkSpecifiersSorting} from './checkSpecifiersSorting'
 import {createFix} from './createFix'
 import {getReExportGroups} from './getReExportGroups'
+import type {MessageIds} from './MessageIds'
 import type {ReExportError} from './ReExportError'
 import type {TSESLint} from '@typescript-eslint/utils'
-
-type MessageIds =
-  | 'sortedNames'
-  | 'sortedReExports'
-  | 'wrongGroup'
 
 export const sortedReExports: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {
