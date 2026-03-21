@@ -6,6 +6,7 @@ import {importsAndReExportsAtTop} from '../rules/importsAndReExportsAtTop'
 import {individualImports} from '../rules/individualImports'
 import {individualReExports} from '../rules/individualReExports'
 import {interfacePropertyLineBreak} from '../rules/interfacePropertyLineBreak'
+import {maxDeclarationsPerFile} from '../rules/maxDeclarationsPerFile'
 import {multilineUnionTypeAliases} from '../rules/multilineUnionTypeAliases'
 import {noInlineObjectTypes} from '../rules/noInlineObjectTypes'
 import {noUnnecessaryBraces} from '../rules/noUnnecessaryBraces'
@@ -29,6 +30,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
         'individual-imports': individualImports,
         'individual-re-exports': individualReExports,
         'interface-property-line-break': interfacePropertyLineBreak,
+        'max-declarations-per-file': maxDeclarationsPerFile,
         'multiline-union-type-aliases': multilineUnionTypeAliases,
         'no-inline-object-types': noInlineObjectTypes,
         'no-unnecessary-braces': noUnnecessaryBraces,
@@ -56,6 +58,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
       'error',
       {maxLength: 80},
     ],
+    '@borela-tech/max-declarations-per-file': 'error',
     '@borela-tech/multiline-union-type-aliases': 'error',
     '@borela-tech/no-inline-object-types': 'error',
     '@borela-tech/no-unnecessary-braces': 'error',
