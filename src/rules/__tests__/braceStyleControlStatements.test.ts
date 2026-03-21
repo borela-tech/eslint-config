@@ -15,7 +15,30 @@ const ruleTester = new RuleTester({
 })
 
 const ifValid = [
-  'if (foo)\n  return',
+  {code: 'if (foo)\n  return'},
+]
+
+const elseValid = [
+  {code: 'if (foo) {\n  bar()\n}\n  else {\n  }'},
+  {code: 'if (foo) {\n  bar()\n}\n  else\n    baz()'},
+]
+
+const elseIfValid = [
+  {code: 'if (foo) {\n  bar()\n}\n  else if (bar) {\n  }'},
+  {code: 'if (foo) {\n  bar()\n}\n  else if (bar) {\n    baz()\n  }'},
+  {code: 'if (foo) {\n  bar()\n}\n  else if (bar) {\n  }\n  else {\n  }'},
+]
+
+const forValid = [
+  {code: 'for (;;)\n  return'},
+]
+
+const whileValid = [
+  {code: 'while (foo)\n  return'},
+]
+
+const doWhileValid = [
+  {code: 'do \n  return\nwhile (foo)'},
 ]
 
 const ifInvalid = [
@@ -31,11 +54,6 @@ const ifInvalid = [
   },
 ]
 
-const elseValid = [
-  'if (foo) {\n  bar()\n}\n  else {\n  }',
-  'if (foo) {\n  bar()\n}\n  else\n    baz()',
-]
-
 const elseInvalid = [
   {
     code: 'if (foo) {\n  bar()\n}\n  else { bar() }',
@@ -47,12 +65,6 @@ const elseInvalid = [
     errors: [{messageId: 'singleLine'}],
     output: 'if (foo) {\n  bar()\n}\n  else {\n    bar()\n  }',
   },
-]
-
-const elseIfValid = [
-  'if (foo) {\n  bar()\n}\n  else if (bar) {\n  }',
-  'if (foo) {\n  bar()\n}\n  else if (bar) {\n    baz()\n  }',
-  'if (foo) {\n  bar()\n}\n  else if (bar) {\n  }\n  else {\n  }',
 ]
 
 const elseIfInvalid = [
@@ -68,10 +80,6 @@ const elseIfInvalid = [
   },
 ]
 
-const forValid = [
-  'for (;;)\n  return',
-]
-
 const forInvalid = [
   {
     code: 'for (;;) return',
@@ -80,20 +88,12 @@ const forInvalid = [
   },
 ]
 
-const whileValid = [
-  'while (foo)\n  return',
-]
-
 const whileInvalid = [
   {
     code: 'while (foo) return',
     errors: [{messageId: 'singleLine'}],
     output: 'while (foo) {\n  return\n}',
   },
-]
-
-const doWhileValid = [
-  'do\n  return\nwhile (foo)',
 ]
 
 const doWhileInvalid = [
@@ -120,5 +120,5 @@ ruleTester.run('brace-style-control-statements', rule, {
     ...forValid,
     ...whileValid,
     ...doWhileValid,
-  ].map(code => ({code})),
+  ],
 })

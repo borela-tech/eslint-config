@@ -132,6 +132,6 @@ const invalid = [
 ]
 
 ruleTester.run('max-declarations-per-file', rule, {
-  invalid: invalid.map(c => ({...c})),
-  valid: valid.map(c => ({...c})),
+  invalid,
+  valid,
 })

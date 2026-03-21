@@ -62,6 +62,6 @@ const invalid = [
 ]
 
 ruleTester.run('one-export-per-file', rule, {
-  invalid: invalid.map(c => ({...c})),
-  valid: valid.map(c => ({...c})),
+  invalid,
+  valid,
 })

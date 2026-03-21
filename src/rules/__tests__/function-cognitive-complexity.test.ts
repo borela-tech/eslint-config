@@ -78,6 +78,6 @@ const invalid = [
 ]
 
 ruleTester.run('function-cognitive-complexity', rule, {
-  invalid: invalid.map(c => ({...c})),
-  valid: valid.map(c => ({...c})),
+  invalid,
+  valid,
 })

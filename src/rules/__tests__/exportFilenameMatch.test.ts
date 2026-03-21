@@ -104,6 +104,6 @@ const invalid = [
 ]
 
 ruleTester.run('export-filename-match', rule, {
-  invalid: invalid.map(c => ({...c})),
-  valid: valid.map(c => ({...c})),
+  invalid,
+  valid,
 })

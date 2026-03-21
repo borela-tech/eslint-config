@@ -16,87 +16,87 @@ const ruleTester = new RuleTester({
 })
 
 const validSingleLineWithoutBraces = [
-  'if (x) return {}',
-  'if (x) foo()',
-  'if (x) return',
-  'for (;;) return',
-  'for (;;) break',
-  'while (x) return',
-  'while (x) break',
-  'do return; while (x)',
-  'do break; while (x)',
+  {code: 'if (x) return {}'},
+  {code: 'if (x) foo()'},
+  {code: 'if (x) return'},
+  {code: 'for (;;) return'},
+  {code: 'for (;;) break'},
+  {code: 'while (x) return'},
+  {code: 'while (x) break'},
+  {code: 'do return; while (x)'},
+  {code: 'do break; while (x)'},
 ]
 
 const validMultiLineWithBraces = [
-  dedent`
+  {code: dedent`
     if (x) {
       return {
         foo: 1
       }
     }
-  `,
-  dedent`
+  `},
+  {code: dedent`
     if (x) {
       console.log(
         'hello'
       )
     }
-  `,
-  dedent`
+  `},
+  {code: dedent`
     for (;;) {
       return {
         foo: 1
       }
     }
-  `,
-  dedent`
+  `},
+  {code: dedent`
     while (x) {
       console.log(
         'hello'
       )
     }
-  `,
-  dedent`
+  `},
+  {code: dedent`
     do {
       return {
         foo: 1
       }
     } while (x)
-  `,
+  `},
 ]
 
 const validMultiStatement = [
-  dedent`
+  {code: dedent`
     if (x) {
       foo()
       bar()
     }
-  `,
-  dedent`
+  `},
+  {code: dedent`
     for (;;) {
       foo()
       bar()
     }
-  `,
-  dedent`
+  `},
+  {code: dedent`
     while (x) {
       foo()
       bar()
     }
-  `,
-  dedent`
+  `},
+  {code: dedent`
     do {
       foo()
       bar()
     } while (x)
-  `,
+  `},
 ]
 
 const validEmptyBlock = [
-  'if (x) {}',
-  'for (;;) {}',
-  'while (x) {}',
-  'do {} while (x)',
+  {code: 'if (x) {}'},
+  {code: 'for (;;) {}'},
+  {code: 'while (x) {}'},
+  {code: 'do {} while (x)'},
 ]
 
 const validElseIf = []
@@ -274,10 +274,10 @@ ruleTester.run('no-unnecessary-braces', rule, {
     ...invalidMultiLineWithoutBraces,
   ],
   valid: [
-    ...validSingleLineWithoutBraces.map(code => ({code})),
-    ...validMultiLineWithBraces.map(code => ({code})),
-    ...validMultiStatement.map(code => ({code})),
-    ...validEmptyBlock.map(code => ({code})),
-    ...validElseIf.map(code => ({code})),
+    ...validSingleLineWithoutBraces,
+    ...validMultiLineWithBraces,
+    ...validMultiStatement,
+    ...validEmptyBlock,
+    ...validElseIf,
   ],
 })
