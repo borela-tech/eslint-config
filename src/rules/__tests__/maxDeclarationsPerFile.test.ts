@@ -45,8 +45,7 @@ const invalid = [
     code: 'function foo() {}\nfunction bar() {}',
     errors: [
       {
-        data: {count: 2, functions: 2, types: 0},
-        messageId: 'tooManyDeclarations',
+        message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.',
       },
     ],
   },
@@ -54,8 +53,7 @@ const invalid = [
     code: 'function foo() {}\nclass Bar {}',
     errors: [
       {
-        data: {count: 2, functions: 2, types: 0},
-        messageId: 'tooManyDeclarations',
+        message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.',
       },
     ],
   },
@@ -63,8 +61,7 @@ const invalid = [
     code: 'interface Foo {}\ninterface Bar {}',
     errors: [
       {
-        data: {count: 2, functions: 0, types: 2},
-        messageId: 'tooManyDeclarations',
+        message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.',
       },
     ],
   },
@@ -72,8 +69,7 @@ const invalid = [
     code: 'type Foo = {}\ntype Bar = {}',
     errors: [
       {
-        data: {count: 2, functions: 0, types: 2},
-        messageId: 'tooManyDeclarations',
+        message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.',
       },
     ],
   },
@@ -81,8 +77,7 @@ const invalid = [
     code: 'function foo() {}\ninterface Bar {}',
     errors: [
       {
-        data: {count: 2, functions: 1, types: 1},
-        messageId: 'tooManyDeclarations',
+        message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.',
       },
     ],
   },
@@ -90,8 +85,7 @@ const invalid = [
     code: 'const foo = () => {}\nconst bar = () => {}',
     errors: [
       {
-        data: {count: 2, functions: 2, types: 0},
-        messageId: 'tooManyDeclarations',
+        message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.',
       },
     ],
   },
@@ -99,8 +93,7 @@ const invalid = [
     code: 'function foo() {}\nfunction bar() {}\nfunction baz() {}',
     errors: [
       {
-        data: {count: 3, functions: 3, types: 0},
-        messageId: 'tooManyDeclarations',
+        message: 'File has 3 declarations. Put each function/class/const/type declaration in its own file.',
       },
     ],
   },
@@ -108,8 +101,7 @@ const invalid = [
     code: 'enum Foo {}\nfunction bar() {}',
     errors: [
       {
-        data: {count: 2, functions: 1, types: 1},
-        messageId: 'tooManyDeclarations',
+        message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.',
       },
     ],
   },
@@ -117,8 +109,7 @@ const invalid = [
     code: 'declare function foo(): void\nfunction bar() {}',
     errors: [
       {
-        data: {count: 2, functions: 2, types: 0},
-        messageId: 'tooManyDeclarations',
+        message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.',
       },
     ],
   },
@@ -126,8 +117,7 @@ const invalid = [
     code: 'export const foo = 1\nexport const bar = 2',
     errors: [
       {
-        data: {count: 2, functions: 0, types: 2},
-        messageId: 'tooManyDeclarations',
+        message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.',
       },
     ],
   },
@@ -135,8 +125,7 @@ const invalid = [
     code: 'function foo() {}\nexport const bar = 1',
     errors: [
       {
-        data: {count: 2, functions: 1, types: 1},
-        messageId: 'tooManyDeclarations',
+        message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.',
       },
     ],
   },

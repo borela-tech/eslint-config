@@ -1,4 +1,4 @@
 export const messageIds = {
   tooManyDeclarations:
-    'File has {{count}} top-level declarations ({{functions}} functions, {{types}} types). Consider splitting into multiple files.',
+    'File has {{count}} declarations. Put each function/class/const/type declaration in its own file.',
 }
