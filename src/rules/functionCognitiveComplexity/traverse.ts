@@ -15,7 +15,6 @@ export function traverse(
 
   const children = getChildNodes(node)
 
-  for (const child of children) {
+  for (const child of children)
     traverse(child, nestingLevel, state)
-  }
 }

@@ -6,9 +6,8 @@ export function collectExistingInterfaceNames(
 ): Set<string> {
   const names = new Set<string>()
 
-  for (const node of nodes) {
+  for (const node of nodes)
     visitNode(node, names)
-  }
 
   return names
 }

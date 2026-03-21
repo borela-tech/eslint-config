@@ -1,4 +1,6 @@
 import {checkDoWhileStatement} from './checkDoWhileStatement'
+import {checkForInStatement} from './checkForInStatement'
+import {checkForOfStatement} from './checkForOfStatement'
 import {checkForStatement} from './checkForStatement'
 import {checkIfStatement} from './checkIfStatement'
 import {checkWhileStatement} from './checkWhileStatement'
@@ -9,6 +11,8 @@ export const noUnnecessaryBraces: TSESLint.RuleModule<MessageIds, []> = {
   create(context) {
     return {
       DoWhileStatement: node => checkDoWhileStatement(node, context),
+      ForInStatement: node => checkForInStatement(node, context),
+      ForOfStatement: node => checkForOfStatement(node, context),
       ForStatement: node => checkForStatement(node, context),
       IfStatement: node => checkIfStatement(node, context),
       WhileStatement: node => checkWhileStatement(node, context),
