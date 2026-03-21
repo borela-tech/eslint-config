@@ -33,7 +33,10 @@ export function checkFunction(
       const isLastParam = index === params.length - 1
       if (isLastParam)
         return text
-      const comma = sourceCode.getTokenAfter(param, token => token.value === ',')
+      const comma = sourceCode.getTokenAfter(
+        param,
+        token => token.value === ',',
+      )
       if (comma && comma.loc.end.line === param.loc.end.line)
         return text + ','
       return text

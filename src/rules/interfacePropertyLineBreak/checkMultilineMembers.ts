@@ -28,7 +28,11 @@ export function checkMultilineMembers(
 
         fix = (fixer): TSESLint.RuleFix => {
           const baseIndent = getLineIndent(sourceCode, memberLine)
-          const formatted = formatTypeLiteral(sourceCode, typeLiteral, baseIndent)
+          const formatted = formatTypeLiteral(
+            sourceCode,
+            typeLiteral,
+            baseIndent,
+          )
           return fixer.replaceText(typeLiteral, formatted)
         }
       }

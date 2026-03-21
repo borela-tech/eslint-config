@@ -40,7 +40,9 @@ export const noInlineObjectTypes: TSESLint.RuleModule<
 
         const locations = [...new Set(inlineTypes.map(t => t.insertLocation))]
         for (const loc of locations) {
-          const typesAtLocation = inlineTypes.filter(t => t.insertLocation === loc)
+          const typesAtLocation = inlineTypes.filter(
+            t => t.insertLocation === loc,
+          )
 
           const typesForLocation: InlineTypeInfo[] = typesAtLocation.map(entry => {
             const name = getInlineTypeName(usedNames, [], entry.parameterName)

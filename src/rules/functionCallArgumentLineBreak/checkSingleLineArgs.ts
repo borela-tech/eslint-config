@@ -37,13 +37,20 @@ export function checkSingleLineArgs(
 
       const argTexts = args.map(arg => {
         const argText = sourceCode.getText(arg)
-        const comma = sourceCode.getTokenAfter(arg, token => token.value === ',')
+        const comma = sourceCode.getTokenAfter(
+          arg,
+          token => token.value === ',',
+        )
         if (comma && comma.loc.end.line === arg.loc.end.line)
           return argText + ','
         return argText
       })
 
-      const fixed = `(\n${indent}  ${argTexts.join(`\n${indent}  `)}\n${indent})`
+      const fixed = [
+        '(\n',
+        `${indent}  ${argTexts.join(`\n${indent}  `)}\n`,
+        `${indent})`,
+      ].join('')
 
       return fixer.replaceTextRange(
         [openingParen.range[0], closingParen.range[1]],

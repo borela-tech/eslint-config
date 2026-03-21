@@ -43,7 +43,11 @@ export function checkSingleLineMembers(
         return memberText
       })
 
-      const fixed = `{\n${indent}  ${memberTexts.join(`\n${indent}  `)}\n${indent}}`
+      const fixed = [
+        '{\n',
+        `${indent}  ${memberTexts.join(`\n${indent}  `)}\n`,
+        `${indent}}`,
+      ].join('')
 
       return fixer.replaceTextRange(
         [openingBrace.range[0], closingBrace.range[1]],

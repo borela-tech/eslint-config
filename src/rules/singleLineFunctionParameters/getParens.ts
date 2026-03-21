@@ -12,8 +12,14 @@ export function getParens(
   const firstNode = nodes[0]
   const lastNode = nodes[nodes.length - 1]
 
-  const openingParen = sourceCode.getTokenBefore(firstNode, token => token.value === '(')
-  const closingParen = sourceCode.getTokenAfter(lastNode, token => token.value === ')')
+  const openingParen = sourceCode.getTokenBefore(
+    firstNode,
+    token => token.value === '(',
+  )
+  const closingParen = sourceCode.getTokenAfter(
+    lastNode,
+    token => token.value === ')',
+  )
 
   if (!openingParen || !closingParen)
     return null

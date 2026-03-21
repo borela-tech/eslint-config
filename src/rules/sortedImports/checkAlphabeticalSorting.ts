@@ -10,7 +10,10 @@ export function checkAlphabeticalSorting(
 
   for (const importGroup of importGroupOrder) {
     const groupImports = categorizedImports.filter(c => c.group === importGroup)
-    const expectedSortedImports = [...groupImports].sort((a, b) => compare(a.sortKey, b.sortKey))
+    const expectedSortedImports = [...groupImports].sort((a, b) => compare(
+      a.sortKey,
+      b.sortKey,
+    ))
     for (let i = 0; i < groupImports.length; i++) {
       if (groupImports[i] !== expectedSortedImports[i]) {
         errors.push({

@@ -28,15 +28,32 @@ export function checkArrowFunction(
   if (openingParen.loc.start.line === closingParen.loc.end.line)
     return
 
-  const arrowToken = sourceCode.getTokenAfter(closingParen, token => token.value === '=>')
+  const arrowToken = sourceCode.getTokenAfter(
+    closingParen,
+    token => token.value === '=>',
+  )
   if (!arrowToken)
     return
 
   const collapsedParams = buildCollapsedParams(sourceCode, node.params)
-  const collapsedLength = calculateCollapsedLength(sourceCode, openingParen, collapsedParams, node.returnType)
+  const collapsedLength = calculateCollapsedLength(
+    sourceCode,
+    openingParen,
+    collapsedParams,
+    node.returnType,
+  )
 
   if (collapsedLength <= maxLength) {
-    const returnTypeText = node.returnType ? sourceCode.getText(node.returnType) : ''
-    reportViolation(context, node, collapsedParams, returnTypeText, arrowToken, openingParen)
+    const returnTypeText = node.returnType
+      ? sourceCode.getText(node.returnType)
+      : ''
+    reportViolation(
+      context,
+      node,
+      collapsedParams,
+      returnTypeText,
+      arrowToken,
+      openingParen,
+    )
   }
 }

@@ -19,5 +19,10 @@ export function formatTypeLiteral(
   })
 
   const innerIndent = baseIndent + '  '
-  return `{\n${innerIndent}${memberTexts.join(`\n${innerIndent}`)}\n${baseIndent}}`
+  const lines = [
+    '{',
+    innerIndent + memberTexts.join(`\n${innerIndent}`),
+    `${baseIndent}}`,
+  ]
+  return lines.join('\n')
 }

@@ -19,8 +19,12 @@ export function formatSpecifiers(
   if (namespaceSpecifier)
     return `* as ${namespaceSpecifier.local.name}`
 
-  if (defaultSpecifier && namedSpecifiers.length > 0)
-    return `${defaultSpecifier.local.name}, {${formatNamed(namedSpecifiers, sourceCode)}}`
+  if (defaultSpecifier && namedSpecifiers.length > 0) {
+    return `${defaultSpecifier.local.name}, {${formatNamed(
+      namedSpecifiers,
+      sourceCode,
+    )}}`
+  }
 
   if (defaultSpecifier)
     return defaultSpecifier.local.name
