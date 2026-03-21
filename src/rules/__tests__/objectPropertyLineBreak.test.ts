@@ -1,19 +1,6 @@
-import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
 import {objectPropertyLineBreak} from '../objectPropertyLineBreak'
-import {RuleTester} from 'eslint'
-import type {Rule} from 'eslint'
-
-const rule = objectPropertyLineBreak as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
+import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const valid = [
   {
@@ -52,7 +39,7 @@ const valid = [
     `,
     name: 'multiline long with normal properties',
   },
-]
+] as const
 
 const invalid = [
   {
@@ -78,6 +65,11 @@ const invalid = [
     name: 'multiline shorthand can collapse',
     output: 'const a = {foo, bar}',
   },
-]
+] as const
 
-ruleTester.run('object-property-line-break', rule, {invalid, valid})
+const ruleTester = new RuleTester()
+ruleTester.run(
+  'object-property-line-break',
+  objectPropertyLineBreak,
+  {invalid, valid},
+)

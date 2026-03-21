@@ -1,19 +1,6 @@
-import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
 import {individualReExports} from '../individualReExports'
-import {RuleTester} from 'eslint'
-import type {Rule} from 'eslint'
-
-const rule = individualReExports as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
+import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const singleReExportValid = [
   {
@@ -44,7 +31,7 @@ const singleReExportValid = [
     code: 'export class Foo {}',
     name: 'export class',
   },
-]
+] as const
 
 const multipleReExportInvalid = [
   {
@@ -84,9 +71,10 @@ const multipleReExportInvalid = [
       export {baz as qux} from 'qux'
     `,
   },
-]
+] as const
 
-ruleTester.run('individual-re-exports', rule, {
+const ruleTester = new RuleTester()
+ruleTester.run('individual-re-exports', individualReExports, {
   invalid: [
     ...multipleReExportInvalid,
   ],

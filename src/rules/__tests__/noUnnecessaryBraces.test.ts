@@ -1,19 +1,6 @@
-import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
 import {noUnnecessaryBraces} from '../noUnnecessaryBraces'
-import {RuleTester} from 'eslint'
-import type {Rule} from 'eslint'
-
-const rule = noUnnecessaryBraces as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
+import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const validSingleLineWithoutBraces = [
   {
@@ -52,7 +39,7 @@ const validSingleLineWithoutBraces = [
     code: 'do break; while (x)',
     name: 'do-while break',
   },
-]
+] as const
 
 const validMultiLineWithBraces = [
   {
@@ -105,7 +92,7 @@ const validMultiLineWithBraces = [
   `,
     name: 'do-while return object multiline',
   },
-]
+] as const
 
 const validMultiStatement = [
   {
@@ -144,7 +131,7 @@ const validMultiStatement = [
   `,
     name: 'do-while multiple statements',
   },
-]
+] as const
 
 const validEmptyBlock = [
   {
@@ -163,7 +150,7 @@ const validEmptyBlock = [
     code: 'do {} while (x)',
     name: 'do-while empty block',
   },
-]
+] as const
 
 const validElseIf = [
   {
@@ -174,7 +161,7 @@ const validElseIf = [
     code: 'if (x) {} else if (y) {} else {}',
     name: 'if-else-if-else empty',
   },
-]
+] as const
 
 const invalidSingleLineWithBraces = [
   {
@@ -251,7 +238,7 @@ const invalidSingleLineWithBraces = [
     name: 'do-while break multiline with braces',
     output: 'do\n  break; while (x)',
   },
-]
+] as const
 
 const invalidMultiLineWithoutBraces = [
   {
@@ -356,9 +343,10 @@ const invalidMultiLineWithoutBraces = [
       }
     `,
   },
-]
+] as const
 
-ruleTester.run('no-unnecessary-braces', rule, {
+const ruleTester = new RuleTester()
+ruleTester.run('no-unnecessary-braces', noUnnecessaryBraces, {
   invalid: [
     ...invalidSingleLineWithBraces,
     ...invalidMultiLineWithoutBraces,

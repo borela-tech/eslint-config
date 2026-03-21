@@ -1,18 +1,5 @@
-import typescript from 'typescript-eslint'
 import {oneExportPerFile} from '../oneExportPerFile'
-import {RuleTester} from 'eslint'
-import type {Rule} from 'eslint'
-
-const rule = oneExportPerFile as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
+import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const valid = [
   {
@@ -50,7 +37,7 @@ const valid = [
     filename: '/test/foo.spec.ts',
     name: 'spec file exempt',
   },
-]
+] as const
 
 const invalid = [
   {
@@ -101,6 +88,7 @@ const invalid = [
     }],
     name: 'three export consts',
   },
-]
+] as const
 
-ruleTester.run('one-export-per-file', rule, {invalid, valid})
+const ruleTester = new RuleTester()
+ruleTester.run('one-export-per-file', oneExportPerFile, {invalid, valid})

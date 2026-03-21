@@ -1,19 +1,6 @@
-import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
-import {RuleTester} from 'eslint'
+import {RuleTester} from '@typescript-eslint/rule-tester'
 import {singleLineArrowFunctionParameters} from '../singleLineArrowFunctionParameters'
-import type {Rule} from 'eslint'
-
-const rule = singleLineArrowFunctionParameters as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
 
 const valid = [
   {
@@ -99,7 +86,7 @@ const valid = [
     name: 'eight params forced multiline',
     options: [{maxLength: 70}],
   },
-]
+] as const
 
 const invalid = [
   {
@@ -153,6 +140,11 @@ const invalid = [
     name: 'two params multiline',
     output: 'const fn = (a, b) => a + b',
   },
-]
+] as const
 
-ruleTester.run('single-line-arrow-function-parameters', rule, {invalid, valid})
+const ruleTester = new RuleTester()
+ruleTester.run(
+  'single-line-arrow-function-parameters',
+  singleLineArrowFunctionParameters,
+  {invalid, valid},
+)

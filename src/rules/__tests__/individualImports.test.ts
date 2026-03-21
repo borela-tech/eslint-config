@@ -1,19 +1,6 @@
-import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
 import {individualImports} from '../individualImports'
-import {RuleTester} from 'eslint'
-import type {Rule} from 'eslint'
-
-const rule = individualImports as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
+import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const singleImportValid = [
   {
@@ -32,7 +19,7 @@ const singleImportValid = [
     code: "import 'bar'",
     name: 'side effect import',
   },
-]
+] as const
 
 const multipleImportInvalid = [
   {
@@ -54,9 +41,10 @@ const multipleImportInvalid = [
       import {baz} from 'qux'
     `,
   },
-]
+] as const
 
-ruleTester.run('individual-imports', rule, {
+const ruleTester = new RuleTester()
+ruleTester.run('individual-imports', individualImports, {
   invalid: [
     ...multipleImportInvalid,
   ],

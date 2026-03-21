@@ -1,19 +1,6 @@
-import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
 import {functionParameterLineBreak} from '../functionParameterLineBreak'
-import {RuleTester} from 'eslint'
-import type {Rule} from 'eslint'
-
-const rule = functionParameterLineBreak as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
+import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const valid = [
   {
@@ -73,7 +60,7 @@ const valid = [
     `,
     name: 'interface method multiline',
   },
-]
+] as const
 
 const invalid = [
   {
@@ -133,6 +120,11 @@ const invalid = [
       ) {}
     `,
   },
-]
+] as const
 
-ruleTester.run('function-parameter-line-break', rule, {invalid, valid})
+const ruleTester = new RuleTester()
+ruleTester.run(
+  'function-parameter-line-break',
+  functionParameterLineBreak,
+  {invalid, valid},
+)

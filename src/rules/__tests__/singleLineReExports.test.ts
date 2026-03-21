@@ -1,19 +1,6 @@
-import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
-import {RuleTester} from 'eslint'
+import {RuleTester} from '@typescript-eslint/rule-tester'
 import {singleLineReExports} from '../singleLineReExports'
-import type {Rule} from 'eslint'
-
-const rule = singleLineReExports as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
 
 const singleLineValid = [
   {
@@ -48,7 +35,7 @@ const singleLineValid = [
     code: "export {foo} from 'bar' with {type: 'json'}",
     name: 'named re-export with assertion',
   },
-]
+] as const
 
 const multilineInvalid = [
   {
@@ -123,9 +110,10 @@ const multilineInvalid = [
       export * as foo from 'bar'
     `,
   },
-]
+] as const
 
-ruleTester.run('single-line-re-exports', rule, {
+const ruleTester = new RuleTester()
+ruleTester.run('single-line-re-exports', singleLineReExports, {
   invalid: [
     ...multilineInvalid,
   ],

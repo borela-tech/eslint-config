@@ -1,19 +1,6 @@
-import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
 import {preferInlineExport} from '../preferInlineExport'
-import {RuleTester} from 'eslint'
-import type {Rule} from 'eslint'
-
-const rule = preferInlineExport as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
+import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const valid = [
   {
@@ -63,7 +50,7 @@ const valid = [
     code: 'export default foo',
     name: 'default export',
   },
-]
+] as const
 
 const invalid = [
   {
@@ -145,6 +132,7 @@ const invalid = [
     `
       + '\n',
   },
-]
+] as const
 
-ruleTester.run('prefer-inline-export', rule, {invalid, valid})
+const ruleTester = new RuleTester()
+ruleTester.run('prefer-inline-export', preferInlineExport, {invalid, valid})

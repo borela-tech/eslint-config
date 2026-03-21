@@ -1,19 +1,6 @@
-import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
-import {RuleTester} from 'eslint'
+import {RuleTester} from '@typescript-eslint/rule-tester'
 import {singleLineImports} from '../singleLineImports'
-import type {Rule} from 'eslint'
-
-const rule = singleLineImports as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
 
 const singleLineValid = [
   {
@@ -52,7 +39,7 @@ const singleLineValid = [
     code: "import type {Foo} from 'bar' with {type: 'json'}",
     name: 'type import with assertion',
   },
-]
+] as const
 
 const multilineInvalid = [
   {
@@ -163,9 +150,10 @@ const multilineInvalid = [
       import type {Foo} from 'bar' with {type: 'json'}
     `,
   },
-]
+] as const
 
-ruleTester.run('single-line-imports', rule, {
+const ruleTester = new RuleTester()
+ruleTester.run('single-line-imports', singleLineImports, {
   invalid: [
     ...multilineInvalid,
   ],

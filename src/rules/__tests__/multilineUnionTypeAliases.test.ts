@@ -1,19 +1,6 @@
-import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
 import {multilineUnionTypeAliases} from '../multilineUnionTypeAliases'
-import {RuleTester} from 'eslint'
-import type {Rule} from 'eslint'
-
-const rule = multilineUnionTypeAliases as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
+import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const unionTypeValid = [
   {
@@ -49,7 +36,7 @@ const unionTypeValid = [
     code: 'interface Foo { prop: A | B | C }',
     name: 'union type in interface prop',
   },
-]
+] as const
 
 const unionTypeInvalid = [
   {
@@ -99,9 +86,10 @@ const unionTypeInvalid = [
         | Baz
     `,
   },
-]
+] as const
 
-ruleTester.run('multiline-union-type-aliases', rule, {
+const ruleTester = new RuleTester()
+ruleTester.run('multiline-union-type-aliases', multilineUnionTypeAliases, {
   invalid: [
     ...unionTypeInvalid,
   ],

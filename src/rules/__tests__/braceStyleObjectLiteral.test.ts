@@ -1,19 +1,6 @@
-import typescript from 'typescript-eslint'
 import {braceStyleObjectLiteral} from '../braceStyleObjectLiteral'
 import {dedent} from './dedent'
-import {RuleTester} from 'eslint'
-import type {Rule} from 'eslint'
-
-const rule = braceStyleObjectLiteral as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
+import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const valid = [
   {
@@ -97,6 +84,11 @@ const invalid = [
     name: 'shorthand properties multi-line',
     output: 'const x = {\nfoo,\n  bar,\n  }',
   },
-]
+] as const
 
-ruleTester.run('brace-style-object-literal', rule, {invalid, valid})
+const ruleTester = new RuleTester()
+ruleTester.run(
+  'brace-style-object-literal',
+  braceStyleObjectLiteral,
+  {invalid, valid},
+)

@@ -1,19 +1,6 @@
-import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
-import {RuleTester} from 'eslint'
+import {RuleTester} from '@typescript-eslint/rule-tester'
 import {singleLineFunctionParameters} from '../singleLineFunctionParameters'
-import type {Rule} from 'eslint'
-
-const rule = singleLineFunctionParameters as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
 
 const valid = [
   {
@@ -70,7 +57,7 @@ const valid = [
     code: 'function foo() {}',
     name: 'no params',
   },
-]
+] as const
 
 const invalid = [
   {
@@ -169,6 +156,11 @@ const invalid = [
       }
     `,
   },
-]
+] as const
 
-ruleTester.run('single-line-function-parameters', rule, {invalid, valid})
+const ruleTester = new RuleTester()
+ruleTester.run(
+  'single-line-function-parameters',
+  singleLineFunctionParameters,
+  {invalid, valid},
+)

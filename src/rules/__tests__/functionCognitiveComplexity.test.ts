@@ -1,18 +1,5 @@
-import typescript from 'typescript-eslint'
 import {functionCognitiveComplexity} from '../functionCognitiveComplexity'
-import {RuleTester} from 'eslint'
-import type {Rule} from 'eslint'
-
-const rule = functionCognitiveComplexity as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
+import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const valid = [
   {
@@ -56,7 +43,7 @@ const valid = [
     name: 'function at max complexity',
     options: [{maxCognitiveComplexity: 1}],
   },
-]
+] as const
 
 const invalid = [
   {
@@ -98,6 +85,11 @@ const invalid = [
     name: 'function with five nested ifs exceeds max',
     options: [{maxCognitiveComplexity: 10}],
   },
-]
+] as const
 
-ruleTester.run('function-cognitive-complexity', rule, {invalid, valid})
+const ruleTester = new RuleTester()
+ruleTester.run(
+  'function-cognitive-complexity',
+  functionCognitiveComplexity,
+  {invalid, valid},
+)

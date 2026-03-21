@@ -1,18 +1,5 @@
-import typescript from 'typescript-eslint'
 import {exportFilenameMatch} from '../exportFilenameMatch'
-import {RuleTester} from 'eslint'
-import type {Rule} from 'eslint'
-
-const rule = exportFilenameMatch as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
+import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const valid = [
   {
@@ -115,6 +102,7 @@ const invalid = [
     filename: '/test/fooBar.ts',
     name: 'type name case mismatch',
   },
-]
+] as const
 
-ruleTester.run('export-filename-match', rule, {invalid, valid})
+const ruleTester = new RuleTester()
+ruleTester.run('export-filename-match', exportFilenameMatch, {invalid, valid})

@@ -1,25 +1,12 @@
-import typescript from 'typescript-eslint'
 import {braceStyleControlStatements} from '../braceStyleControlStatements'
-import {RuleTester} from 'eslint'
-import type {Rule} from 'eslint'
-
-const rule = braceStyleControlStatements as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
+import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const ifValid = [
   {
     code: 'if (foo)\n  return',
     name: 'single statement without braces',
   },
-]
+] as const
 
 const elseValid = [
   {
@@ -30,7 +17,7 @@ const elseValid = [
     code: 'if (foo) {\n  bar()\n}\n  else\n    baz()',
     name: 'if else different styles',
   },
-]
+] as const
 
 const elseIfValid = [
   {
@@ -45,28 +32,28 @@ const elseIfValid = [
     code: 'if (foo) {\n  bar()\n}\n  else if (bar) {\n  }\n  else {\n  }',
     name: 'if else-if else all empty',
   },
-]
+] as const
 
 const forValid = [
   {
     code: 'for (;;)\n  return',
     name: 'for single statement',
   },
-]
+] as const
 
 const whileValid = [
   {
     code: 'while (foo)\n  return',
     name: 'while single statement',
   },
-]
+] as const
 
 const doWhileValid = [
   {
     code: 'do \n  return\nwhile (foo)',
     name: 'do-while single statement',
   },
-]
+] as const
 
 const ifInvalid = [
   {
@@ -81,7 +68,7 @@ const ifInvalid = [
     name: 'if single line with braces',
     output: 'if (foo) \n{ return }',
   },
-]
+] as const
 
 const elseInvalid = [
   {
@@ -96,7 +83,7 @@ const elseInvalid = [
     name: 'else single line no braces',
     output: 'if (foo) {\n  bar()\n}\n  else {\n    bar()\n  }',
   },
-]
+] as const
 
 const elseIfInvalid = [
   {
@@ -111,7 +98,7 @@ const elseIfInvalid = [
     name: 'else-if-else with single line else',
     output: 'if (foo) {\n  bar()\n}\n  else if (bar) {\n  }\n  else \n{ qux() }',
   },
-]
+] as const
 
 const forInvalid = [
   {
@@ -120,7 +107,7 @@ const forInvalid = [
     name: 'for single line no braces',
     output: 'for (;;) {\n  return\n}',
   },
-]
+] as const
 
 const whileInvalid = [
   {
@@ -129,7 +116,7 @@ const whileInvalid = [
     name: 'while single line no braces',
     output: 'while (foo) {\n  return\n}',
   },
-]
+] as const
 
 const doWhileInvalid = [
   {
@@ -138,9 +125,10 @@ const doWhileInvalid = [
     name: 'do-while single line with braces',
     output: 'do \n{ return } while (foo)',
   },
-]
+] as const
 
-ruleTester.run('brace-style-control-statements', rule, {
+const ruleTester = new RuleTester()
+ruleTester.run('brace-style-control-statements', braceStyleControlStatements, {
   invalid: [
     ...ifInvalid,
     ...elseInvalid,

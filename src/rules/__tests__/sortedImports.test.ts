@@ -1,26 +1,13 @@
-import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
-import {RuleTester} from 'eslint'
+import {RuleTester} from '@typescript-eslint/rule-tester'
 import {sortedImports} from '../sortedImports'
-import type {Rule} from 'eslint'
-
-const rule = sortedImports as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
 
 const sideEffectValid = [
   {
     code: "import 'bar'",
     name: 'side effect import',
   },
-]
+] as const
 
 const sideEffectInvalid = [
   {
@@ -38,7 +25,7 @@ const sideEffectInvalid = [
       import 'bbb'
     `,
   },
-]
+] as const
 
 const namedValid = [
   {
@@ -57,7 +44,7 @@ const namedValid = [
     `,
     name: 'named imports from multiple modules sorted',
   },
-]
+] as const
 
 const namedInvalid = [
   {
@@ -145,14 +132,14 @@ const namedInvalid = [
       import {f} from 'f'
     `,
   },
-]
+] as const
 
 const defaultValid = [
   {
     code: "import foo from 'bar'",
     name: 'default import',
   },
-]
+] as const
 
 const defaultInvalid = [
   {
@@ -170,14 +157,14 @@ const defaultInvalid = [
       import foo from 'aaa'
     `,
   },
-]
+] as const
 
 const namespaceValid = [
   {
     code: "import * as fs from 'fs'",
     name: 'namespace import',
   },
-]
+] as const
 
 const namespaceInvalid = [
   {
@@ -195,7 +182,7 @@ const namespaceInvalid = [
       import * as path from 'path'
     `,
   },
-]
+] as const
 
 const typeImportValid = [
   {
@@ -225,7 +212,7 @@ const typeImportValid = [
     code: "import type * as ns from 'namespace'",
     name: 'type import namespace',
   },
-]
+] as const
 
 const typeImportInvalid = [
   {
@@ -300,7 +287,7 @@ const typeImportInvalid = [
       import type {Foo} from 'bar'
     `,
   },
-]
+] as const
 
 const groupOrderingInvalid = [
   {
@@ -390,7 +377,7 @@ const groupOrderingInvalid = [
       import type * as ns from 'bar'
     `,
   },
-]
+] as const
 
 const mixedValid = [
   {
@@ -416,7 +403,7 @@ const mixedValid = [
     `,
     name: 'all groups properly sorted',
   },
-]
+] as const
 
 const mixedInvalid = [
   {
@@ -468,9 +455,10 @@ const mixedInvalid = [
       import type {Z} from 'z'
     `,
   },
-]
+] as const
 
-ruleTester.run('sorted-imports', rule, {
+const ruleTester = new RuleTester()
+ruleTester.run('sorted-imports', sortedImports, {
   invalid: [
     ...sideEffectInvalid,
     ...namedInvalid,

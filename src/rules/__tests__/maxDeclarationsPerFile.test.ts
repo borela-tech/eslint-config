@@ -1,18 +1,5 @@
-import typescript from 'typescript-eslint'
 import {maxDeclarationsPerFile} from '../maxDeclarationsPerFile'
-import {RuleTester} from 'eslint'
-import type {Rule} from 'eslint'
-
-const rule = maxDeclarationsPerFile as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
+import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const valid = [
   {
@@ -80,80 +67,85 @@ const invalid = [
   {
     code: 'function foo() {}\nfunction bar() {}',
     errors: [
-      {message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.'},
+      {messageId: 'tooManyDeclarations'},
     ],
     name: 'two functions',
   },
   {
     code: 'function foo() {}\nclass Bar {}',
     errors: [
-      {message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.'},
+      {messageId: 'tooManyDeclarations'},
     ],
     name: 'function and class',
   },
   {
     code: 'interface Foo {}\ninterface Bar {}',
     errors: [
-      {message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.'},
+      {messageId: 'tooManyDeclarations'},
     ],
     name: 'two interfaces',
   },
   {
     code: 'type Foo = {}\ntype Bar = {}',
     errors: [
-      {message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.'},
+      {messageId: 'tooManyDeclarations'},
     ],
     name: 'two type aliases',
   },
   {
     code: 'function foo() {}\ninterface Bar {}',
     errors: [
-      {message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.'},
+      {messageId: 'tooManyDeclarations'},
     ],
     name: 'function and interface',
   },
   {
     code: 'const foo = () => {}\nconst bar = () => {}',
     errors: [
-      {message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.'},
+      {messageId: 'tooManyDeclarations'},
     ],
     name: 'two arrow functions',
   },
   {
     code: 'function foo() {}\nfunction bar() {}\nfunction baz() {}',
     errors: [
-      {message: 'File has 3 declarations. Put each function/class/const/type declaration in its own file.'},
+      {messageId: 'tooManyDeclarations'},
     ],
     name: 'three functions',
   },
   {
     code: 'enum Foo {}\nfunction bar() {}',
     errors: [
-      {message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.'},
+      {messageId: 'tooManyDeclarations'},
     ],
     name: 'enum and function',
   },
   {
     code: 'declare function foo(): void\nfunction bar() {}',
     errors: [
-      {message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.'},
+      {messageId: 'tooManyDeclarations'},
     ],
     name: 'declare function and function',
   },
   {
     code: 'export const foo = 1\nexport const bar = 2',
     errors: [
-      {message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.'},
+      {messageId: 'tooManyDeclarations'},
     ],
     name: 'two export consts',
   },
   {
     code: 'function foo() {}\nexport const bar = 1',
     errors: [
-      {message: 'File has 2 declarations. Put each function/class/const/type declaration in its own file.'},
+      {messageId: 'tooManyDeclarations'},
     ],
     name: 'function and export const',
   },
-]
+] as const
 
-ruleTester.run('max-declarations-per-file', rule, {invalid, valid})
+const ruleTester = new RuleTester()
+ruleTester.run(
+  'max-declarations-per-file',
+  maxDeclarationsPerFile,
+  {invalid, valid},
+)

@@ -1,19 +1,6 @@
-import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
 import {noInlineObjectTypes} from '../noInlineObjectTypes'
-import {RuleTester} from 'eslint'
-import type {Rule} from 'eslint'
-
-const rule = noInlineObjectTypes as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
+import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const valid = [
   {
@@ -56,7 +43,7 @@ const valid = [
     code: 'let map: Map<string, Foo>',
     name: 'generic type',
   },
-]
+] as const
 
 const invalid = [
   {
@@ -104,6 +91,7 @@ const invalid = [
       let x: InlineType = { a: "" }
     `,
   },
-]
+] as const
 
-ruleTester.run('no-inline-object-types', rule, {invalid, valid})
+const ruleTester = new RuleTester()
+ruleTester.run('no-inline-object-types', noInlineObjectTypes, {invalid, valid})

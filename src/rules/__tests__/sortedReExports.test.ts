@@ -1,19 +1,6 @@
-import typescript from 'typescript-eslint'
 import {dedent} from './dedent'
-import {RuleTester} from 'eslint'
+import {RuleTester} from '@typescript-eslint/rule-tester'
 import {sortedReExports} from '../sortedReExports'
-import type {Rule} from 'eslint'
-
-const rule = sortedReExports as unknown as Rule.RuleModule
-const ruleTester = new RuleTester({
-  languageOptions: {
-    parser: typescript.parser,
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-  },
-})
 
 const localExportValid = [
   {
@@ -79,7 +66,7 @@ const localExportValid = [
     code: 'const x = 1',
     name: 'just code',
   },
-]
+] as const
 
 const namedReExportValid = [
   {
@@ -92,7 +79,7 @@ const namedReExportValid = [
     `,
     name: 'multiple named re-exports sorted',
   },
-]
+] as const
 
 const namedReExportInvalid = [
   {
@@ -180,7 +167,7 @@ const namedReExportInvalid = [
       export {existsSync} from 'fs'
     `,
   },
-]
+] as const
 
 const allReExportValid = [
   {
@@ -206,7 +193,7 @@ const allReExportValid = [
     `,
     name: 'all re-export before named',
   },
-]
+] as const
 
 const allReExportInvalid = [
   {
@@ -224,14 +211,14 @@ const allReExportInvalid = [
       export * from 'bbb'
     `,
   },
-]
+] as const
 
 const namespaceReExportValid = [
   {
     code: "export * as ns from 'bar'",
     name: 'namespace re-export',
   },
-]
+] as const
 
 const namespaceReExportInvalid = [
   {
@@ -249,7 +236,7 @@ const namespaceReExportInvalid = [
       export * as path from 'path'
     `,
   },
-]
+] as const
 
 const typeReExportValid = [
   {
@@ -263,7 +250,7 @@ const typeReExportValid = [
     `,
     name: 'type re-exports sorted',
   },
-]
+] as const
 
 const typeReExportInvalid = [
   {
@@ -281,7 +268,7 @@ const typeReExportInvalid = [
       export type {Y} from 'yyy'
     `,
   },
-]
+] as const
 
 const groupOrderingInvalid = [
   {
@@ -359,9 +346,10 @@ const groupOrderingInvalid = [
       export type {Foo} from 'bar'
     `,
   },
-]
+] as const
 
-ruleTester.run('sorted-re-exports', rule, {
+const ruleTester = new RuleTester()
+ruleTester.run('sorted-re-exports', sortedReExports, {
   invalid: [
     ...namedReExportInvalid,
     ...allReExportInvalid,
