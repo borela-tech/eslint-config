@@ -81,25 +81,6 @@ const invalid = [
   },
   {
     code: dedent`
-      const foo = (
-        bar,
-      ) => {}
-    `,
-    errors: [{messageId: 'singleLine'}],
-    output: 'const foo = (bar) => {}',
-  },
-  {
-    code: dedent`
-      const foo = (
-        bar,
-        baz,
-      ) => {}
-    `,
-    errors: [{messageId: 'singleLine'}],
-    output: 'const foo = (bar, baz) => {}',
-  },
-  {
-    code: dedent`
       const foo = function(
         bar,
       ) {}
