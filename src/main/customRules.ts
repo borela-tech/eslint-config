@@ -1,3 +1,4 @@
+import {arrayItemsLineBreak} from '../rules/arrayItemsLineBreak'
 import {braceStyleControlStatements} from '../rules/braceStyleControlStatements'
 import {braceStyleObjectLiteral} from '../rules/braceStyleObjectLiteral'
 import {exportFilenameMatch} from '../rules/exportFilenameMatch'
@@ -27,6 +28,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
   plugins: {
     '@borela-tech': {
       rules: {
+        'array-items-line-break': arrayItemsLineBreak,
         'brace-style-control-statements': braceStyleControlStatements,
         'brace-style-object-literal': braceStyleObjectLiteral,
         'export-filename-match': exportFilenameMatch,
@@ -54,6 +56,10 @@ export const customRules: TSESLint.FlatConfig.Config = {
     },
   },
   rules: {
+    '@borela-tech/array-items-line-break': [
+      'error',
+      {maxLength: 80},
+    ],
     '@borela-tech/brace-style-control-statements': 'error',
     '@borela-tech/brace-style-object-literal': 'error',
     '@borela-tech/export-filename-match': 'error',

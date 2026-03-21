@@ -62,13 +62,19 @@ const valid = [
 const invalid = [
   {
     code: 'const x = {foo,\n  bar: 2}',
-    errors: [{messageId: 'braceOnPropertyLine'}, {messageId: 'braceOnPropertyLine'}],
+    errors: [
+      {messageId: 'braceOnPropertyLine'},
+      {messageId: 'braceOnPropertyLine'},
+    ],
     name: 'brace on property line - shorthand then key-value',
     output: 'const x = {\nfoo,\n  bar: 2,\n  }',
   },
   {
     code: 'const x = {foo: 1,\n  bar: 2}',
-    errors: [{messageId: 'braceOnPropertyLine'}, {messageId: 'braceOnPropertyLine'}],
+    errors: [
+      {messageId: 'braceOnPropertyLine'},
+      {messageId: 'braceOnPropertyLine'},
+    ],
     name: 'brace on property line - key-value',
     output: 'const x = {\nfoo: 1,\n  bar: 2,\n  }',
   },
@@ -80,7 +86,10 @@ const invalid = [
   },
   {
     code: 'const x = {foo,\n  bar}',
-    errors: [{messageId: 'braceOnPropertyLine'}, {messageId: 'braceOnPropertyLine'}],
+    errors: [
+      {messageId: 'braceOnPropertyLine'},
+      {messageId: 'braceOnPropertyLine'},
+    ],
     name: 'shorthand properties multi-line',
     output: 'const x = {\nfoo,\n  bar,\n  }',
   },
