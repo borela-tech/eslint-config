@@ -2,17 +2,9 @@ import type {TSESLint} from '@typescript-eslint/utils'
 
 export const stylisticRules: TSESLint.FlatConfig.Config = {
   rules: {
-    '@stylistic/array-bracket-newline': [
-      'error',
-      'consistent',
-    ],
     '@stylistic/array-bracket-spacing': [
       'error',
       'never',
-    ],
-    '@stylistic/array-element-newline': [
-      'error',
-      'consistent',
     ],
     '@stylistic/arrow-parens': [
       'error',
