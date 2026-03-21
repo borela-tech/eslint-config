@@ -66,7 +66,10 @@ const invalid = [
     code: 'export const helper = 1',
     errors: [
       {
-        data: {exportName: 'helper', filename: 'utils'},
+        data: {
+          currentName: 'utils.ts',
+          expectedName: 'helper.ts',
+        },
         messageId: 'filenameMismatch',
       },
     ],
@@ -76,7 +79,10 @@ const invalid = [
     code: 'export function myFunction() {}',
     errors: [
       {
-        data: {exportName: 'myFunction', filename: 'something'},
+        data: {
+          currentName: 'something.ts',
+          expectedName: 'myFunction.ts',
+        },
         messageId: 'filenameMismatch',
       },
     ],
@@ -86,7 +92,10 @@ const invalid = [
     code: 'export type FooBar = string',
     errors: [
       {
-        data: {exportName: 'FooBar', filename: 'fooBar'},
+        data: {
+          currentName: 'fooBar.ts',
+          expectedName: 'FooBar.ts',
+        },
         messageId: 'filenameMismatch',
       },
     ],

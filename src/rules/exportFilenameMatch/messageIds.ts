@@ -1,4 +1,4 @@
 export const messageIds = {
   filenameMismatch:
-    "Filename must match the exported name: expected '{{filename}}', found '{{exportName}}'.",
+    "File name must be '{{expectedName}}' instead of '{{currentName}}'.",
 } as const

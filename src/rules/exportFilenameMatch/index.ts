@@ -7,12 +7,12 @@ import type {TSESLint} from '@typescript-eslint/utils'
 
 export const exportFilenameMatch: TSESLint.RuleModule<MessageId, []> = {
   create(context) {
-    const filename = context.filename
-    const basename = path.basename(filename)
-    const extname = path.extname(basename)
-    const expectedName = basename.slice(0, -extname.length)
+    const fileName = context.filename
+    const baseName = path.basename(fileName)
+    const ext = path.extname(baseName)
+    const fileNameWithoutExt = baseName.slice(0, -ext.length)
 
-    if (isExempt(filename))
+    if (isExempt(fileName))
       return {}
 
     const exportNames: string[] = []
@@ -27,9 +27,12 @@ export const exportFilenameMatch: TSESLint.RuleModule<MessageId, []> = {
         if (exportNames.length === 1) {
           const [exportName] = exportNames
 
-          if (exportName !== expectedName) {
+          if (exportName !== fileNameWithoutExt) {
             context.report({
-              data: {exportName, filename: expectedName},
+              data: {
+                currentName: `${fileNameWithoutExt}${ext}`,
+                expectedName: `${exportName}${ext}`,
+              },
               messageId: 'filenameMismatch',
               node: programNode,
             })
