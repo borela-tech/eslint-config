@@ -16,40 +16,60 @@ const ruleTester = new RuleTester({
 })
 
 const valid = [
-  {code: 'function foo(bar) {}',
-    name: 'single param'},
-  {code: 'function foo(bar, baz) {}',
-    name: 'two params'},
-  {code: 'function foo(bar, baz, qux) {}',
-    name: 'three params'},
-  {code: 'const foo = (bar) => {}',
-    name: 'arrow function single param'},
-  {code: 'const foo = (bar, baz) => {}',
-    name: 'arrow function two params'},
-  {code: 'const foo = function(bar, baz) {}',
-    name: 'function expression two params'},
-  {code: dedent`
+  {
+    code: 'function foo(bar) {}',
+    name: 'single param',
+  },
+  {
+    code: 'function foo(bar, baz) {}',
+    name: 'two params',
+  },
+  {
+    code: 'function foo(bar, baz, qux) {}',
+    name: 'three params',
+  },
+  {
+    code: 'const foo = (bar) => {}',
+    name: 'arrow function single param',
+  },
+  {
+    code: 'const foo = (bar, baz) => {}',
+    name: 'arrow function two params',
+  },
+  {
+    code: 'const foo = function(bar, baz) {}',
+    name: 'function expression two params',
+  },
+  {
+    code: dedent`
       function foo(
         barParameterWithLongNameHereNowAndForeverAAA,
         bazParameterWithLongNameHereNowAndForeverBBB,
       ) {}
     `,
-  name: 'long params forced multiline'},
-  {code: dedent`
+    name: 'long params forced multiline',
+  },
+  {
+    code: dedent`
       function foo(
         barParameterWithLongNameHereNowAndForeverAAA: VeryLongTypeNameHereAAA,
         bazParameterWithLongNameHereNowAndForeverBBB: VeryLongTypeNameHereBBB,
       ) {}
     `,
-  name: 'long typed params forced multiline'},
-  {code: dedent`
+    name: 'long typed params forced multiline',
+  },
+  {
+    code: dedent`
       function fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHere(
         barParameterWithLongNameHereAAAAndEvenMoreTextHere: VeryLongTypeNameHereAAAAndEvenMore,
       ) {}
     `,
-  name: 'long function name with long typed param'},
-  {code: 'function foo() {}',
-    name: 'no params'},
+    name: 'long function name with long typed param',
+  },
+  {
+    code: 'function foo() {}',
+    name: 'no params',
+  },
 ]
 
 const invalid = [

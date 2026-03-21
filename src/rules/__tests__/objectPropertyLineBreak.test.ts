@@ -16,14 +16,22 @@ const ruleTester = new RuleTester({
 })
 
 const valid = [
-  {code: 'const a = {b: 1}',
-    name: 'single property'},
-  {code: 'const a = {foo}',
-    name: 'single shorthand'},
-  {code: 'const a = {foo, bar, baz}',
-    name: 'multiple shorthand under limit'},
-  {code: 'const a = {}',
-    name: 'empty object'},
+  {
+    code: 'const a = {b: 1}',
+    name: 'single property',
+  },
+  {
+    code: 'const a = {foo}',
+    name: 'single shorthand',
+  },
+  {
+    code: 'const a = {foo, bar, baz}',
+    name: 'multiple shorthand under limit',
+  },
+  {
+    code: 'const a = {}',
+    name: 'empty object',
+  },
   {
     code: dedent`
       const a = {

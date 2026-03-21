@@ -16,33 +16,53 @@ const ruleTester = new RuleTester({
 })
 
 const valid = [
-  {code: 'export interface Foo {}',
-    name: 'inline interface export'},
-  {code: 'export type Bar = string',
-    name: 'inline type export'},
-  {code: 'export class Baz {}',
-    name: 'inline class export'},
-  {code: 'export function qux() {}',
-    name: 'inline function export'},
-  {code: 'export const x = 1',
-    name: 'inline const export'},
+  {
+    code: 'export interface Foo {}',
+    name: 'inline interface export',
+  },
+  {
+    code: 'export type Bar = string',
+    name: 'inline type export',
+  },
+  {
+    code: 'export class Baz {}',
+    name: 'inline class export',
+  },
+  {
+    code: 'export function qux() {}',
+    name: 'inline function export',
+  },
+  {
+    code: 'export const x = 1',
+    name: 'inline const export',
+  },
 
-  {code: 'export { A } from "./module"',
-    name: 're-export from module'},
-  {code: 'export type { B } from "./module"',
-    name: 'type re-export from module'},
+  {
+    code: 'export { A } from "./module"',
+    name: 're-export from module',
+  },
+  {
+    code: 'export type { B } from "./module"',
+    name: 'type re-export from module',
+  },
 
-  {code: dedent`
+  {
+    code: dedent`
       import { B } from './module'
       export { A, B }
     `,
-  name: 'mixed local and imported'},
+    name: 'mixed local and imported',
+  },
 
-  {code: 'export { A as B }',
-    name: 'renamed export'},
+  {
+    code: 'export { A as B }',
+    name: 'renamed export',
+  },
 
-  {code: 'export default foo',
-    name: 'default export'},
+  {
+    code: 'export default foo',
+    name: 'default export',
+  },
 ]
 
 const invalid = [

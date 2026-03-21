@@ -16,26 +16,46 @@ const ruleTester = new RuleTester({
 })
 
 const valid = [
-  {code: 'interface Foo { a: string }',
-    name: 'standalone interface'},
-  {code: 'function foo(x: Foo) {}',
-    name: 'function using type'},
-  {code: 'type Bar = Foo',
-    name: 'type alias to type'},
-  {code: 'function bar(): Bar { return { a: "" } }',
-    name: 'function returning type'},
-  {code: 'type Union = Foo | Bar',
-    name: 'union type'},
-  {code: 'type Intersection = Foo & Bar',
-    name: 'intersection type'},
-  {code: 'interface Foo { prop: Bar }',
-    name: 'interface with typed property'},
-  {code: 'interface Foo { prop: { a: string } }',
-    name: 'interface with inline property allowed'},
-  {code: 'let arr: Foo[]',
-    name: 'array type'},
-  {code: 'let map: Map<string, Foo>',
-    name: 'generic type'},
+  {
+    code: 'interface Foo { a: string }',
+    name: 'standalone interface',
+  },
+  {
+    code: 'function foo(x: Foo) {}',
+    name: 'function using type',
+  },
+  {
+    code: 'type Bar = Foo',
+    name: 'type alias to type',
+  },
+  {
+    code: 'function bar(): Bar { return { a: "" } }',
+    name: 'function returning type',
+  },
+  {
+    code: 'type Union = Foo | Bar',
+    name: 'union type',
+  },
+  {
+    code: 'type Intersection = Foo & Bar',
+    name: 'intersection type',
+  },
+  {
+    code: 'interface Foo { prop: Bar }',
+    name: 'interface with typed property',
+  },
+  {
+    code: 'interface Foo { prop: { a: string } }',
+    name: 'interface with inline property allowed',
+  },
+  {
+    code: 'let arr: Foo[]',
+    name: 'array type',
+  },
+  {
+    code: 'let map: Map<string, Foo>',
+    name: 'generic type',
+  },
 ]
 
 const invalid = [

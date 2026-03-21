@@ -16,58 +16,82 @@ const ruleTester = new RuleTester({
 })
 
 const localExportValid = [
-  {code: 'export const foo = 42',
-    name: 'export const'},
-  {code: 'export function bar() {}',
-    name: 'export function'},
-  {code: 'export {foo}',
-    name: 'local re-export'},
-  {code: dedent`
+  {
+    code: 'export const foo = 42',
+    name: 'export const',
+  },
+  {
+    code: 'export function bar() {}',
+    name: 'export function',
+  },
+  {
+    code: 'export {foo}',
+    name: 'local re-export',
+  },
+  {
+    code: dedent`
       export const foo = 42
       export {bar} from 'baz'
     `,
-  name: 'local export then re-export'},
-  {code: dedent`
+    name: 'local export then re-export',
+  },
+  {
+    code: dedent`
       function foo() {}
       export {foo}
       export * from 'bar'
     `,
-  name: 'local then re-export all'},
-  {code: dedent`
+    name: 'local then re-export all',
+  },
+  {
+    code: dedent`
       export const z = 1
       export {a} from 'bar'
       export function foo() {}
       export {b} from 'baz'
       export class Bar {}
     `,
-  name: 'mixed exports sorted'},
-  {code: dedent`
+    name: 'mixed exports sorted',
+  },
+  {
+    code: dedent`
       export class Child extends Parent {}
       export class Parent {}
       export {child} from 'child-module'
     `,
-  name: 'class before re-export'},
-  {code: dedent`
+    name: 'class before re-export',
+  },
+  {
+    code: dedent`
       export {a} from 'aaa'
       export const c = 3
       export {x} from 'xxx'
       export const b = 2
       export {z} from 'zzz'
     `,
-  name: 'alternating exports sorted'},
-  {code: '',
-    name: 'empty'},
-  {code: 'const x = 1',
-    name: 'just code'},
+    name: 'alternating exports sorted',
+  },
+  {
+    code: '',
+    name: 'empty',
+  },
+  {
+    code: 'const x = 1',
+    name: 'just code',
+  },
 ]
 
 const namedReExportValid = [
-  {code: "export {foo} from 'bar'",
-    name: 'single named re-export'},
-  {code: dedent`
+  {
+    code: "export {foo} from 'bar'",
+    name: 'single named re-export',
+  },
+  {
+    code: dedent`
       export {a, b, c} from 'bar'
     `,
-  name: 'multiple named re-exports sorted'},
+    name: 'multiple named re-exports sorted',
+  },
 ]
 
 const namedReExportInvalid = [
@@ -159,9 +183,12 @@ const namedReExportInvalid = [
 ]
 
 const allReExportValid = [
-  {code: "export * from 'bar'",
-    name: 'all re-export'},
-  {code: dedent`
+  {
+    code: "export * from 'bar'",
+    name: 'all re-export',
+  },
+  {
+    code: dedent`
       export * from 'aaa'
       export * as fs from 'fs'
       export * as path from 'path'
@@ -170,12 +197,15 @@ const allReExportValid = [
       export type {X} from 'xxx'
       export type {Y} from 'yyy'
     `,
-  name: 'all types of re-exports sorted'},
-  {code: dedent`
+    name: 'all types of re-exports sorted',
+  },
+  {
+    code: dedent`
       export * from 'bbb'
       export {a} from 'aaa'
     `,
-  name: 'all re-export before named'},
+    name: 'all re-export before named',
+  },
 ]
 
 const allReExportInvalid = [
@@ -197,8 +227,10 @@ const allReExportInvalid = [
 ]
 
 const namespaceReExportValid = [
-  {code: "export * as ns from 'bar'",
-    name: 'namespace re-export'},
+  {
+    code: "export * as ns from 'bar'",
+    name: 'namespace re-export',
+  },
 ]
 
 const namespaceReExportInvalid = [
@@ -220,13 +252,17 @@ const namespaceReExportInvalid = [
 ]
 
 const typeReExportValid = [
-  {code: "export type {Foo} from 'bar'",
-    name: 'type re-export'},
-  {code: dedent`
+  {
+    code: "export type {Foo} from 'bar'",
+    name: 'type re-export',
+  },
+  {
+    code: dedent`
       export type {X} from 'xxx'
       export type {Y} from 'yyy'
     `,
-  name: 'type re-exports sorted'},
+    name: 'type re-exports sorted',
+  },
 ]
 
 const typeReExportInvalid = [
@@ -325,17 +361,19 @@ const groupOrderingInvalid = [
   },
 ]
 
-ruleTester.run('sorted-re-exports', rule, {invalid: [
-  ...namedReExportInvalid,
-  ...allReExportInvalid,
-  ...namespaceReExportInvalid,
-  ...typeReExportInvalid,
-  ...groupOrderingInvalid,
-],
-valid: [
-  ...localExportValid,
-  ...namedReExportValid,
-  ...allReExportValid,
-  ...namespaceReExportValid,
-  ...typeReExportValid,
-]})
+ruleTester.run('sorted-re-exports', rule, {
+  invalid: [
+    ...namedReExportInvalid,
+    ...allReExportInvalid,
+    ...namespaceReExportInvalid,
+    ...typeReExportInvalid,
+    ...groupOrderingInvalid,
+  ],
+  valid: [
+    ...localExportValid,
+    ...namedReExportValid,
+    ...allReExportValid,
+    ...namespaceReExportValid,
+    ...typeReExportValid,
+  ],
+})

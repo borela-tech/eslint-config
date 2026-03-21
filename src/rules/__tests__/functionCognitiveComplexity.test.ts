@@ -15,24 +15,42 @@ const ruleTester = new RuleTester({
 })
 
 const valid = [
-  {code: 'function foo() {}',
-    name: 'empty function'},
-  {code: 'const foo = () => {}',
-    name: 'empty arrow'},
-  {code: 'function bar() { if (x) return 1 }',
-    name: 'function with single if'},
-  {code: '() => x',
-    name: 'arrow returning value'},
-  {code: '() => { if (x) return 1 }',
-    name: 'arrow with single if'},
-  {code: '() => { for (;;) {} }',
-    name: 'arrow with empty for'},
-  {code: '() => { try {} catch {} }',
-    name: 'arrow with empty try-catch'},
-  {code: '() => x ? a : b',
-    name: 'arrow with ternary'},
-  {code: '() => a && b && c',
-    name: 'arrow with logical and'},
+  {
+    code: 'function foo() {}',
+    name: 'empty function',
+  },
+  {
+    code: 'const foo = () => {}',
+    name: 'empty arrow',
+  },
+  {
+    code: 'function bar() { if (x) return 1 }',
+    name: 'function with single if',
+  },
+  {
+    code: '() => x',
+    name: 'arrow returning value',
+  },
+  {
+    code: '() => { if (x) return 1 }',
+    name: 'arrow with single if',
+  },
+  {
+    code: '() => { for (;;) {} }',
+    name: 'arrow with empty for',
+  },
+  {
+    code: '() => { try {} catch {} }',
+    name: 'arrow with empty try-catch',
+  },
+  {
+    code: '() => x ? a : b',
+    name: 'arrow with ternary',
+  },
+  {
+    code: '() => a && b && c',
+    name: 'arrow with logical and',
+  },
   {
     code: 'function foo() { if (x) return 1 }',
     name: 'function at max complexity',

@@ -16,20 +16,34 @@ const ruleTester = new RuleTester({
 })
 
 const valid = [
-  {code: 'foo(bar)',
-    name: 'single arg'},
-  {code: 'foo(bar, baz)',
-    name: 'two args'},
-  {code: 'foo(bar, baz, qux)',
-    name: 'three args'},
-  {code: 'foo(\n  bar,\n  baz\n)',
-    name: 'already multiline'},
-  {code: 'obj.foo(bar)',
-    name: 'method call single arg'},
-  {code: 'obj.foo(bar, baz)',
-    name: 'method call two args'},
-  {code: 'foo?.(bar)',
-    name: 'optional call single arg'},
+  {
+    code: 'foo(bar)',
+    name: 'single arg',
+  },
+  {
+    code: 'foo(bar, baz)',
+    name: 'two args',
+  },
+  {
+    code: 'foo(bar, baz, qux)',
+    name: 'three args',
+  },
+  {
+    code: 'foo(\n  bar,\n  baz\n)',
+    name: 'already multiline',
+  },
+  {
+    code: 'obj.foo(bar)',
+    name: 'method call single arg',
+  },
+  {
+    code: 'obj.foo(bar, baz)',
+    name: 'method call two args',
+  },
+  {
+    code: 'foo?.(bar)',
+    name: 'optional call single arg',
+  },
   {
     code: 'foo(bar)',
     name: 'with custom maxLength',

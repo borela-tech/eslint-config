@@ -16,24 +16,38 @@ const ruleTester = new RuleTester({
 })
 
 const singleLineValid = [
-  {code: "export {foo} from 'bar'",
-    name: 'named re-export'},
-  {code: "export * from 'bar'",
-    name: 'all re-export'},
-  {code: "export * as foo from 'bar'",
-    name: 'namespace re-export'},
-  {code: "export type {Foo} from 'bar'",
-    name: 'type re-export'},
-  {code: "export {a, b, c} from 'bar'",
-    name: 'multiple named re-exports'},
-  {code: dedent`
+  {
+    code: "export {foo} from 'bar'",
+    name: 'named re-export',
+  },
+  {
+    code: "export * from 'bar'",
+    name: 'all re-export',
+  },
+  {
+    code: "export * as foo from 'bar'",
+    name: 'namespace re-export',
+  },
+  {
+    code: "export type {Foo} from 'bar'",
+    name: 'type re-export',
+  },
+  {
+    code: "export {a, b, c} from 'bar'",
+    name: 'multiple named re-exports',
+  },
+  {
+    code: dedent`
       export {
         foo,
       }
     `,
-  name: 'wrapped named re-export'},
-  {code: "export {foo} from 'bar' with {type: 'json'}",
-    name: 'named re-export with assertion'},
+    name: 'wrapped named re-export',
+  },
+  {
+    code: "export {foo} from 'bar' with {type: 'json'}",
+    name: 'named re-export with assertion',
+  },
 ]
 
 const multilineInvalid = [
@@ -111,9 +125,11 @@ const multilineInvalid = [
   },
 ]
 
-ruleTester.run('single-line-re-exports', rule, {invalid: [
-  ...multilineInvalid,
-],
-valid: [
-  ...singleLineValid,
-]})
+ruleTester.run('single-line-re-exports', rule, {
+  invalid: [
+    ...multilineInvalid,
+  ],
+  valid: [
+    ...singleLineValid,
+  ],
+})

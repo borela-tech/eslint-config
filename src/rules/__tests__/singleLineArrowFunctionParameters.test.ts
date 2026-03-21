@@ -16,47 +16,73 @@ const ruleTester = new RuleTester({
 })
 
 const valid = [
-  {code: 'const fn = (x) => x',
-    name: 'single param with parens'},
-  {code: 'const fn = (x, y) => x + y',
-    name: 'two params with parens'},
-  {code: 'const fn = () => {}',
-    name: 'no params'},
-  {code: 'const fn = param => param',
-    name: 'single param without parens'},
-  {code: 'const fn = node => node.value',
-    name: 'single param without parens identifier'},
-  {code: dedent`
+  {
+    code: 'const fn = (x) => x',
+    name: 'single param with parens',
+  },
+  {
+    code: 'const fn = (x, y) => x + y',
+    name: 'two params with parens',
+  },
+  {
+    code: 'const fn = () => {}',
+    name: 'no params',
+  },
+  {
+    code: 'const fn = param => param',
+    name: 'single param without parens',
+  },
+  {
+    code: 'const fn = node => node.value',
+    name: 'single param without parens identifier',
+  },
+  {
+    code: dedent`
     const fn = (
       param => param
     )
   `,
-  name: 'wrapped single param without parens'},
-  {code: 'const fn = (): void => {}',
-    name: 'with void return type'},
-  {code: 'const fn = (): string => "str"',
-    name: 'with string return type'},
-  {code: 'fn(() => {})',
-    name: 'nested empty arrow'},
-  {code: 'const fn = (): void => (param => param)',
-    name: 'nested arrow with return type'},
-  {code: dedent`
+    name: 'wrapped single param without parens',
+  },
+  {
+    code: 'const fn = (): void => {}',
+    name: 'with void return type',
+  },
+  {
+    code: 'const fn = (): string => "str"',
+    name: 'with string return type',
+  },
+  {
+    code: 'fn(() => {})',
+    name: 'nested empty arrow',
+  },
+  {
+    code: 'const fn = (): void => (param => param)',
+    name: 'nested arrow with return type',
+  },
+  {
+    code: dedent`
       fn((a, b) => a + b)
     `,
-  name: 'nested arrow two params'},
-  {code: dedent`
+    name: 'nested arrow two params',
+  },
+  {
+    code: dedent`
       context.report({
         fix: fixer => fixer.replaceText(node, "")
       })
     `,
-  name: 'callback with fixer param'},
-  {code: dedent`
+    name: 'callback with fixer param',
+  },
+  {
+    code: dedent`
       const fn = (
         veryLongParameterNameThatExceedsLimit,
         anotherVeryLongParameterNameThatExceeds,
       ) => veryLongParameterNameThatExceedsLimit + anotherVeryLongParameterNameThatExceeds
     `,
-  name: 'two long params forced multiline'},
+    name: 'two long params forced multiline',
+  },
   {
     code: dedent`
       const fn = (

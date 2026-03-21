@@ -16,8 +16,10 @@ const ruleTester = new RuleTester({
 })
 
 const sideEffectValid = [
-  {code: "import 'bar'",
-    name: 'side effect import'},
+  {
+    code: "import 'bar'",
+    name: 'side effect import',
+  },
 ]
 
 const sideEffectInvalid = [
@@ -39,16 +41,22 @@ const sideEffectInvalid = [
 ]
 
 const namedValid = [
-  {code: "import {foo} from 'bar'",
-    name: 'single named import'},
-  {code: "import {a, b, c} from 'bar'",
-    name: 'multiple named imports sorted'},
-  {code: dedent`
+  {
+    code: "import {foo} from 'bar'",
+    name: 'single named import',
+  },
+  {
+    code: "import {a, b, c} from 'bar'",
+    name: 'multiple named imports sorted',
+  },
+  {
+    code: dedent`
       import {a} from 'ccc'
       import {b} from 'aaa'
       import {c} from 'bbb'
     `,
-  name: 'named imports from multiple modules sorted'},
+    name: 'named imports from multiple modules sorted',
+  },
 ]
 
 const namedInvalid = [
@@ -140,8 +148,10 @@ const namedInvalid = [
 ]
 
 const defaultValid = [
-  {code: "import foo from 'bar'",
-    name: 'default import'},
+  {
+    code: "import foo from 'bar'",
+    name: 'default import',
+  },
 ]
 
 const defaultInvalid = [
@@ -163,8 +173,10 @@ const defaultInvalid = [
 ]
 
 const namespaceValid = [
-  {code: "import * as fs from 'fs'",
-    name: 'namespace import'},
+  {
+    code: "import * as fs from 'fs'",
+    name: 'namespace import',
+  },
 ]
 
 const namespaceInvalid = [
@@ -186,23 +198,33 @@ const namespaceInvalid = [
 ]
 
 const typeImportValid = [
-  {code: "import type {Foo} from 'bar'",
-    name: 'type import named'},
-  {code: dedent`
+  {
+    code: "import type {Foo} from 'bar'",
+    name: 'type import named',
+  },
+  {
+    code: dedent`
       import type {X} from 'xxx'
       import type {Y} from 'yyy'
     `,
-  name: 'type imports sorted'},
-  {code: dedent`
+    name: 'type imports sorted',
+  },
+  {
+    code: dedent`
       import type * as ns from 'namespace'
       import type ts from 'typescript'
       import type {Maybe} from '@lib/Maybe'
     `,
-  name: 'mixed type imports sorted'},
-  {code: "import type foo from 'bar'",
-    name: 'type import default'},
-  {code: "import type * as ns from 'namespace'",
-    name: 'type import namespace'},
+    name: 'mixed type imports sorted',
+  },
+  {
+    code: "import type foo from 'bar'",
+    name: 'type import default',
+  },
+  {
+    code: "import type * as ns from 'namespace'",
+    name: 'type import namespace',
+  },
 ]
 
 const typeImportInvalid = [
@@ -371,11 +393,16 @@ const groupOrderingInvalid = [
 ]
 
 const mixedValid = [
-  {code: '',
-    name: 'empty'},
-  {code: 'const x = 1',
-    name: 'just code'},
-  {code: dedent`
+  {
+    code: '',
+    name: 'empty',
+  },
+  {
+    code: 'const x = 1',
+    name: 'just code',
+  },
+  {
+    code: dedent`
       import 'aaa'
       import 'bbb'
       import * as fs from 'fs'
@@ -387,7 +414,8 @@ const mixedValid = [
       import type {X} from 'xxx'
       import type {Y} from 'yyy'
     `,
-  name: 'all groups properly sorted'},
+    name: 'all groups properly sorted',
+  },
 ]
 
 const mixedInvalid = [
@@ -442,20 +470,22 @@ const mixedInvalid = [
   },
 ]
 
-ruleTester.run('sorted-imports', rule, {invalid: [
-  ...sideEffectInvalid,
-  ...namedInvalid,
-  ...defaultInvalid,
-  ...namespaceInvalid,
-  ...typeImportInvalid,
-  ...groupOrderingInvalid,
-  ...mixedInvalid,
-],
-valid: [
-  ...sideEffectValid,
-  ...namedValid,
-  ...defaultValid,
-  ...namespaceValid,
-  ...typeImportValid,
-  ...mixedValid,
-]})
+ruleTester.run('sorted-imports', rule, {
+  invalid: [
+    ...sideEffectInvalid,
+    ...namedInvalid,
+    ...defaultInvalid,
+    ...namespaceInvalid,
+    ...typeImportInvalid,
+    ...groupOrderingInvalid,
+    ...mixedInvalid,
+  ],
+  valid: [
+    ...sideEffectValid,
+    ...namedValid,
+    ...defaultValid,
+    ...namespaceValid,
+    ...typeImportValid,
+    ...mixedValid,
+  ],
+})

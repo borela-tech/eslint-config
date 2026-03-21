@@ -16,20 +16,34 @@ const ruleTester = new RuleTester({
 })
 
 const singleReExportValid = [
-  {code: "export {foo} from 'bar'",
-    name: 'single named re-export'},
-  {code: "export {foo as bar} from 'baz'",
-    name: 'aliased named re-export'},
-  {code: "export * from 'bar'",
-    name: 'all re-export'},
-  {code: "export default 'bar'",
-    name: 'default export'},
-  {code: 'export const foo = 1',
-    name: 'export const'},
-  {code: 'export function foo() {}',
-    name: 'export function'},
-  {code: 'export class Foo {}',
-    name: 'export class'},
+  {
+    code: "export {foo} from 'bar'",
+    name: 'single named re-export',
+  },
+  {
+    code: "export {foo as bar} from 'baz'",
+    name: 'aliased named re-export',
+  },
+  {
+    code: "export * from 'bar'",
+    name: 'all re-export',
+  },
+  {
+    code: "export default 'bar'",
+    name: 'default export',
+  },
+  {
+    code: 'export const foo = 1',
+    name: 'export const',
+  },
+  {
+    code: 'export function foo() {}',
+    name: 'export function',
+  },
+  {
+    code: 'export class Foo {}',
+    name: 'export class',
+  },
 ]
 
 const multipleReExportInvalid = [
@@ -72,9 +86,11 @@ const multipleReExportInvalid = [
   },
 ]
 
-ruleTester.run('individual-re-exports', rule, {invalid: [
-  ...multipleReExportInvalid,
-],
-valid: [
-  ...singleReExportValid,
-]})
+ruleTester.run('individual-re-exports', rule, {
+  invalid: [
+    ...multipleReExportInvalid,
+  ],
+  valid: [
+    ...singleReExportValid,
+  ],
+})

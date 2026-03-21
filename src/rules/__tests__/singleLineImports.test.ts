@@ -16,24 +16,42 @@ const ruleTester = new RuleTester({
 })
 
 const singleLineValid = [
-  {code: "import {foo} from 'bar'",
-    name: 'named import'},
-  {code: "import foo from 'bar'",
-    name: 'default import'},
-  {code: "import * as foo from 'bar'",
-    name: 'namespace import'},
-  {code: "import 'bar'",
-    name: 'side effect import'},
-  {code: "import type {Foo} from 'bar'",
-    name: 'type import'},
-  {code: "import foo, {bar} from 'baz'",
-    name: 'default and named import'},
-  {code: "import {a, b, c} from 'bar'",
-    name: 'multiple named imports'},
-  {code: "import {foo} from 'bar' with {type: 'json'}",
-    name: 'named import with assertion'},
-  {code: "import type {Foo} from 'bar' with {type: 'json'}",
-    name: 'type import with assertion'},
+  {
+    code: "import {foo} from 'bar'",
+    name: 'named import',
+  },
+  {
+    code: "import foo from 'bar'",
+    name: 'default import',
+  },
+  {
+    code: "import * as foo from 'bar'",
+    name: 'namespace import',
+  },
+  {
+    code: "import 'bar'",
+    name: 'side effect import',
+  },
+  {
+    code: "import type {Foo} from 'bar'",
+    name: 'type import',
+  },
+  {
+    code: "import foo, {bar} from 'baz'",
+    name: 'default and named import',
+  },
+  {
+    code: "import {a, b, c} from 'bar'",
+    name: 'multiple named imports',
+  },
+  {
+    code: "import {foo} from 'bar' with {type: 'json'}",
+    name: 'named import with assertion',
+  },
+  {
+    code: "import type {Foo} from 'bar' with {type: 'json'}",
+    name: 'type import with assertion',
+  },
 ]
 
 const multilineInvalid = [
@@ -147,9 +165,11 @@ const multilineInvalid = [
   },
 ]
 
-ruleTester.run('single-line-imports', rule, {invalid: [
-  ...multilineInvalid,
-],
-valid: [
-  ...singleLineValid,
-]})
+ruleTester.run('single-line-imports', rule, {
+  invalid: [
+    ...multilineInvalid,
+  ],
+  valid: [
+    ...singleLineValid,
+  ],
+})

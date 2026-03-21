@@ -15,28 +15,50 @@ const ruleTester = new RuleTester({
 })
 
 const valid = [
-  {code: 'function foo() {}',
-    name: 'single function'},
-  {code: 'const foo = () => {}',
-    name: 'single arrow function'},
-  {code: 'class Foo {}',
-    name: 'single class'},
-  {code: 'interface Foo {}',
-    name: 'single interface'},
-  {code: 'type Foo = {}',
-    name: 'single type alias'},
-  {code: 'enum Foo {}',
-    name: 'single enum'},
-  {code: 'declare function foo(): void',
-    name: 'single declare function'},
-  {code: 'const foo = 1',
-    name: 'single const'},
-  {code: 'export const foo = 1',
-    name: 'single export const'},
-  {code: 'export {foo} from "./foo"',
-    name: 'single re-export'},
-  {code: 'export {foo, bar} from "./foo"',
-    name: 'multiple re-exports'},
+  {
+    code: 'function foo() {}',
+    name: 'single function',
+  },
+  {
+    code: 'const foo = () => {}',
+    name: 'single arrow function',
+  },
+  {
+    code: 'class Foo {}',
+    name: 'single class',
+  },
+  {
+    code: 'interface Foo {}',
+    name: 'single interface',
+  },
+  {
+    code: 'type Foo = {}',
+    name: 'single type alias',
+  },
+  {
+    code: 'enum Foo {}',
+    name: 'single enum',
+  },
+  {
+    code: 'declare function foo(): void',
+    name: 'single declare function',
+  },
+  {
+    code: 'const foo = 1',
+    name: 'single const',
+  },
+  {
+    code: 'export const foo = 1',
+    name: 'single export const',
+  },
+  {
+    code: 'export {foo} from "./foo"',
+    name: 'single re-export',
+  },
+  {
+    code: 'export {foo, bar} from "./foo"',
+    name: 'multiple re-exports',
+  },
   {
     code: 'function foo() {}',
     filename: '/test/foo.test.ts',

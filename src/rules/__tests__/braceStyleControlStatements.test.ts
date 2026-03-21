@@ -15,39 +15,57 @@ const ruleTester = new RuleTester({
 })
 
 const ifValid = [
-  {code: 'if (foo)\n  return',
-    name: 'single statement without braces'},
+  {
+    code: 'if (foo)\n  return',
+    name: 'single statement without braces',
+  },
 ]
 
 const elseValid = [
-  {code: 'if (foo) {\n  bar()\n}\n  else {\n  }',
-    name: 'if else with empty bodies'},
-  {code: 'if (foo) {\n  bar()\n}\n  else\n    baz()',
-    name: 'if else different styles'},
+  {
+    code: 'if (foo) {\n  bar()\n}\n  else {\n  }',
+    name: 'if else with empty bodies',
+  },
+  {
+    code: 'if (foo) {\n  bar()\n}\n  else\n    baz()',
+    name: 'if else different styles',
+  },
 ]
 
 const elseIfValid = [
-  {code: 'if (foo) {\n  bar()\n}\n  else if (bar) {\n  }',
-    name: 'if else-if empty body'},
-  {code: 'if (foo) {\n  bar()\n}\n  else if (bar) {\n    baz()\n  }',
-    name: 'if else-if with body'},
-  {code: 'if (foo) {\n  bar()\n}\n  else if (bar) {\n  }\n  else {\n  }',
-    name: 'if else-if else all empty'},
+  {
+    code: 'if (foo) {\n  bar()\n}\n  else if (bar) {\n  }',
+    name: 'if else-if empty body',
+  },
+  {
+    code: 'if (foo) {\n  bar()\n}\n  else if (bar) {\n    baz()\n  }',
+    name: 'if else-if with body',
+  },
+  {
+    code: 'if (foo) {\n  bar()\n}\n  else if (bar) {\n  }\n  else {\n  }',
+    name: 'if else-if else all empty',
+  },
 ]
 
 const forValid = [
-  {code: 'for (;;)\n  return',
-    name: 'for single statement'},
+  {
+    code: 'for (;;)\n  return',
+    name: 'for single statement',
+  },
 ]
 
 const whileValid = [
-  {code: 'while (foo)\n  return',
-    name: 'while single statement'},
+  {
+    code: 'while (foo)\n  return',
+    name: 'while single statement',
+  },
 ]
 
 const doWhileValid = [
-  {code: 'do \n  return\nwhile (foo)',
-    name: 'do-while single statement'},
+  {
+    code: 'do \n  return\nwhile (foo)',
+    name: 'do-while single statement',
+  },
 ]
 
 const ifInvalid = [
@@ -122,19 +140,21 @@ const doWhileInvalid = [
   },
 ]
 
-ruleTester.run('brace-style-control-statements', rule, {invalid: [
-  ...ifInvalid,
-  ...elseInvalid,
-  ...elseIfInvalid,
-  ...forInvalid,
-  ...whileInvalid,
-  ...doWhileInvalid,
-],
-valid: [
-  ...ifValid,
-  ...elseValid,
-  ...elseIfValid,
-  ...forValid,
-  ...whileValid,
-  ...doWhileValid,
-]})
+ruleTester.run('brace-style-control-statements', rule, {
+  invalid: [
+    ...ifInvalid,
+    ...elseInvalid,
+    ...elseIfInvalid,
+    ...forInvalid,
+    ...whileInvalid,
+    ...doWhileInvalid,
+  ],
+  valid: [
+    ...ifValid,
+    ...elseValid,
+    ...elseIfValid,
+    ...forValid,
+    ...whileValid,
+    ...doWhileValid,
+  ],
+})

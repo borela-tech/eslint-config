@@ -16,27 +16,39 @@ const ruleTester = new RuleTester({
 })
 
 const unionTypeValid = [
-  {code: 'type A = B',
-    name: 'simple type alias'},
-  {code: dedent`
+  {
+    code: 'type A = B',
+    name: 'simple type alias',
+  },
+  {
+    code: dedent`
       type A = 
         | B
         | C
     `,
-  name: 'union type multiline'},
-  {code: dedent`
+    name: 'union type multiline',
+  },
+  {
+    code: dedent`
       export type A = 
         | B
         | C
         | D
     `,
-  name: 'export union type multiline'},
-  {code: 'let foo: A | B | C',
-    name: 'union type in variable'},
-  {code: 'function foo(a: A | B | C) {}',
-    name: 'union type in param'},
-  {code: 'interface Foo { prop: A | B | C }',
-    name: 'union type in interface prop'},
+    name: 'export union type multiline',
+  },
+  {
+    code: 'let foo: A | B | C',
+    name: 'union type in variable',
+  },
+  {
+    code: 'function foo(a: A | B | C) {}',
+    name: 'union type in param',
+  },
+  {
+    code: 'interface Foo { prop: A | B | C }',
+    name: 'union type in interface prop',
+  },
 ]
 
 const unionTypeInvalid = [
@@ -89,9 +101,11 @@ const unionTypeInvalid = [
   },
 ]
 
-ruleTester.run('multiline-union-type-aliases', rule, {invalid: [
-  ...unionTypeInvalid,
-],
-valid: [
-  ...unionTypeValid,
-]})
+ruleTester.run('multiline-union-type-aliases', rule, {
+  invalid: [
+    ...unionTypeInvalid,
+  ],
+  valid: [
+    ...unionTypeValid,
+  ],
+})

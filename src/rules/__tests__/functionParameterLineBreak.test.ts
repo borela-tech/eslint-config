@@ -16,20 +16,34 @@ const ruleTester = new RuleTester({
 })
 
 const valid = [
-  {code: 'function foo(bar) {}',
-    name: 'single param'},
-  {code: 'function foo(bar, baz) {}',
-    name: 'two params'},
-  {code: 'function foo(bar, baz, qux) {}',
-    name: 'three params'},
-  {code: 'function foo(\n  bar,\n  baz\n) {}',
-    name: 'already multiline'},
-  {code: 'const foo = (bar) => {}',
-    name: 'arrow single param'},
-  {code: 'const foo = (bar, baz) => {}',
-    name: 'arrow two params'},
-  {code: 'const foo = function(bar, baz) {}',
-    name: 'function expression two params'},
+  {
+    code: 'function foo(bar) {}',
+    name: 'single param',
+  },
+  {
+    code: 'function foo(bar, baz) {}',
+    name: 'two params',
+  },
+  {
+    code: 'function foo(bar, baz, qux) {}',
+    name: 'three params',
+  },
+  {
+    code: 'function foo(\n  bar,\n  baz\n) {}',
+    name: 'already multiline',
+  },
+  {
+    code: 'const foo = (bar) => {}',
+    name: 'arrow single param',
+  },
+  {
+    code: 'const foo = (bar, baz) => {}',
+    name: 'arrow two params',
+  },
+  {
+    code: 'const foo = function(bar, baz) {}',
+    name: 'function expression two params',
+  },
   {
     code: 'function foo(bar) {}',
     name: 'single param fits maxLength',
@@ -40,21 +54,25 @@ const valid = [
     name: 'long name fits maxLength',
     options: [{maxLength: 85}],
   },
-  {code: dedent`
+  {
+    code: dedent`
       type Fn = (
         foo: string,
         bar: number,
       ) => void
     `,
-  name: 'type Fn multiline'},
-  {code: dedent`
+    name: 'type Fn multiline',
+  },
+  {
+    code: dedent`
       interface Foo {
         bar(
           a: string,
         ): void;
       }
     `,
-  name: 'interface method multiline'},
+    name: 'interface method multiline',
+  },
 ]
 
 const invalid = [

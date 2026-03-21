@@ -76,9 +76,13 @@ const invalid = [
   {
     code: 'export const helper = 1',
     errors: [
-      {data: {currentName: 'utils.ts',
-        expectedName: 'helper.ts'},
-      messageId: 'filenameMismatch'},
+      {
+        data: {
+          currentName: 'utils.ts',
+          expectedName: 'helper.ts',
+        },
+        messageId: 'filenameMismatch',
+      },
     ],
     filename: '/test/utils.ts',
     name: 'const name mismatch',
@@ -86,9 +90,13 @@ const invalid = [
   {
     code: 'export function myFunction() {}',
     errors: [
-      {data: {currentName: 'something.ts',
-        expectedName: 'myFunction.ts'},
-      messageId: 'filenameMismatch'},
+      {
+        data: {
+          currentName: 'something.ts',
+          expectedName: 'myFunction.ts',
+        },
+        messageId: 'filenameMismatch',
+      },
     ],
     filename: '/test/something.ts',
     name: 'function name mismatch',
@@ -96,9 +104,13 @@ const invalid = [
   {
     code: 'export type FooBar = string',
     errors: [
-      {data: {currentName: 'fooBar.ts',
-        expectedName: 'FooBar.ts'},
-      messageId: 'filenameMismatch'},
+      {
+        data: {
+          currentName: 'fooBar.ts',
+          expectedName: 'FooBar.ts',
+        },
+        messageId: 'filenameMismatch',
+      },
     ],
     filename: '/test/fooBar.ts',
     name: 'type name case mismatch',

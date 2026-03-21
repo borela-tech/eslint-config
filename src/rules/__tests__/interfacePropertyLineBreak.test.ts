@@ -16,34 +16,52 @@ const ruleTester = new RuleTester({
 })
 
 const valid = [
-  {code: 'interface Foo { bar: string }',
-    name: 'single property'},
-  {code: 'interface Foo { bar: string, baz: number }',
-    name: 'two properties'},
-  {code: 'interface Foo { bar: string, baz: number, qux: boolean }',
-    name: 'three properties'},
-  {code: 'interface Foo {\n  bar: string\n}',
-    name: 'single property multiline'},
-  {code: 'interface Foo {\n  bar: string,\n  baz: number\n}',
-    name: 'two properties multiline'},
+  {
+    code: 'interface Foo { bar: string }',
+    name: 'single property',
+  },
+  {
+    code: 'interface Foo { bar: string, baz: number }',
+    name: 'two properties',
+  },
+  {
+    code: 'interface Foo { bar: string, baz: number, qux: boolean }',
+    name: 'three properties',
+  },
+  {
+    code: 'interface Foo {\n  bar: string\n}',
+    name: 'single property multiline',
+  },
+  {
+    code: 'interface Foo {\n  bar: string,\n  baz: number\n}',
+    name: 'two properties multiline',
+  },
   {
     code: 'interface Foo { bar: string }',
     name: 'single property with custom maxLength',
     options: [{maxLength: 30}],
   },
-  {code: 'interface Foo extends Bar { bar: string }',
-    name: 'extends clause'},
+  {
+    code: 'interface Foo extends Bar { bar: string }',
+    name: 'extends clause',
+  },
   {
     code: 'interface Foo extends Bar { bar: string }',
     name: 'extends with custom maxLength',
     options: [{maxLength: 50}],
   },
-  {code: 'interface Foo { bar(): void }',
-    name: 'method signature'},
-  {code: 'interface Foo { get bar(): string }',
-    name: 'getter signature'},
-  {code: 'interface Foo { set bar(value: string) }',
-    name: 'setter signature'},
+  {
+    code: 'interface Foo { bar(): void }',
+    name: 'method signature',
+  },
+  {
+    code: 'interface Foo { get bar(): string }',
+    name: 'getter signature',
+  },
+  {
+    code: 'interface Foo { set bar(value: string) }',
+    name: 'setter signature',
+  },
   {
     code: dedent`
       interface Foo {
@@ -102,10 +120,14 @@ const invalid = [
       }
     `,
     errors: [
-      {line: 2,
-        messageId: 'exceedsMaxLength'},
-      {line: 3,
-        messageId: 'exceedsMaxLength'},
+      {
+        line: 2,
+        messageId: 'exceedsMaxLength',
+      },
+      {
+        line: 3,
+        messageId: 'exceedsMaxLength',
+      },
     ],
     name: 'two nested objects exceed maxLength',
     options: [{maxLength: 50}],
