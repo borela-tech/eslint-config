@@ -12,6 +12,7 @@ import {individualReExports} from '../rules/individualReExports'
 import {interfacePropertyLineBreak} from '../rules/interfacePropertyLineBreak'
 import {maxDeclarationsPerFile} from '../rules/maxDeclarationsPerFile'
 import {multilineUnionTypeAliases} from '../rules/multilineUnionTypeAliases'
+import {namingConvention} from '../rules/namingConvention'
 import {noInlineObjectTypes} from '../rules/noInlineObjectTypes'
 import {noUnnecessaryBraces} from '../rules/noUnnecessaryBraces'
 import {objectPropertyLineBreak} from '../rules/objectPropertyLineBreak'
@@ -43,6 +44,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
         'interface-property-line-break': interfacePropertyLineBreak,
         'max-declarations-per-file': maxDeclarationsPerFile,
         'multiline-union-type-aliases': multilineUnionTypeAliases,
+        'naming-convention': namingConvention,
         'no-inline-object-types': noInlineObjectTypes,
         'no-unnecessary-braces': noUnnecessaryBraces,
         'object-property-line-break': objectPropertyLineBreak,
@@ -87,6 +89,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
     ],
     '@borela-tech/max-declarations-per-file': 'error',
     '@borela-tech/multiline-union-type-aliases': 'error',
+    '@borela-tech/naming-convention': 'error',
     '@borela-tech/no-inline-object-types': 'error',
     '@borela-tech/no-unnecessary-braces': 'error',
     '@borela-tech/object-property-line-break': 'error',
