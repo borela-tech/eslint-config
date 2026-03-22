@@ -49,8 +49,8 @@ Create a file named `eslint.config.ts` in the root of your project and add the
 following code:
 
 ```typescript
-import {CONFIG} from '@borela-tech/eslint-config'
-export default CONFIG
+import {config} from '@borela-tech/eslint-config'
+export {config as default}
 ```
 
 ## Custom Rules
