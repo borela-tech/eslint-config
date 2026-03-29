@@ -9,7 +9,6 @@
     "test": "./bin/test",
     "typecheck": "./bin/typecheck"
   },
-  "type": "module",
   "main": "dist/index.mjs",
   "exports": {
     "import": {

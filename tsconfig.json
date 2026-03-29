@@ -6,7 +6,7 @@
     "paths": {
       "@lib/*": ["./src/lib/*"],
     },
-    "strictNullChecks": true,
+    "strict": true,
     "target": "ESNext",
   },
   "include": [
@@ -15,5 +15,4 @@
     "./jest.config.ts",
     "./vite.config.ts",
   ],
-  "allowDefaultProject": ["./eslint.config.mjs"]
 }

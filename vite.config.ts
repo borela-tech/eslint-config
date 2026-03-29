@@ -6,7 +6,6 @@ const config = defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      fileName: 'index',
       formats: ['es'],
     },
     minify: false,
