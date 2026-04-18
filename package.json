@@ -1,6 +1,6 @@
 {
   "name": "@borela-tech/eslint-config",
-  "version": "2.4.2",
+  "version": "2.5.0",
   "description": "ESLint config used in Borela Tech projects.",
   "scripts": {
     "build": "./bin/build",
@@ -9,11 +9,14 @@
     "test": "./bin/test",
     "typecheck": "./bin/typecheck"
   },
-  "main": "dist/index.mjs",
   "exports": {
     "import": {
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.mjs"
+      "default": "./dist/index.esm.js"
+    },
+    "require": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.cjs.js"
     }
   },
   "repository": {
@@ -51,8 +54,8 @@
     "jest": "^30.3.0",
     "jiti": "^2.6.1",
     "typescript": "~5.9.3",
-    "vite": "^6.3.5",
-    "vite-plugin-dts": "^4.5.3"
+    "vite": "^8.0.7",
+    "vite-plugin-dts": "^4.5.4"
   },
   "peerDependencies": {
     "eslint": "^9.24.0",

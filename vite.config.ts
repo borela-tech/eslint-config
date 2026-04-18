@@ -6,10 +6,10 @@ const config = defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      formats: ['es'],
+      formats: ['es', 'cjs'],
     },
     minify: false,
-    rollupOptions: {
+    rolldownOptions: {
       external: [
         /^@?eslint/,
         /^@?typescript/,
@@ -18,11 +18,11 @@ const config = defineConfig({
         'path',
       ],
       output: {
-        entryFileNames: 'index.mjs',
+        entryFileNames: 'index.[format].js',
       },
     },
     sourcemap: true,
-    target: 'node18',
+    target: 'node25',
   },
   plugins: [dts({
     exclude: ['src/**/__tests__/**'],
