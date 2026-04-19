@@ -8,6 +8,7 @@
     },
     "strict": true,
     "target": "ESNext",
+    "types": ["node"],
   },
   "include": [
     "./src/**/*",

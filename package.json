@@ -45,6 +45,7 @@
     "typescript-eslint": "^8.56.1"
   },
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.58.5",
     "@swc/jest": "^0.2.39",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.12.0",

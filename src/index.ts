@@ -13,6 +13,10 @@ import {typescriptRules} from './main/typescriptRules'
 import {unicornRules} from './main/unicornRules'
 import type {TSESLint} from '@typescript-eslint/utils'
 
+/**
+ * The ESLint flat config used by Borela Tech projects.
+ * @public
+ */
 export const config: TSESLint.FlatConfig.ConfigArray = [
   ignores,
   languageOptions,
