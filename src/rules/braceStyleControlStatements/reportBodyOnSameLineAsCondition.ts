@@ -1,6 +1,6 @@
 import {createBraceStyleFix} from './createBraceStyleFix'
 import {isOnSameLineAsCondition} from './isOnSameLineAsCondition'
-import {isSingleLineStatement} from './isSingleLineStatement'
+import {isSingleLineStatement} from '../shared/isSingleLineStatement'
 import type {RuleContext} from './RuleContext'
 import type {SourceCode} from './SourceCode'
 import type {StatementBody} from './StatementBody'

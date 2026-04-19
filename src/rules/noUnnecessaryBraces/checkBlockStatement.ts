@@ -1,6 +1,6 @@
-import {getLineIndent} from './getLineIndent'
+import {getLineIndent} from '../shared/getLineIndent'
 import {getReplacementText} from './getReplacementText'
-import {isSingleLineStatement} from './isSingleLineStatement'
+import {isSingleLineStatement} from '../shared/isSingleLineStatement'
 import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/utils'

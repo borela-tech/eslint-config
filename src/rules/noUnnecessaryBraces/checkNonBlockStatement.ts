@@ -1,6 +1,6 @@
 import {detectIndentStep} from '../shared/detectIndentStep'
 import {getLineIndent} from '../shared/getLineIndent'
-import {isSingleLineStatement} from './isSingleLineStatement'
+import {isSingleLineStatement} from '../shared/isSingleLineStatement'
 import {reindentText} from '../shared/reindentText'
 import type {MessageIds} from './MessageIds'
 import type {TSESLint} from '@typescript-eslint/utils'
