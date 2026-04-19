@@ -8,5 +8,3 @@ npx vite build
 npx tsc -p tsconfig.build.json
 npx api-extractor run --local --verbose
 rm -rf dist/types
-
-popd > /dev/null

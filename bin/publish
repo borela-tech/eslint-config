@@ -8,5 +8,3 @@ npm publish \
   --access public \
   --registry https://registry.npmjs.org/ \
   --tag latest
-
-popd > /dev/null

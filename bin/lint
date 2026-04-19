@@ -16,5 +16,3 @@ npx eslint \
   --max-warnings 0 \
   --report-unused-disable-directives \
   "$arguments"
-
-popd > /dev/null

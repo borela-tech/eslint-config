@@ -5,5 +5,3 @@ pushd "$SCRIPT_DIR/.." > /dev/null
 
 ./bin/build
 NODE_OPTIONS='--no-webstorage' npx jest "$@"
-
-popd > /dev/null
