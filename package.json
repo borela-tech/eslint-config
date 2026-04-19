@@ -1,11 +1,10 @@
 {
   "name": "@borela-tech/eslint-config",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "ESLint config used in Borela Tech projects.",
   "scripts": {
     "build": "./bin/build",
     "lint": "./bin/lint",
-    "publish": "./bin/publish",
     "test": "./bin/test",
     "typecheck": "./bin/typecheck"
   },
