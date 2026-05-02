@@ -4,4 +4,4 @@ SCRIPT_DIR=$(dirname -- "${BASH_SOURCE[0]}")
 pushd "$SCRIPT_DIR/.." > /dev/null
 
 ./bin/build
-npx jest "$@"
+NODE_OPTIONS='--no-experimental-webstorage' npx jest "$@"
