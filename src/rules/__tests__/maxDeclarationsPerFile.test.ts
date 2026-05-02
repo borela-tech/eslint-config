@@ -49,55 +49,55 @@ const valid = [{
 }]
 
 const invalid = [{
-  code: 'function foo() {}\nfunction bar() {}',
+  code: 'export function foo() {}\nexport function bar() {}',
   errors: [
     {messageId: 'tooManyDeclarations'},
   ],
   name: 'two functions',
 }, {
-  code: 'function foo() {}\nclass Bar {}',
+  code: 'export function foo() {}\nexport class Bar {}',
   errors: [
     {messageId: 'tooManyDeclarations'},
   ],
   name: 'function and class',
 }, {
-  code: 'interface Foo {}\ninterface Bar {}',
+  code: 'export interface Foo {}\nexport interface Bar {}',
   errors: [
     {messageId: 'tooManyDeclarations'},
   ],
   name: 'two interfaces',
 }, {
-  code: 'type Foo = {}\ntype Bar = {}',
+  code: 'export type Foo = {}\nexport type Bar = {}',
   errors: [
     {messageId: 'tooManyDeclarations'},
   ],
   name: 'two type aliases',
 }, {
-  code: 'function foo() {}\ninterface Bar {}',
+  code: 'export function foo() {}\nexport interface Bar {}',
   errors: [
     {messageId: 'tooManyDeclarations'},
   ],
   name: 'function and interface',
 }, {
-  code: 'const foo = () => {}\nconst bar = () => {}',
+  code: 'export const foo = () => {}\nexport const bar = () => {}',
   errors: [
     {messageId: 'tooManyDeclarations'},
   ],
   name: 'two arrow functions',
 }, {
-  code: 'function foo() {}\nfunction bar() {}\nfunction baz() {}',
+  code: 'export function foo() {}\nexport function bar() {}\nexport function baz() {}',
   errors: [
     {messageId: 'tooManyDeclarations'},
   ],
   name: 'three functions',
 }, {
-  code: 'enum Foo {}\nfunction bar() {}',
+  code: 'export enum Foo {}\nexport function bar() {}',
   errors: [
     {messageId: 'tooManyDeclarations'},
   ],
   name: 'enum and function',
 }, {
-  code: 'declare function foo(): void\nfunction bar() {}',
+  code: 'export declare function foo(): void\nexport function bar() {}',
   errors: [
     {messageId: 'tooManyDeclarations'},
   ],
@@ -109,7 +109,7 @@ const invalid = [{
   ],
   name: 'two export consts',
 }, {
-  code: 'function foo() {}\nexport const bar = 1',
+  code: 'export function foo() {}\nexport const bar = 1',
   errors: [
     {messageId: 'tooManyDeclarations'},
   ],
