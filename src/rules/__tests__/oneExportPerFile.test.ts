@@ -28,6 +28,9 @@ const valid = [{
   code: 'export const foo = 1',
   filename: '/test/foo.spec.ts',
   name: 'spec file exempt',
+}, {
+  code: 'export function foo(a: string): void\nexport function foo(a: number): void\nexport function foo(a: string | number): void {}',
+  name: 'function overloads count as single export',
 }] as const
 
 const invalid = [{
@@ -72,6 +75,20 @@ const invalid = [{
     messageId: 'tooManyExports',
   }],
   name: 'three export consts',
+}, {
+  code: 'export function foo(a: string): void\nexport function foo(a: number): void\nexport function foo(a: string | number): void {}\nexport const bar = 1',
+  errors: [{
+    data: {count: 2},
+    messageId: 'tooManyExports',
+  }],
+  name: 'function overloads with another export',
+}, {
+  code: 'export function foo(a: string): void\nexport function foo(a: number): void\nexport function foo(a: string | number): void {}\nexport function bar(): void {}',
+  errors: [{
+    data: {count: 2},
+    messageId: 'tooManyExports',
+  }],
+  name: 'two functions with overloads',
 }] as const
 
 const ruleTester = new RuleTester()
