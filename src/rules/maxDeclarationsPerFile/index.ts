@@ -82,8 +82,10 @@ export const maxDeclarationsPerFile: TSESLint.RuleModule<MessageId, []> = {
         if (!isTopLevel(_node.parent?.parent as TSESTree.Node))
           return
         const declarator = _node.parent as TSESTree.VariableDeclarator
-        if (declarator.id.type === 'Identifier' && declarator.id.name)
+        if (declarator.id.type === 'Identifier' && declarator.id.name) {
           functions.add(declarator.id.name)
+          types.delete(declarator.id.name)
+        }
       },
     }
   },
