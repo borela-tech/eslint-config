@@ -5,6 +5,9 @@ const config = defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
+      fileName(format) {
+        return `index.${format === 'es' ? 'mjs' : 'cjs'}`
+      },
       formats: ['es', 'cjs'],
     },
     minify: false,
@@ -16,9 +19,6 @@ const config = defineConfig({
         /^@?react/,
         'path',
       ],
-      output: {
-        entryFileNames: 'index.[format].js',
-      },
     },
     sourcemap: true,
     target: 'node25',
