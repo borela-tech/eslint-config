@@ -1,7 +1,7 @@
 #!/usr/bin/env -S bash -e -o pipefail
 
 SCRIPT_DIR=$(dirname -- "${BASH_SOURCE[0]}")
-pushd "$SCRIPT_DIR/.." > /dev/null
+cd "$SCRIPT_DIR/.."
 
 ./bin/build
 NODE_OPTIONS='--no-experimental-webstorage' npx jest "$@"
