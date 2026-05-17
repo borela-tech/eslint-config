@@ -2,6 +2,7 @@ import {checkClass} from './checkClass'
 import {checkNamedEntity} from './checkNamedEntity'
 import {checkVariableDeclarator} from './checkVariableDeclarator'
 import {getFunctionName} from './getFunctionName'
+import {getReturnTypeFromChecker} from './getReturnTypeFromChecker'
 import {getReturnTypeText} from './getReturnTypeText'
 import {isExempt} from './isExempt'
 import {isReactComponent} from './isReactComponent'
@@ -94,8 +95,9 @@ export const namingConvention: TSESLint.RuleModule<MessageId, []> = {
       if (!name || isExempt(name))
         return
 
-      const returnTypeText = getReturnTypeText(sourceCode, node)
-      const isComponent = isReactComponent(returnTypeText)
+      const returnType = getReturnTypeFromChecker(context, node)
+        || getReturnTypeText(sourceCode, node)
+      const isComponent = isReactComponent(returnType)
 
       if (isComponent)
         reportComponentViolation(node, parent, name, context)
