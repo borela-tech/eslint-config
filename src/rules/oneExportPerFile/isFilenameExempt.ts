@@ -8,5 +8,6 @@ export function isFilenameExempt(filename: string): boolean {
     || name.endsWith('.spec')
     || name.endsWith('.config')
     || name.endsWith('.stories')
+    || name.endsWith('.model')
   )
 }

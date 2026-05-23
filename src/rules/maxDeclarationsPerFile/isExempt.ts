@@ -6,5 +6,6 @@ export function isExempt(filename: string): boolean {
   const isSpec = name.endsWith('.spec')
   const isConfig = name.endsWith('.config')
   const isStories = name.endsWith('.stories')
-  return isTest || isSpec || isConfig || isStories
+  const isModel = name.endsWith('.model')
+  return isTest || isSpec || isConfig || isStories || isModel
 }
