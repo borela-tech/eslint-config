@@ -34,4 +34,11 @@ export const config: TSESLint.FlatConfig.ConfigArray = [
   stylisticRules,
   typescriptRules,
   unicornRules,
+  //////////////////////////////////////////////////////////////////////////////
+  {
+    files: ['**/*.stories.*'],
+    rules: {
+      'no-restricted-exports': 'off',
+    },
+  },
 ]
