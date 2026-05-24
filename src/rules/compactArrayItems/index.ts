@@ -37,6 +37,12 @@ export const compactArrayItems: TSESLint.RuleModule<MessageId, []> = {
         if (!hasMultilineItems(nonNullElements))
           return
 
+        const texts = nonNullElements.map(e => sourceCode.getText(e))
+        const compactText = `[${texts.join(', ')}]`
+
+        if (compactText.split('\n').some(line => line.length > 80))
+          return
+
         context.report({
           fix: fixer => buildCompactFix(
             fixer,
