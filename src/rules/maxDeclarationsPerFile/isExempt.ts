@@ -1,11 +1,8 @@
 import * as path from 'path'
 
+const EXEMPT_SUFFIXES = ['.config', '.model', '.spec', '.stories', '.test']
+
 export function isExempt(filename: string): boolean {
   const name = path.basename(filename, path.extname(filename))
-  const isTest = name.endsWith('.test')
-  const isSpec = name.endsWith('.spec')
-  const isConfig = name.endsWith('.config')
-  const isStories = name.endsWith('.stories')
-  const isModel = name.endsWith('.model')
-  return isTest || isSpec || isConfig || isStories || isModel
+  return EXEMPT_SUFFIXES.some(suffix => name.endsWith(suffix))
 }
