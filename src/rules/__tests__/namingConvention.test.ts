@@ -64,14 +64,14 @@ const validVariables = [{
 }] as const
 
 const validConstants = [{
-  code: 'const maxCount = 100',
-  name: 'const camelCase',
-}, {
   code: 'const MAX_RETRY = 3',
-  name: 'const UPPER_CASE',
+  name: 'const UPPER_CASE with literal',
 }, {
   code: 'const API_KEY = "secret"',
   name: 'const API_KEY',
+}, {
+  code: 'const maxCount = getCount()',
+  name: 'const camelCase with non-literal',
 }] as const
 
 const validExempt = [{
@@ -86,9 +86,6 @@ const validExempt = [{
 }] as const
 
 const validLowercase = [{
-  code: 'const maxretry = 3',
-  name: 'lowercase is valid camelCase',
-}, {
   code: 'let myvariable = 5',
   name: 'lowercase variable',
 }] as const
@@ -151,6 +148,36 @@ const invalidVariables = [{
   output: 'let userName = "John"',
 }] as const
 
+const invalidLiteralConstants = [{
+  code: 'const maxCount = 100',
+  errors: [{messageId: 'notUpperCase'}],
+  name: 'const camelCase with number literal',
+}, {
+  code: 'const active = true',
+  errors: [{messageId: 'notUpperCase'}],
+  name: 'const camelCase with boolean literal',
+}, {
+  code: 'const noData = null',
+  errors: [{messageId: 'notUpperCase'}],
+  name: 'const camelCase with null literal',
+}, {
+  code: 'const value = undefined',
+  errors: [{messageId: 'notUpperCase'}],
+  name: 'const camelCase with undefined',
+}, {
+  code: 'const name = `hello`',
+  errors: [{messageId: 'notUpperCase'}],
+  name: 'const camelCase with template literal',
+}, {
+  code: 'const negative = -1',
+  errors: [{messageId: 'notUpperCase'}],
+  name: 'const camelCase with negative number',
+}, {
+  code: 'const maxretry = 3',
+  errors: [{messageId: 'notUpperCase'}],
+  name: 'const lowercase with number literal',
+}] as const
+
 const ruleTester = new RuleTester()
 ruleTester.run('naming-convention', namingConvention, {
   invalid: [
@@ -158,6 +185,7 @@ ruleTester.run('naming-convention', namingConvention, {
     ...invalidComponents,
     ...invalidTypes,
     ...invalidVariables,
+    ...invalidLiteralConstants,
   ],
   valid: [
     ...validFunctions,

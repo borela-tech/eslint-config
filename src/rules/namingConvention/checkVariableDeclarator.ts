@@ -2,6 +2,7 @@ import {checkConstant} from './checkConstant'
 import {checkVariable} from './checkVariable'
 import {isExempt} from './isExempt'
 import {isFunction} from './isFunction'
+import {isLiteralValue} from './isLiteralValue'
 import type {MessageId} from './MessageId'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/types'
@@ -26,8 +27,11 @@ export function checkVariableDeclarator(
     return
 
   const kind = parent.kind
-  if (kind === 'const')
-    checkConstant(name, id, context)
-  else
+  if (kind === 'const') {
+    if (isLiteralValue(node.init))
+      checkConstant(name, id, context, true)
+    else
+      checkConstant(name, id, context)
+  } else
     checkVariable(name, id, context)
 }

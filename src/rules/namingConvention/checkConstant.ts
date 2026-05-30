@@ -8,12 +8,23 @@ export function checkConstant(
   name: string,
   node: TSESTree.Identifier,
   context: TSESLint.RuleContext<MessageId, []>,
+  requireUpperCase = false,
 ): void {
-  if (!isCamelCase(name) && !isUpperCase(name)) {
-    context.report({
-      data: {name},
-      messageId: 'notUpperCase',
-      node,
-    })
+  if (requireUpperCase) {
+    if (!isUpperCase(name)) {
+      context.report({
+        data: {name},
+        messageId: 'notUpperCase',
+        node,
+      })
+    }
+  } else {
+    if (!isCamelCase(name) && !isUpperCase(name)) {
+      context.report({
+        data: {name},
+        messageId: 'notUpperCase',
+        node,
+      })
+    }
   }
 }
