@@ -9,6 +9,6 @@ eslint.config.ts
 jest.config.ts
 tsconfig.build.json
 tsconfig.json
-vite.config.ts
+vite.config.mts
 
 *.tgz
