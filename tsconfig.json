@@ -13,6 +13,6 @@
     "./src/**/*",
     "./eslint.config.ts",
     "./jest.config.ts",
-    "./vite.config.ts",
+    "./vite.config.mts",
   ],
 }
