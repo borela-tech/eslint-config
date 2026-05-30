@@ -14,16 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: '.node-version'
           cache: 'npm'
-
       - name: Install dependencies
         run: npm ci
-
       - name: Run lint
         run: ./bin/lint
 
@@ -32,16 +29,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: '.node-version'
           cache: 'npm'
-
       - name: Install dependencies
         run: npm ci
-
       - name: Run typecheck
         run: ./bin/typecheck
 
@@ -50,16 +44,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: '.node-version'
           cache: 'npm'
-
       - name: Install dependencies
         run: npm ci
-
       - name: Run tests
         run: ./bin/test
 
@@ -68,15 +59,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: '.node-version'
           cache: 'npm'
-
       - name: Install dependencies
         run: npm ci
-
       - name: Run build
         run: ./bin/build
