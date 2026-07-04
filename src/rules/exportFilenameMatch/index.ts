@@ -1,6 +1,6 @@
 import * as path from 'path'
 import {getExportedNames} from './getExportedNames'
-import {isFilenameExempt} from './isFilenameExempt'
+import {isFileExempt} from './isFileExempt'
 import {messageIds} from './messageIds'
 import type {MessageId} from './MessageId'
 import type {TSESLint} from '@typescript-eslint/utils'
@@ -13,7 +13,7 @@ export const exportFilenameMatch: TSESLint.RuleModule<MessageId, []> = {
     const ext = path.extname(baseName)
     const fileNameWithoutExt = baseName.slice(0, -ext.length)
 
-    if (isFilenameExempt(fileName))
+    if (isFileExempt(fileName))
       return {}
 
     const exportNames: string[] = []
