@@ -45,6 +45,10 @@ const valid = [{
   code: 'const foo = 1',
   filename: '/test/anyFile.ts',
   name: 'no export any filename',
+}, {
+  code: 'export class TestModel extends Object {}',
+  filename: '/test/TestModel.model.ts',
+  name: 'model file matches filename stem',
 }]
 
 const invalid = [{
@@ -80,6 +84,17 @@ const invalid = [{
   }],
   filename: '/test/fooBar.ts',
   name: 'type name case mismatch',
+}, {
+  code: 'export class BarModel extends Object {}',
+  errors: [{
+    data: {
+      currentName: 'FooModel.model.ts',
+      expectedName: 'BarModel.model.ts',
+    },
+    messageId: 'filenameMismatch',
+  }],
+  filename: '/test/FooModel.model.ts',
+  name: 'model file name mismatch',
 }] as const
 
 const ruleTester = new RuleTester()

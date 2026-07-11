@@ -10,8 +10,10 @@ export const exportFilenameMatch: TSESLint.RuleModule<MessageId, []> = {
   create(context) {
     const fileName = context.filename
     const baseName = path.basename(fileName)
-    const ext = path.extname(baseName)
-    const fileNameWithoutExt = baseName.slice(0, -ext.length)
+    const dotIndex = baseName.indexOf('.')
+
+    const fileNameStem = dotIndex >= 0 ? baseName.slice(0, dotIndex) : baseName
+    const stemSuffix = dotIndex >= 0 ? baseName.slice(dotIndex) : ''
 
     if (isFileExempt(fileName))
       return {}
@@ -28,11 +30,11 @@ export const exportFilenameMatch: TSESLint.RuleModule<MessageId, []> = {
         if (exportNames.length === 1) {
           const [exportName] = exportNames
 
-          if (exportName !== fileNameWithoutExt) {
+          if (exportName !== fileNameStem) {
             context.report({
               data: {
-                currentName: `${fileNameWithoutExt}${ext}`,
-                expectedName: `${exportName}${ext}`,
+                currentName: baseName,
+                expectedName: `${exportName}${stemSuffix}`,
               },
               messageId: 'filenameMismatch',
               node: programNode,
