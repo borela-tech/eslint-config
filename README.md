@@ -18,20 +18,29 @@ Shared ESLint configuration for Borela Tech projects.
   - [Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
   - [TypeScript ESLint](https://typescript-eslint.io/)
   - [Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn)
-- 17 custom rules for consistent code organization:
+- 26 custom rules for consistent code organization:
+  - [`array-items-line-break`](#array-items-line-break)
   - [`brace-style-control-statements`](#brace-style-control-statements)
+  - [`brace-style-object-literal`](#brace-style-object-literal)
+  - [`compact-array-items`](#compact-array-items)
   - [`export-filename-match`](#export-filename-match)
   - [`function-call-argument-line-break`](#function-call-argument-line-break)
+  - [`function-cognitive-complexity`](#function-cognitive-complexity)
   - [`function-parameter-line-break`](#function-parameter-line-break)
   - [`imports-and-re-exports-at-top`](#imports-and-re-exports-at-top)
   - [`individual-imports`](#individual-imports)
   - [`individual-re-exports`](#individual-re-exports)
   - [`interface-property-line-break`](#interface-property-line-break)
+  - [`max-declarations-per-file`](#max-declarations-per-file)
   - [`multiline-union-type-aliases`](#multiline-union-type-aliases)
-  - [`no-inline-object-type-parameters`](#no-inline-object-type-parameters)
+  - [`naming-convention`](#naming-convention)
+  - [`no-inline-object-types`](#no-inline-object-types)
   - [`no-unnecessary-braces`](#no-unnecessary-braces)
+  - [`object-property-line-break`](#object-property-line-break)
   - [`one-export-per-file`](#one-export-per-file)
   - [`prefer-inline-export`](#prefer-inline-export)
+  - [`single-line-arrow-function-parameters`](#single-line-arrow-function-parameters)
+  - [`single-line-function-parameters`](#single-line-function-parameters)
   - [`single-line-imports`](#single-line-imports)
   - [`single-line-re-exports`](#single-line-re-exports)
   - [`sorted-imports`](#sorted-imports)
@@ -55,7 +64,25 @@ export {config as default}
 
 ## Custom Rules
 
-This package includes 17 custom ESLint rules to enforce consistent code organization. All custom rules are auto-fixable.
+This package includes 26 custom ESLint rules to enforce consistent code organization. Most custom rules are auto-fixable.
+
+### `array-items-line-break`
+
+Enforces each array item to be on its own line when the array expression exceeds 80 characters.
+
+**Bad:**
+```typescript
+const a = [veryLongItemNameOne, veryLongItemNameTwo, veryLongItemNameThree]
+```
+
+**Good:**
+```typescript
+const a = [
+  veryLongItemNameOne,
+  veryLongItemNameTwo,
+  veryLongItemNameThree,
+]
+```
 
 ### `brace-style-control-statements`
 
@@ -75,6 +102,49 @@ if (foo)
 if (foo) {
   return
 }
+```
+
+### `brace-style-object-literal`
+
+Enforces braces of multiline object literals to be on their own lines.
+
+**Bad:**
+```typescript
+const x = {foo: 1,
+  bar: 2}
+```
+
+**Good:**
+```typescript
+const x = {
+  foo: 1,
+  bar: 2,
+}
+```
+
+### `compact-array-items`
+
+Enforces arrays with multiline items (objects or arrays) to use a compact, inline bracket style, as long as the line does not exceed 80 characters.
+
+**Bad:**
+```typescript
+const foo = [
+  {
+    id: 1,
+  },
+  {
+    id: 2,
+  },
+]
+```
+
+**Good:**
+```typescript
+const foo = [{
+  id: 1,
+}, {
+  id: 2,
+}]
 ```
 
 ### `export-filename-match`
@@ -109,6 +179,34 @@ const result = someFunctionWithAVeryLongName(
   arg2,
   arg3,
 )
+```
+
+### `function-cognitive-complexity`
+
+Enforces a cognitive complexity threshold (default 15) for functions.
+
+**Bad:**
+```typescript
+function handleSubmit() {
+  if (a) {
+    if (b) {
+      if (c) {
+        if (d) {
+          doSomething()
+        }
+      }
+    }
+  }
+}
+```
+
+**Good:**
+```typescript
+function handleSubmit() {
+  if (a && b && c && d) {
+    doSomething()
+  }
+}
 ```
 
 ### `function-parameter-line-break`
@@ -195,6 +293,25 @@ interface Config {
 }
 ```
 
+### `max-declarations-per-file`
+
+Enforces a single top-level declaration (function or type) per file. Allows exceptions for `.config`, `.model`, `.spec`, `.stories`, and `.test` files.
+
+**Bad:**
+```typescript
+export function foo() {}
+export function bar() {}
+```
+
+**Good:**
+```typescript
+// file: foo.ts
+export function foo() {}
+
+// file: bar.ts
+export function bar() {}
+```
+
 ### `multiline-union-type-aliases`
 
 Enforces multiline union type aliases.
@@ -210,6 +327,39 @@ type Status =
   | 'pending'
   | 'active'
   | 'completed'
+```
+
+### `naming-convention`
+
+Enforces consistent naming conventions:
+
+- **React components** (functions returning `JSX.Element`, `ReactElement`, or `ReactNode`) use `PascalCase`
+- **Wrapped components** (e.g., `memo(...)`, `forwardRef(...)`) use `PascalCase`
+- **React contexts** (e.g., `createContext(...)`, `React.createContext(...)`) use `PascalCase`
+- **Functions** use `camelCase`
+- **Classes, enums, interfaces, and type aliases** use `PascalCase`
+- **Variables** (`let`/`var`) use `camelCase`
+- **Constants** (`const`) use `UPPER_CASE` when assigned a literal value, otherwise `camelCase` or `UPPER_CASE`
+- Names prefixed with `_` (e.g., `_unused`) are exempt
+
+**Bad:**
+```typescript
+const myButton = (): JSX.Element => null
+const myButtons = memo(function MyButtons(): JSX.Element { return null; })
+const appContext = createContext(null)
+function my_function() {}
+const MY_VALUE = 42
+class myClass {}
+```
+
+**Good:**
+```typescript
+const MyButton = (): JSX.Element => null
+const MyButtons = memo(function MyButtons(): JSX.Element { return null; })
+const AppContext = createContext(null)
+function myFunction() {}
+const myValue = 42
+class MyClass {}
 ```
 
 ### `no-inline-object-types`
@@ -263,6 +413,30 @@ if (condition) {
 }
 ```
 
+### `object-property-line-break`
+
+Enforces object literal formatting based on complexity and line length. Mixed shorthand and non-shorthand properties must be multiline, while multiline objects that fit on one line are collapsed.
+
+**Bad:**
+```typescript
+const a = {foo, bar: bar}
+
+const b = {
+  foo,
+  bar,
+}
+```
+
+**Good:**
+```typescript
+const a = {
+  foo,
+  bar: bar,
+}
+
+const b = {foo, bar}
+```
+
 ### `one-export-per-file`
 
 Enforces one export per file. Allows exceptions for `index.ts`, 
@@ -297,6 +471,40 @@ export {foo}
 **Good:**
 ```typescript
 export class Foo {}
+```
+
+### `single-line-arrow-function-parameters`
+
+Ensures arrow function parameters are on a single line when they fit within 80 characters.
+
+**Bad:**
+```typescript
+const fn = (
+  x,
+  y,
+) => x + y
+```
+
+**Good:**
+```typescript
+const fn = (x, y) => x + y
+```
+
+### `single-line-function-parameters`
+
+Ensures function parameters are on a single line when they fit within 80 characters.
+
+**Bad:**
+```typescript
+function foo(
+  bar,
+  baz,
+) {}
+```
+
+**Good:**
+```typescript
+function foo(bar, baz) {}
 ```
 
 ### `single-line-imports`
