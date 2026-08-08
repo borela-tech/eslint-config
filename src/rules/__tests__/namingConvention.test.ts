@@ -21,6 +21,15 @@ const validReactComponents = [{
 }, {
   code: 'const Card = (): ReactNode => null',
   name: 'component with ReactNode',
+}, {
+  code: 'const IssueButtons = memo(function IssueButtons(): JSX.Element { return null; })',
+  name: 'memoized component PascalCase',
+}, {
+  code: 'const InputField = forwardRef(function InputField(): JSX.Element { return null; })',
+  name: 'forwardRef component PascalCase',
+}, {
+  code: 'const ThemeButton = React.memo(function ThemeButton(): JSX.Element { return null; })',
+  name: 'React.memo component PascalCase',
 }] as const
 
 const validTypes = [{
@@ -74,6 +83,14 @@ const validConstants = [{
   name: 'const camelCase with non-literal',
 }] as const
 
+const validContexts = [{
+  code: 'const RadioGroupContext = createContext<unknown>(undefined)',
+  name: 'context PascalCase',
+}, {
+  code: 'const ThemeContext = React.createContext(null)',
+  name: 'context via React.createContext',
+}] as const
+
 const validExempt = [{
   code: 'const _unused = 1',
   name: 'exempt const with underscore',
@@ -112,6 +129,11 @@ const invalidComponents = [{
   errors: [{messageId: 'notPascalCase'}],
   name: 'function component camelCase should be PascalCase',
   output: 'function MyButton(): JSX.Element { return null; }',
+}, {
+  code: 'const myButtons = memo(function MyButtons(): JSX.Element { return null; })',
+  errors: [{messageId: 'notPascalCase'}],
+  name: 'memoized component camelCase should be PascalCase',
+  output: 'const MyButtons = memo(function MyButtons(): JSX.Element { return null; })',
 }] as const
 
 const invalidTypes = [{
@@ -178,6 +200,13 @@ const invalidLiteralConstants = [{
   name: 'const lowercase with number literal',
 }] as const
 
+const invalidContexts = [{
+  code: 'const radioGroupContext = createContext<unknown>(undefined)',
+  errors: [{messageId: 'notPascalCase'}],
+  name: 'context camelCase should be PascalCase',
+  output: 'const RadioGroupContext = createContext<unknown>(undefined)',
+}] as const
+
 const ruleTester = new RuleTester()
 ruleTester.run('naming-convention', namingConvention, {
   invalid: [
@@ -186,6 +215,7 @@ ruleTester.run('naming-convention', namingConvention, {
     ...invalidTypes,
     ...invalidVariables,
     ...invalidLiteralConstants,
+    ...invalidContexts,
   ],
   valid: [
     ...validFunctions,
@@ -196,6 +226,7 @@ ruleTester.run('naming-convention', namingConvention, {
     ...validClasses,
     ...validVariables,
     ...validConstants,
+    ...validContexts,
     ...validExempt,
     ...validLowercase,
   ],
