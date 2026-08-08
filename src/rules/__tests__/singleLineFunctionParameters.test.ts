@@ -136,6 +136,55 @@ const invalid = [{
       bar(a: string): void;
     }
   `,
+}, {
+  code: dedent`
+    function test({
+      bar,
+      foo,
+    }: TestParameters) {
+      console.log(foo, bar)
+    }
+  `,
+  errors: [{messageId: 'singleLine'}],
+  name: 'destructured param multiline',
+  output: dedent`
+    function test({bar, foo}: TestParameters) {
+      console.log(foo, bar)
+    }
+  `,
+}, {
+  code: dedent`
+    function test([
+      bar,
+      foo,
+    ]: TestParameters) {
+      console.log(foo, bar)
+    }
+  `,
+  errors: [{messageId: 'singleLine'}],
+  name: 'array destructured param multiline',
+  output: dedent`
+    function test([bar, foo]: TestParameters) {
+      console.log(foo, bar)
+    }
+  `,
+}, {
+  code: dedent`
+    function test({
+      bar,
+    }: {
+      bar: string,
+    }) {
+      console.log(bar)
+    }
+  `,
+  errors: [{messageId: 'singleLine'}],
+  name: 'destructured param with multiline type annotation',
+  output: dedent`
+    function test({bar}: {bar: string}) {
+      console.log(bar)
+    }
+  `,
 }] as const
 
 const ruleTester = new RuleTester()
