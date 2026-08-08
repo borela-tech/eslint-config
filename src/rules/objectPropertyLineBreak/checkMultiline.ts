@@ -1,5 +1,5 @@
 import {areAllShorthand} from './areAllShorthand'
-import {getInlineObjectLength} from './getInlineObjectLength'
+import {getCollapsedLineLength} from './getCollapsedLineLength'
 import type {Braces} from './Braces'
 import type {MessageId} from './MessageId'
 import type {Options} from './Options'
@@ -19,8 +19,7 @@ export function checkMultiline(
   if (!allShorthand)
     return
 
-  const inlineLength = getInlineObjectLength(sourceCode, properties)
-
+  const inlineLength = getCollapsedLineLength(sourceCode, properties, braces)
   if (inlineLength > maxLength)
     return
 

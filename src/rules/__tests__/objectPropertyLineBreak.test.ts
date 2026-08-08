@@ -32,6 +32,25 @@ const valid = [{
     }
   `,
   name: 'multiline long with normal properties',
+}, {
+  code: dedent`
+    const contextValue = useMemo(() => ({
+      handleNavigationKeyDown,
+      isDisabled,
+      isDummy,
+      register,
+      setValue,
+      value,
+    }), [
+      value,
+      handleNavigationKeyDown,
+      isDisabled,
+      isDummy,
+      register,
+      setValue,
+    ])
+  `,
+  name: 'multiline shorthand exceeds line length in context',
 }] as const
 
 const invalid = [{
