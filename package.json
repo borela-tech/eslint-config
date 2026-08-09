@@ -44,6 +44,7 @@
     "typescript-eslint": "^8.56.1"
   },
   "devDependencies": {
+    "@borela-tech/ts-toolbox": "^1.1.0",
     "@microsoft/api-extractor": "^7.58.5",
     "@swc/jest": "^0.2.39",
     "@types/jest": "^30.0.0",
