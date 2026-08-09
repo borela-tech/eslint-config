@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {objectPropertyLineBreak} from '../objectPropertyLineBreak'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
@@ -15,7 +15,7 @@ const valid = [{
   code: 'const a = {}',
   name: 'empty object',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const a = {
       foo: foo,
       bar: bar,
@@ -23,7 +23,7 @@ const valid = [{
   `,
   name: 'multiline with normal properties',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const a = {
       foo: foo,
       bar: bar,
@@ -33,7 +33,7 @@ const valid = [{
   `,
   name: 'multiline long with normal properties',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const contextValue = useMemo(() => ({
       handleNavigationKeyDown,
       isDisabled,
@@ -57,14 +57,19 @@ const invalid = [{
   code: 'const a = {foo, bar: bar}',
   errors: [{messageId: 'mixedPropertiesNotAllowed'}],
   name: 'mixed shorthand and normal',
-  output: 'const a = {\n  foo,\n  bar: bar,\n}',
+  output: dedentAndStrip`
+    const a = {
+      foo,
+      bar: bar,
+    }
+  `,
 }, {
   code: 'const a = {foo: foo, bar: bar}',
   errors: [{messageId: 'mixedPropertiesNotAllowed'}],
   name: 'normal properties can collapse',
   output: 'const a = {foo, bar}',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const a = {
       foo,
       bar,

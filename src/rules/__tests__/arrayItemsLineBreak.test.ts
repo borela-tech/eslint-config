@@ -1,5 +1,5 @@
 import {arrayItemsLineBreak} from '../arrayItemsLineBreak'
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const valid = [{
@@ -12,7 +12,7 @@ const valid = [{
   code: 'const a = [foo, bar, baz]',
   name: 'three items under limit',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const a = [
       foo,
       bar,
@@ -35,7 +35,7 @@ const invalid = [{
   code: 'const veryLongArrayNameHere = [veryLongItemNameOne, veryLongItemNameTwo, veryLongItemNameThree]',
   errors: [{messageId: 'arrayItemsOnNewLine'}],
   name: 'long array over limit',
-  output: dedent`
+  output: dedentAndStrip`
     const veryLongArrayNameHere = [
       veryLongItemNameOne,
       veryLongItemNameTwo,
@@ -46,7 +46,7 @@ const invalid = [{
   code: 'const someArrayHere = [veryLongItemNameOne, veryLongItemNameTwo, veryLongItemNameThree]',
   errors: [{messageId: 'arrayItemsOnNewLine'}],
   name: 'array with shorter name but long items',
-  output: dedent`
+  output: dedentAndStrip`
     const someArrayHere = [
       veryLongItemNameOne,
       veryLongItemNameTwo,
@@ -57,7 +57,7 @@ const invalid = [{
   code: 'const a = [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10]',
   errors: [{messageId: 'arrayItemsOnNewLine'}],
   name: 'many items exceeding default limit',
-  output: dedent`
+  output: dedentAndStrip`
     const a = [
       item1,
       item2,

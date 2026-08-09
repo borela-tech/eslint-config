@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 import {singleLineImports} from '../singleLineImports'
 
@@ -32,29 +32,29 @@ const singleLineValid = [{
 }] as const
 
 const multilineInvalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     import {
       foo,
     } from 'bar'
   `,
   errors: [{messageId: 'multiline'}],
   name: 'named import multiline',
-  output: dedent`
+  output: dedentAndStrip`
     import {foo} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import type {
       Foo,
     } from 'bar'
   `,
   errors: [{messageId: 'multiline'}],
   name: 'type import multiline',
-  output: dedent`
+  output: dedentAndStrip`
     import type {Foo} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import {
       a,
       b,
@@ -63,71 +63,71 @@ const multilineInvalid = [{
   `,
   errors: [{messageId: 'multiline'}],
   name: 'multiple named imports multiline',
-  output: dedent`
+  output: dedentAndStrip`
     import {a, b, c} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import foo, {
       bar,
     } from 'baz'
   `,
   errors: [{messageId: 'multiline'}],
   name: 'default and named import multiline',
-  output: dedent`
+  output: dedentAndStrip`
     import foo, {bar} from 'baz'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import
       foo
       from 'bar'
   `,
   errors: [{messageId: 'multiline'}],
   name: 'default import multiline separate lines',
-  output: dedent`
+  output: dedentAndStrip`
     import foo from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import * as foo
       from 'bar'
   `,
   errors: [{messageId: 'multiline'}],
   name: 'namespace import multiline',
-  output: dedent`
+  output: dedentAndStrip`
     import * as foo from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import
       'bar'
   `,
   errors: [{messageId: 'multiline'}],
   name: 'side effect import multiline',
-  output: dedent`
+  output: dedentAndStrip`
     import 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import {
       foo,
     } from 'bar' with {type: 'json'}
   `,
   errors: [{messageId: 'multiline'}],
   name: 'named import multiline with assertion',
-  output: dedent`
+  output: dedentAndStrip`
     import {foo} from 'bar' with {type: 'json'}
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import type {
       Foo,
     } from 'bar' with {type: 'json'}
   `,
   errors: [{messageId: 'multiline'}],
   name: 'type import multiline with assertion',
-  output: dedent`
+  output: dedentAndStrip`
     import type {Foo} from 'bar' with {type: 'json'}
   `,
 }] as const

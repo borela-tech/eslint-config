@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 import {singleLineArrowFunctionParameters} from '../singleLineArrowFunctionParameters'
 
@@ -18,7 +18,7 @@ const valid = [{
   code: 'const fn = node => node.value',
   name: 'single param without parens identifier',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const fn = (
       param => param
     )
@@ -37,19 +37,19 @@ const valid = [{
   code: 'const fn = (): void => (param => param)',
   name: 'nested arrow with return type',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     fn((a, b) => a + b)
   `,
   name: 'nested arrow two params',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     context.report({
       fix: fixer => fixer.replaceText(node, "")
     })
   `,
   name: 'callback with fixer param',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const fn = (
       veryLongParameterNameThatExceedsLimit,
       anotherVeryLongParameterNameThatExceeds,
@@ -57,7 +57,7 @@ const valid = [{
   `,
   name: 'two long params forced multiline',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const fn = (
       param1,
       param2,
@@ -74,7 +74,7 @@ const valid = [{
 }] as const
 
 const invalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     const fn = (
       x,
     ) => x
@@ -83,7 +83,7 @@ const invalid = [{
   name: 'single param multiline closing paren',
   output: 'const fn = (x) => x',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const fn = (
       x,
       y,
@@ -93,7 +93,7 @@ const invalid = [{
   name: 'two params multiline closing paren',
   output: 'const fn = (x, y) => x + y',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const fn = (
       param) => param
   `,
@@ -101,7 +101,7 @@ const invalid = [{
   name: 'single param multiline missing closing paren',
   output: 'const fn = (param) => param',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const fn = (
       param
     ) => param
@@ -110,7 +110,7 @@ const invalid = [{
   name: 'single param multiline separate lines',
   output: 'const fn = (param) => param',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const fn = (
       a,
       b,

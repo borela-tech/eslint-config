@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {preferInlineExport} from '../preferInlineExport'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
@@ -24,7 +24,7 @@ const valid = [{
   code: 'export type { B } from "./module"',
   name: 'type re-export from module',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import { B } from './module'
     export { A, B }
   `,
@@ -38,7 +38,7 @@ const valid = [{
 }] as const
 
 const invalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     interface Foo {}
     export type { Foo }
   `,
@@ -46,7 +46,7 @@ const invalid = [{
   name: 'interface export should be inline',
   output: 'export interface Foo {}\n',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     type Foo = string
     export type { Foo }
   `,
@@ -54,7 +54,7 @@ const invalid = [{
   name: 'type export should be inline',
   output: 'export type Foo = string\n',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     class Foo {}
     export { Foo }
   `,
@@ -62,7 +62,7 @@ const invalid = [{
   name: 'class export should be inline',
   output: 'export class Foo {}\n',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     function foo() {}
     export { foo }
   `,
@@ -70,7 +70,7 @@ const invalid = [{
   name: 'function export should be inline',
   output: 'export function foo() {}\n',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const x = 1
     export { x }
   `,
@@ -78,27 +78,27 @@ const invalid = [{
   name: 'const export should be inline',
   output: 'export const x = 1\n',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     interface A {}
     class B {}
     export { A, B }
   `,
   errors: [{messageId: 'preferInline'}],
   name: 'multiple declarations should be inline',
-  output: dedent`
+  output: dedentAndStrip`
     export interface A {}
     export class B {}
   `
     + '\n',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     interface C {}
     type D = string
     export type { C, D }
   `,
   errors: [{messageId: 'preferInline'}],
   name: 'multiple type declarations should be inline',
-  output: dedent`
+  output: dedentAndStrip`
     export interface C {}
     export type D = string
   `

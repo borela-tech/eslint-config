@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {interfacePropertyLineBreak} from '../interfacePropertyLineBreak'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
@@ -12,10 +12,19 @@ const valid = [{
   code: 'interface Foo { bar: string, baz: number, qux: boolean }',
   name: 'three properties',
 }, {
-  code: 'interface Foo {\n  bar: string\n}',
+  code: dedentAndStrip`
+    interface Foo {
+      bar: string
+    }
+  `,
   name: 'single property multiline',
 }, {
-  code: 'interface Foo {\n  bar: string,\n  baz: number\n}',
+  code: dedentAndStrip`
+    interface Foo {
+      bar: string,
+      baz: number
+    }
+  `,
   name: 'two properties multiline',
 }, {
   code: 'interface Foo { bar: string }',
@@ -38,7 +47,7 @@ const valid = [{
   code: 'interface Foo { set bar(value: string) }',
   name: 'setter signature',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     interface Foo {
       bar: { a: string, b: number, c: boolean }
       baz: { d: string, e: number, f: boolean }
@@ -53,7 +62,7 @@ const invalid = [{
   errors: [{messageId: 'multipleOnSameLine'}],
   name: 'long name two props same line',
   options: [{maxLength: 60}],
-  output: dedent`
+  output: dedentAndStrip`
     interface FooBarBazQuxQuxBarBazQuxQuxBarBazQuxBarBazQuux {
       bar: string,
       baz: number
@@ -64,7 +73,7 @@ const invalid = [{
   errors: [{messageId: 'multipleOnSameLine'}],
   name: 'three props exceeds maxLength',
   options: [{maxLength: 40}],
-  output: dedent`
+  output: dedentAndStrip`
     interface Foo {
       bar: string,
       baz: number,
@@ -82,7 +91,7 @@ const invalid = [{
   name: 'nested object exceeds maxLength',
   options: [{maxLength: 50}],
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     interface Foo {
       bar: { a: string, b: number, c: boolean, d: boolean }
       baz: { e: string, f: number, g: boolean, h: boolean }
@@ -97,7 +106,7 @@ const invalid = [{
   }],
   name: 'two nested objects exceed maxLength',
   options: [{maxLength: 50}],
-  output: dedent`
+  output: dedentAndStrip`
     interface Foo {
       bar: {
         a: string

@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {noInlineObjectTypes} from '../noInlineObjectTypes'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
@@ -38,7 +38,7 @@ const invalid = [{
   code: 'function foo(x: { a: string }) {}',
   errors: [{messageId: 'inlineObjectType'}],
   name: 'function param inline object',
-  output: dedent`
+  output: dedentAndStrip`
     interface X { a: string }
     function foo(x: X) {}
   `,
@@ -46,7 +46,7 @@ const invalid = [{
   code: 'function foo({ a, b }: { a: string }) {}',
   errors: [{messageId: 'inlineObjectType'}],
   name: 'destructured param inline object',
-  output: dedent`
+  output: dedentAndStrip`
     interface Options { a: string }
     function foo({ a, b }: Options) {}
   `,
@@ -54,7 +54,7 @@ const invalid = [{
   code: 'function foo(): { a: string } { return { a: "" } }',
   errors: [{messageId: 'inlineObjectType'}],
   name: 'function return inline object',
-  output: dedent`
+  output: dedentAndStrip`
     interface Foo { a: string }
     function foo(): Foo { return { a: "" } }
   `,
@@ -62,7 +62,7 @@ const invalid = [{
   code: 'export function foo(x: { a: string }) {}',
   errors: [{messageId: 'inlineObjectType'}],
   name: 'exported function param inline object',
-  output: dedent`
+  output: dedentAndStrip`
     export function foo(x: X) {}
     interface X { a: string }
   `,
@@ -70,7 +70,7 @@ const invalid = [{
   code: 'let x: { a: string } = { a: "" }',
   errors: [{messageId: 'inlineObjectType'}],
   name: 'variable inline object type',
-  output: dedent`
+  output: dedentAndStrip`
     interface InlineType { a: string }
     let x: InlineType = { a: "" }
   `,

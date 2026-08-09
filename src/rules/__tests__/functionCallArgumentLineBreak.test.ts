@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {functionCallArgumentLineBreak} from '../functionCallArgumentLineBreak'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
@@ -12,7 +12,12 @@ const valid = [{
   code: 'foo(bar, baz, qux)',
   name: 'three args',
 }, {
-  code: 'foo(\n  bar,\n  baz\n)',
+  code: dedentAndStrip`
+    foo(
+      bar,
+      baz
+    )
+  `,
   name: 'already multiline',
 }, {
   code: 'obj.foo(bar)',
@@ -38,7 +43,7 @@ const invalid = [{
   errors: [{messageId: 'multipleOnSameLine'}],
   name: 'long call two args same line',
   options: [{maxLength: 79}],
-  output: dedent`
+  output: dedentAndStrip`
     fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNowTestCallExpr(
       bar,
       baz
@@ -50,7 +55,7 @@ const invalid = [{
   name: 'single arg exceeds maxLength',
   options: [{maxLength: 50}],
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     foo(
       barVeryVeryVeryVeryVeryVeryVeryLong, bazVeryVeryVeryVeryVeryVeryVeryLong
     )
@@ -58,7 +63,7 @@ const invalid = [{
   errors: [{messageId: 'multipleOnSameLine'}],
   name: 'multiline but args same line',
   options: [{maxLength: 60}],
-  output: dedent`
+  output: dedentAndStrip`
     foo(
       barVeryVeryVeryVeryVeryVeryVeryLong,
       bazVeryVeryVeryVeryVeryVeryVeryLong

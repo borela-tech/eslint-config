@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {noUnnecessaryBraces} from '../noUnnecessaryBraces'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
@@ -32,7 +32,7 @@ const validSingleLineWithoutBraces = [{
 }] as const
 
 const validMultiLineWithBraces = [{
-  code: dedent`
+  code: dedentAndStrip`
     if (x) {
       return {
         foo: 1
@@ -41,7 +41,7 @@ const validMultiLineWithBraces = [{
   `,
   name: 'if return object multiline',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     if (x) {
       console.log(
         'hello'
@@ -50,7 +50,7 @@ const validMultiLineWithBraces = [{
   `,
   name: 'if call multiline args',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     for (;;) {
       return {
         foo: 1
@@ -59,7 +59,7 @@ const validMultiLineWithBraces = [{
   `,
   name: 'for return object multiline',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     while (x) {
       console.log(
         'hello'
@@ -68,7 +68,7 @@ const validMultiLineWithBraces = [{
   `,
   name: 'while call multiline args',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     do {
       return {
         foo: 1
@@ -79,7 +79,7 @@ const validMultiLineWithBraces = [{
 }] as const
 
 const validMultiStatement = [{
-  code: dedent`
+  code: dedentAndStrip`
     if (x) {
       foo()
       bar()
@@ -87,7 +87,7 @@ const validMultiStatement = [{
   `,
   name: 'if multiple statements',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     for (;;) {
       foo()
       bar()
@@ -95,7 +95,7 @@ const validMultiStatement = [{
   `,
   name: 'for multiple statements',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     while (x) {
       foo()
       bar()
@@ -103,7 +103,7 @@ const validMultiStatement = [{
   `,
   name: 'while multiple statements',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     do {
       foo()
       bar()
@@ -138,78 +138,105 @@ const invalidSingleLineWithBraces = [{
   code: 'if (x) { return {} }',
   errors: [{messageId: 'unnecessaryBraces'}],
   name: 'if return object with braces',
-  output: 'if (x)\n  return {}',
+  output: dedentAndStrip`
+    if (x)
+      return {}
+  `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     if (x) {
       return {}
     }
   `,
   errors: [{messageId: 'unnecessaryBraces'}],
   name: 'if return object multiline with braces',
-  output: 'if (x)\n  return {}',
+  output: dedentAndStrip`
+    if (x)
+      return {}
+  `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     if (x) {
       foo()
     }
   `,
   errors: [{messageId: 'unnecessaryBraces'}],
   name: 'if single call multiline with braces',
-  output: 'if (x)\n  foo()',
+  output: dedentAndStrip`
+    if (x)
+      foo()
+  `,
 }, {
   code: 'for (;;) { return }',
   errors: [{messageId: 'unnecessaryBraces'}],
   name: 'for return with braces',
-  output: 'for (;;)\n  return',
+  output: dedentAndStrip`
+    for (;;)
+      return
+  `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     for (;;) {
       break
     }
   `,
   errors: [{messageId: 'unnecessaryBraces'}],
   name: 'for break multiline with braces',
-  output: 'for (;;)\n  break',
+  output: dedentAndStrip`
+    for (;;)
+      break
+  `,
 }, {
   code: 'while (x) { break }',
   errors: [{messageId: 'unnecessaryBraces'}],
   name: 'while break with braces',
-  output: 'while (x)\n  break',
+  output: dedentAndStrip`
+    while (x)
+      break
+  `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     while (x) {
       return
     }
   `,
   errors: [{messageId: 'unnecessaryBraces'}],
   name: 'while return multiline with braces',
-  output: 'while (x)\n  return',
+  output: dedentAndStrip`
+    while (x)
+      return
+  `,
 }, {
   code: 'do { return; } while (x)',
   errors: [{messageId: 'unnecessaryBraces'}],
   name: 'do-while return with braces',
-  output: 'do\n  return; while (x)',
+  output: dedentAndStrip`
+    do
+      return; while (x)
+  `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     do {
       break;
     } while (x)
   `,
   errors: [{messageId: 'unnecessaryBraces'}],
   name: 'do-while break multiline with braces',
-  output: 'do\n  break; while (x)',
+  output: dedentAndStrip`
+    do
+      break; while (x)
+  `,
 }] as const
 
 const invalidMultiLineWithoutBraces = [{
-  code: dedent`
+  code: dedentAndStrip`
     if (x) console.log(
       'hello'
     )
   `,
   errors: [{messageId: 'missingBraces'}],
   name: 'if call multiline missing braces',
-  output: dedent`
+  output: dedentAndStrip`
     if (x) {
       console.log(
         'hello'
@@ -217,14 +244,14 @@ const invalidMultiLineWithoutBraces = [{
     }
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     for (;;) console.log(
       'hello'
     )
   `,
   errors: [{messageId: 'missingBraces'}],
   name: 'for call multiline missing braces',
-  output: dedent`
+  output: dedentAndStrip`
     for (;;) {
       console.log(
         'hello'
@@ -232,14 +259,14 @@ const invalidMultiLineWithoutBraces = [{
     }
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     while (x) console.log(
       'hello'
     )
   `,
   errors: [{messageId: 'missingBraces'}],
   name: 'while call multiline missing braces',
-  output: dedent`
+  output: dedentAndStrip`
     while (x) {
       console.log(
         'hello'
@@ -247,14 +274,14 @@ const invalidMultiLineWithoutBraces = [{
     }
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     do console.log(
       'hello'
     ); while (x)
   `,
   errors: [{messageId: 'missingBraces'}],
   name: 'do-while call multiline missing braces',
-  output: dedent`
+  output: dedentAndStrip`
     do {
       console.log(
         'hello'
@@ -262,7 +289,7 @@ const invalidMultiLineWithoutBraces = [{
     } while (x)
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     if (x) return {
       foo: 1,
       bar: 2
@@ -270,7 +297,7 @@ const invalidMultiLineWithoutBraces = [{
   `,
   errors: [{messageId: 'missingBraces'}],
   name: 'if return object multiline missing braces',
-  output: dedent`
+  output: dedentAndStrip`
     if (x) {
       return {
         foo: 1,
@@ -279,7 +306,7 @@ const invalidMultiLineWithoutBraces = [{
     }
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     if (x) foo(
         a,
         b,
@@ -288,7 +315,7 @@ const invalidMultiLineWithoutBraces = [{
   `,
   errors: [{messageId: 'missingBraces'}],
   name: 'if call with many args missing braces',
-  output: dedent`
+  output: dedentAndStrip`
     if (x) {
       foo(
         a,

@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {multilineUnionTypeAliases} from '../multilineUnionTypeAliases'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
@@ -6,14 +6,14 @@ const unionTypeValid = [{
   code: 'type A = B',
   name: 'simple type alias',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     type A = 
       | B
       | C
   `,
   name: 'union type multiline',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export type A = 
       | B
       | C
@@ -35,21 +35,21 @@ const unionTypeInvalid = [{
   code: 'type A = B | C | D',
   errors: [{messageId: 'singleLine'}],
   name: 'union type single line',
-  output: dedent`
+  output: dedentAndStrip`
     type A = 
       | B
       | C
       | D
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     type A = B | 
       C | 
       D
   `,
   errors: [{messageId: 'missingPipes'}],
   name: 'union type missing leading pipes',
-  output: dedent`
+  output: dedentAndStrip`
     type A = 
       | B
       | C
@@ -59,7 +59,7 @@ const unionTypeInvalid = [{
   code: 'type A = string | number | boolean',
   errors: [{messageId: 'singleLine'}],
   name: 'union of primitives single line',
-  output: dedent`
+  output: dedentAndStrip`
     type A = 
       | string
       | number
@@ -69,7 +69,7 @@ const unionTypeInvalid = [{
   code: 'export type Foo = Bar | Baz',
   errors: [{messageId: 'singleLine'}],
   name: 'export union type single line',
-  output: dedent`
+  output: dedentAndStrip`
     export type Foo = 
       | Bar
       | Baz

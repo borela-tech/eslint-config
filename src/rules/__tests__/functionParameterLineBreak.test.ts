@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {functionParameterLineBreak} from '../functionParameterLineBreak'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
@@ -12,7 +12,12 @@ const valid = [{
   code: 'function foo(bar, baz, qux) {}',
   name: 'three params',
 }, {
-  code: 'function foo(\n  bar,\n  baz\n) {}',
+  code: dedentAndStrip`
+    function foo(
+      bar,
+      baz
+    ) {}
+  `,
   name: 'already multiline',
 }, {
   code: 'const foo = (bar) => {}',
@@ -32,7 +37,7 @@ const valid = [{
   name: 'long name fits maxLength',
   options: [{maxLength: 85}],
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     type Fn = (
       foo: string,
       bar: number,
@@ -40,7 +45,7 @@ const valid = [{
   `,
   name: 'type Fn multiline',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     interface Foo {
       bar(
         a: string,
@@ -55,7 +60,7 @@ const invalid = [{
   errors: [{messageId: 'multipleOnSameLine'}],
   name: 'long name two params same line',
   options: [{maxLength: 70}],
-  output: dedent`
+  output: dedentAndStrip`
     function fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNow(
       bar,
       baz
@@ -71,14 +76,14 @@ const invalid = [{
   errors: [{messageId: 'multipleOnSameLine'}],
   name: 'type Fn two long params same line',
   options: [{maxLength: 60}],
-  output: dedent`
+  output: dedentAndStrip`
     type Fn = (
       fooParameterName: string,
       barParameterName: number
     ) => void
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     interface Foo {
       bar(aVeryVeryVeryLongParameterName: string, bVeryVeryLongParameterName: number): void;
     }
@@ -86,9 +91,16 @@ const invalid = [{
   errors: [{messageId: 'multipleOnSameLine'}],
   name: 'interface method two long params same line',
   options: [{maxLength: 80}],
-  output: 'interface Foo {\n  bar(\n  aVeryVeryVeryLongParameterName: string,\n  bVeryVeryLongParameterName: number\n): void;\n}',
+  output: dedentAndStrip`
+    interface Foo {
+      bar(
+      aVeryVeryVeryLongParameterName: string,
+      bVeryVeryLongParameterName: number
+    ): void;
+    }
+  `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     function foo(
       barVeryVeryVeryVeryVeryVeryVeryVeryVeryLong, bazVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
     ) {}
@@ -96,7 +108,7 @@ const invalid = [{
   errors: [{messageId: 'multipleOnSameLine'}],
   name: 'function multiline but params same line',
   options: [{maxLength: 70}],
-  output: dedent`
+  output: dedentAndStrip`
     function foo(
       barVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
       bazVeryVeryVeryVeryVeryVeryVeryVeryVeryLong

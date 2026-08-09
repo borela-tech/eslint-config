@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 import {sortedReExports} from '../sortedReExports'
 
@@ -12,20 +12,20 @@ const localExportValid = [{
   code: 'export {foo}',
   name: 'local re-export',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export const foo = 42
     export {bar} from 'baz'
   `,
   name: 'local export then re-export',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     function foo() {}
     export {foo}
     export * from 'bar'
   `,
   name: 'local then re-export all',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export const z = 1
     export {a} from 'bar'
     export function foo() {}
@@ -34,14 +34,14 @@ const localExportValid = [{
   `,
   name: 'mixed exports sorted',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export class Child extends Parent {}
     export class Parent {}
     export {child} from 'child-module'
   `,
   name: 'class before re-export',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export {a} from 'aaa'
     export const c = 3
     export {x} from 'xxx'
@@ -61,32 +61,32 @@ const namedReExportValid = [{
   code: "export {foo} from 'bar'",
   name: 'single named re-export',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export {a, b, c} from 'bar'
   `,
   name: 'multiple named re-exports sorted',
 }] as const
 
 const namedReExportInvalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     export {c, a, b} from 'bar'
   `,
   errors: [{messageId: 'sortedNames'}],
   name: 'named re-exports unsorted within braces',
-  output: dedent`
+  output: dedentAndStrip`
     export {a, b, c} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export {z, a} from 'bar'
   `,
   errors: [{messageId: 'sortedNames'}],
   name: 'named re-exports unsorted z then a',
-  output: dedent`
+  output: dedentAndStrip`
     export {a, z} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export {b} from 'b'
     const x = 1
     export {c} from 'c'
@@ -97,14 +97,14 @@ const namedReExportInvalid = [{
     {messageId: 'sortedReExports'},
   ],
   name: 'named re-exports unsorted after code',
-  output: dedent`
+  output: dedentAndStrip`
     export {b} from 'b'
     const x = 1
     export {a} from 'a'
     export {c} from 'c'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export {b} from 'b'
     export {a} from 'a'
     const x = 1
@@ -123,7 +123,7 @@ const namedReExportInvalid = [{
     {messageId: 'sortedReExports'},
   ],
   name: 'multiple groups of named re-exports unsorted',
-  output: dedent`
+  output: dedentAndStrip`
     export {a} from 'a'
     export {b} from 'b'
     const x = 1
@@ -134,7 +134,7 @@ const namedReExportInvalid = [{
     export {f} from 'f'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export {existsSync} from 'fs'
     export {basename} from 'path'
   `,
@@ -143,7 +143,7 @@ const namedReExportInvalid = [{
     {messageId: 'sortedReExports'},
   ],
   name: 'named re-exports out of order',
-  output: dedent`
+  output: dedentAndStrip`
     export {basename} from 'path'
     export {existsSync} from 'fs'
   `,
@@ -153,7 +153,7 @@ const allReExportValid = [{
   code: "export * from 'bar'",
   name: 'all re-export',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export * from 'aaa'
     export * as fs from 'fs'
     export * as path from 'path'
@@ -164,7 +164,7 @@ const allReExportValid = [{
   `,
   name: 'all types of re-exports sorted',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export * from 'bbb'
     export {a} from 'aaa'
   `,
@@ -172,7 +172,7 @@ const allReExportValid = [{
 }] as const
 
 const allReExportInvalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     export * from 'bbb'
     export * from 'aaa'
   `,
@@ -181,7 +181,7 @@ const allReExportInvalid = [{
     {messageId: 'sortedReExports'},
   ],
   name: 'all re-exports out of order',
-  output: dedent`
+  output: dedentAndStrip`
     export * from 'aaa'
     export * from 'bbb'
   `,
@@ -193,7 +193,7 @@ const namespaceReExportValid = [{
 }] as const
 
 const namespaceReExportInvalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     export * as path from 'path'
     export * as fs from 'fs'
   `,
@@ -202,7 +202,7 @@ const namespaceReExportInvalid = [{
     {messageId: 'sortedReExports'},
   ],
   name: 'namespace re-exports out of order',
-  output: dedent`
+  output: dedentAndStrip`
     export * as fs from 'fs'
     export * as path from 'path'
   `,
@@ -212,7 +212,7 @@ const typeReExportValid = [{
   code: "export type {Foo} from 'bar'",
   name: 'type re-export',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export type {X} from 'xxx'
     export type {Y} from 'yyy'
   `,
@@ -220,7 +220,7 @@ const typeReExportValid = [{
 }] as const
 
 const typeReExportInvalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     export type {Y} from 'yyy'
     export type {X} from 'xxx'
   `,
@@ -229,25 +229,25 @@ const typeReExportInvalid = [{
     {messageId: 'sortedReExports'},
   ],
   name: 'type re-exports out of order',
-  output: dedent`
+  output: dedentAndStrip`
     export type {X} from 'xxx'
     export type {Y} from 'yyy'
   `,
 }] as const
 
 const groupOrderingInvalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     export {a} from 'bar'
     export * from 'aaa'
   `,
   errors: [{messageId: 'wrongGroup'}],
   name: 'named before all re-export',
-  output: dedent`
+  output: dedentAndStrip`
     export * from 'aaa'
     export {a} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export {b, a} from 'bar'
     export * from 'aaa'
   `,
@@ -256,51 +256,51 @@ const groupOrderingInvalid = [{
     {messageId: 'wrongGroup'},
   ],
   name: 'named unsorted and wrong group',
-  output: dedent`
+  output: dedentAndStrip`
     export * from 'aaa'
     export {a, b} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export {foo} from 'bar'
     export * as fs from 'fs'
   `,
   errors: [{messageId: 'wrongGroup'}],
   name: 'named before namespace re-export',
-  output: dedent`
+  output: dedentAndStrip`
     export * as fs from 'fs'
     export {foo} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export type {Foo} from 'bar'
     export {baz} from 'qux'
   `,
   errors: [{messageId: 'wrongGroup'}],
   name: 'type before value named re-export',
-  output: dedent`
+  output: dedentAndStrip`
     export {baz} from 'qux'
     export type {Foo} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export type {Foo} from 'bar'
     export * from 'baz'
   `,
   errors: [{messageId: 'wrongGroup'}],
   name: 'type before all re-export',
-  output: dedent`
+  output: dedentAndStrip`
     export * from 'baz'
     export type {Foo} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export type {Foo} from 'bar'
     export * as ns from 'baz'
   `,
   errors: [{messageId: 'wrongGroup'}],
   name: 'type before namespace re-export',
-  output: dedent`
+  output: dedentAndStrip`
     export * as ns from 'baz'
     export type {Foo} from 'bar'
   `,

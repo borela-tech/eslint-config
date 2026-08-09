@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {individualImports} from '../individualImports'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
@@ -20,7 +20,7 @@ const multipleImportInvalid = [{
   code: "import {foo, bar} from 'baz'",
   errors: [{messageId: 'individualImports'}],
   name: 'two named imports',
-  output: dedent`
+  output: dedentAndStrip`
     import {foo} from 'baz'
     import {bar} from 'baz'
   `,
@@ -28,7 +28,7 @@ const multipleImportInvalid = [{
   code: "import {foo, bar, baz} from 'qux'",
   errors: [{messageId: 'individualImports'}],
   name: 'three named imports',
-  output: dedent`
+  output: dedentAndStrip`
     import {foo} from 'qux'
     import {bar} from 'qux'
     import {baz} from 'qux'

@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 import {sortedImports} from '../sortedImports'
 
@@ -8,7 +8,7 @@ const sideEffectValid = [{
 }] as const
 
 const sideEffectInvalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     import 'bbb'
     import 'aaa'
   `,
@@ -17,7 +17,7 @@ const sideEffectInvalid = [{
     {messageId: 'sortedImports'},
   ],
   name: 'side effects out of order',
-  output: dedent`
+  output: dedentAndStrip`
     import 'aaa'
     import 'bbb'
   `,
@@ -30,7 +30,7 @@ const namedValid = [{
   code: "import {a, b, c} from 'bar'",
   name: 'multiple named imports sorted',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import {a} from 'ccc'
     import {b} from 'aaa'
     import {c} from 'bbb'
@@ -39,25 +39,25 @@ const namedValid = [{
 }] as const
 
 const namedInvalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     import {c, a, b} from 'bar'
   `,
   errors: [{messageId: 'sortedNames'}],
   name: 'named imports unsorted within braces',
-  output: dedent`
+  output: dedentAndStrip`
     import {a, b, c} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import {z, a} from 'bar'
   `,
   errors: [{messageId: 'sortedNames'}],
   name: 'named imports unsorted with z and a',
-  output: dedent`
+  output: dedentAndStrip`
     import {a, z} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import {existsSync} from 'fs'
     import {basename} from 'path'
   `,
@@ -66,12 +66,12 @@ const namedInvalid = [{
     {messageId: 'sortedImports'},
   ],
   name: 'named imports from different modules out of order',
-  output: dedent`
+  output: dedentAndStrip`
     import {basename} from 'path'
     import {existsSync} from 'fs'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import {b} from 'b'
     const x = 1
     import {c} from 'c'
@@ -82,14 +82,14 @@ const namedInvalid = [{
     {messageId: 'sortedImports'},
   ],
   name: 'named imports unsorted after code',
-  output: dedent`
+  output: dedentAndStrip`
     import {b} from 'b'
     const x = 1
     import {a} from 'a'
     import {c} from 'c'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import {b} from 'b'
     import {a} from 'a'
     const x = 1
@@ -108,7 +108,7 @@ const namedInvalid = [{
     {messageId: 'sortedImports'},
   ],
   name: 'multiple groups of named imports unsorted',
-  output: dedent`
+  output: dedentAndStrip`
     import {a} from 'a'
     import {b} from 'b'
     const x = 1
@@ -126,7 +126,7 @@ const defaultValid = [{
 }] as const
 
 const defaultInvalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     import foo from 'aaa'
     import bar from 'bbb'
   `,
@@ -135,7 +135,7 @@ const defaultInvalid = [{
     {messageId: 'sortedImports'},
   ],
   name: 'default imports out of order',
-  output: dedent`
+  output: dedentAndStrip`
     import bar from 'bbb'
     import foo from 'aaa'
   `,
@@ -147,7 +147,7 @@ const namespaceValid = [{
 }] as const
 
 const namespaceInvalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     import * as path from 'path'
     import * as fs from 'fs'
   `,
@@ -156,7 +156,7 @@ const namespaceInvalid = [{
     {messageId: 'sortedImports'},
   ],
   name: 'namespace imports out of order',
-  output: dedent`
+  output: dedentAndStrip`
     import * as fs from 'fs'
     import * as path from 'path'
   `,
@@ -166,13 +166,13 @@ const typeImportValid = [{
   code: "import type {Foo} from 'bar'",
   name: 'type import named',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import type {X} from 'xxx'
     import type {Y} from 'yyy'
   `,
   name: 'type imports sorted',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import type * as ns from 'namespace'
     import type ts from 'typescript'
     import type {Maybe} from '@lib/Maybe'
@@ -187,7 +187,7 @@ const typeImportValid = [{
 }] as const
 
 const typeImportInvalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     import type {Y} from 'yyy'
     import type {X} from 'xxx'
   `,
@@ -196,12 +196,12 @@ const typeImportInvalid = [{
     {messageId: 'sortedImports'},
   ],
   name: 'type imports out of order',
-  output: dedent`
+  output: dedentAndStrip`
     import type {X} from 'xxx'
     import type {Y} from 'yyy'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import type {z} from 'z'
     import type {a} from 'a'
   `,
@@ -210,12 +210,12 @@ const typeImportInvalid = [{
     {messageId: 'sortedImports'},
   ],
   name: 'type imports out of order z then a',
-  output: dedent`
+  output: dedentAndStrip`
     import type {a} from 'a'
     import type {z} from 'z'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import type foo from 'z'
     import type bar from 'a'
   `,
@@ -224,12 +224,12 @@ const typeImportInvalid = [{
     {messageId: 'sortedImports'},
   ],
   name: 'type default imports out of order',
-  output: dedent`
+  output: dedentAndStrip`
     import type bar from 'a'
     import type foo from 'z'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import type * as z from 'z'
     import type * as a from 'a'
   `,
@@ -238,47 +238,47 @@ const typeImportInvalid = [{
     {messageId: 'sortedImports'},
   ],
   name: 'type namespace imports out of order',
-  output: dedent`
+  output: dedentAndStrip`
     import type * as a from 'a'
     import type * as z from 'z'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import type {Foo} from 'bar'
     import {baz} from 'qux'
   `,
   errors: [{messageId: 'wrongGroup'}],
   name: 'type import after value import wrong group',
-  output: dedent`
+  output: dedentAndStrip`
     import {baz} from 'qux'
     import type {Foo} from 'bar'
   `,
 }] as const
 
 const groupOrderingInvalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     import foo from 'bar'
     import 'baz'
   `,
   errors: [{messageId: 'wrongGroup'}],
   name: 'default import before side effect',
-  output: dedent`
+  output: dedentAndStrip`
     import 'baz'
     import foo from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import {a} from 'bar'
     import foo from 'baz'
   `,
   errors: [{messageId: 'wrongGroup'}],
   name: 'named import before default import',
-  output: dedent`
+  output: dedentAndStrip`
     import foo from 'baz'
     import {a} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import {b, a} from 'bar'
     import foo from 'baz'
   `,
@@ -287,51 +287,51 @@ const groupOrderingInvalid = [{
     {messageId: 'wrongGroup'},
   ],
   name: 'named unsorted and wrong group',
-  output: dedent`
+  output: dedentAndStrip`
     import foo from 'baz'
     import {a, b} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import {foo} from 'bar'
     import * as fs from 'fs'
   `,
   errors: [{messageId: 'wrongGroup'}],
   name: 'named import before namespace import',
-  output: dedent`
+  output: dedentAndStrip`
     import * as fs from 'fs'
     import {foo} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import foo from 'bar'
     import * as fs from 'fs'
   `,
   errors: [{messageId: 'wrongGroup'}],
   name: 'default import before namespace import',
-  output: dedent`
+  output: dedentAndStrip`
     import * as fs from 'fs'
     import foo from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import type foo from 'bar'
     import foo2 from 'baz'
   `,
   errors: [{messageId: 'wrongGroup'}],
   name: 'type default import before value default import',
-  output: dedent`
+  output: dedentAndStrip`
     import foo2 from 'baz'
     import type foo from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import type * as ns from 'bar'
     import * as ns2 from 'baz'
   `,
   errors: [{messageId: 'wrongGroup'}],
   name: 'type namespace import before value namespace import',
-  output: dedent`
+  output: dedentAndStrip`
     import * as ns2 from 'baz'
     import type * as ns from 'bar'
   `,
@@ -344,7 +344,7 @@ const mixedValid = [{
   code: 'const x = 1',
   name: 'just code',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import 'aaa'
     import 'bbb'
     import * as fs from 'fs'
@@ -360,7 +360,7 @@ const mixedValid = [{
 }] as const
 
 const mixedInvalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     import 'd'
     import 'c'
     import 'b'
@@ -373,14 +373,14 @@ const mixedInvalid = [{
     {messageId: 'sortedImports'},
   ],
   name: 'side effects unsorted',
-  output: dedent`
+  output: dedentAndStrip`
     import 'a'
     import 'b'
     import 'c'
     import 'd'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     import type {Z} from 'z'
     import * as Y from 'y'
     import {z} from 'z'
@@ -398,7 +398,7 @@ const mixedInvalid = [{
     {messageId: 'sortedImports'},
   ],
   name: 'all groups wrong order and unsorted',
-  output: dedent`
+  output: dedentAndStrip`
     import 'sideEffectA'
     import 'sideEffectZ'
     import * as Y from 'y'

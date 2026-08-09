@@ -1,5 +1,5 @@
 import {braceStyleObjectLiteral} from '../braceStyleObjectLiteral'
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const valid = [{
@@ -15,7 +15,7 @@ const valid = [{
   code: 'const x = {foo: 1, bar: 2}',
   name: 'single line multiple key-value',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const x = {
       foo: 1,
       bar: 2,
@@ -23,7 +23,7 @@ const valid = [{
   `,
   name: 'multi-line with braces on own lines',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const arr = [
       {
         foo: 1,
@@ -32,7 +32,7 @@ const valid = [{
   `,
   name: 'object in array',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const obj = {
       outer: {
         inner: 1,
@@ -41,7 +41,7 @@ const valid = [{
   `,
   name: 'nested objects valid',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const obj = {
       foo,
       bar,
@@ -51,34 +51,67 @@ const valid = [{
 }]
 
 const invalid = [{
-  code: 'const x = {foo,\n  bar: 2}',
+  code: dedentAndStrip`
+    const x = {foo,
+      bar: 2}
+  `,
   errors: [
     {messageId: 'braceOnPropertyLine'},
     {messageId: 'braceOnPropertyLine'},
   ],
   name: 'brace on property line - shorthand then key-value',
-  output: 'const x = {\nfoo,\n  bar: 2,\n  }',
+  output: dedentAndStrip`
+    const x = {
+    foo,
+      bar: 2,
+      }
+  `,
 }, {
-  code: 'const x = {foo: 1,\n  bar: 2}',
+  code: dedentAndStrip`
+    const x = {foo: 1,
+      bar: 2}
+  `,
   errors: [
     {messageId: 'braceOnPropertyLine'},
     {messageId: 'braceOnPropertyLine'},
   ],
   name: 'brace on property line - key-value',
-  output: 'const x = {\nfoo: 1,\n  bar: 2,\n  }',
+  output: dedentAndStrip`
+    const x = {
+    foo: 1,
+      bar: 2,
+      }
+  `,
 }, {
-  code: 'const x = {\n  foo: 1,\n  bar: 2}',
+  code: dedentAndStrip`
+    const x = {
+      foo: 1,
+      bar: 2}
+  `,
   errors: [{messageId: 'braceOnPropertyLine'}],
   name: 'closing brace on property line',
-  output: 'const x = {\n  foo: 1,\n  bar: 2,\n  }',
+  output: dedentAndStrip`
+    const x = {
+      foo: 1,
+      bar: 2,
+      }
+  `,
 }, {
-  code: 'const x = {foo,\n  bar}',
+  code: dedentAndStrip`
+    const x = {foo,
+      bar}
+  `,
   errors: [
     {messageId: 'braceOnPropertyLine'},
     {messageId: 'braceOnPropertyLine'},
   ],
   name: 'shorthand properties multi-line',
-  output: 'const x = {\nfoo,\n  bar,\n  }',
+  output: dedentAndStrip`
+    const x = {
+    foo,
+      bar,
+      }
+  `,
 }] as const
 
 const ruleTester = new RuleTester()

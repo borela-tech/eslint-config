@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 import {singleLineFunctionParameters} from '../singleLineFunctionParameters'
 
@@ -21,7 +21,7 @@ const valid = [{
   code: 'const foo = function(bar, baz) {}',
   name: 'function expression two params',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     function foo(
       barParameterWithLongNameHereNowAndForeverAAA,
       bazParameterWithLongNameHereNowAndForeverBBB,
@@ -29,7 +29,7 @@ const valid = [{
   `,
   name: 'long params forced multiline',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     function foo(
       barParameterWithLongNameHereNowAndForeverAAA: VeryLongTypeNameHereAAA,
       bazParameterWithLongNameHereNowAndForeverBBB: VeryLongTypeNameHereBBB,
@@ -37,7 +37,7 @@ const valid = [{
   `,
   name: 'long typed params forced multiline',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     function fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHere(
       barParameterWithLongNameHereAAAAndEvenMoreTextHere: VeryLongTypeNameHereAAAAndEvenMore,
     ) {}
@@ -49,7 +49,7 @@ const valid = [{
 }] as const
 
 const invalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     function foo(
       bar,
     ) {}
@@ -58,7 +58,7 @@ const invalid = [{
   name: 'function single param multiline',
   output: 'function foo(bar) {}',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     function foo(
       bar,
       baz,
@@ -68,7 +68,7 @@ const invalid = [{
   name: 'function two params multiline',
   output: 'function foo(bar, baz) {}',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     function foo(
       bar,
       baz,
@@ -79,7 +79,7 @@ const invalid = [{
   name: 'function three params multiline',
   output: 'function foo(bar, baz, qux) {}',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const foo = function(
       bar,
     ) {}
@@ -88,7 +88,7 @@ const invalid = [{
   name: 'function expression single param multiline',
   output: 'const foo = function(bar) {}',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     type Fn = (
       foo: string,
     ) => void
@@ -97,7 +97,7 @@ const invalid = [{
   name: 'type Fn single typed param multiline',
   output: 'type Fn = (foo: string) => void',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     type Fn = (
       foo: string,
       bar: number,
@@ -107,7 +107,7 @@ const invalid = [{
   name: 'type Fn two typed params multiline',
   output: 'type Fn = (foo: string, bar: number) => void',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     type Fn = {
       (
         foo: string,
@@ -116,13 +116,13 @@ const invalid = [{
   `,
   errors: [{messageId: 'singleLine'}],
   name: 'call signature single typed param multiline',
-  output: dedent`
+  output: dedentAndStrip`
     type Fn = {
       (foo: string): void;
     }
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     interface Foo {
       bar(
         a: string,
@@ -131,13 +131,13 @@ const invalid = [{
   `,
   errors: [{messageId: 'singleLine'}],
   name: 'interface method single typed param multiline',
-  output: dedent`
+  output: dedentAndStrip`
     interface Foo {
       bar(a: string): void;
     }
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     function test({
       bar,
       foo,
@@ -147,13 +147,13 @@ const invalid = [{
   `,
   errors: [{messageId: 'singleLine'}],
   name: 'destructured param multiline',
-  output: dedent`
+  output: dedentAndStrip`
     function test({bar, foo}: TestParameters) {
       console.log(foo, bar)
     }
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     function test([
       bar,
       foo,
@@ -163,13 +163,13 @@ const invalid = [{
   `,
   errors: [{messageId: 'singleLine'}],
   name: 'array destructured param multiline',
-  output: dedent`
+  output: dedentAndStrip`
     function test([bar, foo]: TestParameters) {
       console.log(foo, bar)
     }
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     function test({
       bar,
     }: {
@@ -180,7 +180,7 @@ const invalid = [{
   `,
   errors: [{messageId: 'singleLine'}],
   name: 'destructured param with multiline type annotation',
-  output: dedent`
+  output: dedentAndStrip`
     function test({bar}: {bar: string}) {
       console.log(bar)
     }

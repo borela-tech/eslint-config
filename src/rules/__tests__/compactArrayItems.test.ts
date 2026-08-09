@@ -1,5 +1,5 @@
 import {compactArrayItems} from '../compactArrayItems'
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
 const valid = [{
@@ -15,7 +15,7 @@ const valid = [{
   code: 'const foo = [{id: 1}, {id: 2}]',
   name: 'single-line items with bracket inline',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const foo = [{
       id: 1,
     }, {
@@ -24,7 +24,7 @@ const valid = [{
   `,
   name: 'already compact (bracket inline with multiline items)',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const foo = [
       1,
       2,
@@ -33,7 +33,7 @@ const valid = [{
   `,
   name: 'primitive values array (no objects or nested arrays)',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     const foo = [
       'a',
       'b',
@@ -47,25 +47,93 @@ const valid = [{
 }] as const
 
 const invalid = [{
-  code: 'const foo = [\n  {\n    id: 1,\n  },\n  {\n    id: 2,\n  },\n]',
+  code: dedentAndStrip`
+    const foo = [
+      {
+        id: 1,
+      },
+      {
+        id: 2,
+      },
+    ]
+  `,
   errors: [{messageId: 'compactItems'}],
   name: 'ObjectExpression items',
-  output: 'const foo = [{\n    id: 1,\n  }, {\n    id: 2,\n  }]',
+  output: dedentAndStrip`
+    const foo = [{
+        id: 1,
+      }, {
+        id: 2,
+      }]
+  `,
 }, {
-  code: 'const foo = [\n  [\n    1,\n    2,\n  ],\n  [\n    3,\n    4,\n  ],\n]',
+  code: dedentAndStrip`
+    const foo = [
+      [
+        1,
+        2,
+      ],
+      [
+        3,
+        4,
+      ],
+    ]
+  `,
   errors: [{messageId: 'compactItems'}],
   name: 'ArrayExpression items',
-  output: 'const foo = [[\n    1,\n    2,\n  ], [\n    3,\n    4,\n  ]]',
+  output: dedentAndStrip`
+    const foo = [[
+        1,
+        2,
+      ], [
+        3,
+        4,
+      ]]
+  `,
 }, {
-  code: 'const foo = [\n  {\n    items: [1, 2]\n  },\n  {\n    items: [3, 4]\n  },\n]',
+  code: dedentAndStrip`
+    const foo = [
+      {
+        items: [1, 2]
+      },
+      {
+        items: [3, 4]
+      },
+    ]
+  `,
   errors: [{messageId: 'compactItems'}],
   name: 'mixed items with nested arrays',
-  output: 'const foo = [{\n    items: [1, 2]\n  }, {\n    items: [3, 4]\n  }]',
+  output: dedentAndStrip`
+    const foo = [{
+        items: [1, 2]
+      }, {
+        items: [3, 4]
+      }]
+  `,
 }, {
-  code: "const arr = [\n  {\n    id: 1,\n    name: 'bar',\n  },\n  {\n    id: 2,\n    name: 'baz',\n  },\n]",
+  code: dedentAndStrip`
+    const arr = [
+      {
+        id: 1,
+        name: 'bar',
+      },
+      {
+        id: 2,
+        name: 'baz',
+      },
+    ]
+  `,
   errors: [{messageId: 'compactItems'}],
   name: 'multiline ObjectExpression items',
-  output: "const arr = [{\n    id: 1,\n    name: 'bar',\n  }, {\n    id: 2,\n    name: 'baz',\n  }]",
+  output: dedentAndStrip`
+    const arr = [{
+        id: 1,
+        name: 'bar',
+      }, {
+        id: 2,
+        name: 'baz',
+      }]
+  `,
 }] as const
 
 const ruleTester = new RuleTester()

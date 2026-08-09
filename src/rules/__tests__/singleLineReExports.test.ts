@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 import {singleLineReExports} from '../singleLineReExports'
 
@@ -18,7 +18,7 @@ const singleLineValid = [{
   code: "export {a, b, c} from 'bar'",
   name: 'multiple named re-exports',
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export {
       foo,
     }
@@ -30,29 +30,29 @@ const singleLineValid = [{
 }] as const
 
 const multilineInvalid = [{
-  code: dedent`
+  code: dedentAndStrip`
     export {
       foo,
     } from 'bar'
   `,
   errors: [{messageId: 'multiline'}],
   name: 'named re-export multiline',
-  output: dedent`
+  output: dedentAndStrip`
     export {foo} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export type {
       Foo,
     } from 'bar'
   `,
   errors: [{messageId: 'multiline'}],
   name: 'type re-export multiline',
-  output: dedent`
+  output: dedentAndStrip`
     export type {Foo} from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export {
       a,
       b,
@@ -61,7 +61,7 @@ const multilineInvalid = [{
   `,
   errors: [{messageId: 'multiline'}],
   name: 'multiple named re-exports multiline',
-  output: dedent`
+  output: dedentAndStrip`
     export {a, b, c} from 'bar'
   `,
 }, {
@@ -76,23 +76,23 @@ const multilineInvalid = [{
       export {foo} from 'bar' with {type: 'json'}
     `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export *
     from 'bar'
   `,
   errors: [{messageId: 'multiline'}],
   name: 'all re-export multiline',
-  output: dedent`
+  output: dedentAndStrip`
     export * from 'bar'
   `,
 }, {
-  code: dedent`
+  code: dedentAndStrip`
     export * as foo
     from 'bar'
   `,
   errors: [{messageId: 'multiline'}],
   name: 'namespace re-export multiline',
-  output: dedent`
+  output: dedentAndStrip`
     export * as foo from 'bar'
   `,
 }] as const

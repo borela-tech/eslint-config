@@ -1,4 +1,4 @@
-import {dedent} from './dedent'
+import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {individualReExports} from '../individualReExports'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
@@ -29,7 +29,7 @@ const multipleReExportInvalid = [{
   code: "export type {foo, bar} from 'baz'",
   errors: [{messageId: 'individualReExports'}],
   name: 'two type re-exports',
-  output: dedent`
+  output: dedentAndStrip`
     export type {foo} from 'baz'
     export type {bar} from 'baz'
   `,
@@ -37,7 +37,7 @@ const multipleReExportInvalid = [{
   code: "export {foo, bar} from 'baz'",
   errors: [{messageId: 'individualReExports'}],
   name: 'two named re-exports',
-  output: dedent`
+  output: dedentAndStrip`
     export {foo} from 'baz'
     export {bar} from 'baz'
   `,
@@ -45,7 +45,7 @@ const multipleReExportInvalid = [{
   code: "export {foo, bar, baz} from 'qux'",
   errors: [{messageId: 'individualReExports'}],
   name: 'three named re-exports',
-  output: dedent`
+  output: dedentAndStrip`
     export {foo} from 'qux'
     export {bar} from 'qux'
     export {baz} from 'qux'
@@ -54,7 +54,7 @@ const multipleReExportInvalid = [{
   code: "export {foo as bar, baz as qux} from 'qux'",
   errors: [{messageId: 'individualReExports'}],
   name: 'two aliased re-exports',
-  output: dedent`
+  output: dedentAndStrip`
     export {foo as bar} from 'qux'
     export {baz as qux} from 'qux'
   `,
