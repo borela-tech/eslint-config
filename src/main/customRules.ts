@@ -3,6 +3,7 @@ import {braceStyleControlStatements} from '../rules/braceStyleControlStatements'
 import {braceStyleObjectLiteral} from '../rules/braceStyleObjectLiteral'
 import {classMemberOrdering} from '../rules/classMemberOrdering'
 import {compactArrayItems} from '../rules/compactArrayItems'
+import {computedMemberSemicolon} from '../rules/computedMemberSemicolon'
 import {exportFilenameMatch} from '../rules/exportFilenameMatch'
 import {functionCallArgumentLineBreak} from '../rules/functionCallArgumentLineBreak'
 import {functionCognitiveComplexity} from '../rules/functionCognitiveComplexity'
@@ -36,6 +37,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
         'brace-style-object-literal': braceStyleObjectLiteral,
         'class-member-ordering': classMemberOrdering,
         'compact-array-items': compactArrayItems,
+        'computed-member-semicolon': computedMemberSemicolon,
         'export-filename-match': exportFilenameMatch,
         'function-call-argument-line-break': functionCallArgumentLineBreak,
         'function-cognitive-complexity': functionCognitiveComplexity,
@@ -70,6 +72,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
     '@borela-tech/brace-style-object-literal': 'error',
     '@borela-tech/class-member-ordering': 'error',
     '@borela-tech/compact-array-items': 'error',
+    '@borela-tech/computed-member-semicolon': 'error',
     '@borela-tech/export-filename-match': 'error',
     '@borela-tech/function-call-argument-line-break': [
       'error',
