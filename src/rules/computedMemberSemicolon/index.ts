@@ -1,4 +1,3 @@
-import {checkMemberSemicolon} from './checkMemberSemicolon'
 import {checkPrecedingFieldSemicolon} from './checkPrecedingFieldSemicolon'
 import {isComputedMember} from './isComputedMember'
 import {messageIds} from './messageIds'
@@ -19,7 +18,6 @@ export const computedMemberSemicolon: TSESLint.RuleModule<MessageId, []> = {
           if (!isComputedMember(member))
             continue
 
-          checkMemberSemicolon(context, sourceCode, member)
           checkPrecedingFieldSemicolon(
             context,
             sourceCode,
@@ -32,7 +30,8 @@ export const computedMemberSemicolon: TSESLint.RuleModule<MessageId, []> = {
 
   meta: {
     docs: {
-      description: 'Require semicolons around computed class members.',
+      description:
+        'Require a semicolon after a field that precedes a computed class member.',
     },
     fixable: 'code',
     messages: messageIds,
