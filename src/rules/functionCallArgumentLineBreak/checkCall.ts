@@ -28,5 +28,5 @@ export function checkCall(
   if (firstLine === lastLine)
     checkSingleLineArgs(sourceCode, context, args, parens, maxLength)
   else
-    checkMultilineArgs(sourceCode, context, args, maxLength)
+    checkMultilineArgs(sourceCode, context, args, parens, maxLength)
 }

@@ -69,6 +69,45 @@ const invalid = [{
       bazVeryVeryVeryVeryVeryVeryVeryLong
     )
   `,
+}, {
+  code: dedentAndStrip`
+    describe('field model', () => {
+      it('throws when a different field is registered under an existing key', () => {
+        expect(1).toBe(1)
+      })
+    })
+  `,
+  errors: [{messageId: 'multipleOnSameLine'}],
+  name: 'multiline call with callback and long first arg on same line',
+  options: [{maxLength: 60}],
+  output: dedentAndStrip`
+    describe('field model', () => {
+      it(
+        'throws when a different field is registered under an existing key',
+        () => {
+        expect(1).toBe(1)
+      })
+    })
+  `,
+}, {
+  code: dedentAndStrip`
+    import {x} from './x'
+
+    foo(
+      barVeryVeryVeryVeryVeryVeryVeryLong, bazVeryVeryVeryVeryVeryVeryVeryLong
+    )
+  `,
+  errors: [{messageId: 'multipleOnSameLine'}],
+  name: 'multiline but args same line with import at top of file',
+  options: [{maxLength: 60}],
+  output: dedentAndStrip`
+    import {x} from './x'
+
+    foo(
+      barVeryVeryVeryVeryVeryVeryVeryLong,
+      bazVeryVeryVeryVeryVeryVeryVeryLong
+    )
+  `,
 }] as const
 
 const ruleTester = new RuleTester()

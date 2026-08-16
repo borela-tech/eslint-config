@@ -94,9 +94,9 @@ const invalid = [{
   output: dedentAndStrip`
     interface Foo {
       bar(
-      aVeryVeryVeryLongParameterName: string,
-      bVeryVeryLongParameterName: number
-    ): void;
+        aVeryVeryVeryLongParameterName: string,
+        bVeryVeryLongParameterName: number
+      ): void;
     }
   `,
 }, {

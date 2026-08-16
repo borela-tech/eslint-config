@@ -39,7 +39,8 @@ export function checkSingleLineParams(
   context.report({
     data: {maxLength},
     fix: (fixer): TSESLint.RuleFix => {
-      const indent = sourceCode.getText().match(/^[\t ]*/)?.[0] ?? ''
+      const lineText = sourceCode.getLines()[openingParen.loc.start.line - 1]
+      const indent = lineText.match(/^[\t ]*/)?.[0] ?? ''
 
       const paramTexts = params.map(param => {
         const paramText = sourceCode.getText(param)

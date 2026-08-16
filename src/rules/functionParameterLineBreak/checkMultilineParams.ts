@@ -1,7 +1,6 @@
+import {buildLineBreakFix} from '../shared/buildLineBreakFix'
 import {findLinesWithMultipleNodes} from '../shared/findLinesWithMultipleNodes'
-import {formatParams} from './formatParams'
 import {getLineLength} from '../shared/getLineLength'
-import {getLineStartIndex} from '../shared/getLineStartIndex'
 import type {MessageId} from './MessageId'
 import type {Options} from './Options'
 import type {Parens} from './Parens'
@@ -15,41 +14,35 @@ export function checkMultilineParams(
   parens: Parens,
   maxLength: number,
 ): void {
+  const {openingParen} = parens
   const linesWithMultipleParams = findLinesWithMultipleNodes(params)
 
   for (const line of linesWithMultipleParams) {
     const lineLength = getLineLength(sourceCode, line)
 
-    if (lineLength > maxLength) {
-      context.report({
-        data: {maxLength},
-        fix: (fixer): TSESLint.RuleFix => {
-          const nodesOnLine = params.filter(
-            param =>
-              param.loc.start.line <= line && param.loc.end.line >= line,
-          )
-          const lastNode = nodesOnLine[nodesOnLine.length - 1]
-          const lineStartIndex = getLineStartIndex(sourceCode, line)
-          const baseIndent = sourceCode.getText().match(/^[\t ]*/)?.[0] ?? ''
-          const indent = baseIndent + '  '
-          const fixed = formatParams(sourceCode, nodesOnLine, indent)
-          return fixer.replaceTextRange(
-            [lineStartIndex, lastNode.range[1]],
-            fixed,
-          )
+    if (lineLength <= maxLength)
+      continue
+
+    context.report({
+      data: {maxLength},
+      fix: fixer => buildLineBreakFix(
+        sourceCode,
+        fixer,
+        params.filter(param => param.loc.start.line === line),
+        openingParen,
+        line,
+      ),
+      loc: {
+        end: {
+          column: lineLength,
+          line,
         },
-        loc: {
-          end: {
-            column: lineLength,
-            line,
-          },
-          start: {
-            column: 0,
-            line,
-          },
+        start: {
+          column: 0,
+          line,
         },
-        messageId: 'multipleOnSameLine',
-      })
-    }
+      },
+      messageId: 'multipleOnSameLine',
+    })
   }
 }
