@@ -44,6 +44,55 @@ const valid = [{
 }, {
   code: 'const foo = [[1, 2]]',
   name: 'single nested array',
+}, {
+  code: dedentAndStrip`
+    const list = new FieldList<Field<string>>({
+      initialValue: [
+        new Field({
+          initialValue: 'foo',
+          validation: {
+            rules: [
+              v => (v === 'invalid' ? ['invalid value'] : []),
+            ],
+          },
+        }),
+      ],
+      itemFactory: v => new Field({initialValue: v}),
+    })
+  `,
+  name: 'single NewExpression element not compacted',
+}, {
+  code: dedentAndStrip`
+    const list = new FieldList<Field<string>>({
+      initialValue: [
+        new Field({
+          initialValue: 'a',
+          validation: {
+            rules: [v => (v === 'a'
+              ? [
+                'first error',
+                'second error',
+              ]
+              : [])],
+          },
+        }),
+        new Field({
+          initialValue: 'b',
+          validation: {rules: [v => (v === 'b' ? ['third error'] : [])]},
+        }),
+      ],
+      itemFactory: v => new Field({initialValue: v}),
+    })
+  `,
+  name: 'two NewExpression elements not compacted',
+}, {
+  code: dedentAndStrip`
+    const arr = [
+      new Foo({a: 1}),
+      new Bar({b: 2}),
+    ]
+  `,
+  name: 'CallExpression/NewExpression items ignored',
 }] as const
 
 const invalid = [{
