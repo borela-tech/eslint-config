@@ -9,6 +9,28 @@ import type {Options} from './Options'
 import type {TSESLint} from '@typescript-eslint/utils'
 import type {TSESTree} from '@typescript-eslint/types'
 
+function getMemberExpressionCalleeName(
+  callee: TSESTree.MemberExpression,
+): string | undefined {
+  const object = callee.object as TSESTree.Identifier
+  const property = callee.property as TSESTree.Identifier
+  if (object?.name && property?.name)
+    return `${object.name}.${property.name}`
+  return undefined
+}
+
+function getCallExpressionCalleeName(
+  callee: TSESTree.CallExpression,
+): string | undefined {
+  const inner = callee.callee as TSESTree.MemberExpression
+  if (inner?.type !== 'MemberExpression')
+    return undefined
+  const object = inner.object as TSESTree.Identifier
+  if (object?.name)
+    return `${object.name}.each`
+  return undefined
+}
+
 function getCalleeName(node: TSESTree.CallExpression): string {
   const callee = node.callee as TSESTree.Expression
 
@@ -16,21 +38,13 @@ function getCalleeName(node: TSESTree.CallExpression): string {
     return callee.name
 
   if (callee.type === 'MemberExpression') {
-    const object = (callee as TSESTree.MemberExpression).object as TSESTree.Identifier
-    const property = (callee as TSESTree.MemberExpression).property as TSESTree.Identifier
-    if (object?.name && property?.name)
-      return `${object.name}.${property.name}`
-    return 'test'
+    const memberCallee = callee as TSESTree.MemberExpression
+    return getMemberExpressionCalleeName(memberCallee) ?? 'test'
   }
 
   if (callee.type === 'CallExpression') {
-    const inner = (callee as TSESTree.CallExpression).callee as TSESTree.MemberExpression
-    if (inner?.type === 'MemberExpression') {
-      const object = (inner as TSESTree.MemberExpression).object as TSESTree.Identifier
-      if (object?.name)
-        return `${object.name}.each`
-    }
-    return 'test'
+    const callCallee = callee as TSESTree.CallExpression
+    return getCallExpressionCalleeName(callCallee) ?? 'test'
   }
 
   return 'test'
