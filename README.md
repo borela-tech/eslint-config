@@ -18,7 +18,7 @@ Shared ESLint configuration for Borela Tech projects.
   - [Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
   - [TypeScript ESLint](https://typescript-eslint.io/)
   - [Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn)
-- 26 custom rules for consistent code organization:
+- 27 custom rules for consistent code organization:
   - [`array-items-line-break`](#array-items-line-break)
   - [`brace-style-control-statements`](#brace-style-control-statements)
   - [`brace-style-object-literal`](#brace-style-object-literal)
@@ -43,6 +43,7 @@ Shared ESLint configuration for Borela Tech projects.
   - [`single-line-function-parameters`](#single-line-function-parameters)
   - [`single-line-imports`](#single-line-imports)
   - [`single-line-re-exports`](#single-line-re-exports)
+  - [`single-line-test-description`](#single-line-test-description)
   - [`sorted-imports`](#sorted-imports)
   - [`sorted-re-exports`](#sorted-re-exports)
 
@@ -64,7 +65,7 @@ export {config as default}
 
 ## Custom Rules
 
-This package includes 26 custom ESLint rules to enforce consistent code organization. Most custom rules are auto-fixable.
+This package includes 27 custom ESLint rules to enforce consistent code organization. Most custom rules are auto-fixable.
 
 ### `array-items-line-break`
 
@@ -539,6 +540,33 @@ export {
 **Good:**
 ```typescript
 export {foo, bar} from 'module'
+```
+
+### `single-line-test-description`
+
+Enforces Jest test descriptions to fit on a single line and within 80 characters (configurable via `maxLength`). Instead of breaking the call across lines, shorten the description. Applies to `it`, `test`, `describe` and variants such as `it.only`, `test.skip`, `describe.each`, etc.
+
+**Bad:**
+```typescript
+it('throws when a different field is registered under an existing key', () => {})
+
+it(
+  'short desc',
+  () => {},
+)
+
+describe('a very long description that definitely exceeds the eighty character limit for sure', () => {})
+```
+
+**Good:**
+```typescript
+it('short desc', () => {})
+
+it('short', () => {
+  expect(1).toBe(1)
+})
+
+describe('short', () => {})
 ```
 
 ### `sorted-imports`
