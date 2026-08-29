@@ -36,6 +36,32 @@ const valid = [{
   code: 'fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNowTestCallExpr(bar, baz)',
   name: 'long call fits within maxLength',
   options: [{maxLength: 85}],
+}, {
+  code: dedentAndStrip`
+    describe('field model', () => {
+      it('throws when a different field is registered under an existing key', () => {
+        expect(1).toBe(1)
+      })
+    })
+  `,
+  name: 'jest test call ignored - handled by single-line-test-description',
+  options: [{maxLength: 60}],
+}, {
+  code: "it('short desc', () => {})",
+  name: 'jest it short desc',
+  options: [{maxLength: 60}],
+}, {
+  code: "test('short', () => {})",
+  name: 'jest test short desc',
+}, {
+  code: "describe('short', () => {})",
+  name: 'jest describe short desc',
+}, {
+  code: "it.only('short', () => {})",
+  name: 'jest it.only short desc',
+}, {
+  code: "test.skip('short', () => {})",
+  name: 'jest test.skip short desc',
 }] as const
 
 const invalid = [{
@@ -68,26 +94,6 @@ const invalid = [{
       barVeryVeryVeryVeryVeryVeryVeryLong,
       bazVeryVeryVeryVeryVeryVeryVeryLong
     )
-  `,
-}, {
-  code: dedentAndStrip`
-    describe('field model', () => {
-      it('throws when a different field is registered under an existing key', () => {
-        expect(1).toBe(1)
-      })
-    })
-  `,
-  errors: [{messageId: 'multipleOnSameLine'}],
-  name: 'multiline call with callback and long first arg on same line',
-  options: [{maxLength: 60}],
-  output: dedentAndStrip`
-    describe('field model', () => {
-      it(
-        'throws when a different field is registered under an existing key',
-        () => {
-        expect(1).toBe(1)
-      })
-    })
   `,
 }, {
   code: dedentAndStrip`

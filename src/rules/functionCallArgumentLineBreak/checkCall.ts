@@ -2,6 +2,7 @@ import {checkMultilineArgs} from './checkMultilineArgs'
 import {checkSingleLineArgs} from './checkSingleLineArgs'
 import {defaultOptions} from './defaultOptions'
 import {getParens} from '../shared/getParens'
+import {isJestTestCall} from '../shared/isJestTestCall'
 import {isValidParens} from '../shared/isValidParens'
 import type {MessageId} from './MessageId'
 import type {Options} from './Options'
@@ -13,6 +14,9 @@ export function checkCall(
   context: TSESLint.RuleContext<MessageId, [Options]>,
   node: TSESTree.CallExpression,
 ): void {
+  if (isJestTestCall(node))
+    return
+
   const options = context.options[0] as Options ?? {}
   const maxLength = options.maxLength ?? defaultOptions.maxLength
 

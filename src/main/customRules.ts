@@ -24,6 +24,7 @@ import {singleLineArrowFunctionParameters} from '../rules/singleLineArrowFunctio
 import {singleLineFunctionParameters} from '../rules/singleLineFunctionParameters'
 import {singleLineImports} from '../rules/singleLineImports'
 import {singleLineReExports} from '../rules/singleLineReExports'
+import {singleLineTestDescription} from '../rules/singleLineTestDescription'
 import {sortedImports} from '../rules/sortedImports'
 import {sortedReExports} from '../rules/sortedReExports'
 import type {TSESLint} from '@typescript-eslint/utils'
@@ -58,6 +59,7 @@ export const customRules: TSESLint.FlatConfig.Config = {
         'single-line-function-parameters': singleLineFunctionParameters,
         'single-line-imports': singleLineImports,
         'single-line-re-exports': singleLineReExports,
+        'single-line-test-description': singleLineTestDescription,
         'sorted-imports': sortedImports,
         'sorted-re-exports': sortedReExports,
       },
@@ -111,6 +113,10 @@ export const customRules: TSESLint.FlatConfig.Config = {
     ],
     '@borela-tech/single-line-imports': 'error',
     '@borela-tech/single-line-re-exports': 'error',
+    '@borela-tech/single-line-test-description': [
+      'error',
+      {maxLength: 80},
+    ],
     '@borela-tech/sorted-imports': 'error',
     '@borela-tech/sorted-re-exports': 'error',
   },
