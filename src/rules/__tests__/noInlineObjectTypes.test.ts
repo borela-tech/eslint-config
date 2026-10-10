@@ -2,7 +2,7 @@ import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {noInlineObjectTypes} from '../noInlineObjectTypes'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
-const valid = [{
+const validNamedTypes = [{
   code: 'interface Foo { a: string }',
   name: 'standalone interface',
 }, {
@@ -24,15 +24,23 @@ const valid = [{
   code: 'interface Foo { prop: Bar }',
   name: 'interface with typed property',
 }, {
-  code: 'interface Foo { prop: { a: string } }',
-  name: 'interface with inline property allowed',
-}, {
   code: 'let arr: Foo[]',
   name: 'array type',
 }, {
   code: 'let map: Map<string, Foo>',
   name: 'generic type',
 }] as const
+
+// Inline literals nested inside interfaces are out of scope for this rule.
+const validNestedInlineAllowed = [{
+  code: 'interface Foo { prop: { a: string } }',
+  name: 'interface with inline property allowed',
+}] as const
+
+const valid = [
+  ...validNamedTypes,
+  ...validNestedInlineAllowed,
+] as const
 
 const invalid = [{
   code: 'function foo(x: { a: string }) {}',

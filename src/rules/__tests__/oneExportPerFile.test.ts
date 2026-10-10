@@ -1,7 +1,7 @@
 import {oneExportPerFile} from '../oneExportPerFile'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
-const valid = [{
+const validSingleExport = [{
   code: 'export const foo = 1',
   name: 'single export const',
 }, {
@@ -16,7 +16,10 @@ const valid = [{
 }, {
   code: 'const foo = 1\nconst bar = 2\nexport {foo, bar}',
   name: 'multiple consts with export',
-}, {
+}] as const
+
+// Filenames the rule does not check.
+const validExemptFiles = [{
   code: 'export const foo = 1',
   filename: '/test/index.ts',
   name: 'index.ts file exempt',
@@ -28,10 +31,19 @@ const valid = [{
   code: 'export const foo = 1',
   filename: '/test/foo.spec.ts',
   name: 'spec file exempt',
-}, {
+}] as const
+
+// Overload signatures collapse into their implementation.
+const validOverloadsCountAsSingle = [{
   code: 'export function foo(a: string): void\nexport function foo(a: number): void\nexport function foo(a: string | number): void {}',
   name: 'function overloads count as single export',
 }] as const
+
+const valid = [
+  ...validSingleExport,
+  ...validExemptFiles,
+  ...validOverloadsCountAsSingle,
+] as const
 
 const invalid = [{
   code: 'export const foo = 1\nexport const bar = 2',

@@ -2,7 +2,7 @@ import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {functionCallArgumentLineBreak} from '../functionCallArgumentLineBreak'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
-const valid = [{
+const validShortCalls = [{
   code: 'foo(bar)',
   name: 'single arg',
 }, {
@@ -36,7 +36,10 @@ const valid = [{
   code: 'fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNowTestCallExpr(bar, baz)',
   name: 'long call fits within maxLength',
   options: [{maxLength: 85}],
-}, {
+}] as const
+
+// Long jest calls are handled by single-line-test-description instead.
+const validJestCalls = [{
   code: dedentAndStrip`
     describe('field model', () => {
       it('throws when a different field is registered under an existing key', () => {
@@ -63,6 +66,11 @@ const valid = [{
   code: "test.skip('short', () => {})",
   name: 'jest test.skip short desc',
 }] as const
+
+const valid = [
+  ...validShortCalls,
+  ...validJestCalls,
+] as const
 
 const invalid = [{
   code: 'fooWithVeryVeryVeryVeryVeryVeryVeryVeryVeryLongNameHereNowTestCallExpr(bar, baz)',

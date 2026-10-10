@@ -2,7 +2,7 @@ import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 import {singleLineArrowFunctionParameters} from '../singleLineArrowFunctionParameters'
 
-const valid = [{
+const validSingleLine = [{
   code: 'const fn = (x) => x',
   name: 'single param with parens',
 }, {
@@ -48,7 +48,10 @@ const valid = [{
     })
   `,
   name: 'callback with fixer param',
-}, {
+}] as const
+
+// Params that cannot fit on one line stay multiline.
+const validForcedMultiline = [{
   code: dedentAndStrip`
     const fn = (
       veryLongParameterNameThatExceedsLimit,
@@ -72,6 +75,11 @@ const valid = [{
   name: 'eight params forced multiline',
   options: [{maxLength: 70}],
 }] as const
+
+const valid = [
+  ...validSingleLine,
+  ...validForcedMultiline,
+] as const
 
 const invalid = [{
   code: dedentAndStrip`

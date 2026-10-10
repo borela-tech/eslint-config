@@ -20,7 +20,10 @@ const unionTypeValid = [{
       | D
   `,
   name: 'export union type multiline',
-}, {
+}] as const
+
+// The rule only targets aliases; unions elsewhere are left alone.
+const validUnionOutsideAlias = [{
   code: 'let foo: A | B | C',
   name: 'union type in variable',
 }, {
@@ -83,5 +86,6 @@ ruleTester.run('multiline-union-type-aliases', multilineUnionTypeAliases, {
   ],
   valid: [
     ...unionTypeValid,
+    ...validUnionOutsideAlias,
   ],
 })

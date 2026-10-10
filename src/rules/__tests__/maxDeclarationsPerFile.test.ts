@@ -1,7 +1,7 @@
 import {maxDeclarationsPerFile} from '../maxDeclarationsPerFile'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
-const valid = [{
+const validSingleDeclaration = [{
   code: 'function foo() {}',
   name: 'single function',
 }, {
@@ -31,7 +31,10 @@ const valid = [{
 }, {
   code: 'export {foo} from "./foo"',
   name: 'single re-export',
-}, {
+}]
+
+// Re-export clauses and filenames the rule does not count.
+const validExempt = [{
   code: 'export {foo, bar} from "./foo"',
   name: 'multiple re-exports',
 }, {
@@ -47,6 +50,11 @@ const valid = [{
   filename: '/test/foo.config.ts',
   name: 'config file exempt',
 }]
+
+const valid = [
+  ...validSingleDeclaration,
+  ...validExempt,
+]
 
 const invalid = [{
   code: 'export function foo() {}\nexport function bar() {}',

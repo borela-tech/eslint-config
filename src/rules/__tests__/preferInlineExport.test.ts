@@ -2,7 +2,7 @@ import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {preferInlineExport} from '../preferInlineExport'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
-const valid = [{
+const validInlineExport = [{
   code: 'export interface Foo {}',
   name: 'inline interface export',
 }, {
@@ -17,7 +17,10 @@ const valid = [{
 }, {
   code: 'export const x = 1',
   name: 'inline const export',
-}, {
+}] as const
+
+// Shapes that cannot be inlined and are left alone.
+const validNonInlineAllowed = [{
   code: 'export { A } from "./module"',
   name: 're-export from module',
 }, {
@@ -36,6 +39,11 @@ const valid = [{
   code: 'export default foo',
   name: 'default export',
 }] as const
+
+const valid = [
+  ...validInlineExport,
+  ...validNonInlineAllowed,
+] as const
 
 const invalid = [{
   code: dedentAndStrip`

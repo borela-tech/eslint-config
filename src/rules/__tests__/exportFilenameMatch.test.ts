@@ -1,7 +1,7 @@
 import {exportFilenameMatch} from '../exportFilenameMatch'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
-const valid = [{
+const validMatchingNames = [{
   code: 'export const foo = 1',
   filename: '/test/foo.ts',
   name: 'const matches filename',
@@ -25,7 +25,10 @@ const valid = [{
   code: 'export type FooBar = string',
   filename: '/test/FooBar.ts',
   name: 'type matches PascalCase filename',
-}, {
+}] as const
+
+// Scopes and filenames the rule does not check.
+const validExempt = [{
   code: 'const foo = 1\nconst bar = 2\nexport {foo, bar}',
   filename: '/test/someFile.ts',
   name: 'multiple exports any filename',
@@ -45,11 +48,19 @@ const valid = [{
   code: 'const foo = 1',
   filename: '/test/anyFile.ts',
   name: 'no export any filename',
-}, {
+}] as const
+
+const validDottedStem = [{
   code: 'export class TestModel extends Object {}',
   filename: '/test/TestModel.model.ts',
   name: 'model file matches filename stem',
-}]
+}] as const
+
+const valid = [
+  ...validMatchingNames,
+  ...validExempt,
+  ...validDottedStem,
+]
 
 const invalid = [{
   code: 'export const helper = 1',

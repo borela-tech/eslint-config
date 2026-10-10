@@ -2,7 +2,7 @@ import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 import {singleLineTestDescription} from '../singleLineTestDescription'
 
-const valid = [{
+const validShortDescriptions = [{
   code: "it('short desc', () => {})",
   name: 'it short single line',
 }, {
@@ -26,7 +26,10 @@ const valid = [{
 }, {
   code: "describe.each([[1]])('short', () => {})",
   name: 'describe.each',
-}, {
+}] as const
+
+// Calls the rule deliberately does not check.
+const validIgnoredCalls = [{
   code: "foo('very long string that would exceed max length if it were a jest test but is not jest', () => {})",
   name: 'non-jest long call ignored',
   options: [{maxLength: 60}],
@@ -34,7 +37,9 @@ const valid = [{
   code: 'it(variableDesc, () => {})',
   name: 'dynamic description ignored',
   options: [{maxLength: 10}],
-}, {
+}] as const
+
+const validSingleLineForms = [{
   code: 'it(`short`, () => {})',
   name: 'template literal short',
 }, {
@@ -45,6 +50,12 @@ const valid = [{
   `,
   name: 'multiline body but single line call',
 }] as const
+
+const valid = [
+  ...validShortDescriptions,
+  ...validIgnoredCalls,
+  ...validSingleLineForms,
+] as const
 
 const invalid = [{
   code: "it('throws when a different field is registered under an existing key', () => {})",

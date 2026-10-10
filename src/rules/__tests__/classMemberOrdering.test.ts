@@ -2,7 +2,7 @@ import {classMemberOrdering} from '../classMemberOrdering'
 import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
-const valid = [{
+const validRealisticClasses = [{
   code: dedentAndStrip`
     export class Inventory extends Store {
       declare State: InventoryState
@@ -155,7 +155,9 @@ const valid = [{
     }
   `,
   name: 'Store-like class',
-}, {
+}] as const
+
+const validMemberOrder = [{
   code: dedentAndStrip`
     class Foo {
       public a = 1
@@ -264,7 +266,10 @@ const valid = [{
     }
   `,
   name: 'protected methods sorted ignoring __ prefix',
-}, {
+}] as const
+
+// Categories the rule deliberately does not rank.
+const validIgnored = [{
   code: dedentAndStrip`
     class Foo {
       [key: string]: number
@@ -292,7 +297,9 @@ const valid = [{
     }
   `,
   name: 'interfaces unaffected',
-}, {
+}] as const
+
+const validEdgeCases = [{
   code: dedentAndStrip`
     class Foo {
       [Symbol.for("x")] = 2
@@ -314,7 +321,14 @@ const valid = [{
   name: 'empty class',
 }] as const
 
-const invalid = [{
+const valid = [
+  ...validRealisticClasses,
+  ...validMemberOrder,
+  ...validIgnored,
+  ...validEdgeCases,
+] as const
+
+const invalidFields = [{
   code: dedentAndStrip`
     class Foo {
       constructor() {}
@@ -347,7 +361,9 @@ const invalid = [{
     {messageId: 'memberOutOfOrder'},
   ],
   name: 'protected fields not sorted alphabetically',
-}, {
+}] as const
+
+const invalidAccessorsAndSymbols = [{
   code: dedentAndStrip`
     class Foo {
       at() {}
@@ -380,7 +396,9 @@ const invalid = [{
     {messageId: 'memberOutOfOrder'},
   ],
   name: 'set before get',
-}, {
+}] as const
+
+const invalidMethods = [{
   code: dedentAndStrip`
     class Foo {
       protected after() {}
@@ -493,6 +511,12 @@ const invalid = [{
   ],
   name: 'public field after protected field',
 }] as const
+
+const invalid = [
+  ...invalidFields,
+  ...invalidAccessorsAndSymbols,
+  ...invalidMethods,
+] as const
 
 const ruleTester = new RuleTester()
 ruleTester.run(
