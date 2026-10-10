@@ -71,8 +71,15 @@ export const noInlineObjectTypes: TSESLint.RuleModule<
                 )
               }
 
-              const isExported = typesAtLocation[0].isExported
-              if (isExported && typesAtLocation[0].insertLocation.type === 'ExportNamedDeclaration') {
+              const firstLocation = typesAtLocation[0]
+              const isExported = firstLocation.isExported
+              const insertLocationType = firstLocation.insertLocation.type
+              const isExportDeclaration = (
+                insertLocationType === 'ExportNamedDeclaration'
+                || insertLocationType === 'ExportDefaultDeclaration'
+              )
+
+              if (isExported && isExportDeclaration) {
                 fixes.push(
                   fixer.insertTextAfter(
                     typesAtLocation[0].insertLocation,

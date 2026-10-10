@@ -74,6 +74,36 @@ const invalid = [{
     interface InlineType { a: string }
     let x: InlineType = { a: "" }
   `,
+}, {
+  code: 'class Foo { bar(x: { a: string }): void {} }',
+  errors: [{messageId: 'inlineObjectType'}],
+  name: 'class method param inline object',
+  output: dedentAndStrip`
+    interface X { a: string }
+    class Foo { bar(x: X): void {} }
+  `,
+}, {
+  code: dedentAndStrip`
+    export abstract class ProbeBase extends Object {
+      static create<M extends Object>(
+        this: { readonly prototype: M },
+      ): M {
+        return null as unknown as M
+      }
+    }
+  `,
+  errors: [{messageId: 'inlineObjectType'}],
+  name: 'this param inline object',
+  output: dedentAndStrip`
+    export abstract class ProbeBase extends Object {
+      static create<M extends Object>(
+        this: This,
+      ): M {
+        return null as unknown as M
+      }
+    }
+    interface This { readonly prototype: M }
+  `,
 }] as const
 
 const ruleTester = new RuleTester()
