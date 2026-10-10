@@ -50,6 +50,7 @@ export const noInlineObjectTypes: TSESLint.RuleModule<
               name,
               parameterName: entry.parameterName,
               typeLiteral: entry.typeLiteral,
+              typeParameters: entry.typeParameters,
             }
           })
 

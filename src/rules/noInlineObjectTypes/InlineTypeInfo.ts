@@ -4,4 +4,5 @@ export interface InlineTypeInfo {
   name: string
   parameterName?: string
   typeLiteral: TSESTree.TSTypeLiteral
+  typeParameters: TSESTree.TSTypeParameter[]
 }

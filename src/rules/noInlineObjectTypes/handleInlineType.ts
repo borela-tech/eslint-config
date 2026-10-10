@@ -1,3 +1,4 @@
+import {getMissingTypeParameters} from './getMissingTypeParameters'
 import {getParameterNameFromFunction} from './getParameterNameFromFunction'
 import {getParameterNameFromIdentifier} from './getParameterNameFromIdentifier'
 import {getParameterNameFromObjectPattern} from './getParameterNameFromObjectPattern'
@@ -31,5 +32,10 @@ export function handleInlineType(
     location: result.node,
     parameterName,
     typeLiteral,
+    typeParameters: getMissingTypeParameters(
+      node,
+      typeLiteral,
+      result.insertLocation,
+    ),
   })
 }

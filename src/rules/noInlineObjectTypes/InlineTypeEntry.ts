@@ -7,4 +7,5 @@ export interface InlineTypeEntry {
   location: TSESTree.Node
   parameterName?: string
   typeLiteral: TSESTree.TSTypeLiteral
+  typeParameters: TSESTree.TSTypeParameter[]
 }
