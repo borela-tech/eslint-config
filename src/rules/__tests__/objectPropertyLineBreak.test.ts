@@ -2,7 +2,7 @@ import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {objectPropertyLineBreak} from '../objectPropertyLineBreak'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
-const valid = [{
+const validProperties = [{
   code: 'const a = {b: 1}',
   name: 'single property',
 }, {
@@ -32,7 +32,10 @@ const valid = [{
     }
   `,
   name: 'multiline long with normal properties',
-}, {
+}] as const
+
+// Multiline shorthand that exceeds the limit is permitted in context.
+const validExceedsLengthAllowed = [{
   code: dedentAndStrip`
     const contextValue = useMemo(() => ({
       handleNavigationKeyDown,
@@ -52,6 +55,11 @@ const valid = [{
   `,
   name: 'multiline shorthand exceeds line length in context',
 }] as const
+
+const valid = [
+  ...validProperties,
+  ...validExceedsLengthAllowed,
+] as const
 
 const invalid = [{
   code: 'const a = {foo, bar: bar}',

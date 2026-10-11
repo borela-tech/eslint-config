@@ -2,7 +2,7 @@ import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {interfacePropertyLineBreak} from '../interfacePropertyLineBreak'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
-const valid = [{
+const validProperties = [{
   code: 'interface Foo { bar: string }',
   name: 'single property',
 }, {
@@ -46,7 +46,10 @@ const valid = [{
 }, {
   code: 'interface Foo { set bar(value: string) }',
   name: 'setter signature',
-}, {
+}] as const
+
+// Nested object values are measured independently of the parent line.
+const validNestedObjectsAllowed = [{
   code: dedentAndStrip`
     interface Foo {
       bar: { a: string, b: number, c: boolean }
@@ -56,6 +59,11 @@ const valid = [{
   name: 'nested objects multiline',
   options: [{maxLength: 50}],
 }] as const
+
+const valid = [
+  ...validProperties,
+  ...validNestedObjectsAllowed,
+] as const
 
 const invalid = [{
   code: 'interface FooBarBazQuxQuxBarBazQuxQuxBarBazQuxBarBazQuux { bar: string, baz: number }',

@@ -2,7 +2,7 @@ import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {noInlineObjectTypes} from '../noInlineObjectTypes'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
-const valid = [{
+const validNamedTypes = [{
   code: 'interface Foo { a: string }',
   name: 'standalone interface',
 }, {
@@ -24,15 +24,23 @@ const valid = [{
   code: 'interface Foo { prop: Bar }',
   name: 'interface with typed property',
 }, {
-  code: 'interface Foo { prop: { a: string } }',
-  name: 'interface with inline property allowed',
-}, {
   code: 'let arr: Foo[]',
   name: 'array type',
 }, {
   code: 'let map: Map<string, Foo>',
   name: 'generic type',
 }] as const
+
+// Inline literals nested inside interfaces are out of scope for this rule.
+const validNestedInlineAllowed = [{
+  code: 'interface Foo { prop: { a: string } }',
+  name: 'interface with inline property allowed',
+}] as const
+
+const valid = [
+  ...validNamedTypes,
+  ...validNestedInlineAllowed,
+] as const
 
 const invalid = [{
   code: 'function foo(x: { a: string }) {}',
@@ -73,6 +81,96 @@ const invalid = [{
   output: dedentAndStrip`
     interface InlineType { a: string }
     let x: InlineType = { a: "" }
+  `,
+}, {
+  code: 'class Foo { bar(x: { a: string }): void {} }',
+  errors: [{messageId: 'inlineObjectType'}],
+  name: 'class method param inline object',
+  output: dedentAndStrip`
+    interface X { a: string }
+    class Foo { bar(x: X): void {} }
+  `,
+}, {
+  code: dedentAndStrip`
+    export abstract class ProbeBase extends Object {
+      static create<M extends Object>(
+        this: { readonly prototype: M },
+      ): M {
+        return null as unknown as M
+      }
+    }
+  `,
+  errors: [{messageId: 'inlineObjectType'}],
+  name: 'this param inline object',
+  output: dedentAndStrip`
+    export abstract class ProbeBase extends Object {
+      static create<M extends Object>(
+        this: This<M>,
+      ): M {
+        return null as unknown as M
+      }
+    }
+    interface This<M extends Object> { readonly prototype: M }
+  `,
+}, {
+  code: 'class Foo { set value(v: { a: string }) {} }',
+  errors: [{messageId: 'inlineObjectType'}],
+  name: 'setter param inline object',
+  output: dedentAndStrip`
+    interface V { a: string }
+    class Foo { set value(v: V) {} }
+  `,
+}, {
+  code: 'class Foo { get value(): { a: string } { return { a: "" } } }',
+  errors: [{messageId: 'inlineObjectType'}],
+  name: 'getter return inline object',
+  output: dedentAndStrip`
+    interface InlineType { a: string }
+    class Foo { get value(): InlineType { return { a: "" } } }
+  `,
+}, {
+  code: dedentAndStrip`
+    function outer<M>(x: M): void {
+      function inner(y: { a: M }): void {}
+    }
+  `,
+  errors: [{messageId: 'inlineObjectType'}],
+  name: 'nested function uses outer type param',
+  output: dedentAndStrip`
+    function outer<M>(x: M): void {
+      interface Y { a: M }
+    function inner(y: Y): void {}
+    }
+  `,
+}, {
+  code: 'const foo = <M>(x: { a: M }): M => x',
+  errors: [{messageId: 'inlineObjectType'}],
+  name: 'generic arrow function param inline object',
+  output: dedentAndStrip`
+    interface X<M> { a: M }
+    const foo = <M>(x: X<M>): M => x
+  `,
+}, {
+  code: dedentAndStrip`
+    export abstract class Registry extends Object {
+      static register<M extends Object, N extends M>(
+        item: { value: N },
+      ): N {
+        return null as unknown as N
+      }
+    }
+  `,
+  errors: [{messageId: 'inlineObjectType'}],
+  name: 'constraint type param included in order',
+  output: dedentAndStrip`
+    export abstract class Registry extends Object {
+      static register<M extends Object, N extends M>(
+        item: Item<M, N>,
+      ): N {
+        return null as unknown as N
+      }
+    }
+    interface Item<M extends Object, N extends M> { value: N }
   `,
 }] as const
 

@@ -2,7 +2,7 @@ import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 import {singleLineFunctionParameters} from '../singleLineFunctionParameters'
 
-const valid = [{
+const validSingleLine = [{
   code: 'function foo(bar) {}',
   name: 'single param',
 }, {
@@ -20,7 +20,10 @@ const valid = [{
 }, {
   code: 'const foo = function(bar, baz) {}',
   name: 'function expression two params',
-}, {
+}] as const
+
+// Params that cannot fit on one line stay multiline.
+const validForcedMultiline = [{
   code: dedentAndStrip`
     function foo(
       barParameterWithLongNameHereNowAndForeverAAA,
@@ -43,10 +46,18 @@ const valid = [{
     ) {}
   `,
   name: 'long function name with long typed param',
-}, {
+}] as const
+
+const validNoParams = [{
   code: 'function foo() {}',
   name: 'no params',
 }] as const
+
+const valid = [
+  ...validSingleLine,
+  ...validForcedMultiline,
+  ...validNoParams,
+] as const
 
 const invalid = [{
   code: dedentAndStrip`

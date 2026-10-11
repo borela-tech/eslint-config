@@ -2,7 +2,7 @@ import {compactArrayItems} from '../compactArrayItems'
 import {dedentAndStrip} from '@borela-tech/ts-toolbox'
 import {RuleTester} from '@typescript-eslint/rule-tester'
 
-const valid = [{
+const validCompact = [{
   code: 'const foo = [{id: 1}]',
   name: 'single-element array',
 }, {
@@ -44,7 +44,10 @@ const valid = [{
 }, {
   code: 'const foo = [[1, 2]]',
   name: 'single nested array',
-}, {
+}] as const
+
+// Arrays containing NewExpression/CallExpression items are left alone.
+const validNewExpressionIgnored = [{
   code: dedentAndStrip`
     const list = new FieldList<Field<string>>({
       initialValue: [
@@ -94,6 +97,11 @@ const valid = [{
   `,
   name: 'CallExpression/NewExpression items ignored',
 }] as const
+
+const valid = [
+  ...validCompact,
+  ...validNewExpressionIgnored,
+] as const
 
 const invalid = [{
   code: dedentAndStrip`
